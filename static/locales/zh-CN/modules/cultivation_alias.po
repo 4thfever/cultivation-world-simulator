@@ -1,0 +1,130 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "cultivation_alias.profile.dao"
+msgstr "道家"
+
+msgid "cultivation_alias.profile.sanxiu"
+msgstr "散修"
+
+msgid "cultivation_alias.profile.wu"
+msgstr "武道"
+
+msgid "cultivation_alias.profile.confucianism"
+msgstr "儒道"
+
+msgid "cultivation_alias.profile.buddhism"
+msgstr "佛道"
+
+msgid "cultivation_alias.profile.yao"
+msgstr "妖族"
+
+msgid "cultivation_alias.dao.realm.qi_refinement"
+msgstr "练气"
+
+msgid "cultivation_alias.dao.realm.foundation_establishment"
+msgstr "筑基"
+
+msgid "cultivation_alias.dao.realm.core_formation"
+msgstr "金丹"
+
+msgid "cultivation_alias.dao.realm.nascent_soul"
+msgstr "元婴"
+
+msgid "cultivation_alias.dao.stage.early"
+msgstr "前期"
+
+msgid "cultivation_alias.dao.stage.middle"
+msgstr "中期"
+
+msgid "cultivation_alias.dao.stage.late"
+msgstr "后期"
+
+msgid "cultivation_alias.wu.realm.qi_refinement"
+msgstr "淬体"
+
+msgid "cultivation_alias.wu.realm.foundation_establishment"
+msgstr "易筋"
+
+msgid "cultivation_alias.wu.realm.core_formation"
+msgstr "宗师"
+
+msgid "cultivation_alias.wu.realm.nascent_soul"
+msgstr "武圣"
+
+msgid "cultivation_alias.wu.stage.early"
+msgstr "初成"
+
+msgid "cultivation_alias.wu.stage.middle"
+msgstr "中成"
+
+msgid "cultivation_alias.wu.stage.late"
+msgstr "大成"
+
+msgid "cultivation_alias.confucianism.realm.qi_refinement"
+msgstr "养气"
+
+msgid "cultivation_alias.confucianism.realm.foundation_establishment"
+msgstr "明理"
+
+msgid "cultivation_alias.confucianism.realm.core_formation"
+msgstr "立命"
+
+msgid "cultivation_alias.confucianism.realm.nascent_soul"
+msgstr "大儒"
+
+msgid "cultivation_alias.confucianism.stage.early"
+msgstr "初境"
+
+msgid "cultivation_alias.confucianism.stage.middle"
+msgstr "中境"
+
+msgid "cultivation_alias.confucianism.stage.late"
+msgstr "圆满"
+
+msgid "cultivation_alias.buddhism.realm.qi_refinement"
+msgstr "沙弥"
+
+msgid "cultivation_alias.buddhism.realm.foundation_establishment"
+msgstr "比丘"
+
+msgid "cultivation_alias.buddhism.realm.core_formation"
+msgstr "罗汉"
+
+msgid "cultivation_alias.buddhism.realm.nascent_soul"
+msgstr "菩萨"
+
+msgid "cultivation_alias.buddhism.stage.early"
+msgstr "初境"
+
+msgid "cultivation_alias.buddhism.stage.middle"
+msgstr "中境"
+
+msgid "cultivation_alias.buddhism.stage.late"
+msgstr "圆满"
+
+msgid "cultivation_alias.yao.realm.qi_refinement"
+msgstr "开灵"
+
+msgid "cultivation_alias.yao.realm.foundation_establishment"
+msgstr "化形"
+
+msgid "cultivation_alias.yao.realm.core_formation"
+msgstr "妖丹"
+
+msgid "cultivation_alias.yao.realm.nascent_soul"
+msgstr "妖王"
+
+msgid "cultivation_alias.yao.stage.early"
+msgstr "初期"
+
+msgid "cultivation_alias.yao.stage.middle"
+msgstr "中期"
+
+msgid "cultivation_alias.yao.stage.late"
+msgstr "后期"

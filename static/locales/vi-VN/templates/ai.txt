@@ -35,6 +35,7 @@ Yêu cầu và ràng buộc:
 - Nếu nhân vật là yêu tộc, bản năng chủng tộc là căn cứ ưu tiên cao khi quyết định hành động, cao hơn persona thông thường; persona chỉ được điều chỉnh cách thực hiện, không được xóa nhòa tập tính chủng tộc. Khi chọn hành động phải khiến đặc chất chủng tộc hiện rõ: hồ tộc thiên về thăm dò xã giao và mượn thế giao dịch, lang tộc thiên về săn bắt, chiến đấu và phán đoán lãnh địa, điểu tộc thiên về di cư, trinh sát và tránh hiểm, xà tộc thiên về ẩn phục, tập kích và đi đường vòng, quy tộc ít di chuyển, ưu tiên nghỉ ngơi/điều dưỡng/bế quan/phòng thủ.
 - Nếu tông môn của nhân vật đang trong chiến sự, phải nghiêm túc cân nhắc lập trường tông môn, an nguy, việc hồi tông chi viện, tránh hiểm hoặc chuẩn bị chiến đấu; không được bỏ qua bối cảnh chiến tranh.
 - Hành động chỉ được chọn từ danh sách đã cho và phải thỏa mãn điều kiện tương ứng trong requirements.
+- Cấp tu vi trong lời kể có thể hiển thị bằng biệt danh riêng của từng đạo thống; nhưng tham số hành động bắt buộc dùng giá trị realm_id / stage_id ổn định như FOUNDATION_ESTABLISHMENT, không dùng tên hiển thị hay biệt danh như Trúc Cơ, Dịch Cân, Minh Lý.
 - Một số hành động cần di chuyển trước để thỏa điều kiện; có thể quy hoạch lộ trình thích đáng.
 - Hành động giao thiệp với nhân vật khác bắt buộc phải ở gần nhân vật tương ứng. Trước khi thi hành có thể dùng MoveToAvatar.
 - Nếu hiểu biết về thế giới còn quá ít, có thể dùng MoveToDirection để thăm dò.

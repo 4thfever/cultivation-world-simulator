@@ -62,6 +62,7 @@ describe('AvatarDetail', () => {
                 appearance: 'Appearance',
                 battle_strength: 'Battle Strength',
                 emotion: 'Emotion',
+                canonical_realm: 'Equivalent: {value}',
               },
               sections: {
                 traits: 'Traits',
@@ -390,6 +391,48 @@ describe('AvatarDetail', () => {
       effect_desc: '采集材料 +1',
     })
     expect(wrapper.text()).toContain('狐族')
+  })
+
+  it('prefers cultivation alias display and shows canonical equivalent', () => {
+    const wrapper = mount(AvatarDetail, {
+      props: {
+        data: {
+          ...mockAvatarData,
+          realm: 'Foundation Establishment Middle Stage',
+          cultivation: {
+            profile_id: 'wu',
+            profile_name: 'Martial Path',
+            realm_id: 'FOUNDATION_ESTABLISHMENT',
+            stage_id: 'MIDDLE_STAGE',
+            level: 42,
+            canonical_realm_name: '筑基',
+            canonical_stage_name: '中期',
+            canonical_full_name: '筑基中期',
+            display_realm_name: '易筋',
+            display_stage_name: '中成',
+            display_full_name: '易筋中成',
+          },
+        } as any,
+      },
+      global: {
+        plugins: [
+          createPinia(),
+          i18n,
+        ],
+        stubs: {
+          RelationRow: true,
+          TagList: true,
+          SecondaryPopup: true,
+          AvatarAdjustPanel: true,
+          AvatarPortraitPanel: true,
+          RoleplayPanel: true,
+        },
+      },
+    })
+
+    expect(wrapper.find('.avatar-realm').text()).toBe('易筋中成')
+    expect(wrapper.find('.avatar-realm-canonical').text()).toContain('筑基中期')
+    expect(wrapper.text()).toContain('易筋中成')
   })
 
   it('does not fall back to hardcoded Chinese when race detail is missing', () => {

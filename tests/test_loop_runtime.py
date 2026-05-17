@@ -45,6 +45,8 @@ def test_build_avatar_updates_includes_birth_death_and_position_deltas():
     assert updates[0]["id"] == "born-1"
     assert updates[0]["pic_id"] == 99
     assert updates[0]["realm"] == "QI_REFINEMENT"
+    assert updates[0]["cultivation"]["realm_id"] == "QI_REFINEMENT"
+    assert updates[0]["cultivation_display"] == "练气前期"
     assert updates[0]["action_emoji"] == "🚶"
     assert updates[1] == {
         "id": "dead-1",
@@ -52,15 +54,15 @@ def test_build_avatar_updates_includes_birth_death_and_position_deltas():
         "is_dead": True,
         "action": "已故",
     }
-    assert updates[2] == {
-        "id": "live-1",
-        "x": 7,
-        "y": 8,
-        "gender": "female",
-        "pic_id": 1,
-        "realm": "FOUNDATION_ESTABLISHMENT",
-        "action_emoji": "✨",
-    }
+    assert updates[2]["id"] == "live-1"
+    assert updates[2]["x"] == 7
+    assert updates[2]["y"] == 8
+    assert updates[2]["gender"] == "female"
+    assert updates[2]["pic_id"] == 1
+    assert updates[2]["realm"] == "FOUNDATION_ESTABLISHMENT"
+    assert updates[2]["cultivation"]["realm_id"] == "FOUNDATION_ESTABLISHMENT"
+    assert updates[2]["cultivation_display"] == "筑基前期"
+    assert updates[2]["action_emoji"] == "✨"
 
 
 def test_build_tick_state_uses_serializer_hooks():

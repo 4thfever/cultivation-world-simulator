@@ -101,11 +101,15 @@ def test_update_rankings_avatars(dummy_avatar, test_sect):
     assert len(data["heaven"]) == 1
     assert data["heaven"][0]["name"] == "Heaven"
     assert data["heaven"][0]["sect"] == "测试宗门"
+    assert data["heaven"][0]["realm"] == "NASCENT_SOUL"
+    assert data["heaven"][0]["stage"] == "EARLY_STAGE"
+    assert data["heaven"][0]["cultivation_display"] == "元婴前期"
     
     # 验证地榜
     assert len(data["earth"]) == 1
     assert data["earth"][0]["name"] == "Earth"
     assert data["earth"][0]["sect"] == "散修"  # t("Rogue Cultivator") returns "散修" in zh-CN
+    assert data["earth"][0]["cultivation"]["realm_id"] == "CORE_FORMATION"
     
     # 验证人榜
     assert len(data["human"]) == 1

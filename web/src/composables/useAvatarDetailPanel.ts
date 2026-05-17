@@ -153,7 +153,16 @@ export function useAvatarDetailPanel(
   ])
 
   const avatarHeaderSubtitle = computed(() => data().sect?.name || t('game.info_panel.avatar.stats.rogue'))
-  const avatarRealmText = computed(() => formatCultivationText(data().realm, t))
+  const avatarRealmText = computed(() => (
+    data().cultivation?.display_full_name || formatCultivationText(data().realm, t)
+  ))
+  const avatarCanonicalRealmText = computed(() => {
+    const cultivation = data().cultivation
+    if (!cultivation) return ''
+    return cultivation.canonical_full_name !== cultivation.display_full_name
+      ? cultivation.canonical_full_name
+      : ''
+  })
 
   const formattedRanking = computed(() => {
     const ranking = data().ranking
@@ -216,7 +225,8 @@ export function useAvatarDetailPanel(
   }
 
   function formatRelationSub(rel: RelationInfo): string {
-    return [rel.sect?.trim(), formatCultivationText(rel.realm, t)].filter(Boolean).join(' · ')
+    const realmText = rel.cultivation?.display_full_name || formatCultivationText(rel.realm, t)
+    return [rel.sect?.trim(), realmText].filter(Boolean).join(' · ')
   }
 
   function showDetail(item: EffectEntity | undefined) {
@@ -275,6 +285,7 @@ export function useAvatarDetailPanel(
     equipmentSlots,
     avatarHeaderSubtitle,
     avatarRealmText,
+    avatarCanonicalRealmText,
     formattedRanking,
     groupedRelations,
     formatGenderLabel,

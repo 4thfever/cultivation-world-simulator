@@ -14,7 +14,7 @@
       "label": "[秘境]",
       "title": "秘境一覧",
       "empty": "秘境データがありません",
-      "required_realm": "推奨境界",
+      "required_realm": "入境条件",
       "danger": "危険",
       "drop": "機縁",
       "cooldown": "冷却周期",
@@ -57,25 +57,25 @@
       "WORLD_INFO_BATTLE_DESC": "弱肉強食の世界であり、境界差による抑圧は極めて大きい。高境界の修士は低境界の修士に対して絶対的優位を持つ。相手を殺せば、その財物を奪うこともできる。",
       "WORLD_INFO_BATTLE_NAME": "戦闘",
       "WORLD_INFO_BATTLE_TITLE": "戦闘",
-      "WORLD_INFO_CULTIVATION_DESC": "修行によって経験を積み、突破前の瓶頸へ至ることができる。突破は確率イベントであり、成功すれば次の境界へ進む。",
+      "WORLD_INFO_CULTIVATION_DESC": "修行によって修為を積み、現在の階層の瓶頸へ至る。突破には成否があり、成功すれば次の階層へ進み、失敗すれば代償を負うことがある。",
       "WORLD_INFO_CULTIVATION_NAME": "修行",
       "WORLD_INFO_CULTIVATION_TITLE": "修行",
       "WORLD_INFO_DEATH_DESC": "HP が 0 を下回っても死亡する。",
       "WORLD_INFO_DEATH_NAME": "死亡",
       "WORLD_INFO_DEATH_TITLE": "死亡",
-      "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC": "武器、補助装備、丹薬などを通じて追加属性や大小さまざまな強化を得られる。優れた装備や丹薬は大きな助けとなる。",
+      "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC": "武器、補助装備、丹薬は追加の加成をもたらす。高品階の装備と適切な丹薬は、修士の生存力と争闘能力を大きく高める。",
       "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME": "装備と丹薬",
       "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE": "装備と丹薬",
       "WORLD_INFO_INTRO_DESC": "これは多くの修士が修行を競い、各地で争いが絶えない仙道世界である。",
       "WORLD_INFO_INTRO_NAME": "導入",
       "WORLD_INFO_INTRO_TITLE": "導入",
-      "WORLD_INFO_LIFESPAN_DESC": "現在年齢が最大寿元に達すると即座に死亡する。境界突破は最大寿元を伸ばすことがあり、突破失敗で寿元を損なう場合もある。",
+      "WORLD_INFO_LIFESPAN_DESC": "すべての人物には寿元の上限がある。寿元が尽きれば死亡する。境界突破は通常寿元を延ばすが、突破に失敗すると寿元を損なう場合もある。",
       "WORLD_INFO_LIFESPAN_NAME": "寿元",
       "WORLD_INFO_LIFESPAN_TITLE": "寿元",
       "WORLD_INFO_ORTHODOXY_DESC": "道・仏・儒などの道統によって修行法は異なる。道門は吐納し、武道は鍛体し、仏門は坐禅し、儒門は教化を行う。",
       "WORLD_INFO_ORTHODOXY_NAME": "道統",
       "WORLD_INFO_ORTHODOXY_TITLE": "道統",
-      "WORLD_INFO_REALM_DESC": "修行境界は弱い方から順に、練気・築基・金丹・元嬰。各境界は前期・中期・後期に分かれ、境界差は非常に大きい。",
+      "WORLD_INFO_REALM_DESC": "世界の底層にある標準境界は、弱い順に練気・築基・金丹・元嬰で、各境界は前期・中期・後期に分かれる。体系ごとに別名はあるが、規則計算はこの標準序列に基づく。",
       "WORLD_INFO_REALM_NAME": "境界",
       "WORLD_INFO_REALM_TITLE": "境界",
       "WORLD_INFO_REGION_DESC": "区域ごとに異なる効果があり、適切な場所で適切な行動を取れば効率が大きく上がる。",
@@ -90,7 +90,7 @@
       "WORLD_INFO_SECT_DESC": "宗門は修士の庇護所である。加入すれば独門の功法を学び、同門の庇護を受けられる。一方、散修は自由だが資源に乏しい。",
       "WORLD_INFO_SECT_NAME": "宗門",
       "WORLD_INFO_SECT_TITLE": "宗門",
-      "WORLD_INFO_SHOPPING_DESC": "都市区域では練気級の丹薬や武器を購入できる。丹薬は購入後すぐ服用され、武器は自分に合う武器種へ持ち替える助けとなる。",
+      "WORLD_INFO_SHOPPING_DESC": "都市区域では練気品階の丹薬と武器を購入できる。丹薬は購入後すぐ服用され自身を強化し、武器はより手に合う武器種へ切り替える助けとなる。",
       "WORLD_INFO_SHOPPING_NAME": "購買",
       "WORLD_INFO_SHOPPING_TITLE": "購買",
       "WORLD_INFO_SPIRIT_STONE_DESC": "仙道界で広く通用する貨幣。法宝や丹薬の購入に使え、採集、交易、略奪などで手に入る。",
@@ -99,7 +99,7 @@
       "WORLD_INFO_WORLD_QI_DESC": "世界では数年ごとに天象変動が起こり、たとえば霊気潮汐のような現象が人物の能力へ影響を与える。",
       "WORLD_INFO_WORLD_QI_NAME": "天地霊気",
       "WORLD_INFO_WORLD_QI_TITLE": "天地霊気",
-      "WORLD_INFO_RANKING_DESC": "仙道界には天・地・人の榜と宗門ランキングがある。天榜には元嬰期の強者、地榜には結丹期の強者、人榜には築基期の強者が記され、宗門ランキングは宗門の総合実力で順位付けされる。",
+      "WORLD_INFO_RANKING_DESC": "仙道界には天・地・人の榜と宗門ランキングがある。三榜は等価標準境界で分けられ、天榜は元嬰層級、地榜は金丹層級、人榜は築基層級の強者を記す。宗門ランキングは宗門の総合実力で順位付けされる。",
       "WORLD_INFO_RANKING_NAME": "榜",
       "WORLD_INFO_RANKING_TITLE": "榜",
       "WORLD_INFO_DYNASTY_DESC": "人間の王朝が天下を治め、俗世の秩序と疆域を保っている。皇帝の寿命も常人と大差なく、崩御すれば新たな帝が即位する。",
@@ -107,7 +107,10 @@
       "WORLD_INFO_DYNASTY_TITLE": "王朝",
       "WORLD_INFO_OFFICIAL_DESC": "修士は朝廷のために政務を執り、声望を積み上げて俸禄を受け取れる。声望が十分なら昇進でき、官位が高いほど俸禄と気運も増す。長く政務を怠れば声望は徐々に下がる。",
       "WORLD_INFO_OFFICIAL_NAME": "官位",
-      "WORLD_INFO_OFFICIAL_TITLE": "官位"
+      "WORLD_INFO_OFFICIAL_TITLE": "官位",
+      "WORLD_INFO_CULTIVATION_ALIAS_DESC": "同じ修行階層でも、体系ごとに名目が異なります。道家と散修は練気・築基・金丹・元嬰、武道は鍛体・易筋・宗師・武聖、儒道は養気・明理・立命・大儒、仏道は沙弥・比丘・羅漢・菩薩、妖族は開霊・化形・妖丹・妖王と呼びます。これらは同じ基礎境界列に対応する呼称であり、物語と画面表示だけを変え、突破、戦力、寿元、品階などのルールは変えません。",
+      "WORLD_INFO_CULTIVATION_ALIAS_NAME": "階層別名",
+      "WORLD_INFO_CULTIVATION_ALIAS_TITLE": "階層別名"
     }
   },
   "controls": {
@@ -338,7 +341,7 @@
     "officials": {
       "title": "朝廷官僚",
       "count": "合計 {count} 名",
-      "empty": "現在、朝廷に仕えるランク入り修士はいません",
+      "empty": "現在、在朝修士はいません",
       "realm": "境界",
       "court_reputation": "声望",
       "sect": "所属",
@@ -363,7 +366,7 @@
       "rogue_count": "散修人数"
     },
     "realm_distribution": {
-      "title": "生存者の境界分布",
+      "title": "生存者の標準境界分布",
       "realm": "境界",
       "count": "人数"
     }
@@ -404,7 +407,7 @@
       "backstory": "来歴",
       "short_term_objective": "短期目標",
       "stats": {
-        "realm": "境界",
+        "realm": "修行階層",
         "origin": "出身",
         "age": "年齢",
         "awakened_age": "修行開始年齢",
@@ -424,7 +427,8 @@
         "appearance": "容姿",
         "battle_strength": "戦力",
         "ranking": "順位",
-        "emotion": "感情"
+        "emotion": "感情",
+        "canonical_realm": "等価：{value}"
       },
       "sections": {
         "thinking": "思考",

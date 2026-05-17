@@ -14,7 +14,7 @@
       "label": "[Hidden Domain]",
       "title": "Hidden Domains List",
       "empty": "No hidden domains data",
-      "required_realm": "Suggested Realm",
+      "required_realm": "Required Realm",
       "danger": "Danger",
       "drop": "Fortune",
       "cooldown": "Cooldown",
@@ -57,25 +57,25 @@
       "WORLD_INFO_BATTLE_DESC": "Survival of the fittest; realm suppression is huge, high-realm cultivators have an absolute advantage over low-realm ones. If the opponent dies, the winner can plunder the loser's belongings.",
       "WORLD_INFO_BATTLE_NAME": "Battle",
       "WORLD_INFO_BATTLE_TITLE": "Battle",
-      "WORLD_INFO_CULTIVATION_DESC": "Cultivation increases experience until reaching the bottleneck before breakthrough. Breakthrough is a probability event; upon success, one enters the next realm.",
+      "WORLD_INFO_CULTIVATION_DESC": "Cultivation accumulates power until the current rank reaches its bottleneck. Breakthroughs can succeed or fail; success advances the character to the next rank, while failure may carry a cost.",
       "WORLD_INFO_CULTIVATION_NAME": "Cultivation",
       "WORLD_INFO_CULTIVATION_TITLE": "Cultivation",
       "WORLD_INFO_DEATH_DESC": "HP dropping below 0 also causes death.",
       "WORLD_INFO_DEATH_NAME": "Death",
       "WORLD_INFO_DEATH_TITLE": "Death",
-      "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC": "Through weapons, auxiliary equipment, elixirs, etc., you can gain extra attribute bonuses and small or large buffs. Owning good equipment or taking good elixirs can bring great benefits.",
+      "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC": "Weapons, auxiliary equipment, and elixirs provide extra bonuses. High-grade equipment and suitable elixirs can greatly improve a cultivator's survival and combat ability.",
       "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME": "Equipment & Elixir",
       "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE": "Equipment & Elixir",
       "WORLD_INFO_INTRO_DESC": "This is a cultivation world where many cultivators compete and conflicts rage on all sides.",
       "WORLD_INFO_INTRO_NAME": "Introduction",
       "WORLD_INFO_INTRO_TITLE": "Introduction",
-      "WORLD_INFO_LIFESPAN_DESC": "If a character's current age reaches their maximum lifespan, they die immediately. Breaking through to a new realm can increase maximum lifespan, while failure may also reduce it.",
+      "WORLD_INFO_LIFESPAN_DESC": "Every character has a lifespan limit. When lifespan is exhausted, death follows; realm breakthroughs usually extend lifespan, while failed breakthroughs may shorten it.",
       "WORLD_INFO_LIFESPAN_NAME": "Lifespan",
       "WORLD_INFO_LIFESPAN_TITLE": "Lifespan",
       "WORLD_INFO_ORTHODOXY_DESC": "Different orthodoxies have different cultivation methods. Taoists respire, Martial Artists practice Body Tempering, Buddhists meditate, and Confucians educate the people.",
       "WORLD_INFO_ORTHODOXY_NAME": "Orthodoxy",
       "WORLD_INFO_ORTHODOXY_TITLE": "Orthodoxy",
-      "WORLD_INFO_REALM_DESC": "Cultivation realms from weak to strong: Qi Refinement, Foundation Establishment, Core Formation, Nascent Soul. Each realm is divided into Early, Middle, and Late stages. The gap between realms is huge.",
+      "WORLD_INFO_REALM_DESC": "The world's underlying standard realms, from weak to strong, are Qi Refinement, Foundation Establishment, Core Formation, and Nascent Soul. Each realm has Early, Middle, and Late stages. Different traditions may use aliases, but rules are calculated by this standard sequence.",
       "WORLD_INFO_REALM_NAME": "Realm",
       "WORLD_INFO_REALM_TITLE": "Realm",
       "WORLD_INFO_REGION_DESC": "Different regions have different effects; doing the right thing in the right region yields twice the result with half the effort.",
@@ -90,7 +90,7 @@
       "WORLD_INFO_SECT_DESC": "A shelter for cultivators. Joining a sect allows learning unique techniques and gaining protection from fellow disciples; rogue cultivators are free but lack resources.",
       "WORLD_INFO_SECT_NAME": "Sect",
       "WORLD_INFO_SECT_TITLE": "Sect",
-      "WORLD_INFO_SHOPPING_DESC": "In city regions, you can buy Qi Refinement level elixirs and weapons. Buying elixirs will immediately consume them to strengthen yourself. Buying weapons can help you switch your weapon type to a handy one.",
+      "WORLD_INFO_SHOPPING_DESC": "In city regions, you can buy Qi Refinement-grade elixirs and weapons. Purchased elixirs are consumed immediately to strengthen the character; purchased weapons can switch the character to a more suitable weapon type.",
       "WORLD_INFO_SHOPPING_NAME": "Shopping",
       "WORLD_INFO_SHOPPING_TITLE": "Shopping",
       "WORLD_INFO_SPIRIT_STONE_DESC": "The common currency of the cultivation world. Can be used to buy artifacts and elixirs, obtained through gathering, trading, or plundering.",
@@ -99,7 +99,7 @@
       "WORLD_INFO_WORLD_QI_DESC": "The world undergoes celestial changes (such as Qi Tides) every few years, affecting character abilities.",
       "WORLD_INFO_WORLD_QI_NAME": "World Qi",
       "WORLD_INFO_WORLD_QI_TITLE": "World Qi",
-      "WORLD_INFO_RANKING_DESC": "The cultivation world features the Heaven, Earth, and Human Rankings, as well as the Sect Ranking. The Heaven Ranking records Nascent Soul experts, the Earth Ranking records Core Formation experts, and the Human Ranking records Foundation Establishment experts. The Sect Ranking ranks sects by their total power.",
+      "WORLD_INFO_RANKING_DESC": "The cultivation world features the Heaven, Earth, and Human Rankings, as well as the Sect Ranking. The three personal rankings are grouped by equivalent standard realm: Heaven records Nascent Soul-tier experts, Earth records Core Formation-tier experts, and Human records Foundation Establishment-tier experts. The Sect Ranking ranks sects by total power.",
       "WORLD_INFO_RANKING_NAME": "Ranking",
       "WORLD_INFO_RANKING_TITLE": "Ranking",
       "WORLD_INFO_DYNASTY_DESC": "Mortal dynasties rule the realm, maintaining worldly order and borders. Emperors live no longer than ordinary mortals, and when one dies, a new emperor succeeds to the throne.",
@@ -107,7 +107,10 @@
       "WORLD_INFO_DYNASTY_TITLE": "Dynasty",
       "WORLD_INFO_OFFICIAL_DESC": "Cultivators may govern for the imperial court, building court reputation and receiving salary. With enough reputation they can be promoted; the higher the office, the greater the salary and luck. If they neglect governance for too long, their reputation will gradually decline.",
       "WORLD_INFO_OFFICIAL_NAME": "Official Rank",
-      "WORLD_INFO_OFFICIAL_TITLE": "Official Rank"
+      "WORLD_INFO_OFFICIAL_TITLE": "Official Rank",
+      "WORLD_INFO_CULTIVATION_ALIAS_DESC": "The same cultivation ranks have different names in each tradition: Daoists and rogue cultivators use Qi Refinement, Foundation Establishment, Core Formation, and Nascent Soul; martial cultivators use Body Tempering, Tendon-Tempering, Martial Master, and Martial Saint; Confucian cultivators use Vital Qi Cultivation, Principle Illumination, Mandate Establishment, and Great Scholar; Buddhist cultivators use Novice Monk, Monk, Arhat, and Bodhisattva; yao cultivators use Spirit Awakening, Form Transformation, Demon Core, and Demon King. These names map to the same underlying realm sequence; they change narrative and interface wording, but not breakthrough, power, lifespan, item grade, or other rules.",
+      "WORLD_INFO_CULTIVATION_ALIAS_NAME": "Realm Aliases",
+      "WORLD_INFO_CULTIVATION_ALIAS_TITLE": "Realm Aliases"
     }
   },
   "controls": {
@@ -338,7 +341,7 @@
     "officials": {
       "title": "Court Officials",
       "count": "{count} total",
-      "empty": "There are no ranked cultivators serving in court right now",
+      "empty": "No court cultivators yet",
       "realm": "Realm",
       "court_reputation": "Court Reputation",
       "sect": "Affiliation",
@@ -363,7 +366,7 @@
       "rogue_count": "Rogue Cultivators"
     },
     "realm_distribution": {
-      "title": "Living Realm Distribution",
+      "title": "Living Standard Realm Distribution",
       "realm": "Realm",
       "count": "Count"
     }
@@ -404,7 +407,7 @@
       "backstory": "Backstory",
       "short_term_objective": "Short-term",
       "stats": {
-        "realm": "Realm",
+        "realm": "Cultivation Rank",
         "origin": "Origin",
         "age": "Age",
         "awakened_age": "Started Cultivation At",
@@ -424,7 +427,8 @@
         "appearance": "Look",
         "battle_strength": "Power",
         "ranking": "Ranking",
-        "emotion": "Emotion"
+        "emotion": "Emotion",
+        "canonical_realm": "Equivalent: {value}"
       },
       "sections": {
         "thinking": "Thinking",

@@ -14,7 +14,7 @@
       "label": "[Bí Cảnh]",
       "title": "Danh Sách Bí Cảnh",
       "empty": "Không có dữ liệu bí cảnh",
-      "required_realm": "Cảnh Giới Khuyến Nghị",
+      "required_realm": "Cảnh Giới Yêu Cầu",
       "danger": "Nguy hiểm",
       "drop": "Cơ duyên",
       "cooldown": "Chu Kỳ Hồi",
@@ -57,25 +57,25 @@
       "WORLD_INFO_BATTLE_DESC": "Thế giới này tuân theo quy luật cá lớn nuốt cá bé, áp chế cảnh giới vô cùng rõ rệt; kẻ cảnh giới cao có ưu thế tuyệt đối trước kẻ cảnh giới thấp. Nếu đối phương tử vong, người chiến thắng có thể cướp lấy tài vật của kẻ bại.",
       "WORLD_INFO_BATTLE_NAME": "Chiến Đấu",
       "WORLD_INFO_BATTLE_TITLE": "Chiến Đấu",
-      "WORLD_INFO_CULTIVATION_DESC": "Tu luyện có thể tăng kinh nghiệm cho tới khi chạm bình cảnh trước lúc đột phá. Đột phá là sự kiện mang tính xác suất; thành công sẽ tiến vào cảnh giới tiếp theo.",
+      "WORLD_INFO_CULTIVATION_DESC": "Tu hành sẽ tích lũy tu vi cho đến khi chạm bình cảnh của tầng bậc hiện tại. Đột phá có thành có bại; thành công thì tiến vào tầng kế tiếp, thất bại có thể phải trả giá.",
       "WORLD_INFO_CULTIVATION_NAME": "Tu Luyện",
       "WORLD_INFO_CULTIVATION_TITLE": "Tu Luyện",
       "WORLD_INFO_DEATH_DESC": "Sinh mệnh rơi xuống dưới 0 cũng sẽ dẫn tới tử vong.",
       "WORLD_INFO_DEATH_NAME": "Tử Vong",
       "WORLD_INFO_DEATH_TITLE": "Tử Vong",
-      "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC": "Thông qua binh khí, trang bị phụ trợ, đan dược và các vật phẩm khác, bạn có thể nhận thêm thuộc tính và đủ loại tăng ích. Sở hữu trang bị tốt hoặc dùng đan dược tốt đều có thể mang lại lợi thế to lớn.",
+      "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC": "Binh khí, trang bị phụ trợ và đan dược có thể mang lại gia thành bổ sung. Trang bị phẩm cấp cao và đan dược phù hợp thường giúp tu sĩ tăng mạnh khả năng sinh tồn và tranh đấu.",
       "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME": "Trang Bị & Đan Dược",
       "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE": "Trang Bị & Đan Dược",
       "WORLD_INFO_INTRO_DESC": "Đây là một thế giới tu tiên nơi vô số tu sĩ cạnh tranh tu hành và xung đột nổi lên khắp nơi.",
       "WORLD_INFO_INTRO_NAME": "Giới Thiệu",
       "WORLD_INFO_INTRO_TITLE": "Giới Thiệu",
-      "WORLD_INFO_LIFESPAN_DESC": "Nếu tuổi hiện tại đạt đến tuổi thọ tối đa, nhân vật sẽ lập tức tử vong. Đột phá cảnh giới có thể làm tăng tuổi thọ tối đa, nhưng thất bại cũng có thể làm tổn hại tuổi thọ.",
+      "WORLD_INFO_LIFESPAN_DESC": "Mỗi nhân vật đều có giới hạn thọ nguyên. Khi thọ nguyên cạn kiệt thì sẽ tử vong; đột phá cảnh giới thường kéo dài thọ nguyên, nhưng thất bại cũng có thể làm tổn hại thọ nguyên.",
       "WORLD_INFO_LIFESPAN_NAME": "Thọ Nguyên",
       "WORLD_INFO_LIFESPAN_TITLE": "Thọ Nguyên",
       "WORLD_INFO_ORTHODOXY_DESC": "Các đạo thống khác nhau có những phương thức tu hành khác nhau. Đạo gia thiên về Thổ Nạp, võ giả thiên về Luyện Thể, Phật gia thiên về tĩnh tọa, còn Nho gia thiên về giáo hóa.",
       "WORLD_INFO_ORTHODOXY_NAME": "Đạo Thống",
       "WORLD_INFO_ORTHODOXY_TITLE": "Đạo Thống",
-      "WORLD_INFO_REALM_DESC": "Các cảnh giới tu tiên từ yếu tới mạnh là: Luyện Khí, Trúc Cơ, Kim Đan, Nguyên Anh. Mỗi cảnh giới lại chia thành Sơ Kỳ, Trung Kỳ và Hậu Kỳ. Chênh lệch giữa các cảnh giới là vô cùng lớn.",
+      "WORLD_INFO_REALM_DESC": "Chuỗi cảnh giới chuẩn nền tảng của thế giới, từ yếu đến mạnh, là Luyện Khí, Trúc Cơ, Kim Đan, Nguyên Anh; mỗi cảnh giới chia thành Sơ Kỳ, Trung Kỳ và Hậu Kỳ. Các đạo thống có thể dùng biệt danh riêng, nhưng quy tắc vẫn tính theo chuỗi chuẩn này.",
       "WORLD_INFO_REALM_NAME": "Cảnh Giới",
       "WORLD_INFO_REALM_TITLE": "Cảnh Giới",
       "WORLD_INFO_REGION_DESC": "Mỗi khu vực có hiệu quả khác nhau; làm đúng việc ở đúng nơi sẽ đạt hiệu quả gấp đôi với công sức chỉ bằng một nửa.",
@@ -90,7 +90,7 @@
       "WORLD_INFO_SECT_DESC": "Nơi che chở của tu sĩ. Gia nhập tông môn giúp học được công pháp độc môn và được đồng môn bảo hộ; còn Tán Tu tuy tự do nhưng tài nguyên khan hiếm.",
       "WORLD_INFO_SECT_NAME": "Tông Môn",
       "WORLD_INFO_SECT_TITLE": "Tông Môn",
-      "WORLD_INFO_SHOPPING_DESC": "Tại các khu vực thành thị, bạn có thể mua đan dược và binh khí cấp Luyện Khí. Mua đan dược sẽ lập tức dùng để cường hóa bản thân; mua binh khí giúp bạn chuyển sang loại binh khí tiện tay hơn.",
+      "WORLD_INFO_SHOPPING_DESC": "Tại khu vực thành thị có thể mua đan dược và binh khí phẩm cấp Luyện Khí. Đan dược mua xong sẽ lập tức dùng để cường hóa bản thân; binh khí mua được có thể giúp đổi sang loại vũ khí thuận tay hơn.",
       "WORLD_INFO_SHOPPING_NAME": "Mua Bán",
       "WORLD_INFO_SHOPPING_TITLE": "Mua Bán",
       "WORLD_INFO_SPIRIT_STONE_DESC": "Đồng tiền thông dụng của giới tu tiên. Có thể dùng để mua pháp bảo và đan dược, thu được thông qua thu thập, giao dịch hoặc cướp đoạt.",
@@ -99,7 +99,7 @@
       "WORLD_INFO_WORLD_QI_DESC": "Cứ mỗi vài năm, thế giới sẽ xuất hiện biến động thiên tượng như thủy triều linh khí, từ đó ảnh hưởng tới năng lực của nhân vật.",
       "WORLD_INFO_WORLD_QI_NAME": "Thiên Tượng Thế Giới",
       "WORLD_INFO_WORLD_QI_TITLE": "Thiên Tượng Thế Giới",
-      "WORLD_INFO_RANKING_DESC": "Giới tu tiên có Thiên Bảng, Địa Bảng, Nhân Bảng cùng Bảng Tông Môn. Thiên Bảng ghi lại cường giả Nguyên Anh kỳ, Địa Bảng ghi lại cường giả Kim Đan kỳ, Nhân Bảng ghi lại cường giả Trúc Cơ kỳ, còn Bảng Tông Môn xếp hạng theo tổng thực lực của từng tông môn.",
+      "WORLD_INFO_RANKING_DESC": "Giới tu tiên có Thiên Bảng, Địa Bảng, Nhân Bảng cùng Bảng Tông Môn. Ba bảng cá nhân được chia theo cảnh giới chuẩn tương đương: Thiên Bảng ghi cường giả tầng Nguyên Anh, Địa Bảng ghi tầng Kim Đan, Nhân Bảng ghi tầng Trúc Cơ; Bảng Tông Môn xếp hạng theo tổng thực lực tông môn.",
       "WORLD_INFO_RANKING_NAME": "Bảng Xếp Hạng",
       "WORLD_INFO_RANKING_TITLE": "Bảng Xếp Hạng",
       "WORLD_INFO_DYNASTY_DESC": "Vương triều phàm nhân thống ngự thiên hạ, duy trì trật tự thế tục và bờ cõi. Hoàng đế có thọ mệnh như người phàm bình thường, băng hà rồi sẽ có tân đế kế vị.",
@@ -107,7 +107,10 @@
       "WORLD_INFO_DYNASTY_TITLE": "Vương Triều",
       "WORLD_INFO_OFFICIAL_DESC": "Tu sĩ có thể trị chính cho triều đình, tích lũy uy vọng triều đình và lĩnh bổng lộc. Uy vọng đủ cao thì có thể thăng quan; quan chức càng cao, bổng lộc và khí vận càng nhiều. Nếu lâu ngày không lo chính vụ, uy vọng sẽ dần suy giảm.",
       "WORLD_INFO_OFFICIAL_NAME": "Quan Chức",
-      "WORLD_INFO_OFFICIAL_TITLE": "Quan Chức"
+      "WORLD_INFO_OFFICIAL_TITLE": "Quan Chức",
+      "WORLD_INFO_CULTIVATION_ALIAS_DESC": "Cùng một tầng bậc tu hành có tên gọi riêng trong từng hệ thống: Đạo gia và tán tu là Luyện Khí, Trúc Cơ, Kim Đan, Nguyên Anh; võ đạo là Thối Thể, Dịch Cân, Tông Sư, Võ Thánh; nho đạo là Dưỡng Khí, Minh Lý, Lập Mệnh, Đại Nho; phật đạo là Sa Di, Tỳ Kheo, La Hán, Bồ Tát; yêu tộc là Khai Linh, Hóa Hình, Yêu Đan, Yêu Vương. Những tên gọi này tương ứng với cùng một chuỗi cảnh giới nền tảng, chỉ thay đổi tường thuật và cách hiển thị, không thay đổi quy tắc đột phá, chiến lực, thọ nguyên hay phẩm cấp vật phẩm.",
+      "WORLD_INFO_CULTIVATION_ALIAS_NAME": "Biệt Danh Tầng Bậc",
+      "WORLD_INFO_CULTIVATION_ALIAS_TITLE": "Biệt Danh Tầng Bậc"
     }
   },
   "controls": {
@@ -338,7 +341,7 @@
     "officials": {
       "title": "Tu Sĩ Tại Triều",
       "count": "Tổng cộng {count} người",
-      "empty": "Hiện chưa có tu sĩ nào có phẩm cấp đang tại triều",
+      "empty": "Hiện chưa có tu sĩ tại triều",
       "realm": "Cảnh Giới",
       "court_reputation": "Uy Vọng Triều Đình",
       "sect": "Thuộc Về",
@@ -363,7 +366,7 @@
       "rogue_count": "Số Tán Tu"
     },
     "realm_distribution": {
-      "title": "Phân Bố Cảnh Giới Người Sống",
+      "title": "Phân Bố Cảnh Giới Chuẩn Của Người Sống",
       "realm": "Cảnh Giới",
       "count": "Số Lượng"
     }
@@ -404,7 +407,7 @@
       "backstory": "Xuất thân",
       "short_term_objective": "Ngắn hạn",
       "stats": {
-        "realm": "Cảnh Giới",
+        "realm": "Tầng Bậc Tu Hành",
         "origin": "Xuất Thân",
         "age": "Tuổi",
         "awakened_age": "Bắt Đầu Tu Hành Lúc",
@@ -424,7 +427,8 @@
         "appearance": "Nhan Trị",
         "battle_strength": "Chiến Lực",
         "ranking": "Xếp Hạng",
-        "emotion": "Cảm Xúc"
+        "emotion": "Cảm Xúc",
+        "canonical_realm": "Tương đương: {value}"
       },
       "sections": {
         "thinking": "Suy Nghĩ",

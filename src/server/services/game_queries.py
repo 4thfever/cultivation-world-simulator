@@ -6,6 +6,7 @@ from fastapi import Query
 
 from src.i18n import t
 from src.server.services.public_api_contract import raise_public_error
+from src.systems.cultivation_display import build_avatar_cultivation_display
 
 
 def get_runtime_status(runtime, version: str) -> dict[str, Any]:
@@ -166,12 +167,15 @@ def get_avatar_list(runtime) -> dict[str, Any]:
     for avatar in world.avatar_manager.avatars.values():
         sect_name = avatar.sect.name if avatar.sect else t("Rogue Cultivator")
         realm_str = avatar.cultivation_progress.realm.value if hasattr(avatar, "cultivation_progress") else t("Unknown")
+        cultivation_display = build_avatar_cultivation_display(avatar) if hasattr(avatar, "cultivation_progress") else None
         avatars.append(
             {
                 "id": str(avatar.id),
                 "name": avatar.name,
                 "sect_name": sect_name,
                 "realm": realm_str,
+                "cultivation": cultivation_display,
+                "cultivation_display": cultivation_display["display_full_name"] if cultivation_display else "",
                 "gender": str(avatar.gender),
                 "race": getattr(getattr(avatar, "race", None), "id", "human"),
                 "age": avatar.age.age,
@@ -260,23 +264,33 @@ def get_avatar_overview(runtime) -> dict[str, Any]:
     living_avatars = list(getattr(world.avatar_manager, "avatars", {}).values())
     dead_records = world.deceased_manager.get_all_records()
 
-    realm_counts: dict[str, int] = {}
+    realm_counts: dict[str, dict[str, Any]] = {}
     sect_member_count = 0
     rogue_count = 0
 
     for avatar in living_avatars:
-        realm = str(getattr(getattr(avatar, "cultivation_progress", None), "realm", t("Unknown")))
-        realm_counts[realm] = realm_counts.get(realm, 0) + 1
+        cultivation = build_avatar_cultivation_display(avatar) if hasattr(avatar, "cultivation_progress") else None
+        realm_id = cultivation["realm_id"] if cultivation else str(t("Unknown"))
+        display_realm = cultivation["canonical_realm_name"] if cultivation else str(t("Unknown"))
+        item = realm_counts.setdefault(
+            realm_id,
+            {
+                "realm": display_realm,
+                "realm_id": realm_id,
+                "count": 0,
+            },
+        )
+        item["count"] += 1
         if getattr(avatar, "sect", None) is None:
             rogue_count += 1
         else:
             sect_member_count += 1
 
     realm_distribution = [
-        {"realm": realm, "count": count}
-        for realm, count in sorted(
-            realm_counts.items(),
-            key=lambda item: (-item[1], item[0]),
+        item
+        for item in sorted(
+            realm_counts.values(),
+            key=lambda item: (-item["count"], item["realm_id"]),
         )
     ]
 
@@ -315,6 +329,7 @@ def get_world_state(
 
     avatars: list[dict[str, Any]] = []
     for avatar in list(world.avatar_manager.avatars.values())[:50]:
+        cultivation_display = build_avatar_cultivation_display(avatar)
         action_name = "unknown"
         curr = getattr(avatar, "current_action", None)
         if curr:
@@ -332,6 +347,8 @@ def get_world_state(
                 "race": getattr(getattr(avatar, "race", None), "id", "human"),
                 "pic_id": resolve_avatar_pic_id(avatar),
                 "realm": getattr(getattr(getattr(avatar, "cultivation_progress", None), "realm", None), "value", ""),
+                "cultivation": cultivation_display,
+                "cultivation_display": cultivation_display["display_full_name"],
             }
         )
 

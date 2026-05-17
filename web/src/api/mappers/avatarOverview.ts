@@ -13,6 +13,7 @@ export function normalizeAvatarOverview(input: AvatarOverviewResponseDTO): Avata
     realmDistribution: Array.isArray(input.realm_distribution)
       ? input.realm_distribution.map((item) => ({
           realm: item.realm ?? '',
+          realmId: item.realm_id,
           count: item.count ?? 0,
         }))
       : [],

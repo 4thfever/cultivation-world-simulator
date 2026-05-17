@@ -186,6 +186,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     from src.i18n import t
     from src.classes.observe import get_avatar_observation_radius
     from src.classes.relation.relations import iter_display_relation_entries
+    from src.systems.cultivation_display import build_avatar_cultivation_display
     emoji = EMOTION_EMOJIS.get(avatar.emotion, EMOTION_EMOJIS[EmotionType.CALM])
     
     born_region_name = t("Unknown")
@@ -197,6 +198,8 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     start_age = None
     if avatar.cultivation_start_month_stamp is not None:
         start_age = (int(avatar.cultivation_start_month_stamp) - int(avatar.birth_month_stamp)) // 12
+
+    cultivation_display = build_avatar_cultivation_display(avatar)
 
     info = {
         "id": avatar.id,
@@ -210,6 +213,9 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "age": avatar.age.age,
         "lifespan": avatar.age.max_lifespan,
         "realm": avatar.cultivation_progress.get_info(),
+        "realm_id": cultivation_display["realm_id"],
+        "stage_id": cultivation_display["stage_id"],
+        "cultivation": cultivation_display,
         "level": avatar.cultivation_progress.level,
         "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
         "observation_radius": get_avatar_observation_radius(avatar),
@@ -366,6 +372,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             "numeric_relation": numeric_relation.value,
             "friendliness": relation_state.friendliness,
             "realm": other.cultivation_progress.get_info(),
+            "cultivation": build_avatar_cultivation_display(other),
             "sect": other_sect_name,
             "is_mortal": False,
             "target_gender": other.gender.value,
@@ -393,6 +400,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             "numeric_relation": None,
             "friendliness": 0,
             "realm": other.cultivation_progress.get_info(),
+            "cultivation": build_avatar_cultivation_display(other),
             "sect": other.sect.name if other.sect else t("Rogue Cultivator"),
             "is_mortal": False,
             "target_gender": other.gender.value,
@@ -459,6 +467,7 @@ def get_avatar_ai_context(
     这里刻意不放宗门总灵石/总战力，只提供战争、门规与局部感知。
     """
     from src.i18n import t
+    from src.systems.cultivation_display import build_avatar_cultivation_display
 
     world = avatar.world
     current_month = int(getattr(world, "month_stamp", 0))
@@ -531,6 +540,7 @@ def get_avatar_ai_context(
             "race": _get_race_info(avatar, detailed=True),
             "race_behavior_priority": _get_race_behavior_desc(avatar),
             "realm": avatar.cultivation_progress.get_info(),
+            "cultivation": build_avatar_cultivation_display(avatar),
             "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
             "magic_stone": int(getattr(getattr(avatar, "magic_stone", None), "value", 0)),
             "current_action": avatar.current_action_name,
@@ -572,12 +582,14 @@ def get_avatar_expanded_info(
         detailed: 是否返回详细信息
     """
     from src.i18n import t
+    from src.systems.cultivation_display import build_avatar_cultivation_display
     info = get_avatar_info(avatar, detailed=detailed)
 
     observed: list[str] = []
     if co_region_avatars:
         for other in co_region_avatars[:8]:
-            observed.append(t("{name}, Realm: {realm}", name=other.name, realm=other.cultivation_progress.get_info()))
+            cultivation = build_avatar_cultivation_display(other)
+            observed.append(t("{name}, Realm: {realm}", name=other.name, realm=cultivation["display_full_name"]))
 
     # 历史事件改为从全局事件管理器分类查询
     em = avatar.world.event_manager
@@ -607,6 +619,7 @@ def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
     仅显示几个字段：名字、绰号、境界、关系、宗门、阵营、外貌、功法、武器、辅助装备、HP
     """
     from src.i18n import t
+    from src.systems.cultivation_display import build_avatar_cultivation_display
     nickname = to_avatar.nickname.value if to_avatar.nickname else t("None")
     sect = to_avatar.sect.name if to_avatar.sect else t("Rogue Cultivator")
     tech = to_avatar.technique.get_info() if to_avatar.technique else t("None")
@@ -614,6 +627,7 @@ def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
     aux = to_avatar.auxiliary.get_info() if to_avatar.auxiliary else t("None")
     goldfinger = to_avatar.goldfinger.get_info() if getattr(to_avatar, "goldfinger", None) else t("None")
     alignment = to_avatar.alignment
+    cultivation = build_avatar_cultivation_display(to_avatar)
     
     # 关系可能为空
     relation_state = from_avatar.get_relation_state(to_avatar)
@@ -635,7 +649,7 @@ def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
         name=to_avatar.name,
         nickname=nickname,
         race=_get_race_info(to_avatar).get("name", ""),
-        realm=to_avatar.cultivation_progress.get_info(),
+        realm=cultivation["display_full_name"],
         relation=relation,
         sect=sect,
         alignment=alignment,
@@ -654,6 +668,7 @@ def get_avatar_desc(avatar: "Avatar", detailed: bool = False) -> str:
     detailed=True 时包含详细的效果来源分析。
     """
     from src.i18n import t
+    from src.systems.cultivation_display import build_avatar_cultivation_display
     
     born_region_name = t("Unknown")
     if avatar.born_region_id and avatar.born_region_id != -1:
@@ -668,7 +683,8 @@ def get_avatar_desc(avatar: "Avatar", detailed: bool = False) -> str:
     race_behavior_desc = _get_race_behavior_desc(avatar)
     if detailed and race_behavior_desc:
         lines.append(t("Race Behavior Priority: {behavior}", behavior=race_behavior_desc))
-    lines.append(t("Realm: {realm}", realm=avatar.cultivation_progress.get_info()))
+    cultivation = build_avatar_cultivation_display(avatar)
+    lines.append(t("Realm: {realm}", realm=cultivation["display_full_name"]))
     lines.append(t("Current Action: {action}", action=avatar.current_action_name))
     if avatar.sect:
         lines.append(t("Identity: {identity}", identity=avatar.get_sect_str()))

@@ -50,7 +50,7 @@ msgstr "战斗"
 
 #. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。
 msgid "WORLD_INFO_CULTIVATION_DESC"
-msgstr "修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。"
+msgstr "修行会积累修为，直至抵达当前阶层的瓶颈。突破有成败之分，成功后会晋入下一层级，失败则可能付出代价。"
 
 #. world_info.csv: 修炼
 msgid "WORLD_INFO_CULTIVATION_NAME"
@@ -74,7 +74,7 @@ msgstr "死亡"
 
 #. 通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服用好的丹药，能获得很大好处。
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
-msgstr "通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服用好的丹药，能获得很大好处。"
+msgstr "兵器、辅助装备与丹药能带来额外加成。高品阶装备与合适丹药往往能显著提升修士的生存与争斗能力。"
 
 #. world_info.csv: 装备与丹药
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
@@ -98,8 +98,7 @@ msgstr "简介"
 
 #. 若当前年龄达到最大寿元，会立刻死亡。突破境界可以增加最大寿元，突破失败也可能折损寿元。
 msgid "WORLD_INFO_LIFESPAN_DESC"
-msgstr ""
-"若当前年龄达到最大寿元，会立刻死亡。突破境界可以增加最大寿元，突破失败也可能折损寿元。"
+msgstr "每个角色都有寿元上限。寿元耗尽时会死亡；突破境界通常能延长寿元，突破失败也可能折损寿元。"
 
 #. world_info.csv: 寿元
 msgid "WORLD_INFO_LIFESPAN_NAME"
@@ -123,7 +122,7 @@ msgstr "道统"
 
 #. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。
 msgid "WORLD_INFO_REALM_DESC"
-msgstr "修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。"
+msgstr "世界底层境界从弱到强为练气、筑基、金丹、元婴，每境分前期、中期、后期。不同道统可有别名，但规则计算仍以这套标准序列为准。"
 
 #. world_info.csv: 境界
 msgid "WORLD_INFO_REALM_NAME"
@@ -184,7 +183,7 @@ msgstr "宗门"
 
 #. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器类型为顺手的类型。
 msgid "WORLD_INFO_SHOPPING_DESC"
-msgstr "在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器类型为顺手的类型。"
+msgstr "在城市区域可以购买练气品阶的丹药与兵器。购买丹药后会立刻服用以强化自身；购买兵器可切换为更顺手的兵器类型。"
 
 #. world_info.csv: 购物
 msgid "WORLD_INFO_SHOPPING_NAME"
@@ -220,7 +219,7 @@ msgstr "天地灵机"
 
 #. world_info.csv: 修仙界设有天地人三榜及宗门榜。天榜收录元婴期强者，地榜收录金丹期强者，人榜收录筑基期强者，宗门榜按宗门总实力排名。
 msgid "WORLD_INFO_RANKING_DESC"
-msgstr "修仙界设有天地人三榜及宗门榜。天榜收录元婴期强者，地榜收录金丹期强者，人榜收录筑基期强者，宗门榜按宗门总实力排名。"
+msgstr "修仙界设有天地人三榜及宗门榜。天地人三榜按等价标准境界划分：天榜收录元婴层级强者，地榜收录金丹层级强者，人榜收录筑基层级强者；宗门榜按宗门总实力排名。"
 
 #. world_info.csv: 排行榜
 msgid "WORLD_INFO_RANKING_NAME"
@@ -253,3 +252,15 @@ msgstr "官职"
 #. world_info.csv: 官职
 msgid "WORLD_INFO_OFFICIAL_TITLE"
 msgstr "官职"
+
+#. world_info.csv: 同一修行阶层在不同体系中有各自名目：道家与散修为练气、筑基、金丹、元婴；武道为淬体、易筋、宗师、武圣；儒道为养气、明理、立命、大儒；佛道为沙弥、比丘、罗汉、菩萨；妖族为开灵、化形、妖丹、妖王。它们彼此对应的是同一套底层境界序列，只改变叙事与界面称谓，不改变突破、战力、寿元、物品品阶等规则。
+msgid "WORLD_INFO_CULTIVATION_ALIAS_DESC"
+msgstr "同一修行阶层在不同体系中有各自名目：道家与散修为练气、筑基、金丹、元婴；武道为淬体、易筋、宗师、武圣；儒道为养气、明理、立命、大儒；佛道为沙弥、比丘、罗汉、菩萨；妖族为开灵、化形、妖丹、妖王。它们彼此对应的是同一套底层境界序列，只改变叙事与界面称谓，不改变突破、战力、寿元、物品品阶等规则。"
+
+#. world_info.csv: 阶层别名
+msgid "WORLD_INFO_CULTIVATION_ALIAS_NAME"
+msgstr "阶层别名"
+
+#. world_info.csv: 阶层别名
+msgid "WORLD_INFO_CULTIVATION_ALIAS_TITLE"
+msgstr "阶层别名"

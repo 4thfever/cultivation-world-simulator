@@ -24,6 +24,9 @@ const {
   openAvatarInfo,
   openSectInfo,
 } = useRankingModal(() => props.show, () => handleShowChange(false))
+
+const getCultivationText = (item: { cultivation_display?: string; cultivation?: { display_full_name?: string }; realm: string; stage: string }) =>
+  item.cultivation_display || item.cultivation?.display_full_name || formatRealmStage(item.realm, item.stage, t)
 </script>
 
 <template>
@@ -62,7 +65,7 @@ const {
                   <a class="clickable-text" v-if="item.sect_id" @click="openSectInfo(item.sect_id)">{{ item.sect }}</a>
                   <span v-else>{{ item.sect }}</span>
                 </td>
-                <td>{{ formatRealmStage(item.realm, item.stage, t) }}</td>
+                <td>{{ getCultivationText(item) }}</td>
                 <td>{{ item.power }}</td>
               </tr>
               <tr v-if="!rankings.heaven.length">
@@ -91,7 +94,7 @@ const {
                   <a class="clickable-text" v-if="item.sect_id" @click="openSectInfo(item.sect_id)">{{ item.sect }}</a>
                   <span v-else>{{ item.sect }}</span>
                 </td>
-                <td>{{ formatRealmStage(item.realm, item.stage, t) }}</td>
+                <td>{{ getCultivationText(item) }}</td>
                 <td>{{ item.power }}</td>
               </tr>
               <tr v-if="!rankings.earth.length">
@@ -120,7 +123,7 @@ const {
                   <a class="clickable-text" v-if="item.sect_id" @click="openSectInfo(item.sect_id)">{{ item.sect }}</a>
                   <span v-else>{{ item.sect }}</span>
                 </td>
-                <td>{{ formatRealmStage(item.realm, item.stage, t) }}</td>
+                <td>{{ getCultivationText(item) }}</td>
                 <td>{{ item.power }}</td>
               </tr>
               <tr v-if="!rankings.human.length">

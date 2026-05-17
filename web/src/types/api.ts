@@ -12,6 +12,7 @@ import type {
   RegionDetail,
   SectDetail,
   EffectEntity,
+  CultivationDisplay,
 } from './core';
 
 // --- 通用响应 ---
@@ -38,6 +39,8 @@ export interface InitialStateDTO {
     race?: string;
     pic_id?: number;
     realm?: string;
+    cultivation?: CultivationDisplay;
+    cultivation_display?: string;
   }>;
   events?: EventDTO[];
   phenomenon?: CelestialPhenomenon | null;
@@ -123,6 +126,8 @@ export interface SimpleAvatarDTO {
   name: string;
   sect_name: string;
   realm: string;
+  cultivation?: CultivationDisplay;
+  cultivation_display?: string;
   gender: string;
   age: number;
   race?: string;
@@ -417,6 +422,8 @@ export interface RankingAvatarDTO {
   sect_id?: string;
   realm: string;
   stage: string;
+  cultivation?: CultivationDisplay;
+  cultivation_display?: string;
   power: number;
 }
 
@@ -586,6 +593,7 @@ export interface AvatarOverviewSummaryDTO {
 
 export interface AvatarRealmDistributionItemDTO {
   realm: string;
+  realm_id?: string;
   count: number;
 }
 

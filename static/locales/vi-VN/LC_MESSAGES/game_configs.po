@@ -4268,9 +4268,9 @@ msgstr "Chiến Đấu"
 #. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。
 msgid "WORLD_INFO_CULTIVATION_DESC"
 msgstr ""
-"Tu luyện có thể tăng kinh nghiệm cho tới khi chạm bình cảnh trước lúc đột "
-"phá. Đột phá là sự kiện mang tính xác suất; thành công sẽ tiến vào cảnh giới"
-" tiếp theo."
+"Tu hành sẽ tích lũy tu vi cho đến khi chạm bình cảnh của tầng bậc hiện tại. "
+"Đột phá có thành có bại; thành công thì tiến vào tầng kế tiếp, thất bại có "
+"thể phải trả giá."
 
 msgid "WORLD_INFO_CULTIVATION_NAME"
 msgstr "Tu Luyện"
@@ -4291,9 +4291,9 @@ msgstr "Tử Vong"
 #. world_info.csv: 通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服...
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
 msgstr ""
-"Thông qua binh khí, trang bị phụ trợ, đan dược và các vật phẩm khác, bạn có "
-"thể nhận thêm thuộc tính và đủ loại tăng ích. Sở hữu trang bị tốt hoặc dùng "
-"đan dược tốt đều có thể mang lại lợi thế to lớn."
+"Binh khí, trang bị phụ trợ và đan dược có thể mang lại gia thành bổ sung. "
+"Trang bị phẩm cấp cao và đan dược phù hợp thường giúp tu sĩ tăng mạnh khả "
+"năng sinh tồn và tranh đấu."
 
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
 msgstr "Trang Bị & Đan Dược"
@@ -4316,9 +4316,9 @@ msgstr "Giới Thiệu"
 #. world_info.csv: 若当前年龄达到最大寿元，会立刻死亡。突破境界可以增加最大寿元，突破失败也可能折损寿元。
 msgid "WORLD_INFO_LIFESPAN_DESC"
 msgstr ""
-"Nếu tuổi hiện tại đạt đến tuổi thọ tối đa, nhân vật sẽ lập tức tử vong. Đột "
-"phá cảnh giới có thể làm tăng tuổi thọ tối đa, nhưng thất bại cũng có thể "
-"làm tổn hại tuổi thọ."
+"Mỗi nhân vật đều có giới hạn thọ nguyên. Khi thọ nguyên cạn kiệt thì sẽ tử "
+"vong; đột phá cảnh giới thường kéo dài thọ nguyên, nhưng thất bại cũng có "
+"thể làm tổn hại thọ nguyên."
 
 msgid "WORLD_INFO_LIFESPAN_NAME"
 msgstr "Thọ Nguyên"
@@ -4344,9 +4344,10 @@ msgstr "Đạo Thống"
 #. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。
 msgid "WORLD_INFO_REALM_DESC"
 msgstr ""
-"Các cảnh giới tu tiên từ yếu tới mạnh là: Luyện Khí, Trúc Cơ, Kim Đan, "
-"Nguyên Anh. Mỗi cảnh giới lại chia thành Sơ Kỳ, Trung Kỳ và Hậu Kỳ. Chênh "
-"lệch giữa các cảnh giới là vô cùng lớn."
+"Chuỗi cảnh giới chuẩn nền tảng của thế giới, từ yếu đến mạnh, là Luyện Khí, "
+"Trúc Cơ, Kim Đan, Nguyên Anh; mỗi cảnh giới chia thành Sơ Kỳ, Trung Kỳ và "
+"Hậu Kỳ. Các đạo thống có thể dùng biệt danh riêng, nhưng quy tắc vẫn tính "
+"theo chuỗi chuẩn này."
 
 msgid "WORLD_INFO_REALM_NAME"
 msgstr "Cảnh Giới"
@@ -4409,9 +4410,9 @@ msgstr "Tông Môn"
 #. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器...
 msgid "WORLD_INFO_SHOPPING_DESC"
 msgstr ""
-"Tại các khu vực thành thị, bạn có thể mua đan dược và binh khí cấp Luyện "
-"Khí. Mua đan dược sẽ lập tức dùng để cường hóa bản thân; mua binh khí giúp "
-"bạn chuyển sang loại binh khí tiện tay hơn."
+"Tại khu vực thành thị có thể mua đan dược và binh khí phẩm cấp Luyện Khí. "
+"Đan dược mua xong sẽ lập tức dùng để cường hóa bản thân; binh khí mua được "
+"có thể giúp đổi sang loại vũ khí thuận tay hơn."
 
 msgid "WORLD_INFO_SHOPPING_NAME"
 msgstr "Mua Bán"
@@ -4446,10 +4447,10 @@ msgstr "Thiên Tượng Thế Giới"
 #. world_info.csv: 修仙界设有天地人三榜及宗门榜。天榜收录元婴期强者，地榜收录金丹期强者，人榜收录筑基期强者，宗门榜按宗门总实力排名。
 msgid "WORLD_INFO_RANKING_DESC"
 msgstr ""
-"Giới tu tiên có Thiên Bảng, Địa Bảng, Nhân Bảng cùng Bảng Tông Môn. Thiên "
-"Bảng ghi lại cường giả Nguyên Anh kỳ, Địa Bảng ghi lại cường giả Kim Đan kỳ,"
-" Nhân Bảng ghi lại cường giả Trúc Cơ kỳ, còn Bảng Tông Môn xếp hạng theo "
-"tổng thực lực của từng tông môn."
+"Giới tu tiên có Thiên Bảng, Địa Bảng, Nhân Bảng cùng Bảng Tông Môn. Ba bảng "
+"cá nhân được chia theo cảnh giới chuẩn tương đương: Thiên Bảng ghi cường giả"
+" tầng Nguyên Anh, Địa Bảng ghi tầng Kim Đan, Nhân Bảng ghi tầng Trúc Cơ; "
+"Bảng Tông Môn xếp hạng theo tổng thực lực tông môn."
 
 msgid "WORLD_INFO_RANKING_NAME"
 msgstr "Bảng Xếp Hạng"
@@ -4483,6 +4484,26 @@ msgstr "Quan Chức"
 
 msgid "WORLD_INFO_OFFICIAL_TITLE"
 msgstr "Quan Chức"
+
+#. world_info.csv: The same cultivation ranks have different names in each
+#. tradition.
+msgid "WORLD_INFO_CULTIVATION_ALIAS_DESC"
+msgstr ""
+"Cùng một tầng bậc tu hành có tên gọi riêng trong từng hệ thống: Đạo gia và "
+"tán tu là Luyện Khí, Trúc Cơ, Kim Đan, Nguyên Anh; võ đạo là Thối Thể, Dịch "
+"Cân, Tông Sư, Võ Thánh; nho đạo là Dưỡng Khí, Minh Lý, Lập Mệnh, Đại Nho; "
+"phật đạo là Sa Di, Tỳ Kheo, La Hán, Bồ Tát; yêu tộc là Khai Linh, Hóa Hình, "
+"Yêu Đan, Yêu Vương. Những tên gọi này tương ứng với cùng một chuỗi cảnh giới"
+" nền tảng, chỉ thay đổi tường thuật và cách hiển thị, không thay đổi quy tắc"
+" đột phá, chiến lực, thọ nguyên hay phẩm cấp vật phẩm."
+
+#. world_info.csv: Realm Aliases
+msgid "WORLD_INFO_CULTIVATION_ALIAS_NAME"
+msgstr "Biệt Danh Tầng Bậc"
+
+#. world_info.csv: Realm Aliases
+msgid "WORLD_INFO_CULTIVATION_ALIAS_TITLE"
+msgstr "Biệt Danh Tầng Bậc"
 
 msgid "PERSONA_1015_NAME"
 msgstr "Thân Thiện Với Dị Tộc"

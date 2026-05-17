@@ -1,0 +1,130 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "cultivation_alias.profile.dao"
+msgstr "Daoist"
+
+msgid "cultivation_alias.profile.sanxiu"
+msgstr "Rogue Cultivator"
+
+msgid "cultivation_alias.profile.wu"
+msgstr "Martial Path"
+
+msgid "cultivation_alias.profile.confucianism"
+msgstr "Confucian Path"
+
+msgid "cultivation_alias.profile.buddhism"
+msgstr "Buddhist Path"
+
+msgid "cultivation_alias.profile.yao"
+msgstr "Yao"
+
+msgid "cultivation_alias.dao.realm.qi_refinement"
+msgstr "Qi Refinement"
+
+msgid "cultivation_alias.dao.realm.foundation_establishment"
+msgstr "Foundation Establishment"
+
+msgid "cultivation_alias.dao.realm.core_formation"
+msgstr "Core Formation"
+
+msgid "cultivation_alias.dao.realm.nascent_soul"
+msgstr "Nascent Soul"
+
+msgid "cultivation_alias.dao.stage.early"
+msgstr " Early Stage"
+
+msgid "cultivation_alias.dao.stage.middle"
+msgstr " Middle Stage"
+
+msgid "cultivation_alias.dao.stage.late"
+msgstr " Late Stage"
+
+msgid "cultivation_alias.wu.realm.qi_refinement"
+msgstr "Body Tempering"
+
+msgid "cultivation_alias.wu.realm.foundation_establishment"
+msgstr "Tendon-Tempering"
+
+msgid "cultivation_alias.wu.realm.core_formation"
+msgstr "Martial Master"
+
+msgid "cultivation_alias.wu.realm.nascent_soul"
+msgstr "Martial Saint"
+
+msgid "cultivation_alias.wu.stage.early"
+msgstr ", Initial Attainment"
+
+msgid "cultivation_alias.wu.stage.middle"
+msgstr ", Mid Attainment"
+
+msgid "cultivation_alias.wu.stage.late"
+msgstr ", Great Attainment"
+
+msgid "cultivation_alias.confucianism.realm.qi_refinement"
+msgstr "Vital Qi Cultivation"
+
+msgid "cultivation_alias.confucianism.realm.foundation_establishment"
+msgstr "Principle Illumination"
+
+msgid "cultivation_alias.confucianism.realm.core_formation"
+msgstr "Mandate Establishment"
+
+msgid "cultivation_alias.confucianism.realm.nascent_soul"
+msgstr "Great Scholar"
+
+msgid "cultivation_alias.confucianism.stage.early"
+msgstr ", Early Realm"
+
+msgid "cultivation_alias.confucianism.stage.middle"
+msgstr ", Middle Realm"
+
+msgid "cultivation_alias.confucianism.stage.late"
+msgstr ", Completion"
+
+msgid "cultivation_alias.buddhism.realm.qi_refinement"
+msgstr "Novice Monk"
+
+msgid "cultivation_alias.buddhism.realm.foundation_establishment"
+msgstr "Monk"
+
+msgid "cultivation_alias.buddhism.realm.core_formation"
+msgstr "Arhat"
+
+msgid "cultivation_alias.buddhism.realm.nascent_soul"
+msgstr "Bodhisattva"
+
+msgid "cultivation_alias.buddhism.stage.early"
+msgstr ", Early Realm"
+
+msgid "cultivation_alias.buddhism.stage.middle"
+msgstr ", Middle Realm"
+
+msgid "cultivation_alias.buddhism.stage.late"
+msgstr ", Completion"
+
+msgid "cultivation_alias.yao.realm.qi_refinement"
+msgstr "Spirit Awakening"
+
+msgid "cultivation_alias.yao.realm.foundation_establishment"
+msgstr "Form Transformation"
+
+msgid "cultivation_alias.yao.realm.core_formation"
+msgstr "Demon Core"
+
+msgid "cultivation_alias.yao.realm.nascent_soul"
+msgstr "Demon King"
+
+msgid "cultivation_alias.yao.stage.early"
+msgstr " Early Stage"
+
+msgid "cultivation_alias.yao.stage.middle"
+msgstr " Middle Stage"
+
+msgid "cultivation_alias.yao.stage.late"
+msgstr " Late Stage"

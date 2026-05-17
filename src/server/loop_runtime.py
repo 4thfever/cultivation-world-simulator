@@ -5,6 +5,7 @@ from typing import Any, Callable
 
 from src.config import get_settings_service
 from src.i18n import t
+from src.systems.cultivation_display import build_avatar_cultivation_display
 
 AVATAR_POSITION_UPDATE_LIMIT = 50
 
@@ -25,6 +26,7 @@ def build_avatar_updates(
         avatar = world.avatar_manager.avatars.get(avatar_id)
         if avatar is None:
             continue
+        cultivation_display = build_avatar_cultivation_display(avatar)
         avatar_updates.append(
             {
                 "id": str(avatar.id),
@@ -34,6 +36,8 @@ def build_avatar_updates(
                 "gender": getattr(getattr(avatar, "gender", None), "value", "male"),
                 "pic_id": resolve_avatar_pic_id(avatar),
                 "realm": getattr(getattr(getattr(avatar, "cultivation_progress", None), "realm", None), "value", ""),
+                "cultivation": cultivation_display,
+                "cultivation_display": cultivation_display["display_full_name"],
                 "action": avatar.current_action_name,
                 "action_emoji": resolve_avatar_action_emoji(avatar),
                 "is_dead": False,
@@ -59,6 +63,7 @@ def build_avatar_updates(
             continue
         if count >= AVATAR_POSITION_UPDATE_LIMIT:
             break
+        cultivation_display = build_avatar_cultivation_display(avatar)
         avatar_updates.append(
             {
                 "id": str(avatar.id),
@@ -67,6 +72,8 @@ def build_avatar_updates(
                 "gender": getattr(getattr(avatar, "gender", None), "value", "male"),
                 "pic_id": resolve_avatar_pic_id(avatar),
                 "realm": getattr(getattr(getattr(avatar, "cultivation_progress", None), "realm", None), "value", ""),
+                "cultivation": cultivation_display,
+                "cultivation_display": cultivation_display["display_full_name"],
                 "action_emoji": resolve_avatar_action_emoji(avatar),
             }
         )

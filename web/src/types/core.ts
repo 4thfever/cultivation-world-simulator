@@ -41,6 +41,20 @@ export interface Material extends EffectEntity {
   count: number;
 }
 
+export interface CultivationDisplay {
+  profile_id: string;
+  profile_name: string;
+  realm_id: string;
+  stage_id: string;
+  level: number;
+  canonical_realm_name: string;
+  canonical_stage_name: string;
+  canonical_full_name: string;
+  display_realm_name: string;
+  display_stage_name: string;
+  display_full_name: string;
+}
+
 // --- 角色 (Avatar) ---
 
 export interface AvatarSummary extends EntityBase, Coordinates {
@@ -50,6 +64,8 @@ export interface AvatarSummary extends EntityBase, Coordinates {
   race?: string;
   pic_id?: number;
   realm?: string;
+  cultivation?: CultivationDisplay;
+  cultivation_display?: string;
   is_dead?: boolean;
 }
 
@@ -76,6 +92,8 @@ export interface AvatarDetail extends EntityBase {
   // 修行状态
   realm: string;
   realm_id?: string;
+  stage_id?: string;
+  cultivation?: CultivationDisplay;
   level: number;
   hp: { cur: number; max: number };
   observation_radius?: number;
@@ -250,6 +268,7 @@ export interface RelationInfo {
   relation_scope?: 'active' | 'archived' | 'computed' | 'mortal_child' | string;
   label_key?: string;
   target_gender?: string;
+  cultivation?: CultivationDisplay;
 }
 
 // --- 地图与区域 (Map & Region) ---
@@ -397,6 +416,7 @@ export interface AvatarOverviewSummary {
 
 export interface AvatarRealmDistributionItem {
   realm: string;
+  realmId?: string;
   count: number;
 }
 

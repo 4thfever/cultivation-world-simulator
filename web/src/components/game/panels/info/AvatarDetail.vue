@@ -40,6 +40,7 @@ const {
   equipmentSlots,
   avatarHeaderSubtitle,
   avatarRealmText,
+  avatarCanonicalRealmText,
   formattedRanking,
   groupedRelations,
   formatGenderLabel,
@@ -107,6 +108,9 @@ const {
         <div class="avatar-header-meta">
           <div class="avatar-name">{{ data.name }}</div>
           <div class="avatar-realm">{{ avatarRealmText }}</div>
+          <div v-if="avatarCanonicalRealmText" class="avatar-realm-canonical">
+            {{ t('game.info_panel.avatar.stats.canonical_realm', { value: avatarCanonicalRealmText }) }}
+          </div>
           <div class="avatar-sect">{{ avatarHeaderSubtitle }}</div>
         </div>
       </div>
@@ -141,7 +145,11 @@ const {
 
       <!-- Stats Grid -->
       <div class="stats-grid">
-        <StatItem :label="t('game.info_panel.avatar.stats.realm')" :value="formatCultivationText(data.realm, t)" />
+        <StatItem
+          :label="t('game.info_panel.avatar.stats.realm')"
+          :value="data.cultivation?.display_full_name || formatCultivationText(data.realm, t)"
+          :sub-value="data.cultivation && data.cultivation.canonical_full_name !== data.cultivation.display_full_name ? data.cultivation.canonical_full_name : undefined"
+        />
         <StatItem :label="t('game.info_panel.avatar.stats.age')" :value="`${data.age} / ${data.lifespan}`" />
         <StatItem 
           v-if="data.cultivation_start_age !== undefined"
@@ -594,6 +602,11 @@ const {
 .avatar-realm {
   font-size: 13px;
   color: #b3d7ff;
+}
+
+.avatar-realm-canonical {
+  font-size: 11px;
+  color: #7e8b98;
 }
 
 .avatar-sect {

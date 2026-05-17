@@ -1381,6 +1381,129 @@ msgstr "{realm}{stage}({level}級)。在瓶頸期：{status}"
 msgid "{realm}{stage}(Level {level}){status}"
 msgstr "{realm}{stage}({level}級){status}"
 
+msgid "cultivation_alias.profile.dao"
+msgstr "道家"
+
+msgid "cultivation_alias.profile.sanxiu"
+msgstr "散修"
+
+msgid "cultivation_alias.profile.wu"
+msgstr "武道"
+
+msgid "cultivation_alias.profile.confucianism"
+msgstr "儒道"
+
+msgid "cultivation_alias.profile.buddhism"
+msgstr "佛道"
+
+msgid "cultivation_alias.profile.yao"
+msgstr "妖族"
+
+msgid "cultivation_alias.dao.realm.qi_refinement"
+msgstr "練氣"
+
+msgid "cultivation_alias.dao.realm.foundation_establishment"
+msgstr "築基"
+
+msgid "cultivation_alias.dao.realm.core_formation"
+msgstr "金丹"
+
+msgid "cultivation_alias.dao.realm.nascent_soul"
+msgstr "元嬰"
+
+msgid "cultivation_alias.dao.stage.early"
+msgstr "前期"
+
+msgid "cultivation_alias.dao.stage.middle"
+msgstr "中期"
+
+msgid "cultivation_alias.dao.stage.late"
+msgstr "後期"
+
+msgid "cultivation_alias.wu.realm.qi_refinement"
+msgstr "淬體"
+
+msgid "cultivation_alias.wu.realm.foundation_establishment"
+msgstr "易筋"
+
+msgid "cultivation_alias.wu.realm.core_formation"
+msgstr "宗師"
+
+msgid "cultivation_alias.wu.realm.nascent_soul"
+msgstr "武聖"
+
+msgid "cultivation_alias.wu.stage.early"
+msgstr "初成"
+
+msgid "cultivation_alias.wu.stage.middle"
+msgstr "中成"
+
+msgid "cultivation_alias.wu.stage.late"
+msgstr "大成"
+
+msgid "cultivation_alias.confucianism.realm.qi_refinement"
+msgstr "養氣"
+
+msgid "cultivation_alias.confucianism.realm.foundation_establishment"
+msgstr "明理"
+
+msgid "cultivation_alias.confucianism.realm.core_formation"
+msgstr "立命"
+
+msgid "cultivation_alias.confucianism.realm.nascent_soul"
+msgstr "大儒"
+
+msgid "cultivation_alias.confucianism.stage.early"
+msgstr "初境"
+
+msgid "cultivation_alias.confucianism.stage.middle"
+msgstr "中境"
+
+msgid "cultivation_alias.confucianism.stage.late"
+msgstr "圓滿"
+
+msgid "cultivation_alias.buddhism.realm.qi_refinement"
+msgstr "沙彌"
+
+msgid "cultivation_alias.buddhism.realm.foundation_establishment"
+msgstr "比丘"
+
+msgid "cultivation_alias.buddhism.realm.core_formation"
+msgstr "羅漢"
+
+msgid "cultivation_alias.buddhism.realm.nascent_soul"
+msgstr "菩薩"
+
+msgid "cultivation_alias.buddhism.stage.early"
+msgstr "初境"
+
+msgid "cultivation_alias.buddhism.stage.middle"
+msgstr "中境"
+
+msgid "cultivation_alias.buddhism.stage.late"
+msgstr "圓滿"
+
+msgid "cultivation_alias.yao.realm.qi_refinement"
+msgstr "開靈"
+
+msgid "cultivation_alias.yao.realm.foundation_establishment"
+msgstr "化形"
+
+msgid "cultivation_alias.yao.realm.core_formation"
+msgstr "妖丹"
+
+msgid "cultivation_alias.yao.realm.nascent_soul"
+msgstr "妖王"
+
+msgid "cultivation_alias.yao.stage.early"
+msgstr "初期"
+
+msgid "cultivation_alias.yao.stage.middle"
+msgstr "中期"
+
+msgid "cultivation_alias.yao.stage.late"
+msgstr "後期"
+
 msgid "custom_content.category.technique"
 msgstr "功法"
 

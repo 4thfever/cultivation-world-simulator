@@ -1097,7 +1097,11 @@ def test_v1_avatar_overview_returns_ok_with_world():
         assert payload["data"]["summary"]["dead_count"] == 1
         assert payload["data"]["summary"]["sect_member_count"] == 1
         assert payload["data"]["summary"]["rogue_count"] == 1
-        assert payload["data"]["realm_distribution"][0] == {"realm": "练气", "count": 2}
+        assert payload["data"]["realm_distribution"][0] == {
+            "realm": "练气",
+            "realm_id": "QI_REFINEMENT",
+            "count": 2,
+        }
     finally:
         main.game_instance.clear()
         main.game_instance.update(original)

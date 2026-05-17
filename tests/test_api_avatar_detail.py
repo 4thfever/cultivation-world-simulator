@@ -8,6 +8,7 @@ from src.classes.root import Root
 from src.server import main
 from src.sim.avatar_init import make_avatars
 from src.systems.cultivation import Realm
+from src.systems.cultivation import CultivationProgress
 from src.systems.time import Month, Year, create_month_stamp
 from src.utils.id_generator import get_avatar_id
 
@@ -65,6 +66,30 @@ def test_avatar_detail_api_exposes_goldfinger_fields(base_world):
         assert data["goldfinger"]["state"] == {"story_focus": "modern_mindset"}
         assert "外挂 [穿越者]" in data["current_effects"]
         assert "pic_id" in data
+    finally:
+        main.game_instance.update(original_instance)
+
+
+def test_avatar_detail_api_exposes_cultivation_alias_fields(base_world):
+    original_instance = main.game_instance.copy()
+    try:
+        avatar = _make_avatar(base_world)
+        avatar.cultivation_progress = CultivationProgress(level=42)
+        avatar.sect = None
+        main.game_instance["world"] = base_world
+
+        client = TestClient(main.app)
+        response = client.get("/api/v1/query/detail", params={"type": "avatar", "id": avatar.id})
+
+        assert response.status_code == 200
+        data = response.json()["data"]
+        assert data["realm_id"] == "FOUNDATION_ESTABLISHMENT"
+        assert data["stage_id"] == "MIDDLE_STAGE"
+        assert data["cultivation"]["profile_id"] == "sanxiu"
+        assert data["cultivation"]["realm_id"] == "FOUNDATION_ESTABLISHMENT"
+        assert data["cultivation"]["stage_id"] == "MIDDLE_STAGE"
+        assert data["cultivation"]["display_full_name"] == "筑基中期"
+        assert data["cultivation"]["canonical_full_name"] == "筑基中期"
     finally:
         main.game_instance.update(original_instance)
 

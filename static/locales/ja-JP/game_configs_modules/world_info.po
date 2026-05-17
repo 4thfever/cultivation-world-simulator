@@ -44,7 +44,7 @@ msgstr "戦闘"
 
 #. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。
 msgid "WORLD_INFO_CULTIVATION_DESC"
-msgstr "修行によって経験を積み、突破前の瓶頸へ至ることができる。突破は確率イベントであり、成功すれば次の境界へ進む。"
+msgstr "修行によって修為を積み、現在の階層の瓶頸へ至る。突破には成否があり、成功すれば次の階層へ進み、失敗すれば代償を負うことがある。"
 
 msgid "WORLD_INFO_CULTIVATION_NAME"
 msgstr "修行"
@@ -64,7 +64,7 @@ msgstr "死亡"
 
 #. world_info.csv: 通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服...
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
-msgstr "武器、補助装備、丹薬などを通じて追加属性や大小さまざまな強化を得られる。優れた装備や丹薬は大きな助けとなる。"
+msgstr "武器、補助装備、丹薬は追加の加成をもたらす。高品階の装備と適切な丹薬は、修士の生存力と争闘能力を大きく高める。"
 
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
 msgstr "装備と丹薬"
@@ -84,7 +84,7 @@ msgstr "導入"
 
 #. world_info.csv: 若当前年龄达到最大寿元，会立刻死亡。突破境界可以增加最大寿元，突破失败也可能折损寿元。
 msgid "WORLD_INFO_LIFESPAN_DESC"
-msgstr "現在年齢が最大寿元に達すると即座に死亡する。境界突破は最大寿元を伸ばすことがあり、突破失敗で寿元を損なう場合もある。"
+msgstr "すべての人物には寿元の上限がある。寿元が尽きれば死亡する。境界突破は通常寿元を延ばすが、突破に失敗すると寿元を損なう場合もある。"
 
 msgid "WORLD_INFO_LIFESPAN_NAME"
 msgstr "寿元"
@@ -106,7 +106,7 @@ msgstr "道統"
 
 #. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。
 msgid "WORLD_INFO_REALM_DESC"
-msgstr "修行境界は弱い方から順に、練気・築基・金丹・元嬰。各境界は前期・中期・後期に分かれ、境界差は非常に大きい。"
+msgstr "世界の底層にある標準境界は、弱い順に練気・築基・金丹・元嬰で、各境界は前期・中期・後期に分かれる。体系ごとに別名はあるが、規則計算はこの標準序列に基づく。"
 
 msgid "WORLD_INFO_REALM_NAME"
 msgstr "境界"
@@ -156,7 +156,7 @@ msgstr "宗門"
 
 #. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器...
 msgid "WORLD_INFO_SHOPPING_DESC"
-msgstr "都市区域では練気級の丹薬や武器を購入できる。丹薬は購入後すぐ服用され、武器は自分に合う武器種へ持ち替える助けとなる。"
+msgstr "都市区域では練気品階の丹薬と武器を購入できる。丹薬は購入後すぐ服用され自身を強化し、武器はより手に合う武器種へ切り替える助けとなる。"
 
 msgid "WORLD_INFO_SHOPPING_NAME"
 msgstr "購買"
@@ -186,7 +186,7 @@ msgstr "天地霊気"
 
 #. world_info.csv: 修仙界设有天地人三榜及宗门榜。天榜收录元婴期强者，地榜收录金丹期强者，人榜收录筑基期强者，宗门榜按宗门总实力排名。
 msgid "WORLD_INFO_RANKING_DESC"
-msgstr "仙道界には天・地・人の榜と宗門ランキングがある。天榜には元嬰期の強者、地榜には結丹期の強者、人榜には築基期の強者が記され、宗門ランキングは宗門の総合実力で順位付けされる。"
+msgstr "仙道界には天・地・人の榜と宗門ランキングがある。三榜は等価標準境界で分けられ、天榜は元嬰層級、地榜は金丹層級、人榜は築基層級の強者を記す。宗門ランキングは宗門の総合実力で順位付けされる。"
 
 msgid "WORLD_INFO_RANKING_NAME"
 msgstr "榜"
@@ -213,3 +213,15 @@ msgstr "官位"
 
 msgid "WORLD_INFO_OFFICIAL_TITLE"
 msgstr "官位"
+
+#. world_info.csv: The same cultivation ranks have different names in each tradition.
+msgid "WORLD_INFO_CULTIVATION_ALIAS_DESC"
+msgstr "同じ修行階層でも、体系ごとに名目が異なります。道家と散修は練気・築基・金丹・元嬰、武道は鍛体・易筋・宗師・武聖、儒道は養気・明理・立命・大儒、仏道は沙弥・比丘・羅漢・菩薩、妖族は開霊・化形・妖丹・妖王と呼びます。これらは同じ基礎境界列に対応する呼称であり、物語と画面表示だけを変え、突破、戦力、寿元、品階などのルールは変えません。"
+
+#. world_info.csv: Realm Aliases
+msgid "WORLD_INFO_CULTIVATION_ALIAS_NAME"
+msgstr "階層別名"
+
+#. world_info.csv: Realm Aliases
+msgid "WORLD_INFO_CULTIVATION_ALIAS_TITLE"
+msgstr "階層別名"

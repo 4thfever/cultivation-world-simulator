@@ -23,7 +23,7 @@
 1. 本文件作用域：仓库根目录及其全部子目录。
 2. 当前仓库暂无更深层级的 `AGENTS.md` 或 `AGENTS.override.md`，因此本文件是项目级主说明。
 3. 指令来源：`.cursor/rules/*.mdc`、`.cursor/skills/*/SKILL.md`、`.cursor/commands/*.md`。
-4. 补充设计文档：`docs/specs/*.md` 中记录已经落地的重要系统设计；配置系统请优先参考 `docs/specs/config-architecture.md`，小故事系统请优先参考 `docs/specs/story-event-system.md`，角色扮演模式请优先参考 `docs/specs/avatar-roleplay-mode.md` 与 `docs/specs/single-choice-unified-framework.md`。
+4. 补充设计文档：`docs/specs/*.md` 中记录已经落地的重要系统设计；配置系统请优先参考 `docs/specs/config-architecture.md`，小故事系统请优先参考 `docs/specs/story-event-system.md`，角色扮演模式请优先参考 `docs/specs/avatar-roleplay-mode.md` 与 `docs/specs/single-choice-unified-framework.md`，修为阶层别名请优先参考 `docs/specs/cultivation-alias-system.md`。
 5. 外接控制 API 的服务端当前已经完成一轮模块化收口；优先参考 `docs/specs/external-control-api.md` 中的“当前落地后的服务端模块地图”，不要再把 query builder、command handler、初始化 phase 或宿主装配重新堆回 `src/server/main.py`。
 
 ## 3. `.cursor/rules` 沉淀

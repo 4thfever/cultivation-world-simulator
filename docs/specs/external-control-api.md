@@ -265,7 +265,20 @@
 - 避免 HTTP mutation 与 `sim.step()` 并发改 world
 - 避免多个外部 command 同时写世界
 
-### 4.2 Query 的快照语义
+### 4.2 修为阶层别名与稳定 ID
+
+修为阶层在查询结果中可能同时出现两类字段：
+
+- 稳定 ID：`realm`、`stage`、`realm_id`、`stage_id`，值来自领域枚举，例如 `FOUNDATION_ESTABLISHMENT`、`EARLY_STAGE`。
+- 展示别名：`cultivation.display_full_name`、`cultivation_display`，会随角色道统或种族变化，例如同一标准境界可显示为“筑基前期”“易筋初成”“明理初境”“化形前期”。
+
+对外 API 约束：
+
+- 所有 command、action params、脚本自动化输入必须使用稳定 ID。
+- query 返回的展示别名只用于 UI、日志、叙事或给 agent 读懂世界，不得反向作为命令参数。
+- 如果同一响应同时给出 `realm` 与 `cultivation`，`realm` 保持稳定 ID 语义，`cultivation` 承担显示语义。
+
+### 4.3 Query 的快照语义
 
 query 不应直接暴露“半更新中”的临时状态。
 
@@ -274,7 +287,7 @@ query 不应直接暴露“半更新中”的临时状态。
 - 简单查询可直接读取当前状态
 - 对体量较大或涉及多对象拼装的查询，优先通过 service 封装，保证同一次返回内部字段语义一致
 
-### 4.3 生命周期守卫
+### 4.4 生命周期守卫
 
 所有 command 必须统一校验：
 

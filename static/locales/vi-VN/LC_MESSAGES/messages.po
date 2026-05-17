@@ -1482,6 +1482,129 @@ msgstr "{realm}{stage}(Cấp {level}). Bình cảnh: {status}"
 msgid "{realm}{stage}(Level {level}){status}"
 msgstr "{realm}{stage}(Cấp {level}){status}"
 
+msgid "cultivation_alias.profile.dao"
+msgstr "Đạo Gia"
+
+msgid "cultivation_alias.profile.sanxiu"
+msgstr "Tán Tu"
+
+msgid "cultivation_alias.profile.wu"
+msgstr "Võ Đạo"
+
+msgid "cultivation_alias.profile.confucianism"
+msgstr "Nho Đạo"
+
+msgid "cultivation_alias.profile.buddhism"
+msgstr "Phật Đạo"
+
+msgid "cultivation_alias.profile.yao"
+msgstr "Yêu Tộc"
+
+msgid "cultivation_alias.dao.realm.qi_refinement"
+msgstr "Luyện Khí"
+
+msgid "cultivation_alias.dao.realm.foundation_establishment"
+msgstr "Trúc Cơ"
+
+msgid "cultivation_alias.dao.realm.core_formation"
+msgstr "Kim Đan"
+
+msgid "cultivation_alias.dao.realm.nascent_soul"
+msgstr "Nguyên Anh"
+
+msgid "cultivation_alias.dao.stage.early"
+msgstr " sơ kỳ"
+
+msgid "cultivation_alias.dao.stage.middle"
+msgstr " trung kỳ"
+
+msgid "cultivation_alias.dao.stage.late"
+msgstr " hậu kỳ"
+
+msgid "cultivation_alias.wu.realm.qi_refinement"
+msgstr "Thối Thể"
+
+msgid "cultivation_alias.wu.realm.foundation_establishment"
+msgstr "Dịch Cân"
+
+msgid "cultivation_alias.wu.realm.core_formation"
+msgstr "Tông Sư"
+
+msgid "cultivation_alias.wu.realm.nascent_soul"
+msgstr "Võ Thánh"
+
+msgid "cultivation_alias.wu.stage.early"
+msgstr " sơ thành"
+
+msgid "cultivation_alias.wu.stage.middle"
+msgstr " trung thành"
+
+msgid "cultivation_alias.wu.stage.late"
+msgstr " đại thành"
+
+msgid "cultivation_alias.confucianism.realm.qi_refinement"
+msgstr "Dưỡng Khí"
+
+msgid "cultivation_alias.confucianism.realm.foundation_establishment"
+msgstr "Minh Lý"
+
+msgid "cultivation_alias.confucianism.realm.core_formation"
+msgstr "Lập Mệnh"
+
+msgid "cultivation_alias.confucianism.realm.nascent_soul"
+msgstr "Đại Nho"
+
+msgid "cultivation_alias.confucianism.stage.early"
+msgstr " sơ cảnh"
+
+msgid "cultivation_alias.confucianism.stage.middle"
+msgstr " trung cảnh"
+
+msgid "cultivation_alias.confucianism.stage.late"
+msgstr " viên mãn"
+
+msgid "cultivation_alias.buddhism.realm.qi_refinement"
+msgstr "Sa Di"
+
+msgid "cultivation_alias.buddhism.realm.foundation_establishment"
+msgstr "Tỳ Kheo"
+
+msgid "cultivation_alias.buddhism.realm.core_formation"
+msgstr "La Hán"
+
+msgid "cultivation_alias.buddhism.realm.nascent_soul"
+msgstr "Bồ Tát"
+
+msgid "cultivation_alias.buddhism.stage.early"
+msgstr " sơ cảnh"
+
+msgid "cultivation_alias.buddhism.stage.middle"
+msgstr " trung cảnh"
+
+msgid "cultivation_alias.buddhism.stage.late"
+msgstr " viên mãn"
+
+msgid "cultivation_alias.yao.realm.qi_refinement"
+msgstr "Khai Linh"
+
+msgid "cultivation_alias.yao.realm.foundation_establishment"
+msgstr "Hóa Hình"
+
+msgid "cultivation_alias.yao.realm.core_formation"
+msgstr "Yêu Đan"
+
+msgid "cultivation_alias.yao.realm.nascent_soul"
+msgstr "Yêu Vương"
+
+msgid "cultivation_alias.yao.stage.early"
+msgstr " sơ kỳ"
+
+msgid "cultivation_alias.yao.stage.middle"
+msgstr " trung kỳ"
+
+msgid "cultivation_alias.yao.stage.late"
+msgstr " hậu kỳ"
+
 msgid "custom_content.category.technique"
 msgstr "công pháp"
 

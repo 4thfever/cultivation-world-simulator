@@ -36,15 +36,20 @@ class RankingManager:
                 
         def get_avatar_info(avatar: "Avatar") -> dict:
             from src.i18n import t
+            from src.systems.cultivation_display import build_avatar_cultivation_display
+
             # Translate sect name if necessary, or just use string
             sect_name = avatar.sect.name if avatar.sect else t("Rogue Cultivator")
+            cultivation_display = build_avatar_cultivation_display(avatar)
             return {
                 "id": str(avatar.id),
                 "name": avatar.name,
                 "sect_id": avatar.sect.id if avatar.sect else None,
                 "sect": sect_name,
-                "realm": str(avatar.cultivation_progress.realm),
-                "stage": str(avatar.cultivation_progress.stage),
+                "realm": cultivation_display["realm_id"],
+                "stage": cultivation_display["stage_id"],
+                "cultivation": cultivation_display,
+                "cultivation_display": cultivation_display["display_full_name"],
                 "power": int(get_base_strength(avatar))
             }
             
