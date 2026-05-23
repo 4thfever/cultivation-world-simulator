@@ -10,6 +10,7 @@
 [![Bilibili](https://img.shields.io/badge/Bilibili-Watch_Video-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%20Group-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
+[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Wishlist-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](../../LICENSE)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
@@ -25,7 +26,7 @@
 </p>
 
 > **Act as the "Heavenly Dao" and observe a cultivation world simulator driven by rule systems and AI as it evolves on its own.**
-> **Fully LLM-driven, emergent ensemble storytelling, supports one-click Docker deployment, and is suitable for source code development and secondary creation.**
+> **Fully LLM-driven with emergent ensemble storytelling, now open for desktop wishlisting, and also suitable for Docker deployment, source development, and secondary creation.**
 
 <table align="center">
   <tr>
@@ -91,7 +92,7 @@ In the simulator, every cultivator is an independent Agent who can freely observ
 ### Recommended Method
 
 - **Want to modify code or debug**: Use source code deployment and prepare Python `3.10+`, Node.js `18+`, and available model services.
-- **Want to experience directly**: Prioritize one-click Docker deployment.
+- **Want to experience it directly**: Wishlist it on the [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8), or use one-click Docker deployment.
 - For a quick reference wiki on world info, actions, sects, and more, generate the local helper site in `tools/wiki`.
 
 ### First Launch Instructions

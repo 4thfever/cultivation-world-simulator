@@ -10,6 +10,7 @@
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E5%8B%95%E7%94%BB%E3%82%92%E8%A6%8B%E3%82%8B-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ 群](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
+[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Wishlist-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](../../LICENSE)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
@@ -25,7 +26,7 @@
 </p>
 
 > **あなたは「天道」として、ルール体系と AI によって駆動される修仙世界シミュレーターが自律的に進化していく様子を見守ります。**
-> **全員が LLM 駆動、群像劇的な物語の創出、Docker によるワンクリックデプロイに対応し、ソースコード開発や二次創作にも適しています。**
+> **全員が LLM 駆動、群像劇的な物語の創出、デスクトップ版のウィッシュリスト公開、Docker デプロイ、ソースコード開発や二次創作にも対応しています。**
 
 <table align="center">
   <tr>
@@ -91,7 +92,7 @@
 ### 推奨方法
 
 - **コードの変更やデバッグをしたい場合**: ソースコードデプロイを使用し、Python `3.10+`、Node.js `18+`、および利用可能なモデルサービスを用意してください。
-- **直接体験したい場合**: Docker によるワンクリックデプロイを優先してください。
+- **直接体験したい場合**: [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8) でウィッシュリストに追加できます。Docker によるワンクリックデプロイも利用できます。
 - 世界情報、行動、宗門などを手早く確認したい場合は、`tools/wiki` でローカルの補助 wiki を生成できます。
 
 ### 初回起動時の説明

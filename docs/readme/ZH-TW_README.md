@@ -10,6 +10,7 @@
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A6%96%E9%A0%BB-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ 群](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
+[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Wishlist-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](../../LICENSE)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
@@ -25,7 +26,7 @@
 </p>
 
 > **你將作為「天道」，觀察一個由規則系統與 AI 共同驅動的修仙世界模擬器自行演化。**
-> **全員 LLM 驅動、群像湧現敘事、支援 Docker 一鍵部署，也適合原始碼開發與二次創作。**
+> **全員 LLM 驅動、群像湧現敘事，已開放桌面版願望清單，也支援 Docker 部署、原始碼開發與二次創作。**
 
 <table align="center">
   <tr>
@@ -91,7 +92,7 @@
 ### 推薦方式
 
 - **想改程式碼或除錯**：使用原始碼部署，並準備 Python `3.10+`、Node.js `18+` 和可用的模型服務。
-- **想直接體驗**：優先使用 Docker 一鍵部署。
+- **想直接體驗**：可前往 [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8) 加入願望清單；也可以使用 Docker 一鍵部署。
 - 若要快速查閱世界資訊、動作、宗門等資料，可在 `tools/wiki` 生成本地輔助 wiki。
 
 ### 首次啟動說明

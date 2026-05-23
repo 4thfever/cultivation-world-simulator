@@ -10,6 +10,7 @@
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A6%96%E9%A0%BB-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
+[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Wishlist-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](../../LICENSE)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
@@ -25,7 +26,7 @@
 </p>
 
 > **Bạn sẽ đóng vai "Thiên Đạo", quan sát một trình mô phỏng thế giới tu tiên do hệ thống quy tắc và AI cùng vận hành tự mình diễn hóa.**
-> **Toàn bộ nhân vật đều do LLM dẫn động, cốt truyện quần tượng nảy sinh tự nhiên, hỗ trợ Docker để triển khai nhanh, đồng thời cũng phù hợp cho phát triển mã nguồn và sáng tạo thứ cấp.**
+> **Toàn bộ nhân vật đều do LLM dẫn động, cốt truyện quần tượng nảy sinh tự nhiên, đã mở wishlist cho bản desktop, đồng thời hỗ trợ Docker, phát triển mã nguồn và sáng tạo thứ cấp.**
 
 <table align="center">
   <tr>
@@ -91,7 +92,7 @@ Trong trình mô phỏng, mỗi tu sĩ đều là một Agent độc lập, có 
 ### Cách Được Khuyến Nghị
 
 - **Nếu muốn sửa code hoặc debug**: Dùng cách chạy từ mã nguồn, đồng thời chuẩn bị Python `3.10+`, Node.js `18+` và một dịch vụ mô hình khả dụng.
-- **Nếu chỉ muốn trải nghiệm ngay**: Ưu tiên dùng Docker để triển khai một lệnh.
+- **Nếu chỉ muốn trải nghiệm ngay**: Có thể thêm vào wishlist trên [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8), hoặc dùng Docker để triển khai một lệnh.
 - Nếu cần tra nhanh thông tin thế giới, hành động, tông môn và dữ liệu liên quan, hãy tạo wiki cục bộ trong `tools/wiki`.
 
 ### Lưu Ý Khi Khởi Chạy Lần Đầu
