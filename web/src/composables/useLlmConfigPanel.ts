@@ -53,7 +53,7 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     {
       name: t('llm.presets.qwen'),
       base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-      model_name: 'qwen3.5-plus',
+      model_name: 'qwen-plus',
       fast_model_name: 'qwen3.5-flash',
       api_format: 'openai',
       badge: 'recommended',
@@ -113,8 +113,8 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     {
       name: t('llm.presets.longcat'),
       base_url: 'https://api.longcat.chat/openai',
-      model_name: 'LongCat-Flash-Chat',
-      fast_model_name: 'LongCat-Flash-Lite',
+      model_name: 'LongCat-2.0-Preview',
+      fast_model_name: 'LongCat-2.0-Preview',
       api_format: 'openai',
       badge: 'free',
     },

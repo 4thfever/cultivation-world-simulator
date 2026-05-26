@@ -27,7 +27,7 @@ export function useGameInit(options: UseGameInitOptions = {}) {
   const worldStore = useWorldStore()
   const mapStore = useMapStore()
   const socketStore = useSocketStore()
-  const { loadBaseTextures, preloadRegionTextures } = useTextures()
+  const { loadBaseTextures, preloadRegionTextures, preloadAvatarTextures } = useTextures()
 
   const { initStatus, isInitialized, isLoading } = storeToRefs(systemStore)
   
@@ -35,6 +35,8 @@ export function useGameInit(options: UseGameInitOptions = {}) {
   const mapPreloaded = ref(false)
   const avatarsPreloaded = ref(false)
   const texturesPreloaded = ref(false)
+  const isInitializingFrontend = ref(false)
+  const frontendInitError = ref<string | null>(null)
   const initializeDurationMs = ref(0)
   const lastPollDurationMs = ref(0)
   
@@ -53,25 +55,43 @@ export function useGameInit(options: UseGameInitOptions = {}) {
 
   // Methods
   async function initializeGame() {
+    if (isInitializingFrontend.value) return
+    isInitializingFrontend.value = true
+    frontendInitError.value = null
     const start = performance.now()
-    if (isInitialized.value) {
-      // 重新加载存档时，重新初始化
-      worldStore.reset()
+    try {
+      if (isInitialized.value) {
+        // 重新加载存档时，重新初始化
+        worldStore.reset()
+      }
+
+      // 初始化 Socket 连接
+      if (!socketStore.isConnected) {
+        socketStore.init()
+      }
+
+      // 初始化世界状态
+      await worldStore.initialize()
+      if (!worldStore.isLoaded) {
+        throw new Error('World data was not loaded after initialization')
+      }
+
+      // 确保地图区域纹理和基础纹理都已加载，loading 阶段完整承接资源准备。
+      await Promise.all([
+        preloadRegionTextures(mapStore.regions.values()),
+        loadBaseTextures(),
+      ])
+      await preloadAvatarTextures(worldStore.avatarList)
+
+      systemStore.setInitialized(true)
+      initializeDurationMs.value = performance.now() - start
+    } catch (e) {
+      frontendInitError.value = e instanceof Error ? e.message : String(e)
+      logError('GameInit initialize game', e)
+      throw e
+    } finally {
+      isInitializingFrontend.value = false
     }
-    
-    // 初始化 Socket 连接
-    if (!socketStore.isConnected) {
-      socketStore.init()
-    }
-    
-    // 初始化世界状态
-    await worldStore.initialize()
-    
-    // 重新加载纹理以确保新生成的角色头像被加载
-    await loadBaseTextures()
-    
-    systemStore.setInitialized(true)
-    initializeDurationMs.value = performance.now() - start
   }
 
   async function pollInitStatus() {
@@ -116,9 +136,12 @@ export function useGameInit(options: UseGameInitOptions = {}) {
         preloadBaseTexturesOnce()
       }
       
-      // 状态跃迁：非 Ready -> Ready
-      if (prevStatus !== 'ready' && res.status === 'ready' && !isInitialized.value) {
-        await initializeGame()
+      if (res.status === 'ready' && !isInitialized.value && !isInitializingFrontend.value) {
+        try {
+          await initializeGame()
+        } catch {
+          // Keep polling; the next ready poll can retry frontend initialization.
+        }
         // 不要停止轮询，否则 reset 之后无法检测到状态变化
         // stopPolling()
       }
@@ -156,6 +179,8 @@ export function useGameInit(options: UseGameInitOptions = {}) {
     showLoading: isLoading,
     mapPreloaded,
     avatarsPreloaded,
+    isInitializingFrontend,
+    frontendInitError,
     initializeDurationMs,
     lastPollDurationMs,
     initializeGame,

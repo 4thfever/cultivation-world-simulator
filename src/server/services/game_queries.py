@@ -29,6 +29,7 @@ def get_runtime_status(runtime, version: str) -> dict[str, Any]:
         "version": version,
         "llm_check_failed": runtime.get("llm_check_failed", False),
         "llm_error_message": runtime.get("llm_error_message", ""),
+        "llm_check_pending": runtime.get("llm_check_pending", False),
         "is_paused": runtime.is_effectively_paused() if hasattr(runtime, "is_effectively_paused") else runtime.get("is_paused", True),
         "pause_reason": runtime.get_pause_reason() if hasattr(runtime, "get_pause_reason") else ("paused" if runtime.get("is_paused", True) else ""),
         "roleplay": build_roleplay_session(runtime) if hasattr(runtime, "get_roleplay_session") else None,

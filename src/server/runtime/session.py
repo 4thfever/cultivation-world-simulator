@@ -17,10 +17,12 @@ DEFAULT_GAME_STATE: dict[str, Any] = {
     "init_progress": 0,
     "init_error": None,
     "init_start_time": None,
+    "init_generation": 0,
     "run_config": None,
     "current_save_path": None,
     "llm_check_failed": False,
     "llm_error_message": "",
+    "llm_check_pending": False,
     "roleplay_session": {
         "controlled_avatar_id": None,
         "status": "inactive",
@@ -80,6 +82,7 @@ class GameSessionRuntime:
 
     def reset_to_idle(self, *, clear_run_config: bool = True) -> None:
         run_config = None if clear_run_config else self._state.get("run_config")
+        self._state["init_generation"] = int(self._state.get("init_generation", 0) or 0) + 1
         self._state.update(
             {
                 "world": None,
@@ -96,11 +99,13 @@ class GameSessionRuntime:
                 "init_start_time": None,
                 "llm_check_failed": False,
                 "llm_error_message": "",
+                "llm_check_pending": False,
             }
         )
         self.clear_roleplay_session()
 
     def mark_pending_initialization(self, *, clear_world: bool) -> None:
+        self._state["init_generation"] = int(self._state.get("init_generation", 0) or 0) + 1
         if clear_world:
             self._state["world"] = None
             self._state["sim"] = None
@@ -112,6 +117,9 @@ class GameSessionRuntime:
         self._state["init_phase_name"] = ""
         self._state["init_progress"] = 0
         self._state["init_error"] = None
+        self._state["llm_check_failed"] = False
+        self._state["llm_error_message"] = ""
+        self._state["llm_check_pending"] = False
         self.clear_roleplay_session()
 
     def begin_initialization(self) -> None:

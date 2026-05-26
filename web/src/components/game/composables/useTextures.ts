@@ -1,7 +1,7 @@
 import { markRaw, ref, shallowRef } from 'vue'
 import { Assets, Texture, TextureStyle } from 'pixi.js'
 import { avatarApi } from '@/api'
-import type { RegionSummary } from '@/types/core'
+import type { AvatarSummary, RegionSummary } from '@/types/core'
 import { getClusteredTileVariant } from '@/utils/procedural'
 import { logError, logWarn } from '@/utils/appError'
 import { getAvatarIndexSlug, getAvatarPortraitUrl, getRealmAssetSlug, getGameAssetUrl } from '@/utils/assetUrls'
@@ -56,6 +56,27 @@ function getAvatarTextureKey(
     return `${normalizedGender}_${getAvatarIndexSlug(picId)}_${getRealmAssetSlug(realm)}`
   }
   return `${normalizedRace}_${normalizedGender}_${getAvatarIndexSlug(picId)}_${getRealmAssetSlug(realm)}`
+}
+
+function resolveAvatarPortraitId(
+  avatar: Pick<AvatarSummary, 'id' | 'name' | 'gender' | 'race' | 'pic_id'>,
+  libraries: AvatarAssetLibraries,
+): number {
+  if (avatar.pic_id) return avatar.pic_id
+
+  const gender = String(avatar.gender || '').toLowerCase()
+  const genderKey = gender === 'female' || gender === '女' ? 'female' : 'male'
+  const raceKey = String(avatar.race || 'human').toLowerCase()
+  const library = libraries[raceKey] || libraries.human
+  const list = Array.isArray(library) ? library : library?.[genderKey]
+  if (!list || list.length === 0) return 1
+
+  let hash = 0
+  const str = avatar.id || avatar.name || 'default'
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash)
+  }
+  return list[Math.abs(hash) % list.length]
 }
 
 export function useTextures() {
@@ -272,6 +293,28 @@ export function useTextures() {
       ])
   }
 
+  const loadAvatarTexture = (
+    gender: string | undefined,
+    picId: number | null | undefined,
+    realm: string | null | undefined,
+    race?: string | null,
+  ): Promise<void> => {
+    if (!picId) return Promise.resolve()
+    const key = getAvatarTextureKey(gender, picId, realm, race)
+    if (textures.value[key]) return Promise.resolve()
+    const existingPromise = avatarTexturePromises.get(key)
+    if (existingPromise) return existingPromise
+
+    const promise = Assets.load(getAvatarPortraitUrl(gender, picId, realm, race))
+      .then(tex => { setTexture(key, tex) })
+      .catch(e => logWarn(`Textures load avatar ${key}`, e))
+      .finally(() => {
+        avatarTexturePromises.delete(key)
+      })
+    avatarTexturePromises.set(key, promise)
+    return promise
+  }
+
   const ensureAvatarTexture = (
     gender: string | undefined,
     picId: number | null | undefined,
@@ -281,16 +324,26 @@ export function useTextures() {
     if (!picId) return undefined
     const key = getAvatarTextureKey(gender, picId, realm, race)
     if (textures.value[key]) return textures.value[key]
-    if (avatarTexturePromises.has(key)) return undefined
-
-    const promise = Assets.load(getAvatarPortraitUrl(gender, picId, realm, race))
-      .then(tex => { setTexture(key, tex) })
-      .catch(e => logWarn(`Textures load avatar ${key}`, e))
-      .finally(() => {
-        avatarTexturePromises.delete(key)
-      })
-    avatarTexturePromises.set(key, promise)
+    void loadAvatarTexture(gender, picId, realm, race)
     return undefined
+  }
+
+  const preloadAvatarTextures = async (avatars: Iterable<AvatarSummary>) => {
+    await loadBaseTextures()
+
+    const avatarList = Array.from(avatars)
+    const seen = new Set<string>()
+    const promises: Promise<void>[] = []
+
+    for (const avatar of avatarList) {
+      const picId = resolveAvatarPortraitId(avatar, availableAvatars.value)
+      const key = getAvatarTextureKey(avatar.gender, picId, avatar.realm, avatar.race)
+      if (seen.has(key)) continue
+      seen.add(key)
+      promises.push(loadAvatarTexture(avatar.gender, picId, avatar.realm, avatar.race))
+    }
+
+    await Promise.all(promises)
   }
 
   // 获取地形纹理（支持随机变体）
@@ -318,6 +371,7 @@ export function useTextures() {
     preloadRegionTextures,
     availableAvatars,
     ensureAvatarTexture,
+    preloadAvatarTextures,
     getTileTexture
   }
 }

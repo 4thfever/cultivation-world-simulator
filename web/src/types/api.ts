@@ -322,6 +322,7 @@ export interface InitStatusDTO {
   version?: string;
   llm_check_failed: boolean;
   llm_error_message: string;
+  llm_check_pending?: boolean;
   is_paused?: boolean;
   pause_reason?: string;
   roleplay?: RoleplaySessionDTO | null;

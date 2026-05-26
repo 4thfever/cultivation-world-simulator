@@ -5,6 +5,7 @@
 
 // 使用环境变量作为 API 基础路径，如果没有配置则默认为空（相对路径）
 const API_BASE = import.meta.env.VITE_API_TARGET || '';
+const DEFAULT_TIMEOUT_MS = 30000;
 
 export class ApiError extends Error {
   public status: number;
@@ -20,7 +21,20 @@ export class ApiError extends Error {
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const url = `${API_BASE}${path}`;
-  const response = await fetch(url, options);
+  const controller = new AbortController();
+  const timeout = globalThis.setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
+
+  let response: Response;
+  try {
+    response = await fetch(url, { ...options, signal: options.signal ?? controller.signal });
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw new ApiError(408, `Request timed out after ${Math.round(DEFAULT_TIMEOUT_MS / 1000)}s`);
+    }
+    throw error;
+  } finally {
+    globalThis.clearTimeout(timeout);
+  }
 
   if (!response.ok) {
     // 尝试解析错误响应的 JSON

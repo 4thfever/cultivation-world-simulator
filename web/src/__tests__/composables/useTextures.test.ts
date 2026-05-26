@@ -104,6 +104,11 @@ describe('useTextures', () => {
       const { ensureAvatarTexture } = useTextures()
       expect(typeof ensureAvatarTexture).toBe('function')
     })
+
+    it('should return preloadAvatarTextures function', () => {
+      const { preloadAvatarTextures } = useTextures()
+      expect(typeof preloadAvatarTextures).toBe('function')
+    })
   })
 
   describe('loadBaseTextures', () => {
@@ -176,6 +181,44 @@ describe('useTextures', () => {
       expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/avatars/male/005/foundation.png')
       await Promise.resolve()
       expect(textures.value['male_005_foundation']).toBeDefined()
+    })
+
+    it('should preload current avatar textures before render', async () => {
+      mockFetchAvatarMeta.mockResolvedValue({
+        human: {
+          male: [1, 5, 10],
+          female: [2, 7],
+        },
+      })
+
+      const { preloadAvatarTextures, textures } = useTextures()
+      await preloadAvatarTextures([
+        {
+          id: 'avatar-1',
+          name: 'A',
+          x: 0,
+          y: 0,
+          gender: 'male',
+          race: 'human',
+          pic_id: 5,
+          realm: 'FOUNDATION_ESTABLISHMENT',
+        },
+        {
+          id: 'avatar-2',
+          name: 'B',
+          x: 1,
+          y: 1,
+          gender: 'female',
+          race: 'human',
+          pic_id: 7,
+          realm: 'QI_REFINING',
+        },
+      ])
+
+      expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/avatars/male/005/foundation.png')
+      expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/avatars/female/007/qi_refining.png')
+      expect(textures.value['male_005_foundation']).toBeDefined()
+      expect(textures.value['female_007_qi_refining']).toBeDefined()
     })
 
     it('should use fallback avatar range when meta fetch fails', async () => {

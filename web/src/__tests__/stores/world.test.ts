@@ -498,11 +498,11 @@ describe('useWorldStore', () => {
       expect(worldApi.fetchMap).not.toHaveBeenCalled()
     })
 
-    it('should handle errors gracefully', async () => {
+    it('should surface initialization errors to the caller', async () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       vi.mocked(worldApi.fetchMap).mockRejectedValue(new Error('Network error'))
 
-      await store.initialize()
+      await expect(store.initialize()).rejects.toThrow('Network error')
 
       expect(consoleSpy).toHaveBeenCalled()
       consoleSpy.mockRestore()

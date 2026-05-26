@@ -72,6 +72,108 @@ async def _generate_initial_avatars(
     return random_avatars
 
 
+async def _prepare_initial_character_profiles(*, world) -> None:
+    from src.sim.simulator_engine.phases import lifecycle
+
+    avatar_manager = getattr(world, "avatar_manager", None)
+    if avatar_manager is None:
+        return
+
+    if hasattr(avatar_manager, "get_living_avatars"):
+        living_avatars = list(avatar_manager.get_living_avatars())
+    else:
+        living_avatars = list(getattr(avatar_manager, "avatars", {}).values())
+    if not living_avatars:
+        return
+
+    print("Preparing initial character profiles...")
+    objective_results = await asyncio.gather(
+        *[lifecycle.process_avatar_long_term_objective(avatar) for avatar in living_avatars],
+        return_exceptions=True,
+    )
+    event_manager = getattr(world, "event_manager", None)
+    if event_manager is not None:
+        for result in objective_results:
+            if isinstance(result, Exception):
+                print(f"[Warning] Initial long-term objective generation failed: {result}")
+                continue
+            if result is not None:
+                event_manager.add_event(result)
+
+    backstory_results = await asyncio.gather(
+        *[lifecycle.process_avatar_backstory(avatar) for avatar in living_avatars],
+        return_exceptions=True,
+    )
+    for result in backstory_results:
+        if isinstance(result, Exception):
+            print(f"[Warning] Initial backstory generation failed: {result}")
+    print("Initial character profiles prepared")
+
+
+async def _run_llm_check_background(
+    *,
+    runtime,
+    init_generation: int,
+    check_llm_connectivity: Callable[[], tuple[bool, str]],
+) -> None:
+    if int(runtime.get("init_generation", 0) or 0) != init_generation:
+        return
+    runtime.update({"llm_check_pending": True})
+    try:
+        print("Checking LLM connectivity in background...")
+        success, error_msg = await asyncio.to_thread(check_llm_connectivity)
+        if int(runtime.get("init_generation", 0) or 0) != init_generation:
+            return
+        if not success:
+            print(f"[Warning] LLM connectivity check failed: {error_msg}")
+            runtime.update(
+                {
+                    "llm_check_failed": True,
+                    "llm_error_message": error_msg,
+                    "llm_check_pending": False,
+                }
+            )
+        else:
+            print("LLM connectivity check passed")
+            runtime.update(
+                {
+                    "llm_check_failed": False,
+                    "llm_error_message": "",
+                    "llm_check_pending": False,
+                }
+            )
+    except Exception as exc:
+        if int(runtime.get("init_generation", 0) or 0) != init_generation:
+            return
+        runtime.update(
+            {
+                "llm_check_failed": True,
+                "llm_error_message": f"连通性检测异常：{exc}",
+                "llm_check_pending": False,
+            }
+        )
+        print(f"[Warning] LLM connectivity check failed: {exc}")
+
+
+async def _run_initial_events_background(*, runtime, sim, init_generation: int) -> None:
+    async def _do_step() -> None:
+        if int(runtime.get("init_generation", 0) or 0) != init_generation:
+            return
+        print("Generating initial events in background...")
+        try:
+            await sim.step()
+            print("Initial events generation completed")
+        except Exception as exc:
+            print(f"[Warning] Initial events generation failed: {exc}")
+
+    try:
+        if int(runtime.get("init_generation", 0) or 0) != init_generation:
+            return
+        await runtime.run_mutation(_do_step)
+    except Exception as exc:
+        print(f"[Warning] Initial events background task failed: {exc}")
+
+
 async def perform_game_initialization(
     *,
     runtime,
@@ -177,29 +279,35 @@ async def perform_game_initialization(
         world.sect_context.from_existed_sects(existed_sects)
         runtime.update({"world": world, "sim": sim})
 
-        update_init_progress(5, "checking_llm")
-        print("Checking LLM connectivity...")
-        success, error_msg = await asyncio.to_thread(check_llm_connectivity)
-        if not success:
-            print(f"[Warning] LLM connectivity check failed: {error_msg}")
-            runtime.update({"llm_check_failed": True, "llm_error_message": error_msg})
-        else:
-            print("LLM connectivity check passed")
-            runtime.update({"llm_check_failed": False, "llm_error_message": ""})
+        update_init_progress(5, "preparing_character_profiles")
+        await _prepare_initial_character_profiles(world=world)
 
         update_init_progress(6, "generating_initial_events")
-        print("Generating initial events...")
-        runtime.set_paused(False)
-        try:
-            await sim.step()
-            print("Initial events generation completed")
-        except Exception as exc:
-            print(f"[Warning] Initial events generation failed: {exc}")
-        finally:
-            runtime.set_paused(True)
-
-        runtime.finish_initialization()
-        runtime.update({"init_progress": 100})
+        runtime.set_paused(True)
+        runtime.finish_initialization(phase_name="complete")
+        runtime.update(
+            {
+                "init_progress": 100,
+                "llm_check_failed": False,
+                "llm_error_message": "",
+                "llm_check_pending": True,
+            }
+        )
+        init_generation = int(runtime.get("init_generation", 0) or 0)
+        asyncio.create_task(
+            _run_llm_check_background(
+                runtime=runtime,
+                init_generation=init_generation,
+                check_llm_connectivity=check_llm_connectivity,
+            )
+        )
+        asyncio.create_task(
+            _run_initial_events_background(
+                runtime=runtime,
+                sim=sim,
+                init_generation=init_generation,
+            )
+        )
         print("Game world initialization completed!")
 
     try:

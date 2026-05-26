@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import threading
+import time
 from copy import deepcopy
 from functools import lru_cache
 from pathlib import Path
@@ -25,6 +27,9 @@ from .settings_schema import (
 )
 from src.i18n.locale_registry import get_default_locale
 
+_SETTINGS_WRITE_LOCK = threading.RLock()
+_REPLACE_RETRY_DELAYS = (0.05, 0.1, 0.2, 0.4)
+
 
 def _model_to_dict(model: Any) -> dict[str, Any]:
     if hasattr(model, "model_dump"):
@@ -32,12 +37,36 @@ def _model_to_dict(model: Any) -> dict[str, Any]:
     return model.dict()
 
 
+def _is_transient_replace_error(exc: OSError) -> bool:
+    return isinstance(exc, PermissionError) or getattr(exc, "winerror", None) in {5, 32}
+
+
 def _atomic_write_json(path: Path, payload: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp_path = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp_path, "w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False, indent=2)
-    tmp_path.replace(path)
+    with _SETTINGS_WRITE_LOCK:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp_path = path.with_name(
+            f".{path.name}.{os.getpid()}.{threading.get_ident()}.{time.monotonic_ns()}.tmp"
+        )
+        try:
+            with open(tmp_path, "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, indent=2)
+                f.flush()
+                os.fsync(f.fileno())
+
+            for delay in (*_REPLACE_RETRY_DELAYS, None):
+                try:
+                    tmp_path.replace(path)
+                    return
+                except OSError as exc:
+                    if delay is None or not _is_transient_replace_error(exc):
+                        raise
+                    time.sleep(delay)
+        finally:
+            try:
+                if tmp_path.exists():
+                    tmp_path.unlink()
+            except OSError:
+                pass
 
 
 class SettingsService:
@@ -106,19 +135,19 @@ class SettingsService:
 
     def _load_model(self, path: Path, model_cls, default_model):
         if not path.exists():
-            return default_model
+            return default_model, True
 
         try:
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            return model_cls(**data)
+            return model_cls(**data), False
         except (OSError, json.JSONDecodeError, ValidationError):
             backup = self.paths.incompatible_dir / f"{path.stem}.corrupt{path.suffix}"
             try:
                 shutil.copy2(path, backup)
             except OSError:
                 pass
-            return default_model
+            return default_model, True
 
     def _save_settings(self, settings: AppSettings) -> None:
         _atomic_write_json(self.paths.settings_file, _model_to_dict(settings))
@@ -127,13 +156,18 @@ class SettingsService:
         _atomic_write_json(self.paths.secrets_file, _model_to_dict(secrets))
 
     def get_settings(self) -> AppSettings:
-        settings = self._load_model(self.paths.settings_file, AppSettings, self.build_default_app_settings())
-        self._save_settings(settings)
+        settings, should_persist = self._load_model(
+            self.paths.settings_file,
+            AppSettings,
+            self.build_default_app_settings(),
+        )
+        if should_persist:
+            self._save_settings(settings)
         return settings
 
     def get_secrets(self) -> LLMSecrets:
-        secrets = self._load_model(self.paths.secrets_file, LLMSecrets, LLMSecrets())
-        if self.paths.secrets_file.exists():
+        secrets, should_persist = self._load_model(self.paths.secrets_file, LLMSecrets, LLMSecrets())
+        if not should_persist:
             return secrets
         seed = self._build_default_llm_seed()
         if seed is not None:

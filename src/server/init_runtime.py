@@ -10,7 +10,7 @@ INIT_PHASE_NAMES = {
     2: "shaping_world_lore",
     3: "initializing_sects",
     4: "generating_avatars",
-    5: "checking_llm",
+    5: "preparing_character_profiles",
     6: "generating_initial_events",
 }
 

@@ -7,9 +7,10 @@ import { useSocketStore } from '@/stores/socket'
 import type { InitStatusDTO } from '@/types/api'
 
 // Use vi.hoisted to define mocks before vi.mock is hoisted.
-const { mockLoadBaseTextures, mockPreloadRegionTextures } = vi.hoisted(() => ({
+const { mockLoadBaseTextures, mockPreloadRegionTextures, mockPreloadAvatarTextures } = vi.hoisted(() => ({
   mockLoadBaseTextures: vi.fn().mockResolvedValue(undefined),
   mockPreloadRegionTextures: vi.fn().mockResolvedValue(undefined),
+  mockPreloadAvatarTextures: vi.fn().mockResolvedValue(undefined),
 }))
 
 // Mock useTextures composable.
@@ -17,6 +18,7 @@ vi.mock('@/components/game/composables/useTextures', () => ({
   useTextures: () => ({
     loadBaseTextures: mockLoadBaseTextures,
     preloadRegionTextures: mockPreloadRegionTextures,
+    preloadAvatarTextures: mockPreloadAvatarTextures,
   }),
 }))
 
@@ -78,7 +80,9 @@ describe('useGameInit', () => {
     // Ensure store actions are mocked to avoid side effects
     vi.spyOn(worldStore, 'preloadMap').mockResolvedValue(undefined)
     vi.spyOn(worldStore, 'preloadAvatars').mockResolvedValue(undefined)
-    vi.spyOn(worldStore, 'initialize').mockResolvedValue(undefined)
+    vi.spyOn(worldStore, 'initialize').mockImplementation(async () => {
+      worldStore.isLoaded = true
+    })
     vi.spyOn(worldStore, 'reset')
     vi.spyOn(systemStore, 'setInitialized')
     vi.spyOn(socketStore, 'init')
@@ -278,7 +282,7 @@ describe('useGameInit', () => {
       vi.spyOn(systemStore, 'fetchInitStatus')
         .mockResolvedValue(createMockStatus({
           status: 'initializing',
-          phase_name: 'checking_llm' // This is in AVATAR_READY.
+          phase_name: 'preparing_character_profiles' // This is in AVATAR_READY.
         }))
 
       const TestComponent = createTestComponent()
@@ -294,7 +298,9 @@ describe('useGameInit', () => {
     })
 
     it('should initialize game when status transitions to ready', async () => {
-      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockResolvedValue(undefined)
+      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockImplementation(async () => {
+        worldStore.isLoaded = true
+      })
       const setInitializedSpy = vi.spyOn(systemStore, 'setInitialized')
 
       // First call returns initializing, second call returns ready.
@@ -316,12 +322,15 @@ describe('useGameInit', () => {
       expect(initializeSpy).toHaveBeenCalled()
       expect(setInitializedSpy).toHaveBeenCalledWith(true)
       expect(mockLoadBaseTextures).toHaveBeenCalled()
+      expect(mockPreloadAvatarTextures).toHaveBeenCalled()
 
       wrapper.unmount()
     })
 
     it('should only initialize once when status remains ready', async () => {
-      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockResolvedValue(undefined)
+      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockImplementation(async () => {
+        worldStore.isLoaded = true
+      })
       const setInitializedSpy = vi.spyOn(systemStore, 'setInitialized')
 
       // First poll idle, second ready, third still ready.
@@ -386,7 +395,9 @@ describe('useGameInit', () => {
   describe('initializeGame', () => {
     it('should reset world when already initialized', async () => {
       const resetSpy = vi.spyOn(worldStore, 'reset')
-      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockResolvedValue(undefined)
+      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockImplementation(async () => {
+        worldStore.isLoaded = true
+      })
 
       // Mark as initialized.
       systemStore.setInitialized(true)
@@ -411,7 +422,9 @@ describe('useGameInit', () => {
 
     it('should init socket if not connected', async () => {
       const initSpy = vi.spyOn(socketStore, 'init')
-      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockResolvedValue(undefined)
+      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockImplementation(async () => {
+        worldStore.isLoaded = true
+      })
 
       vi.spyOn(systemStore, 'fetchInitStatus')
         .mockResolvedValue(createMockStatus({ status: 'idle' }))

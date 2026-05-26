@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import asyncio
+import json
 from unittest.mock import AsyncMock
 
 from fastapi.testclient import TestClient
 
 from src.config import AppSettingsPatch, LLMSettingsUpdate, get_data_paths, get_settings_service
+from src.config import settings_service as settings_service_module
 from src.i18n.locale_registry import get_default_locale, get_fallback_locale
 
 
@@ -19,6 +21,50 @@ def test_settings_service_creates_defaults_in_data_root():
     assert paths.settings_file.exists()
     assert paths.secrets_file.exists()
     assert paths.saves_dir.exists()
+
+
+def test_settings_service_existing_read_does_not_rewrite_files(monkeypatch):
+    service = get_settings_service()
+    service.get_settings_view()
+
+    monkeypatch.setattr(
+        service,
+        "_save_settings",
+        lambda _settings: (_ for _ in ()).throw(AssertionError("read should not write settings")),
+    )
+    monkeypatch.setattr(
+        service,
+        "_save_secrets",
+        lambda _secrets: (_ for _ in ()).throw(AssertionError("read should not write secrets")),
+    )
+
+    settings = service.get_settings_view()
+    profile, _ = service.get_llm_runtime_config()
+
+    assert settings.schema_version == 2
+    assert profile.model_name == settings.llm.profile.model_name
+
+
+def test_atomic_write_json_retries_transient_replace_error(tmp_path, monkeypatch):
+    target = tmp_path / "settings.json"
+    original_replace = settings_service_module.Path.replace
+    calls = {"count": 0}
+
+    def flaky_replace(self, target_path):
+        calls["count"] += 1
+        if calls["count"] == 1:
+            raise PermissionError("simulated Windows file lock")
+        return original_replace(self, target_path)
+
+    monkeypatch.setattr(settings_service_module, "_REPLACE_RETRY_DELAYS", (0,))
+    monkeypatch.setattr(settings_service_module.time, "sleep", lambda _delay: None)
+    monkeypatch.setattr(settings_service_module.Path, "replace", flaky_replace)
+
+    settings_service_module._atomic_write_json(target, {"ok": True})
+
+    assert calls["count"] == 2
+    assert json.loads(target.read_text(encoding="utf-8")) == {"ok": True}
+    assert not list(tmp_path.glob("*.tmp"))
 
 
 def test_settings_service_updates_llm_secret_without_exposing_key():

@@ -133,7 +133,7 @@ class TestUpdateInitProgress:
             2: "shaping_world_lore",
             3: "initializing_sects",
             4: "generating_avatars",
-            5: "checking_llm",
+            5: "preparing_character_profiles",
             6: "generating_initial_events",
         }
         assert INIT_PHASE_NAMES == expected_phases
@@ -360,7 +360,8 @@ class TestInitGameAsync:
             mock_sim_class.return_value = mock_sim
             
             await main.init_game_async()
-            
+            await asyncio.sleep(0.05)
+
             # Should still complete successfully.
             assert game_instance["init_status"] == "ready"
             # But LLM failure should be recorded.

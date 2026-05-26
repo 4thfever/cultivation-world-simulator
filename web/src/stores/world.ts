@@ -137,6 +137,7 @@ export const useWorldStore = defineStore('world', () => {
 
     } catch (e) {
       logError('WorldStore initialize', e);
+      throw e;
     }
   }
 

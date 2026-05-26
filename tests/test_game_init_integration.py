@@ -327,6 +327,7 @@ class TestInitGameAsyncWithLLMFailure:
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
+            await asyncio.sleep(0.05)
 
             # Should still complete.
             assert game_instance["init_status"] == "ready"
