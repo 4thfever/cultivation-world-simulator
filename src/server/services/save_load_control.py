@@ -41,6 +41,8 @@ def list_saves_query(*, list_saves) -> dict[str, Any]:
                 "event_count": meta.get("event_count", 0),
                 "playthrough_id": meta.get("playthrough_id", ""),
                 "is_auto_save": meta.get("is_auto_save", False),
+                "map_id": meta.get("map_id", ""),
+                "map_name": meta.get("map_name", ""),
             }
         )
     return {"saves": result}

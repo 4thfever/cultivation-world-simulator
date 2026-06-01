@@ -76,3 +76,24 @@ msgstr "{names}（{price}霊石）"
 
 msgid "{value} Spirit Stones"
 msgstr "{value}霊石"
+
+msgid "MAP_PRESET_CLASSIC_NAME"
+msgstr "九州中土"
+
+msgid "MAP_PRESET_CLASSIC_DESC"
+msgstr "地形の均衡が取れた、標準体験向けの地図です。"
+
+msgid "MAP_PRESET_ISLAND_SEAS_NAME"
+msgstr "蒼海諸洲"
+
+msgid "MAP_PRESET_ISLAND_SEAS_DESC"
+msgstr "広い海が諸島を隔て、より開けた空間感があります。"
+
+msgid "MAP_PRESET_MOUNTAIN_FRONTIER_NAME"
+msgstr "万山辺境"
+
+msgid "MAP_PRESET_MOUNTAIN_FRONTIER_DESC"
+msgstr "山脈が密集し、洞府や宗門の配置がより険しく感じられます。"
+
+msgid "MAP_PRESET_SIZE_MEDIUM"
+msgstr "中型"

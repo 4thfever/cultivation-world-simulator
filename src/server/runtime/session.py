@@ -18,6 +18,7 @@ DEFAULT_GAME_STATE: dict[str, Any] = {
     "init_error": None,
     "init_start_time": None,
     "init_generation": 0,
+    "reset_requested": False,
     "run_config": None,
     "current_save_path": None,
     "llm_check_failed": False,
@@ -100,9 +101,19 @@ class GameSessionRuntime:
                 "llm_check_failed": False,
                 "llm_error_message": "",
                 "llm_check_pending": False,
+                "reset_requested": False,
             }
         )
         self.clear_roleplay_session()
+
+    def request_reset(self) -> None:
+        self._state["reset_requested"] = True
+
+    def clear_reset_request(self) -> None:
+        self._state["reset_requested"] = False
+
+    def is_reset_requested(self) -> bool:
+        return bool(self._state.get("reset_requested", False))
 
     def mark_pending_initialization(self, *, clear_world: bool) -> None:
         self._state["init_generation"] = int(self._state.get("init_generation", 0) or 0) + 1
@@ -120,6 +131,7 @@ class GameSessionRuntime:
         self._state["llm_check_failed"] = False
         self._state["llm_error_message"] = ""
         self._state["llm_check_pending"] = False
+        self._state["reset_requested"] = False
         self.clear_roleplay_session()
 
     def begin_initialization(self) -> None:

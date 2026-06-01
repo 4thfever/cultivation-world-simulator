@@ -87,6 +87,7 @@ from src.server.services.save_load_control import (
 )
 from src.server.services.world_control import set_world_phenomenon
 from src.run.load_map import load_cultivation_world_map
+from src.run.map_presets import get_map_presets_query
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
 from src.systems.dynasty_generator import generate_dynasty, generate_emperor
 from src.utils.config import CONFIG
@@ -239,6 +240,7 @@ public_query_builders = create_public_query_builders(
     serialize_phenomenon=serialize_phenomenon,
     get_world_state=get_world_state,
     get_world_map=get_world_map,
+    get_map_presets_query=get_map_presets_query,
     sects_by_id=sects_by_id,
     get_runtime_status=get_runtime_status,
     get_events_page=get_events_page,
@@ -289,6 +291,7 @@ public_query_builders = create_public_query_builders(
 
 build_public_world_state = public_query_builders.build_public_world_state
 build_public_world_map = public_query_builders.build_public_world_map
+build_public_map_presets = public_query_builders.build_public_map_presets
 build_public_runtime_status = public_query_builders.build_public_runtime_status
 build_public_current_run = public_query_builders.build_public_current_run
 build_public_events_page = public_query_builders.build_public_events_page
@@ -621,6 +624,7 @@ configure_routes_and_mounts(
     build_runtime_status=build_public_runtime_status,
     build_world_state=build_public_world_state,
     build_world_map=build_public_world_map,
+    build_map_presets=build_public_map_presets,
     build_current_run=build_public_current_run,
     build_events_page=build_public_events_page,
     build_rankings=build_public_rankings,

@@ -1,37 +1,52 @@
-import os
 import csv
 from src.classes.environment.map import Map
 from src.classes.environment.tile import TileType
-from src.classes.environment.region import Region, NormalRegion, CultivateRegion, CityRegion
+from src.classes.environment.region import NormalRegion, CultivateRegion, CityRegion
 from src.classes.environment.sect_region import SectRegion
 from src.utils.df import game_configs, get_str, get_int, get_float
 from src.classes.essence import EssenceType
 from src.classes.core.sect import sects_by_id  # 直接导入已加载的宗门数据
-from src.utils.config import CONFIG
+from src.run.map_presets import resolve_map_files
 
-# 静态配置路径
-CONFIG_DIR = CONFIG.paths.game_configs
-
-def load_cultivation_world_map() -> Map:
+def load_cultivation_world_map(map_id: str | None = None) -> Map:
     """
     从静态 CSV 文件加载修仙世界地图。
     读取: tile_map.csv, region_map.csv
     以及: normal/city/cultivate/sect_region.csv
     """
-    tile_csv = CONFIG_DIR / "tile_map.csv"
-    region_csv = CONFIG_DIR / "region_map.csv"
+    preset, tile_csv, region_csv = resolve_map_files(map_id)
     
     if not tile_csv.exists() or not region_csv.exists():
-        raise FileNotFoundError(f"Map data files not found in {CONFIG_DIR}")
+        raise FileNotFoundError(f"Map data files not found for preset {preset.id}")
 
     # 1. 读取 Tile Map 以确定尺寸
     with open(tile_csv, 'r', encoding='utf-8') as f:
         tile_rows = list(csv.reader(f))
-    
+    with open(region_csv, 'r', encoding='utf-8') as f:
+        region_rows = list(csv.reader(f))
+
+    return build_map_from_rows(
+        tile_rows,
+        region_rows,
+        map_id=preset.id,
+        map_name=preset.localized_name,
+        preset_version=preset.version,
+    )
+
+
+def build_map_from_rows(
+    tile_rows: list[list[str]],
+    region_rows: list[list[str | int]],
+    *,
+    map_id: str = "classic",
+    map_name: str = "",
+    preset_version: int = 1,
+) -> Map:
+    """Build a Map from already parsed tile and region matrices."""
     height = len(tile_rows)
     width = len(tile_rows[0]) if height > 0 else 0
     
-    game_map = Map(width=width, height=height)
+    game_map = Map(width=width, height=height, map_id=map_id, map_name=map_name, preset_version=preset_version)
     
     # 2. 填充 Tile Type
     for y, row in enumerate(tile_rows):
@@ -40,9 +55,13 @@ def load_cultivation_world_map() -> Map:
                 try:
                     t_type = TileType[tile_name.upper()]
                 except KeyError:
-                    # 如果不是标准地形，则是宗门驻地名称
-                    # 这些名称直接对应 SECT 类型
-                    t_type = TileType.SECT
+                    if tile_name.startswith("city_"):
+                        t_type = TileType.CITY
+                    else:
+                        # 洞府、遗迹和宗门切片都走大型 region 覆盖层。
+                        # 底层地貌由地图查询序列化时提供，避免前端尝试渲染
+                        # 没有普通地形贴图的 CAVE/RUIN/SECT。
+                        t_type = TileType.SECT
                 
                 game_map.create_tile(x, y, t_type)
     
@@ -50,9 +69,6 @@ def load_cultivation_world_map() -> Map:
     # region_coords: { region_id: [(x, y), ...] }
     region_coords = {}
     
-    with open(region_csv, 'r', encoding='utf-8') as f:
-        region_rows = list(csv.reader(f))
-        
     for y, row in enumerate(region_rows):
         if y >= height: break
         for x, val in enumerate(row):

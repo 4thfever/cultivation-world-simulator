@@ -159,6 +159,8 @@ async def run_game_loop_forever(
                 continue
 
             events = await runtime.run_mutation(sim.step)
+            if getattr(runtime, "is_reset_requested", lambda: False)():
+                continue
             avatar_updates = build_avatar_updates()
             state = build_tick_state(avatar_updates, events, world)
             await manager.broadcast(state)

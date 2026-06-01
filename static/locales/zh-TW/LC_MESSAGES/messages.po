@@ -2574,6 +2574,27 @@ msgstr "{names}（{price}靈石）"
 msgid "{value} Spirit Stones"
 msgstr "{value}靈石"
 
+msgid "MAP_PRESET_CLASSIC_NAME"
+msgstr "九州中土"
+
+msgid "MAP_PRESET_CLASSIC_DESC"
+msgstr "地貌均衡，適合預設體驗。"
+
+msgid "MAP_PRESET_ISLAND_SEAS_NAME"
+msgstr "滄海諸洲"
+
+msgid "MAP_PRESET_ISLAND_SEAS_DESC"
+msgstr "海域遼闊，諸洲分隔，空間感更開闊。"
+
+msgid "MAP_PRESET_MOUNTAIN_FRONTIER_NAME"
+msgstr "萬山邊境"
+
+msgid "MAP_PRESET_MOUNTAIN_FRONTIER_DESC"
+msgstr "山嶺密布，洞府與宗門分布更險峻。"
+
+msgid "MAP_PRESET_SIZE_MEDIUM"
+msgstr "中型"
+
 msgid ", defended {region}"
 msgstr "，守住了 {region}"
 

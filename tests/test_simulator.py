@@ -10,6 +10,7 @@ from src.classes.age import Age
 from src.classes.alignment import Alignment
 from src.classes.sect_decider import SectDecisionResult
 from src.classes.sect_ranks import get_rank_from_realm
+from src.server.runtime import DEFAULT_GAME_STATE, GameSessionRuntime
 from src.sim.simulator import Simulator
 from src.sim.simulator_engine.phases import annual, sect_war
 from src.classes.core.sect import Sect, SectHeadQuarter
@@ -100,6 +101,31 @@ async def test_simulator_event_deduplication(base_world, dummy_avatar, mock_llm_
         call for call in base_world.event_manager.add_event.call_args_list if call.args[0].id == ev_id
     ]
     assert len(target_calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_simulator_step_stops_at_phase_boundary_when_reset_requested(base_world, mock_llm_managers):
+    runtime = GameSessionRuntime(dict(DEFAULT_GAME_STATE))
+    base_world.runtime = runtime
+    sim = Simulator(base_world)
+
+    async def _request_reset(_living_avatars):
+        runtime.request_reset()
+        return []
+
+    process_gatherings = AsyncMock(return_value=[])
+
+    with patch(
+        "src.sim.simulator_engine.phases.lifecycle.phase_long_term_objective_thinking",
+        new=AsyncMock(side_effect=_request_reset),
+    ), patch(
+        "src.sim.simulator_engine.phases.world.phase_process_gatherings",
+        new=process_gatherings,
+    ):
+        events = await sim.step()
+
+    assert events == []
+    process_gatherings.assert_not_awaited()
 
 
 @pytest.mark.asyncio

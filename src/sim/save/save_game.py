@@ -42,6 +42,7 @@ from src.classes.custom_content import CustomContentRegistry
 from src.classes.language import language_manager
 from src.classes.world_lore_snapshot import build_world_lore_snapshot
 from src.sim.load.load_game import get_events_db_path
+from src.run.map_snapshot import serialize_map_snapshot
 
 
 
@@ -157,6 +158,8 @@ def save_game(
             "custom_name": custom_name,
             "playthrough_id": getattr(world, "playthrough_id", ""),
             "is_auto_save": is_auto_save,
+            "map_id": run_config_snapshot.get("map_id", getattr(world.map, "map_id", "classic")),
+            "map_name": getattr(world.map, "map_name", ""),
         }
         
         # 构建世界数据
@@ -193,6 +196,7 @@ def save_game(
         world_data = {
             "month_stamp": int(world.month_stamp),
             "start_year": world.start_year,
+            "map_snapshot": serialize_map_snapshot(world.map),
             "existed_sect_ids": [sect.id for sect in existed_sects],
             "dynasty": world.dynasty.to_dict() if getattr(world, "dynasty", None) is not None else None,
             # 天地灵机

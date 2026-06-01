@@ -17,6 +17,7 @@ def create_public_query_builders(
     serialize_phenomenon,
     get_world_state,
     get_world_map,
+    get_map_presets_query,
     sects_by_id,
     get_runtime_status,
     get_events_page,
@@ -71,6 +72,9 @@ def create_public_query_builders(
             sects_by_id=sects_by_id,
             render_config=config.get("frontend_defaults", {}),
         )
+
+    def build_public_map_presets() -> dict:
+        return get_map_presets_query()
 
     def build_public_runtime_status() -> dict:
         return get_runtime_status(
@@ -174,6 +178,7 @@ def create_public_query_builders(
     return SimpleNamespace(
         build_public_world_state=build_public_world_state,
         build_public_world_map=build_public_world_map,
+        build_public_map_presets=build_public_map_presets,
         build_public_runtime_status=build_public_runtime_status,
         build_public_current_run=build_public_current_run,
         build_public_events_page=build_public_events_page,

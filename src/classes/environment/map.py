@@ -11,10 +11,20 @@ class Map():
     """
     通过dict记录position 到 tile。
     """
-    def __init__(self, width: int, height: int):
+    def __init__(
+        self,
+        width: int,
+        height: int,
+        map_id: str = "classic",
+        map_name: str = "",
+        preset_version: int = 1,
+    ):
         self.tiles = {}
         self.width = width
         self.height = height
+        self.map_id = map_id
+        self.map_name = map_name
+        self.preset_version = preset_version
         # 维护“最终归属”的每个 region 的坐标集合（由分配流程写入）
         # key: region.id, value: list[(x, y)]
         self.region_cors: dict[int, list[tuple[int, int]]] = {}

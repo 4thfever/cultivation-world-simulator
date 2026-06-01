@@ -4,6 +4,7 @@ import { computed, ref, type WritableComputedRef } from 'vue';
 import i18n from '../locales';
 import { defaultLocale, getHtmlLang, isEnabledLocale, type AppLocale } from '../locales/registry';
 import { systemApi } from '../api/modules/system';
+import { worldApi } from '../api/modules/world';
 import type { AppSettingsDTO, RunConfigDTO } from '../types/api';
 import { logWarn } from '../utils/appError';
 import { useEventStore } from './event';
@@ -34,8 +35,10 @@ export const useSettingStore = defineStore('setting', () => {
   const bgmVolume = ref(0.5);
   const isAutoSave = ref(false);
   const maxAutoSaves = ref(5);
+  const mapPresets = ref<Array<{ id: string; name: string; desc: string; size_label?: string }>>([]);
   const newGameDraft = ref<RunConfigDTO>({
     content_locale: defaultLocale,
+    map_id: 'classic',
     init_npc_num: 9,
     sect_num: 3,
     npc_awakening_rate_per_month: 0.01,
@@ -50,8 +53,23 @@ export const useSettingStore = defineStore('setting', () => {
     sfxVolume.value = settings.ui.audio.sfx_volume;
     isAutoSave.value = settings.simulation.auto_save_enabled;
     maxAutoSaves.value = settings.simulation.max_auto_saves;
-    newGameDraft.value = { ...settings.new_game_defaults };
+    newGameDraft.value = {
+      ...settings.new_game_defaults,
+      map_id: settings.new_game_defaults.map_id ?? 'classic',
+    };
     applyUiLocale(locale.value);
+  }
+
+  async function loadMapPresets() {
+    try {
+      const presets = await worldApi.fetchMapPresets();
+      mapPresets.value = presets.length > 0
+        ? presets
+        : [{ id: 'classic', name: '九州中土', desc: '', size_label: '' }];
+    } catch (e) {
+      mapPresets.value = [{ id: 'classic', name: '九州中土', desc: '', size_label: '' }];
+      logWarn('SettingStore load map presets', e);
+    }
   }
 
   async function refreshLocalizedRuntimeData() {
@@ -83,6 +101,7 @@ export const useSettingStore = defineStore('setting', () => {
     try {
       const settings = await systemApi.fetchSettings();
       applySettings(settings);
+      await loadMapPresets();
     } catch (e) {
       logWarn('SettingStore hydrate', e);
       applyUiLocale(locale.value);
@@ -200,7 +219,9 @@ export const useSettingStore = defineStore('setting', () => {
     isAutoSave,
     maxAutoSaves,
     newGameDraft,
+    mapPresets,
     hydrate,
+    loadMapPresets,
     setLocale,
     setSfxVolume,
     setBgmVolume,

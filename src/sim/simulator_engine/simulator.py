@@ -8,6 +8,10 @@ from .finalizer import finalize_step
 from .phases import actions, annual, lifecycle, sect_war, social, world as world_phases
 
 
+class SimulationStepAborted(Exception):
+    """Raised internally when a lifecycle command supersedes the current step."""
+
+
 class Simulator:
     def __init__(self, world: World):
         self.world = world
@@ -18,6 +22,11 @@ class Simulator:
         from src.sim.managers.sect_manager import SectManager
 
         self.sect_manager = SectManager(world)
+
+    def _raise_if_reset_requested(self) -> None:
+        runtime = getattr(self.world, "runtime", None)
+        if runtime is not None and getattr(runtime, "is_reset_requested", lambda: False)():
+            raise SimulationStepAborted()
 
     async def step(self) -> list[Event]:
         """
@@ -49,75 +58,103 @@ class Simulator:
         # 具体业务细节分散到 phases/ 与 finalizer 中，方便后续继续拆分。
         ctx = SimulationStepContext.create(self.world)
 
-        # 1. 更新感知与知识
-        ctx.add_events(world_phases.phase_update_perception_and_knowledge(self.world, ctx.living_avatars))
+        try:
+            self._raise_if_reset_requested()
 
-        # 2. 长期目标思考
-        ctx.add_events(await lifecycle.phase_long_term_objective_thinking(ctx.living_avatars))
+            # 1. 更新感知与知识
+            ctx.add_events(world_phases.phase_update_perception_and_knowledge(self.world, ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 3. Gathering 系统
-        ctx.add_events(await world_phases.phase_process_gatherings(self.world))
+            # 2. 长期目标思考
+            ctx.add_events(await lifecycle.phase_long_term_objective_thinking(ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 4. AI 决策相位
-        await actions.phase_decide_actions(self.world, ctx.living_avatars)
+            # 3. Gathering 系统
+            ctx.add_events(await world_phases.phase_process_gatherings(self.world))
+            self._raise_if_reset_requested()
 
-        # 5. 提交并启动下一步计划
-        ctx.add_events(actions.phase_commit_next_plans(ctx.living_avatars))
+            # 4. AI 决策相位
+            await actions.phase_decide_actions(self.world, ctx.living_avatars)
+            self._raise_if_reset_requested()
 
-        # 6. 执行当前行动
-        ctx.add_events(await actions.phase_execute_actions(ctx.living_avatars))
+            # 5. 提交并启动下一步计划
+            ctx.add_events(actions.phase_commit_next_plans(ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 7. 处理基于事件的交互（第一轮）
-        # 第一轮会把动作阶段产出的互动事件计入角色状态，
-        # 让紧接着的关系演化可以在同月看到这些变化。
-        social.phase_handle_interactions(self.world.avatar_manager, ctx.events, ctx.processed_event_ids)
+            # 6. 执行当前行动
+            ctx.add_events(await actions.phase_execute_actions(ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 8. 关系演化
-        ctx.add_events(await social.phase_evolve_relations(self.world.avatar_manager, ctx.living_avatars))
+            # 7. 处理基于事件的交互（第一轮）
+            # 第一轮会把动作阶段产出的互动事件计入角色状态，
+            # 让紧接着的关系演化可以在同月看到这些变化。
+            social.phase_handle_interactions(self.world.avatar_manager, ctx.events, ctx.processed_event_ids)
+            self._raise_if_reset_requested()
 
-        # 9. 死亡结算（会更新 living_avatars）
-        ctx.add_events(lifecycle.phase_resolve_death(self.world, ctx.living_avatars))
+            # 8. 关系演化
+            ctx.add_events(await social.phase_evolve_relations(self.world.avatar_manager, ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 10. 年龄更新 + 出生/觉醒
-        ctx.add_events(lifecycle.phase_update_age_and_birth(self.world, ctx.living_avatars))
+            # 9. 死亡结算（会更新 living_avatars）
+            ctx.add_events(lifecycle.phase_resolve_death(self.world, ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 11. 身世背景生成
-        await lifecycle.phase_backstory_generation(ctx.living_avatars)
+            # 10. 年龄更新 + 出生/觉醒
+            ctx.add_events(lifecycle.phase_update_age_and_birth(self.world, ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 12. 被动效果 + 世界性事件
-        ctx.add_events(await world_phases.phase_passive_effects(self.world, ctx.living_avatars))
+            # 11. 身世背景生成
+            await lifecycle.phase_backstory_generation(ctx.living_avatars)
+            self._raise_if_reset_requested()
 
-        # 13. 角色自主创作 + 小型随机事件 + 宗门随机事件
-        ctx.add_events(await world_phases.phase_autonomous_custom_creation(self.world, ctx.living_avatars))
-        ctx.add_events(await world_phases.phase_random_minor_events(self.world, ctx.living_avatars))
-        ctx.add_events(await world_phases.phase_sect_random_event(self.world))
+            # 12. 被动效果 + 世界性事件
+            ctx.add_events(await world_phases.phase_passive_effects(self.world, ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 13.5 宗门战争遭遇战
-        ctx.add_events(await sect_war.phase_handle_sect_wars(self, ctx.living_avatars))
+            # 13. 角色自主创作 + 小型随机事件 + 宗门随机事件
+            ctx.add_events(await world_phases.phase_autonomous_custom_creation(self.world, ctx.living_avatars))
+            self._raise_if_reset_requested()
+            ctx.add_events(await world_phases.phase_random_minor_events(self.world, ctx.living_avatars))
+            self._raise_if_reset_requested()
+            ctx.add_events(await world_phases.phase_sect_random_event(self.world))
+            self._raise_if_reset_requested()
 
-        # 14. 外号生成
-        ctx.add_events(await lifecycle.phase_nickname_generation(ctx.living_avatars))
+            # 13.5 宗门战争遭遇战
+            ctx.add_events(await sect_war.phase_handle_sect_wars(self, ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 15. 更新天象
-        ctx.add_events(world_phases.phase_update_celestial_phenomenon(self.world))
+            # 14. 外号生成
+            ctx.add_events(await lifecycle.phase_nickname_generation(ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 16. 更新城市人口
-        world_phases.phase_update_city_population(self.world)
+            # 15. 更新天象
+            ctx.add_events(world_phases.phase_update_celestial_phenomenon(self.world))
+            self._raise_if_reset_requested()
 
-        # 16.5 更新王朝皇帝状态
-        ctx.add_events(world_phases.phase_update_dynasty(self.world))
-        ctx.add_events(world_phases.phase_update_official_system(self.world, ctx.living_avatars))
+            # 16. 更新城市人口
+            world_phases.phase_update_city_population(self.world)
+            self._raise_if_reset_requested()
 
-        # 17. 再次按事件处理交互（包含后续新事件）
-        # 第二轮只处理本月后半程新增的互动事件。
-        # 由于关系演化已在前面执行，这些新增互动会影响下个月的关系判定。
-        social.phase_handle_interactions(self.world.avatar_manager, ctx.events, ctx.processed_event_ids)
+            # 16.5 更新王朝皇帝状态
+            ctx.add_events(world_phases.phase_update_dynasty(self.world))
+            ctx.add_events(world_phases.phase_update_official_system(self.world, ctx.living_avatars))
+            self._raise_if_reset_requested()
 
-        # 18. 计算型关系更新（二阶关系等）
-        social.phase_update_calculated_relations(self.world, ctx.living_avatars)
+            # 17. 再次按事件处理交互（包含后续新事件）
+            # 第二轮只处理本月后半程新增的互动事件。
+            # 由于关系演化已在前面执行，这些新增互动会影响下个月的关系判定。
+            social.phase_handle_interactions(self.world.avatar_manager, ctx.events, ctx.processed_event_ids)
+            self._raise_if_reset_requested()
 
-        # 19. 每年一月：世界年度维护
-        await annual.run_annual_maintenance(self, ctx)
+            # 18. 计算型关系更新（二阶关系等）
+            social.phase_update_calculated_relations(self.world, ctx.living_avatars)
+            self._raise_if_reset_requested()
 
-        # 20. 最终收尾并返回本回合事件列表
-        return finalize_step(ctx)
+            # 19. 每年一月：世界年度维护
+            await annual.run_annual_maintenance(self, ctx)
+            self._raise_if_reset_requested()
+
+            # 20. 最终收尾并返回本回合事件列表
+            return finalize_step(ctx)
+        except SimulationStepAborted:
+            return []

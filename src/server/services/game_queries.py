@@ -381,12 +381,31 @@ def get_world_map(runtime, *, sects_by_id: dict[int, Any], render_config: dict[s
         )
 
     width, height = world.map.width, world.map.height
+
+    def serialize_tile_type(x: int, y: int) -> str:
+        tile = world.map.get_tile(x, y)
+        tile_type_name = tile.type.name
+        if tile_type_name in {"CAVE", "RUIN"}:
+            return "MOUNTAIN"
+        if tile_type_name == "SECT":
+            region = getattr(tile, "region", None)
+            region_type = region.get_region_type() if region is not None and hasattr(region, "get_region_type") else ""
+            if region_type == "normal":
+                return "PLAIN"
+            if region_type == "city":
+                return "CITY"
+            if region_type == "cultivate":
+                return "MOUNTAIN"
+            if region_type == "sect":
+                return "MOUNTAIN"
+            return "PLAIN"
+        return tile_type_name
+
     map_data: list[list[str]] = []
     for y in range(height):
         row: list[str] = []
         for x in range(width):
-            tile = world.map.get_tile(x, y)
-            row.append(tile.type.name)
+            row.append(serialize_tile_type(x, y))
         map_data.append(row)
 
     regions_data: list[dict[str, Any]] = []
@@ -417,6 +436,9 @@ def get_world_map(runtime, *, sects_by_id: dict[int, Any], render_config: dict[s
             regions_data.append(region_dict)
 
     return {
+        "map_id": getattr(world.map, "map_id", "classic"),
+        "map_name": getattr(world.map, "map_name", ""),
+        "preset_version": getattr(world.map, "preset_version", 1),
         "width": width,
         "height": height,
         "data": map_data,

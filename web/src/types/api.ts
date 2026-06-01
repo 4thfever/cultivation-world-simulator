@@ -58,6 +58,11 @@ export interface TickPayloadDTO {
 }
 
 export interface MapResponseDTO {
+  map_id?: string;
+  map_name?: string;
+  preset_version?: number;
+  width?: number;
+  height?: number;
   data: MapMatrix;
   regions: Array<{
     id: string | number;
@@ -106,6 +111,8 @@ export interface SaveFileDTO {
   event_count: number;
   is_auto_save: boolean;
   playthrough_id?: string;
+  map_id?: string;
+  map_name?: string;
 }
 
 // --- Game Data Metadata ---
@@ -251,10 +258,24 @@ export interface LLMStatusDTO {
 
 export interface RunConfigDTO {
   content_locale: AppLocale | string;
+  map_id: string;
   init_npc_num: number;
   sect_num: number;
   npc_awakening_rate_per_month: number;
   world_lore?: string;
+}
+
+export interface MapPresetDTO {
+  id: string;
+  name: string;
+  desc: string;
+  size_label?: string;
+  version?: number;
+  is_default?: boolean;
+}
+
+export interface MapPresetsResponseDTO {
+  maps: MapPresetDTO[];
 }
 
 export interface AppSettingsDTO {

@@ -21,6 +21,11 @@ export interface WorldStateSnapshot {
 }
 
 export interface WorldMapSnapshot {
+  mapId: string
+  mapName: string
+  presetVersion: number
+  width: number
+  height: number
   data: MapResponseDTO['data']
   regions: RegionSummary[]
   renderConfig: MapRenderConfigDTO
@@ -52,6 +57,11 @@ export function normalizeInitialState(input: InitialStateDTO): WorldStateSnapsho
 
 export function normalizeMapResponse(input: MapResponseDTO): WorldMapSnapshot {
   return {
+    mapId: input.map_id ?? 'classic',
+    mapName: input.map_name ?? '',
+    presetVersion: input.preset_version ?? 1,
+    width: input.width ?? input.data?.[0]?.length ?? 0,
+    height: input.height ?? input.data?.length ?? 0,
     data: Array.isArray(input.data) ? input.data : [],
     regions: Array.isArray(input.regions)
       ? input.regions.map((region) => ({

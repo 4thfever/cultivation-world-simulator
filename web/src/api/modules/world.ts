@@ -11,6 +11,7 @@ import type {
   DynastyOverviewResponseDTO,
   DeceasedListResponseDTO,
   AvatarOverviewResponseDTO,
+  MapPresetsResponseDTO,
 } from '../../types/api';
 import {
   normalizeInitialState,
@@ -31,6 +32,11 @@ export const worldApi = {
   async fetchMap() {
     const data = await httpClient.get<MapResponseDTO>('/api/v1/query/world/map');
     return normalizeMapResponse(data);
+  },
+
+  async fetchMapPresets() {
+    const data = await httpClient.get<MapPresetsResponseDTO>('/api/v1/query/world/map-presets');
+    return Array.isArray(data.maps) ? data.maps : [];
   },
 
   async fetchPhenomenaList() {

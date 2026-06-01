@@ -6,3 +6,10 @@ declare module '*.vue' {
   export default component
 }
 
+interface Window {
+  cwsDesktop?: {
+    getLogDir?: () => Promise<string>
+    quit?: () => Promise<void>
+  }
+}
+

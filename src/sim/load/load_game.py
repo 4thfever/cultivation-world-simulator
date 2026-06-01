@@ -43,6 +43,7 @@ from src.classes.relation.relation import RelationState
 from src.classes.world_lore_snapshot import apply_world_lore_snapshot
 from src.config import get_settings_service
 from src.utils.config import CONFIG
+from src.run.map_snapshot import load_map_from_snapshot
 
 
 def get_events_db_path(save_path: Path) -> Path:
@@ -100,11 +101,17 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         print(f"Loading save (Version: {meta.get('version', 'unknown')}, "
               f"游戏时间: {meta.get('game_time', 'unknown')})")
         
-        # 重建地图（地图本身不变，只需重建宗门总部位置）
-        game_map = load_cultivation_world_map()
+        run_config_snapshot = save_data.get("run_config", _model_to_dict(get_settings_service().get_default_run_config()))
+
+        # 重建地图。新存档优先恢复本局地图快照；旧存档回退到官方地图预设。
+        world_data = save_data.get("world", {})
+        map_snapshot = world_data.get("map_snapshot")
+        if map_snapshot:
+            game_map = load_map_from_snapshot(map_snapshot)
+        else:
+            game_map = load_cultivation_world_map(run_config_snapshot.get("map_id", "classic"))
         
         # 读取世界数据
-        world_data = save_data.get("world", {})
         month_stamp = MonthStamp(world_data["month_stamp"])
         start_year = world_data.get("start_year", 100)
         
@@ -283,7 +290,6 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
 
         # 重建Simulator
         simulator_data = save_data.get("simulator", {})
-        run_config_snapshot = save_data.get("run_config", _model_to_dict(get_settings_service().get_default_run_config()))
         world.run_config_snapshot = run_config_snapshot
         simulator = Simulator(world)
         # 兼容旧存档 "birth_rate"

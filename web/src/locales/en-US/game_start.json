@@ -2,6 +2,7 @@
   "title": "Start Game",
   "description": "Configure initial world state. Note: These settings cannot be changed once the game starts.",
   "labels": {
+    "map": "World Map",
     "init_npc_num": "Initial Cultivators",
     "sect_num": "Active Sects",
     "new_npc_rate": "Monthly New Cultivator Rate",

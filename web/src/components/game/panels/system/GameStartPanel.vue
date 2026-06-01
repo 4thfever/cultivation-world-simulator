@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 
 import { useSettingStore } from '@/stores/setting'
 import { logError } from '@/utils/appError'
+import MapPresetPreview from './MapPresetPreview.vue'
 
 const { t } = useI18n()
 const settingStore = useSettingStore()
@@ -42,6 +43,27 @@ async function startGame() {
       require-mark-placement="right-hanging"
       :disabled="readonly"
     >
+      <div class="map-section">
+        <div class="map-section-title">{{ t('game_start.labels.map') }}</div>
+        <div class="map-options">
+          <button
+            v-for="preset in settingStore.mapPresets"
+            :key="preset.id"
+            class="map-option"
+            :class="{ active: settingStore.newGameDraft.map_id === preset.id }"
+            type="button"
+            :disabled="readonly"
+            @click="settingStore.updateNewGameDraft({ map_id: preset.id })"
+          >
+            <MapPresetPreview :preset-id="preset.id" />
+            <span class="map-option-body">
+              <span class="map-option-title">{{ preset.name }}</span>
+              <span class="map-option-desc">{{ preset.desc }}</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
       <n-form-item :label="t('game_start.labels.init_npc_num')" path="init_npc_num">
         <n-input-number
           :value="settingStore.newGameDraft.init_npc_num"
@@ -119,6 +141,86 @@ async function startGame() {
   color: #aaa;
   font-size: 0.85em;
   line-height: 1.5;
+}
+
+.map-section {
+  margin-bottom: 24px;
+}
+
+.map-section-title {
+  margin-bottom: 10px;
+  color: #eee;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.map-options {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.map-option {
+  min-height: 168px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #eee;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+.map-option:hover:not(:disabled) {
+  border-color: rgba(121, 187, 255, 0.5);
+  background: rgba(121, 187, 255, 0.08);
+}
+
+.map-option.active {
+  border-color: #63b3ff;
+  background: rgba(99, 179, 255, 0.14);
+}
+
+.map-option.active :deep(.map-preset-preview) {
+  filter: brightness(1.08) saturate(1.06);
+}
+
+.map-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.map-option-title,
+.map-option-desc {
+  display: block;
+}
+
+.map-option-body {
+  display: block;
+  flex: 1;
+  padding: 10px 2px 0;
+}
+
+.map-option-title {
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.map-option-desc {
+  color: #aaa;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .map-options {
+    grid-template-columns: 1fr;
+  }
 }
 
 .actions {

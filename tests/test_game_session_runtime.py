@@ -22,6 +22,7 @@ def test_reset_to_idle_restores_defaults_and_clears_runtime_state():
             "init_error": "boom",
             "llm_check_failed": True,
             "llm_error_message": "bad key",
+            "reset_requested": True,
         }
     )
     runtime = GameSessionRuntime(state)
@@ -41,7 +42,20 @@ def test_reset_to_idle_restores_defaults_and_clears_runtime_state():
     assert state["init_error"] is None
     assert state["llm_check_failed"] is False
     assert state["llm_error_message"] == ""
+    assert state["reset_requested"] is False
     assert state["roleplay_session"]["controlled_avatar_id"] is None
+
+
+def test_reset_request_can_be_signaled_before_mutation_lock_is_available():
+    runtime = GameSessionRuntime(dict(DEFAULT_GAME_STATE))
+
+    assert runtime.is_reset_requested() is False
+
+    runtime.request_reset()
+    assert runtime.is_reset_requested() is True
+
+    runtime.clear_reset_request()
+    assert runtime.is_reset_requested() is False
 
 
 def test_roleplay_pause_state_is_counted_in_effective_pause():

@@ -74,6 +74,7 @@ class LLMSettingsUpdate(BaseModel):
 
 class NewGameDefaults(BaseModel):
     content_locale: str = DEFAULT_LOCALE
+    map_id: str = "classic"
     init_npc_num: int = 9
     sect_num: int = 3
     npc_awakening_rate_per_month: float = 0.01
@@ -82,6 +83,7 @@ class NewGameDefaults(BaseModel):
 
 class NewGameDefaultsPatch(BaseModel):
     content_locale: Optional[str] = None
+    map_id: Optional[str] = None
     init_npc_num: Optional[int] = None
     sect_num: Optional[int] = None
     npc_awakening_rate_per_month: Optional[float] = None

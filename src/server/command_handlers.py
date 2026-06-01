@@ -76,17 +76,18 @@ def create_command_handlers(
         return await reinit_game_lifecycle(runtime, init_game_async=get_init_game_async())
 
     async def run_reset_game() -> dict:
+        runtime.request_reset()
         await runtime.run_mutation(runtime.reset_to_idle)
         # Keep top-level external control command messages stable for agents/tests.
         return {"status": "ok", "message": "Game reset to idle"}
 
     async def run_pause_game() -> dict:
-        await runtime.run_mutation(runtime.set_paused, True)
+        runtime.set_paused(True)
         # Keep top-level external control command messages stable for agents/tests.
         return {"status": "ok", "message": "Game paused"}
 
     async def run_resume_game() -> dict:
-        await runtime.run_mutation(runtime.set_paused, False)
+        runtime.set_paused(False)
         # Keep top-level external control command messages stable for agents/tests.
         return {"status": "ok", "message": "Game resumed"}
 

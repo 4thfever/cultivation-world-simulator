@@ -215,8 +215,12 @@ async def perform_game_initialization(
             lambda: avatar_assets.update(scan_avatar_assets(assets_path=assets_path))
         )
 
+        run_config = get_runtime_run_config(runtime)
         update_init_progress(1, "loading_map")
-        game_map = await asyncio.to_thread(load_cultivation_world_map)
+        game_map = await asyncio.to_thread(
+            load_cultivation_world_map,
+            getattr(run_config, "map_id", "classic"),
+        )
 
         save_path, events_db_path = _create_save_slot(
             config=config,
@@ -225,7 +229,6 @@ async def perform_game_initialization(
         runtime.update({"current_save_path": save_path})
         print(f"Events database: {events_db_path}")
 
-        run_config = get_runtime_run_config(runtime)
         start_year = getattr(config.world, "start_year", 100)
         world = world_cls.create_with_db(
             map=game_map,

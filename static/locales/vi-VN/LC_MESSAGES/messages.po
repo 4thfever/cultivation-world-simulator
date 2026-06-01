@@ -2735,6 +2735,28 @@ msgstr "{names} ({price} linh thạch)"
 msgid "{value} Spirit Stones"
 msgstr "{value} linh thạch"
 
+msgid "MAP_PRESET_CLASSIC_NAME"
+msgstr "Trung Thổ Cửu Châu"
+
+msgid "MAP_PRESET_CLASSIC_DESC"
+msgstr "Địa hình cân bằng, phù hợp với trải nghiệm mặc định."
+
+msgid "MAP_PRESET_ISLAND_SEAS_NAME"
+msgstr "Chư Châu Biển Xanh"
+
+msgid "MAP_PRESET_ISLAND_SEAS_DESC"
+msgstr ""
+"Biển rộng chia cắt các châu đảo, tạo cảm giác không gian thoáng đãng hơn."
+
+msgid "MAP_PRESET_MOUNTAIN_FRONTIER_NAME"
+msgstr "Biên Cảnh Vạn Sơn"
+
+msgid "MAP_PRESET_MOUNTAIN_FRONTIER_DESC"
+msgstr "Núi non dày đặc, động phủ và tông môn phân bố hiểm trở hơn."
+
+msgid "MAP_PRESET_SIZE_MEDIUM"
+msgstr "Trung bình"
+
 msgid ", defended {region}"
 msgstr ", cố thủ được {region}"
 

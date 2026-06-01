@@ -1,0 +1,11 @@
+{
+  "id": "classic",
+  "name_id": "MAP_PRESET_CLASSIC_NAME",
+  "name": "九州中土",
+  "desc_id": "MAP_PRESET_CLASSIC_DESC",
+  "desc": "地貌均衡，适合默认体验。",
+  "size_label_id": "MAP_PRESET_SIZE_MEDIUM",
+  "size_label": "中型",
+  "version": 1,
+  "is_default": true
+}

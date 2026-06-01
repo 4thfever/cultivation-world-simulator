@@ -2729,6 +2729,28 @@ msgstr "{names} ({price} Spirit Stones)"
 msgid "{value} Spirit Stones"
 msgstr "{value} Spirit Stones"
 
+msgid "MAP_PRESET_CLASSIC_NAME"
+msgstr "Central Nine Provinces"
+
+msgid "MAP_PRESET_CLASSIC_DESC"
+msgstr "A balanced landscape suited for the default experience."
+
+msgid "MAP_PRESET_ISLAND_SEAS_NAME"
+msgstr "Azure Isles"
+
+msgid "MAP_PRESET_ISLAND_SEAS_DESC"
+msgstr ""
+"Open seas divide the isles, giving the world a broader sense of space."
+
+msgid "MAP_PRESET_MOUNTAIN_FRONTIER_NAME"
+msgstr "Ten Thousand Mountains"
+
+msgid "MAP_PRESET_MOUNTAIN_FRONTIER_DESC"
+msgstr "Dense mountain ranges make caves and sect grounds feel more perilous."
+
+msgid "MAP_PRESET_SIZE_MEDIUM"
+msgstr "Medium"
+
 msgid ", defended {region}"
 msgstr ", defended {region}"
 

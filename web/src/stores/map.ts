@@ -10,6 +10,9 @@ export const useMapStore = defineStore('map', () => {
   const mapData = shallowRef<MapMatrix>([]);
   const regions = shallowRef<Map<string | number, RegionSummary>>(new Map());
   const renderConfig = ref<MapRenderConfigDTO>(normalizeMapRenderConfig());
+  const mapId = ref('classic');
+  const mapName = ref('');
+  const presetVersion = ref(1);
   const isLoaded = ref(false);
   let preloadMapPromise: Promise<void> | null = null;
   let preloadMapRequestId = 0;
@@ -24,6 +27,9 @@ export const useMapStore = defineStore('map', () => {
       if (requestId !== preloadMapRequestId) return;
 
       mapData.value = mapRes.data;
+      mapId.value = mapRes.mapId;
+      mapName.value = mapRes.mapName;
+      presetVersion.value = mapRes.presetVersion;
       renderConfig.value = normalizeMapRenderConfig(mapRes.renderConfig);
       const regionMap = new Map<string | number, RegionSummary>();
       mapRes.regions.forEach(r => regionMap.set(r.id, r));
@@ -49,6 +55,9 @@ export const useMapStore = defineStore('map', () => {
     mapData.value = [];
     regions.value = new Map();
     renderConfig.value = normalizeMapRenderConfig();
+    mapId.value = 'classic';
+    mapName.value = '';
+    presetVersion.value = 1;
     isLoaded.value = false;
   }
 
@@ -56,6 +65,9 @@ export const useMapStore = defineStore('map', () => {
     mapData,
     regions,
     renderConfig,
+    mapId,
+    mapName,
+    presetVersion,
     isLoaded,
     preloadMap,
     reset

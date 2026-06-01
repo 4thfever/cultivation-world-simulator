@@ -40,6 +40,10 @@ const settingStore = useSettingStore()
 const systemStore = useSystemStore()
 const roleplayStore = useRoleplayStore()
 
+function showClosedMessage() {
+  document.body.innerHTML = `<div style="color:white; display:flex; justify-content:center; align-items:center; height:100vh; background:black; font-size:24px;">${t('game.controls.closed_msg')}</div>`
+}
+
 // Sidebar resizer 状态
 const { sidebarWidth, isResizing, onResizerMouseDown } = useSidebarResize()
 
@@ -125,10 +129,20 @@ function handleSelection(target: { type: 'avatar' | 'region'; id: string; name?:
 
 async function handleSplashAction(key: string) {
   if (key === 'exit') {
+    const desktopBridge = window.cwsDesktop
+    if (desktopBridge?.quit) {
+      try {
+        await desktopBridge.quit()
+        return
+      } catch (e) {
+        logError('App desktop quit', e)
+      }
+    }
+
+    showClosedMessage()
     try {
       await systemApi.shutdown()
       window.close()
-      document.body.innerHTML = `<div style="color:white; display:flex; justify-content:center; align-items:center; height:100vh; background:black; font-size:24px;">${t('game.controls.closed_msg')}</div>`
     } catch (e) {
       logError('App shutdown', e)
     }
@@ -141,10 +155,11 @@ async function handleSplashAction(key: string) {
 }
 
 async function handleReturnToMain() {
+  roleplayStore.reset()
+  returnToSplash()
+
   try {
     await systemApi.resetGame()
-    roleplayStore.reset()
-    returnToSplash()
   } catch (e) {
     logError('App reset game', e)
   }
