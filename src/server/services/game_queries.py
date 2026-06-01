@@ -414,12 +414,15 @@ def get_world_map(runtime, *, sects_by_id: dict[int, Any], render_config: dict[s
             region_type = "unknown"
             if hasattr(region, "center_loc") and region.center_loc and hasattr(region, "get_region_type"):
                 region_type = region.get_region_type()
+            landmark = (getattr(world.map, "landmarks", {}) or {}).get(int(region.id), {})
+            region_x = int(landmark.get("x", region.center_loc[0])) if isinstance(landmark, dict) else region.center_loc[0]
+            region_y = int(landmark.get("y", region.center_loc[1])) if isinstance(landmark, dict) else region.center_loc[1]
             region_dict = {
                 "id": region.id,
                 "name": region.name,
                 "type": region_type,
-                "x": region.center_loc[0],
-                "y": region.center_loc[1],
+                "x": region_x,
+                "y": region_y,
             }
             if hasattr(region, "sect_id"):
                 region_dict["sect_id"] = region.sect_id

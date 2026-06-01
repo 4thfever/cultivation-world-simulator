@@ -25,6 +25,8 @@ class Map():
         self.map_id = map_id
         self.map_name = map_name
         self.preset_version = preset_version
+        self.wilderness_tile = "plain"
+        self.landmarks: dict[int, dict[str, object]] = {}
         # 维护“最终归属”的每个 region 的坐标集合（由分配流程写入）
         # key: region.id, value: list[(x, y)]
         self.region_cors: dict[int, list[tuple[int, int]]] = {}

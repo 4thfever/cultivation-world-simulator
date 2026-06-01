@@ -230,6 +230,7 @@ describe('useSettingStore', () => {
         content_locale: testDefaultLocale,
         init_npc_num: 20,
         sect_num: 3,
+        map_id: 'classic',
         npc_awakening_rate_per_month: 0.01,
         world_lore: '',
       },
@@ -238,6 +239,7 @@ describe('useSettingStore', () => {
       content_locale: testDefaultLocale,
       init_npc_num: 20,
       sect_num: 3,
+      map_id: 'classic',
       npc_awakening_rate_per_month: 0.01,
       world_lore: '',
     })

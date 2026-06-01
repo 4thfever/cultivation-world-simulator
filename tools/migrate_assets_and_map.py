@@ -8,6 +8,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 # Configs
 CONFIG_DIR = PROJECT_ROOT / "static" / "game_configs"
 ASSETS_DIR = PROJECT_ROOT / "assets" / "sects"
+# Legacy one-off helper for the pre-preset root map CSV. Official map presets
+# are region-first `maps/<id>/map.json` now; do not use this for preset maps.
 TILE_MAP_PATH = CONFIG_DIR / "tile_map.csv"
 SECT_PATH = CONFIG_DIR / "sect.csv"
 

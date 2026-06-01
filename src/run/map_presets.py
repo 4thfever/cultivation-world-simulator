@@ -89,36 +89,16 @@ def get_map_preset(map_id: str | None = None) -> MapPreset:
     if target_id in presets:
         return presets[target_id]
 
-    # Classic keeps a low-cost fallback to the legacy root CSV files while the
-    # preset directory is being introduced.
-    if target_id == DEFAULT_MAP_ID:
-        legacy_tile = CONFIG.paths.game_configs / "tile_map.csv"
-        legacy_region = CONFIG.paths.game_configs / "region_map.csv"
-        if legacy_tile.exists() and legacy_region.exists():
-            return MapPreset(
-                id=DEFAULT_MAP_ID,
-                name="九州中土",
-                desc="地貌均衡，适合默认体验。",
-                size_label="中型",
-                version=1,
-                is_default=True,
-                path=CONFIG.paths.game_configs,
-                name_id="MAP_PRESET_CLASSIC_NAME",
-                desc_id="MAP_PRESET_CLASSIC_DESC",
-                size_label_id="MAP_PRESET_SIZE_MEDIUM",
-            )
-
     raise ValueError(f"Unknown map preset: {target_id}")
 
 
-def resolve_map_files(map_id: str | None = None) -> tuple[MapPreset, Path, Path]:
+def resolve_map_source_file(map_id: str | None = None) -> tuple[MapPreset, Path]:
     preset = get_map_preset(map_id)
     preset_path = preset.path or (MAPS_DIR / preset.id)
-    tile_csv = preset_path / "tile_map.csv"
-    region_csv = preset_path / "region_map.csv"
-    if not tile_csv.exists() or not region_csv.exists():
-        raise FileNotFoundError(f"Map data files not found for preset {preset.id}: {preset_path}")
-    return preset, tile_csv, region_csv
+    source_path = preset_path / "map.json"
+    if not source_path.exists():
+        raise FileNotFoundError(f"Map source file not found for preset {preset.id}: {source_path}")
+    return preset, source_path
 
 
 def get_map_presets_query() -> dict[str, list[dict[str, Any]]]:

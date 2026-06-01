@@ -1,4 +1,3 @@
-import csv
 from src.classes.environment.map import Map
 from src.classes.environment.tile import TileType
 from src.classes.environment.region import NormalRegion, CultivateRegion, CityRegion
@@ -6,32 +5,56 @@ from src.classes.environment.sect_region import SectRegion
 from src.utils.df import game_configs, get_str, get_int, get_float
 from src.classes.essence import EssenceType
 from src.classes.core.sect import sects_by_id  # 直接导入已加载的宗门数据
-from src.run.map_presets import resolve_map_files
+from src.run.map_presets import resolve_map_source_file
+from src.run.map_source import (
+    MapSource,
+    collect_region_coords,
+    derive_tile_rows_from_region_rows,
+    map_source_to_dict,
+    read_map_source,
+)
 
 def load_cultivation_world_map(map_id: str | None = None) -> Map:
     """
-    从静态 CSV 文件加载修仙世界地图。
-    读取: tile_map.csv, region_map.csv
+    从 region-first 地图源加载修仙世界地图。
+    读取: maps/<map_id>/map.json
     以及: normal/city/cultivate/sect_region.csv
     """
-    preset, tile_csv, region_csv = resolve_map_files(map_id)
-    
-    if not tile_csv.exists() or not region_csv.exists():
-        raise FileNotFoundError(f"Map data files not found for preset {preset.id}")
-
-    # 1. 读取 Tile Map 以确定尺寸
-    with open(tile_csv, 'r', encoding='utf-8') as f:
-        tile_rows = list(csv.reader(f))
-    with open(region_csv, 'r', encoding='utf-8') as f:
-        region_rows = list(csv.reader(f))
-
-    return build_map_from_rows(
-        tile_rows,
-        region_rows,
+    preset, source_path = resolve_map_source_file(map_id)
+    source = read_map_source(source_path)
+    return build_map_from_source(
+        source,
         map_id=preset.id,
         map_name=preset.localized_name,
         preset_version=preset.version,
     )
+
+
+def build_map_from_source(
+    source: MapSource,
+    *,
+    map_id: str | None = None,
+    map_name: str = "",
+    preset_version: int | None = None,
+) -> Map:
+    tile_rows = derive_tile_rows_from_region_rows(
+        source.region_rows,
+        wilderness_tile=source.wilderness_tile,
+    )
+    game_map = build_map_from_rows(
+        tile_rows,
+        source.region_rows,
+        map_id=map_id or source.map_id,
+        map_name=map_name,
+        preset_version=preset_version if preset_version is not None else source.version,
+    )
+    game_map.wilderness_tile = source.wilderness_tile
+    game_map.landmarks = {
+        region_id: landmark.to_dict()
+        for region_id, landmark in source.landmarks.items()
+    }
+    game_map.map_source = map_source_to_dict(source)
+    return game_map
 
 
 def build_map_from_rows(
@@ -65,22 +88,21 @@ def build_map_from_rows(
                 
                 game_map.create_tile(x, y, t_type)
     
-    # 3. 读取 Region Map 并聚合坐标
-    # region_coords: { region_id: [(x, y), ...] }
-    region_coords = {}
-    
+    normalized_region_rows: list[list[int]] = []
     for y, row in enumerate(region_rows):
-        if y >= height: break
+        if y >= height:
+            break
+        normalized_region_row: list[int] = []
         for x, val in enumerate(row):
-            if x >= width: break
+            if x >= width:
+                break
             try:
-                rid = int(val)
-                if rid != -1:
-                    if rid not in region_coords:
-                        region_coords[rid] = []
-                    region_coords[rid].append((x, y))
-            except ValueError:
-                continue
+                normalized_region_row.append(int(val))
+            except (ValueError, TypeError):
+                normalized_region_row.append(-1)
+        normalized_region_rows.append(normalized_region_row)
+
+    region_coords = collect_region_coords(normalized_region_rows)
 
     # 4. 加载 Region 元数据并创建对象
     _load_and_assign_regions(game_map, region_coords)

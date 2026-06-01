@@ -1,12 +1,74 @@
+from pathlib import Path
+
 from src.run.load_map import load_cultivation_world_map
 from src.run.map_presets import list_map_presets
 from src.run.map_snapshot import load_map_from_snapshot, serialize_map_snapshot
+from src.run.map_source import derive_tile_rows_from_region_rows, read_map_source
+from src.run.map_source import load_region_tile_bindings
 from src.classes.core.world import World
 from src.server.runtime.session import GameSessionRuntime, create_default_game_state
 from src.server.services.game_queries import get_world_map
 from src.systems.time import Month, Year, create_month_stamp
 from src.classes.language import language_manager
 from src.i18n import reload_translations
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _read_preset_tile_rows(map_id: str) -> list[list[str]]:
+    source = read_map_source(PROJECT_ROOT / "static" / "game_configs" / "maps" / map_id / "map.json")
+    return derive_tile_rows_from_region_rows(
+        source.region_rows,
+        wilderness_tile=source.wilderness_tile,
+    )
+
+
+def _count_pair_edges(tile_rows: list[list[str]], pair: set[str]) -> int:
+    height = len(tile_rows)
+    width = len(tile_rows[0]) if height else 0
+    count = 0
+    for y, row in enumerate(tile_rows):
+        for x, tile_name in enumerate(row):
+            if x + 1 < width and {tile_name, row[x + 1]} == pair:
+                count += 1
+            if y + 1 < height and {tile_name, tile_rows[y + 1][x]} == pair:
+                count += 1
+    return count
+
+
+def _count_checkerboards(tile_rows: list[list[str]], pair: set[str]) -> int:
+    height = len(tile_rows)
+    width = len(tile_rows[0]) if height else 0
+    count = 0
+    for y in range(height - 1):
+        for x in range(width - 1):
+            top_left = tile_rows[y][x]
+            top_right = tile_rows[y][x + 1]
+            bottom_left = tile_rows[y + 1][x]
+            bottom_right = tile_rows[y + 1][x + 1]
+            if (
+                {top_left, top_right, bottom_left, bottom_right} == pair
+                and top_left == bottom_right
+                and top_right == bottom_left
+            ):
+                count += 1
+    return count
+
+
+def _max_edge_run(tile_rows: list[list[str]], x: int = 0) -> int:
+    max_run = 0
+    current_tile = None
+    current_run = 0
+    for row in tile_rows:
+        tile_name = row[x]
+        if tile_name == current_tile:
+            current_run += 1
+        else:
+            max_run = max(max_run, current_run)
+            current_tile = tile_name
+            current_run = 1
+    return max(max_run, current_run)
 
 
 def test_official_map_presets_load_with_uniform_size():
@@ -27,16 +89,38 @@ def test_official_map_presets_load_with_uniform_size():
     assert all(region_set == region_sets[0] for region_set in region_sets)
 
 
+def test_region_tile_bindings_cover_all_regions():
+    bindings = load_region_tile_bindings()
+    game_map = load_cultivation_world_map("classic")
+
+    assert set(game_map.regions).issubset(set(bindings))
+    assert bindings[112].tile == "farm"
+    assert bindings[201].tile == "mountain"
+    assert bindings[201].landmark_asset == "cave"
+    assert bindings[301].landmark_asset == "city_301"
+    assert bindings[401].landmark_asset == "sect_1"
+
+
+def test_official_map_visual_shape_guards():
+    island_rows = _read_preset_tile_rows("island_seas")
+    assert _count_pair_edges(island_rows, {"island", "plain"}) <= 200
+    assert _count_checkerboards(island_rows, {"island", "plain"}) == 0
+
+    mountain_rows = _read_preset_tile_rows("mountain_frontier")
+    assert _max_edge_run(mountain_rows, x=0) <= 20
+
+
 def test_map_snapshot_round_trip_restores_tiles_and_regions():
     game_map = load_cultivation_world_map("island_seas")
     snapshot = serialize_map_snapshot(game_map)
 
-    assert snapshot["schema_version"] == 1
+    assert snapshot["schema_version"] == 2
     assert snapshot["preset_id"] == "island_seas"
     assert snapshot["width"] == 84
     assert snapshot["height"] == 60
-    assert len(snapshot["tile_rows"]) == 60
+    assert snapshot["wilderness_tile"] == "plain"
     assert len(snapshot["region_rows"]) == 60
+    assert snapshot["landmarks"]
 
     restored = load_map_from_snapshot(snapshot)
     assert restored.map_id == "island_seas"
@@ -54,6 +138,29 @@ def test_map_snapshot_round_trip_restores_tiles_and_regions():
             )
 
 
+def test_region_first_map_loads_wilderness_and_landmarks():
+    game_map = load_cultivation_world_map("island_seas")
+    source = read_map_source(PROJECT_ROOT / "static" / "game_configs" / "maps" / "island_seas" / "map.json")
+
+    wilderness_coord = None
+    for y, row in enumerate(source.region_rows):
+        for x, region_id in enumerate(row):
+            if region_id == -1:
+                wilderness_coord = (x, y)
+                break
+        if wilderness_coord:
+            break
+
+    assert wilderness_coord is not None
+    wilderness_tile = game_map.get_tile(*wilderness_coord)
+    assert wilderness_tile.region is None
+    assert wilderness_tile.type.value == source.wilderness_tile
+
+    assert game_map.landmarks[301]["asset"] == "city_301"
+    assert "x" in game_map.landmarks[301]
+    assert "y" in game_map.landmarks[301]
+
+
 def test_public_map_data_uses_renderable_tile_types():
     for preset in list_map_presets():
         runtime = GameSessionRuntime(create_default_game_state())
@@ -69,6 +176,22 @@ def test_public_map_data_uses_renderable_tile_types():
         assert "CAVE" not in tile_types
         assert "RUIN" not in tile_types
         assert "SECT" not in tile_types
+
+
+def test_public_map_region_coordinates_use_landmarks():
+    runtime = GameSessionRuntime(create_default_game_state())
+    game_map = load_cultivation_world_map("island_seas")
+    world = World(
+        map=game_map,
+        month_stamp=create_month_stamp(Year(1), Month.JANUARY),
+    )
+    runtime.update({"world": world})
+
+    response = get_world_map(runtime, sects_by_id={}, render_config={})
+    city = next(region for region in response["regions"] if region["id"] == 301)
+
+    assert city["x"] == game_map.landmarks[301]["x"]
+    assert city["y"] == game_map.landmarks[301]["y"]
 
 
 def test_map_presets_are_localized():

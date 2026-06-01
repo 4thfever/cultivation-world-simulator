@@ -11,6 +11,9 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 ASSETS_DIR = os.path.join(BASE_DIR, "assets")
 CONFIG_DIR = os.path.join(BASE_DIR, "static", "game_configs")
 OUTPUT_DIR = os.path.dirname(__file__)
+DEFAULT_MAP_ID = "classic"
+MAPS_DIR = os.path.join(CONFIG_DIR, "maps")
+REGION_TILE_PATH = os.path.join(CONFIG_DIR, "region_tile.csv")
 
 # 地图尺寸
 MAP_WIDTH = 70
@@ -32,87 +35,44 @@ def serve_sect_image(filename):
 def serve_city_image(filename):
     return send_from_directory(os.path.join(ASSETS_DIR, "cities"), filename)
 
-# 显式定义的区域-地形映射表
-# Key: 区域ID (int), Value: {"t": tile_name, "type": "tile" | "sect" | "city"}
-REGION_TILE_MAP = {
-    # --- 城市区域 (City Regions) - 使用 ID ---
-    301: {"t": "city_301", "type": "city"},  # 青云城
-    302: {"t": "city_302", "type": "city"},  # 沙月城
-    303: {"t": "city_303", "type": "city"},  # 翠林城
-    304: {"t": "city_304", "type": "city"},  # 沧澜城
-    305: {"t": "city_305", "type": "city"},  # 揽月城
-    
-    # --- 洞府遗迹 (Cultivate Regions) - 使用 sub_type ---
-    201: {"t": "cave", "type": "tile"},  # 太白金府
-    202: {"t": "cave", "type": "tile"},  # 青木洞天
-    203: {"t": "cave", "type": "tile"},  # 玄水秘境
-    204: {"t": "cave", "type": "tile"},  # 离火洞府
-    205: {"t": "cave", "type": "tile"},  # 厚土玄宫
-    206: {"t": "ruin", "type": "tile"},  # 古越遗迹
-    207: {"t": "ruin", "type": "tile"},  # 沧海遗迹
-}
+def load_region_tile_bindings():
+    bindings = {}
+    if not os.path.exists(REGION_TILE_PATH):
+        return bindings
+    with open(REGION_TILE_PATH, 'r', encoding='utf-8-sig') as f:
+        rows = list(csv.DictReader(f))
+    for row in rows[1:] if rows and str(rows[0].get('region_id', '')).startswith('区域') else rows:
+        try:
+            rid = int(row.get('region_id') or 0)
+        except ValueError:
+            continue
+        if rid <= 0:
+            continue
+        bindings[rid] = {
+            "tile": (row.get('tile') or 'plain').strip(),
+            "landmarkAsset": (row.get('landmark_asset') or '').strip() or None,
+        }
+    return bindings
 
-# 普通区域名称映射（用于后备查找）
-NORMAL_REGION_NAME_MAP = {
-    "平原地带": "plain",
-    "西域流沙": "desert",
-    "南疆蛮荒": "rainforest",
-    "极北冰原": "glacier",
-    "无边碧海": "sea",
-    "天河奔流": "water",
-    "青峰山脉": "mountain",
-    "万丈雪峰": "snow_mountain",
-    "碧野千里": "grassland",
-    "青云林海": "forest",
-    "炎狱火山": "volcano",
-    "沃土良田": "farm",
-    "幽冥毒泽": "swamp",
-    "十万大山": "mountain",
-    "紫竹幽境": "bamboo",
-    "凛霜荒原": "tundra",
-    "碎星戈壁": "gobi",
-    "蓬莱遗岛": "island",
-}
 
-def get_default_tile(region_id, name, type_tag, sect_id=None, sub_type=None):
-    """根据区域ID和类型查找默认 Tile
-    
-    Args:
-        region_id: 区域ID
-        name: 区域名称（用于后备查找）
-        type_tag: 区域类型 (normal/sect/city/cultivate)
-        sect_id: 宗门ID（仅 sect 类型）
-        sub_type: 子类型（仅 cultivate 类型：cave/ruin）
-    """
-    
-    # 1. 优先使用 ID 查表
-    if region_id in REGION_TILE_MAP:
-        return REGION_TILE_MAP[region_id]
-    
-    # 2. 宗门：使用 sect_id 生成 tile 名称
+def get_default_tile(region_id, type_tag, sect_id=None, sub_type=None, bindings=None):
+    bindings = bindings or {}
+    if region_id in bindings:
+        info = bindings[region_id]
+        asset = info.get("landmarkAsset")
+        if asset and asset.startswith("city_"):
+            return {"t": info["tile"], "type": "city", "landmarkAsset": asset}
+        if asset and asset.startswith("sect_"):
+            return {"t": info["tile"], "type": "sect", "landmarkAsset": asset}
+        return {"t": info["tile"], "type": "tile", "landmarkAsset": asset}
     if type_tag == 'sect' and sect_id is not None:
-        return {"t": f"sect_{sect_id}", "type": "sect"}
-    
-    # 3. 城市：使用 region_id 生成 tile 名称
+        return {"t": "mountain", "type": "sect", "landmarkAsset": f"sect_{sect_id}"}
     if type_tag == 'city':
-        return {"t": f"city_{region_id}", "type": "city"}
-    
-    # 4. 修炼区域：使用 sub_type
+        return {"t": "city", "type": "city", "landmarkAsset": f"city_{region_id}"}
     if type_tag == 'cultivate':
-        if sub_type in ['cave', 'ruin']:
-            return {"t": sub_type, "type": "tile"}
-        # 兜底：根据名称推断
-        if '遗迹' in name:
-            return {"t": "ruin", "type": "tile"}
-        return {"t": "cave", "type": "tile"}
-    
-    # 5. 普通区域：尝试名称映射
-    if type_tag == 'normal' and name in NORMAL_REGION_NAME_MAP:
-        tile_name = NORMAL_REGION_NAME_MAP[name]
-        return {"t": tile_name, "type": "tile"}
-    
-    # 默认
-    return {"t": "plain", "type": "tile"}
+        asset = sub_type if sub_type in ['cave', 'ruin'] else 'cave'
+        return {"t": "mountain", "type": "tile", "landmarkAsset": asset}
+    raise ValueError(f"Missing tile binding for region {region_id}")
 
 @app.route('/api/init')
 def init_data():
@@ -179,6 +139,8 @@ def init_data():
                     except ValueError:
                         continue
 
+    region_tile_bindings = load_region_tile_bindings()
+
     # 5. 读取 Region 配置
     regions = []
     
@@ -217,7 +179,7 @@ def init_data():
                         sub_type = row[sub_type_col].strip()
                     
                     # 计算默认绑定 Tile
-                    bind_info = get_default_tile(r_id, name, type_tag, sect_id=sect_id, sub_type=sub_type)
+                    bind_info = get_default_tile(r_id, type_tag, sect_id=sect_id, sub_type=sub_type, bindings=region_tile_bindings)
 
                     regions.append({
                         "id": r_id,
@@ -225,7 +187,8 @@ def init_data():
                         "type": type_tag,
                         "color": color,
                         "bindTile": bind_info["t"],
-                        "bindTileType": bind_info["type"]
+                        "bindTileType": bind_info["type"],
+                        "landmarkAsset": bind_info.get("landmarkAsset"),
                     })
                 except ValueError:
                     continue
@@ -251,93 +214,90 @@ def init_data():
         
     regions.sort(key=lambda x: (sort_priority(x), x['id']))
 
-    # 3. 尝试读取现有的地图数据
     saved_map = load_map_data()
 
     return jsonify({
-        "width": MAP_WIDTH,
-        "height": MAP_HEIGHT,
+        "width": saved_map["width"],
+        "height": saved_map["height"],
+        "wildernessTile": saved_map["wildernessTile"],
         "tiles": tiles,
         "sectTiles": sect_tiles,
         "cityTiles": city_tiles,
         "cityTilesMap": city_tiles_map,
         "regions": regions,
-        "savedMap": saved_map
+        "savedMap": saved_map["cells"],
+        "landmarks": saved_map["landmarks"],
     })
 
 @app.route('/api/save', methods=['POST'])
 def save_map():
     data = request.json
-    grid = data.get('grid', []) # list of {x, y, t, r}
-
-    tile_csv_path = os.path.join(OUTPUT_DIR, "tile_map.csv")
-    region_csv_path = os.path.join(OUTPUT_DIR, "region_map.csv")
+    grid = data.get('grid', [])
+    landmarks = data.get('landmarks', {})
+    map_id = data.get('mapId') or DEFAULT_MAP_ID
+    output_dir = os.path.join(MAPS_DIR, map_id)
+    os.makedirs(output_dir, exist_ok=True)
+    map_json_path = os.path.join(output_dir, "map.json")
 
     try:
-        # 初始化二维数组 (Matrix)
-        # MAP_HEIGHT 行, MAP_WIDTH 列
-        tile_matrix = [["plain" for _ in range(MAP_WIDTH)] for _ in range(MAP_HEIGHT)]
         region_matrix = [[-1 for _ in range(MAP_WIDTH)] for _ in range(MAP_HEIGHT)]
 
-        # 填充数据
         for cell in grid:
             x, y = cell['x'], cell['y']
             if 0 <= x < MAP_WIDTH and 0 <= y < MAP_HEIGHT:
-                tile_matrix[y][x] = cell['t']
                 if cell.get('r') is not None:
                     region_matrix[y][x] = cell['r']
 
-        # 保存 Tile Map (矩阵形式)
-        with open(tile_csv_path, 'w', newline='', encoding='utf-8') as f:
-            writer = csv.writer(f)
-            writer.writerows(tile_matrix)
-
-        # 保存 Region Map (矩阵形式)
-        with open(region_csv_path, 'w', newline='', encoding='utf-8') as f:
-            writer = csv.writer(f)
-            writer.writerows(region_matrix)
+        payload = {
+            "schema_version": 2,
+            "id": map_id,
+            "version": 2,
+            "width": MAP_WIDTH,
+            "height": MAP_HEIGHT,
+            "wilderness_tile": data.get("wildernessTile") or "plain",
+            "region_rows": region_matrix,
+            "landmarks": landmarks,
+        }
+        with open(map_json_path, 'w', encoding='utf-8') as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+            f.write("\n")
         
-        return jsonify({"status": "success", "message": "Map saved successfully (Matrix Format)"})
+        return jsonify({"status": "success", "message": "Map saved successfully (region-first map.json)"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
 def load_map_data():
-    """读取矩阵格式 CSV 并重建 Grid 状态"""
-    tile_csv_path = os.path.join(OUTPUT_DIR, "tile_map.csv")
-    region_csv_path = os.path.join(OUTPUT_DIR, "region_map.csv")
+    """读取 region-first map.json 并重建 Grid 状态"""
+    map_json_path = os.path.join(MAPS_DIR, DEFAULT_MAP_ID, "map.json")
     
     loaded_data = {} # key: "x,y", value: {t: ..., r: ...}
+    landmarks = {}
+    wilderness_tile = "plain"
 
-    # 读取 Tile Matrix
-    if os.path.exists(tile_csv_path):
-        with open(tile_csv_path, 'r', encoding='utf-8') as f:
-            reader = csv.reader(f)
-            for y, row in enumerate(reader):
-                if y >= MAP_HEIGHT: break
-                for x, val in enumerate(row):
-                    if x >= MAP_WIDTH: break
-                    key = f"{x},{y}"
-                    loaded_data[key] = {"t": val}
+    if os.path.exists(map_json_path):
+        with open(map_json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        wilderness_tile = data.get("wilderness_tile") or "plain"
+        width = data.get("width", MAP_WIDTH)
+        height = data.get("height", MAP_HEIGHT)
+        region_rows = data.get("region_rows", [])
+        bindings = load_region_tile_bindings()
+        for y, row in enumerate(region_rows):
+            for x, rid in enumerate(row):
+                key = f"{x},{y}"
+                tile = wilderness_tile
+                if rid != -1 and rid in bindings:
+                    tile = bindings[rid]["tile"]
+                loaded_data[key] = {"t": tile, "r": rid if rid != -1 else None}
+        landmarks = data.get("landmarks", {})
 
-    # 读取 Region Matrix
-    if os.path.exists(region_csv_path):
-        with open(region_csv_path, 'r', encoding='utf-8') as f:
-            reader = csv.reader(f)
-            for y, row in enumerate(reader):
-                if y >= MAP_HEIGHT: break
-                for x, val in enumerate(row):
-                    if x >= MAP_WIDTH: break
-                    try:
-                        rid = int(val)
-                        if rid != -1:
-                            key = f"{x},{y}"
-                            if key not in loaded_data:
-                                loaded_data[key] = {"t": "plain"} # 默认
-                            loaded_data[key]["r"] = rid
-                    except ValueError:
-                        continue
-    
-    return loaded_data
+    return {
+        "cells": loaded_data,
+        "landmarks": landmarks,
+        "wildernessTile": wilderness_tile,
+        "width": width if os.path.exists(map_json_path) else MAP_WIDTH,
+        "height": height if os.path.exists(map_json_path) else MAP_HEIGHT,
+    }
 
 if __name__ == '__main__':
     print(f"Starting Map Creator at http://127.0.0.1:5000")

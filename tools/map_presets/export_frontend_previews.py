@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import csv
 import sys
 from pathlib import Path
 
@@ -10,6 +9,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.run.map_presets import list_map_presets  # noqa: E402
+from src.run.map_source import derive_tile_rows_from_region_rows, read_map_source  # noqa: E402
 
 
 COLORS = {
@@ -38,34 +38,6 @@ COLORS = {
 }
 
 
-def _read_csv(path: Path) -> list[list[str]]:
-    with open(path, "r", encoding="utf-8") as f:
-        return list(csv.reader(f))
-
-
-def _tile_key(tile_name: str) -> str:
-    if "_" in tile_name:
-        if tile_name.startswith("city_"):
-            return "city"
-        if tile_name.startswith("sect_"):
-            return "sect"
-        if tile_name.startswith("cave_"):
-            return "cave"
-        if tile_name.startswith("ruin_"):
-            return "ruin"
-    return tile_name.lower()
-
-
-def _marker(tile_name: str) -> str | None:
-    if tile_name.startswith("city_"):
-        return "city"
-    if tile_name.startswith("sect_"):
-        return "sect"
-    if tile_name.startswith("cave_") or tile_name.startswith("ruin_"):
-        return "cultivate"
-    return None
-
-
 def _marker_color(kind: str) -> str:
     return {
         "city": "#d7aa4d",
@@ -74,7 +46,15 @@ def _marker_color(kind: str) -> str:
     }.get(kind, "#ffffff")
 
 
-def build_svg(tile_rows: list[list[str]], region_rows: list[list[str]]) -> str:
+def _marker_kind(asset: str) -> str:
+    if asset.startswith("city_"):
+        return "city"
+    if asset.startswith("sect_"):
+        return "sect"
+    return "cultivate"
+
+
+def build_svg(tile_rows: list[list[str]], region_rows: list[list[int]], landmarks: dict[int, object]) -> str:
     rows = len(tile_rows)
     cols = len(tile_rows[0]) if rows else 0
     cell = 2
@@ -90,9 +70,9 @@ def build_svg(tile_rows: list[list[str]], region_rows: list[list[str]]) -> str:
     for y, row in enumerate(tile_rows):
         x = 0
         while x < cols:
-            key = _tile_key(row[x])
+            key = row[x].lower()
             x2 = x + 1
-            while x2 < cols and _tile_key(row[x2]) == key:
+            while x2 < cols and row[x2].lower() == key:
                 x2 += 1
             color = COLORS.get(key, "#b45ab4")
             parts.append(
@@ -115,22 +95,13 @@ def build_svg(tile_rows: list[list[str]], region_rows: list[list[str]]) -> str:
                     f'<path d="M{px} {py}H{px + cell}" stroke="{boundary_color}" stroke-opacity="{boundary_opacity}" stroke-width="0.55"/>'
                 )
 
-    marker_seen: set[str] = set()
-    for y, row in enumerate(tile_rows):
-        for x, tile_name in enumerate(row):
-            kind = _marker(tile_name)
-            if kind is None:
-                continue
-            # Large tile slices are 2x2; mark only the first slice of each object.
-            marker_id = tile_name.rsplit("_", 1)[0]
-            if marker_id in marker_seen:
-                continue
-            marker_seen.add(marker_id)
-            cx = x * cell + cell
-            cy = y * cell + cell
-            parts.append(
-                f'<circle cx="{cx}" cy="{cy}" r="1.9" fill="{_marker_color(kind)}" stroke="#1b1b18" stroke-width="0.45"/>'
-            )
+    for landmark in landmarks.values():
+        kind = _marker_kind(landmark.asset)
+        cx = landmark.x * cell + cell
+        cy = landmark.y * cell + cell
+        parts.append(
+            f'<circle cx="{cx}" cy="{cy}" r="1.9" fill="{_marker_color(kind)}" stroke="#1b1b18" stroke-width="0.45"/>'
+        )
 
     parts.append("</svg>")
     return "\n".join(parts) + "\n"
@@ -143,10 +114,10 @@ def export_previews() -> None:
     for preset in list_map_presets():
         if preset.path is None:
             continue
-        tile_rows = _read_csv(preset.path / "tile_map.csv")
-        region_rows = _read_csv(preset.path / "region_map.csv")
+        source = read_map_source(preset.path / "map.json")
+        tile_rows = derive_tile_rows_from_region_rows(source.region_rows, wilderness_tile=source.wilderness_tile)
         output = output_dir / f"{preset.id}.svg"
-        output.write_text(build_svg(tile_rows, region_rows), encoding="utf-8")
+        output.write_text(build_svg(tile_rows, source.region_rows, source.landmarks), encoding="utf-8")
         print(output)
 
 

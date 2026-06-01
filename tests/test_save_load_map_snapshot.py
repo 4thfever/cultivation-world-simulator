@@ -38,8 +38,10 @@ def test_save_writes_full_map_snapshot(tmp_path):
     assert snapshot["preset_id"] == "mountain_frontier"
     assert snapshot["width"] == 84
     assert snapshot["height"] == 60
-    assert len(snapshot["tile_rows"]) == 60
+    assert snapshot["schema_version"] == 2
+    assert snapshot["wilderness_tile"] == "plain"
     assert len(snapshot["region_rows"]) == 60
+    assert snapshot["landmarks"]
 
 
 def test_load_prefers_map_snapshot_over_run_config_map_id(tmp_path):

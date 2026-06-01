@@ -194,6 +194,8 @@ createApp({
         const cityTilesMap = ref({});
         const regions = ref([]);
         const savedMap = ref({}); 
+        const landmarks = ref({});
+        const wildernessTile = ref('plain');
         
         const currentTile = ref('plain');
         const currentTileType = ref('tile');
@@ -247,6 +249,8 @@ createApp({
                 mapWidth.value = data.width;
                 mapHeight.value = data.height;
                 savedMap.value = data.savedMap || {};
+                landmarks.value = data.landmarks || {};
+                wildernessTile.value = data.wildernessTile || 'plain';
                 
                 // Preload images
                 const loadImg = (name, folder, filename) => {
@@ -626,7 +630,9 @@ createApp({
         // --- Actions ---
         async function saveMap() {
             const payload = {
-                grid: grid
+                grid: grid,
+                landmarks: landmarks.value,
+                wildernessTile: wildernessTile.value,
             };
             try {
                 const res = await fetch('/api/save', {
