@@ -47,11 +47,19 @@ def build_map_from_source(
         map_id=map_id or source.map_id,
         map_name=map_name,
         preset_version=preset_version if preset_version is not None else source.version,
+        region_overrides={
+            region_id: override.to_dict()
+            for region_id, override in source.region_overrides.items()
+        },
     )
     game_map.wilderness_tile = source.wilderness_tile
     game_map.landmarks = {
         region_id: landmark.to_dict()
         for region_id, landmark in source.landmarks.items()
+    }
+    game_map.region_overrides = {
+        region_id: override.to_dict()
+        for region_id, override in source.region_overrides.items()
     }
     game_map.map_source = map_source_to_dict(source)
     return game_map
@@ -64,12 +72,14 @@ def build_map_from_rows(
     map_id: str = "classic",
     map_name: str = "",
     preset_version: int = 1,
+    region_overrides: dict[int, dict[str, object]] | None = None,
 ) -> Map:
     """Build a Map from already parsed tile and region matrices."""
     height = len(tile_rows)
     width = len(tile_rows[0]) if height > 0 else 0
     
     game_map = Map(width=width, height=height, map_id=map_id, map_name=map_name, preset_version=preset_version)
+    game_map.region_overrides = region_overrides or {}
     
     # 2. 填充 Tile Type
     for y, row in enumerate(tile_rows):
@@ -127,11 +137,12 @@ def _load_and_assign_regions(game_map: Map, region_coords: dict[int, list[tuple[
             
             cors = region_coords[rid]
             
+            override = (getattr(game_map, "region_overrides", {}) or {}).get(rid, {})
             # 构建参数
             params = {
                 "id": rid,
-                "name": get_str(row, "name"),
-                "desc": get_str(row, "desc"),
+                "name": str(override.get("name") or get_str(row, "name")),
+                "desc": str(override.get("desc") or get_str(row, "desc")),
                 "cors": cors,
             }
             

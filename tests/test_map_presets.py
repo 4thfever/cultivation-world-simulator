@@ -194,6 +194,14 @@ def test_public_map_region_coordinates_use_landmarks():
     assert city["y"] == game_map.landmarks[301]["y"]
 
 
+def test_map_region_overrides_are_applied_to_region_details():
+    game_map = load_cultivation_world_map("classic")
+    region = game_map.regions[101]
+
+    assert region.name == "东南平原"
+    assert "河渠与海风" in region.desc
+
+
 def test_map_presets_are_localized():
     original_language = str(language_manager)
     try:

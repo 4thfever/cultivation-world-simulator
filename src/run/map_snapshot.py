@@ -6,7 +6,7 @@ from src.classes.environment.map import Map
 from src.classes.environment.tile import TileType
 from src.run.load_map import build_map_from_rows, build_map_from_source
 from src.run.map_presets import DEFAULT_MAP_ID
-from src.run.map_source import MapLandmark, MapSource
+from src.run.map_source import MapLandmark, MapRegionOverride, MapSource
 
 
 MAP_SNAPSHOT_SCHEMA_VERSION = 2
@@ -31,6 +31,7 @@ def serialize_map_snapshot(game_map: Map) -> dict[str, Any]:
         "wilderness_tile": str(getattr(game_map, "wilderness_tile", "plain") or "plain"),
         "region_rows": region_rows,
         "landmarks": getattr(game_map, "landmarks", {}) or {},
+        "region_overrides": getattr(game_map, "region_overrides", {}) or {},
         "region_tile_overrides": {},
     }
 
@@ -86,6 +87,20 @@ def load_map_from_snapshot(snapshot: dict[str, Any]) -> Map:
                 asset=str(value.get("asset") or ""),
             )
 
+    region_overrides: dict[int, dict[str, Any]] = {}
+    raw_region_overrides = snapshot.get("region_overrides") or {}
+    if isinstance(raw_region_overrides, dict):
+        for raw_region_id, value in raw_region_overrides.items():
+            if not isinstance(value, dict):
+                continue
+            override: dict[str, Any] = {}
+            if value.get("name") is not None:
+                override["name"] = str(value.get("name") or "")
+            if value.get("desc") is not None:
+                override["desc"] = str(value.get("desc") or "")
+            if override:
+                region_overrides[int(raw_region_id)] = override
+
     source = MapSource(
         map_id=preset_id,
         version=int(snapshot.get("preset_version", 1) or 1),
@@ -94,6 +109,13 @@ def load_map_from_snapshot(snapshot: dict[str, Any]) -> Map:
         wilderness_tile=str(snapshot.get("wilderness_tile") or "plain"),
         region_rows=normalized_region_rows,
         landmarks=landmarks,
+        region_overrides={
+            rid: MapRegionOverride(
+                name=str(value.get("name")) if value.get("name") is not None else None,
+                desc=str(value.get("desc")) if value.get("desc") is not None else None,
+            )
+            for rid, value in region_overrides.items()
+        },
     )
     return build_map_from_source(
         source,

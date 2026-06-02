@@ -72,3 +72,32 @@ def test_load_prefers_map_snapshot_over_run_config_map_id(tmp_path):
     assert loaded_world.run_config_snapshot["map_id"] == "classic"
     assert loaded_sim is not None
     assert loaded_sects == []
+
+
+def test_map_snapshot_persists_region_overrides(tmp_path):
+    game_map = load_cultivation_world_map("classic")
+    world = World.create_with_db(
+        map=game_map,
+        month_stamp=create_month_stamp(Year(1), Month.JANUARY),
+        events_db_path=tmp_path / "override_snapshot_events.db",
+    )
+    world.run_config_snapshot = {
+        "content_locale": "zh-CN",
+        "map_id": "classic",
+        "init_npc_num": 0,
+        "sect_num": 0,
+        "npc_awakening_rate_per_month": 0.01,
+        "world_lore": "",
+    }
+    sim = Simulator(world)
+
+    save_path = tmp_path / "override_snapshot.json"
+    success, _ = save_game(world, sim, [], save_path=save_path)
+    assert success
+
+    with open(save_path, "r", encoding="utf-8") as f:
+        save_data = json.load(f)
+
+    snapshot = save_data["world"]["map_snapshot"]
+    assert snapshot["region_overrides"]["101"]["name"] == "东南平原"
+    assert "河渠与海风" in snapshot["region_overrides"]["101"]["desc"]

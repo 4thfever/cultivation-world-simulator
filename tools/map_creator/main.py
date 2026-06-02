@@ -140,6 +140,8 @@ def init_data():
                         continue
 
     region_tile_bindings = load_region_tile_bindings()
+    saved_map = load_map_data()
+    region_overrides = saved_map["regionOverrides"] or {}
 
     # 5. 读取 Region 配置
     regions = []
@@ -180,10 +182,12 @@ def init_data():
                     
                     # 计算默认绑定 Tile
                     bind_info = get_default_tile(r_id, type_tag, sect_id=sect_id, sub_type=sub_type, bindings=region_tile_bindings)
+                    override = region_overrides.get(str(r_id), {}) if isinstance(region_overrides, dict) else {}
 
                     regions.append({
                         "id": r_id,
-                        "name": name,
+                        "name": (override.get("name") or name),
+                        "desc": override.get("desc") or "",
                         "type": type_tag,
                         "color": color,
                         "bindTile": bind_info["t"],
@@ -214,8 +218,6 @@ def init_data():
         
     regions.sort(key=lambda x: (sort_priority(x), x['id']))
 
-    saved_map = load_map_data()
-
     return jsonify({
         "width": saved_map["width"],
         "height": saved_map["height"],
@@ -227,6 +229,7 @@ def init_data():
         "regions": regions,
         "savedMap": saved_map["cells"],
         "landmarks": saved_map["landmarks"],
+        "regionOverrides": saved_map["regionOverrides"],
     })
 
 @app.route('/api/save', methods=['POST'])
@@ -234,6 +237,7 @@ def save_map():
     data = request.json
     grid = data.get('grid', [])
     landmarks = data.get('landmarks', {})
+    region_overrides = data.get('regionOverrides', {})
     map_id = data.get('mapId') or DEFAULT_MAP_ID
     output_dir = os.path.join(MAPS_DIR, map_id)
     os.makedirs(output_dir, exist_ok=True)
@@ -257,6 +261,7 @@ def save_map():
             "wilderness_tile": data.get("wildernessTile") or "plain",
             "region_rows": region_matrix,
             "landmarks": landmarks,
+            "region_overrides": region_overrides,
         }
         with open(map_json_path, 'w', encoding='utf-8') as f:
             json.dump(payload, f, ensure_ascii=False, indent=2)
@@ -272,6 +277,7 @@ def load_map_data():
     
     loaded_data = {} # key: "x,y", value: {t: ..., r: ...}
     landmarks = {}
+    region_overrides = {}
     wilderness_tile = "plain"
 
     if os.path.exists(map_json_path):
@@ -281,6 +287,7 @@ def load_map_data():
         width = data.get("width", MAP_WIDTH)
         height = data.get("height", MAP_HEIGHT)
         region_rows = data.get("region_rows", [])
+        region_overrides = data.get("region_overrides", {})
         bindings = load_region_tile_bindings()
         for y, row in enumerate(region_rows):
             for x, rid in enumerate(row):
@@ -294,6 +301,7 @@ def load_map_data():
     return {
         "cells": loaded_data,
         "landmarks": landmarks,
+        "regionOverrides": region_overrides,
         "wildernessTile": wilderness_tile,
         "width": width if os.path.exists(map_json_path) else MAP_WIDTH,
         "height": height if os.path.exists(map_json_path) else MAP_HEIGHT,

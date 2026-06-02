@@ -31,6 +31,20 @@ class RegionTileBinding:
 
 
 @dataclass(frozen=True)
+class MapRegionOverride:
+    name: str | None = None
+    desc: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        data: dict[str, Any] = {}
+        if self.name is not None:
+            data["name"] = self.name
+        if self.desc is not None:
+            data["desc"] = self.desc
+        return data
+
+
+@dataclass(frozen=True)
 class MapSource:
     map_id: str
     version: int
@@ -39,6 +53,7 @@ class MapSource:
     wilderness_tile: str
     region_rows: list[list[int]]
     landmarks: dict[int, MapLandmark]
+    region_overrides: dict[int, MapRegionOverride]
 
 
 def _validate_tile(tile_name: str, *, field_name: str = "tile") -> str:
@@ -84,6 +99,25 @@ def _parse_landmarks(raw: Any, *, width: int, height: int) -> dict[int, MapLandm
     return landmarks
 
 
+def _parse_region_overrides(raw: Any) -> dict[int, MapRegionOverride]:
+    if raw in (None, ""):
+        return {}
+    if not isinstance(raw, dict):
+        raise ValueError("Invalid region_overrides")
+
+    overrides: dict[int, MapRegionOverride] = {}
+    for raw_region_id, value in raw.items():
+        if not isinstance(value, dict):
+            raise ValueError(f"Invalid region override for region {raw_region_id}")
+        region_id = int(raw_region_id)
+        name = str(value.get("name") or "").strip() or None
+        desc = str(value.get("desc") or "").strip() or None
+        if not name and not desc:
+            continue
+        overrides[region_id] = MapRegionOverride(name=name, desc=desc)
+    return overrides
+
+
 def read_map_source(path: Path) -> MapSource:
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -108,6 +142,7 @@ def read_map_source(path: Path) -> MapSource:
         wilderness_tile=wilderness_tile,
         region_rows=region_rows,
         landmarks=_parse_landmarks(data.get("landmarks"), width=width, height=height),
+        region_overrides=_parse_region_overrides(data.get("region_overrides")),
     )
 
 
@@ -123,6 +158,10 @@ def map_source_to_dict(source: MapSource) -> dict[str, Any]:
         "landmarks": {
             str(region_id): landmark.to_dict()
             for region_id, landmark in sorted(source.landmarks.items())
+        },
+        "region_overrides": {
+            str(region_id): override.to_dict()
+            for region_id, override in sorted(source.region_overrides.items())
         },
     }
 
