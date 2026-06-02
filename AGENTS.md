@@ -23,7 +23,7 @@
 1. 本文件作用域：仓库根目录及其全部子目录。
 2. 当前仓库暂无更深层级的 `AGENTS.md` 或 `AGENTS.override.md`，因此本文件是项目级主说明。
 3. 指令来源：`.cursor/rules/*.mdc`、`.cursor/skills/*/SKILL.md`、`.cursor/commands/*.md`。
-4. 补充设计文档：`docs/specs/*.md` 中记录已经落地的重要系统设计；配置系统请优先参考 `docs/specs/config-architecture.md`，小故事系统请优先参考 `docs/specs/story-event-system.md`，角色扮演模式请优先参考 `docs/specs/avatar-roleplay-mode.md` 与 `docs/specs/single-choice-unified-framework.md`，修为阶层别名请优先参考 `docs/specs/cultivation-alias-system.md`。
+4. 补充设计文档：`docs/specs/*.md` 中记录已经落地的重要系统设计；配置系统请优先参考 `docs/specs/config-architecture.md`，地图系统请优先参考 `docs/specs/region-first-map-system.md`，小故事系统请优先参考 `docs/specs/story-event-system.md`，角色扮演模式请优先参考 `docs/specs/avatar-roleplay-mode.md` 与 `docs/specs/single-choice-unified-framework.md`，修为阶层别名请优先参考 `docs/specs/cultivation-alias-system.md`。
 5. 外接控制 API 的服务端当前已经完成一轮模块化收口；优先参考 `docs/specs/external-control-api.md` 中的“当前落地后的服务端模块地图”，不要再把 query builder、command handler、初始化 phase 或宿主装配重新堆回 `src/server/main.py`。
 
 ## 3. `.cursor/rules` 沉淀
@@ -43,6 +43,7 @@
 | `.cursor/rules/frontend.mdc` | `web/src/**/*.{vue,ts,js}` | 后端驱动架构、Store 职责边界、根层 UI 采用 `scene + overlay`、启动状态机集中在 `useAppShell`、系统菜单采用壳层/内容层/流程层拆分、Socket 分层、复杂面板逻辑下沉到 composable、懒加载弹窗的 `show` watcher 必须 `immediate`、`shallowRef`/长列表性能策略、容器尺寸统一用 `useElementSize()`；前端 `public` 资源禁止写死站点根绝对路径，必须走 `BASE_URL` helper 或 `src/assets` 模块导入。 |
 | `.cursor/rules/i18n-phase1.mdc` | `*.py`, `*.vue`, `*.json`, `*.po` | 当前默认仍是 Phase 1：日常功能开发优先只改 `zh-CN`；但若任务被明确提升为 Phase 2 / 正式多语言补全 / 新增语言接入，则应按 `static/locales/registry.json` 中启用语言统一处理（可包含 `ja-JP`）；i18n 源文件优先维护 `modules/` 与 `game_configs_modules/`，`LC_MESSAGES/*.po` 属于合并产物；`.po` 中 `msgid` 不得直接使用中文；非中文 locale 不得用中文 `msgstr` 伪装已翻译，种族/妖族效果/创建面板 race 选项属于跨端 i18n 契约。 |
 | `.cursor/rules/llm-integration.mdc` | `src/utils/llm/**/*.py`, `src/**/*.py` | 统一走 `src.utils.llm.client`，按场景选 `LLMMode`，重试交给底层，异常捕获 `LLMError/ParseError` 并降级。 |
+| `.cursor/rules/map-system.mdc` | `src/run/map_*.py`, `src/run/load_map.py`, `src/classes/environment/**/*.py`, `src/server/services/game_queries.py`, `static/game_configs/maps/**/*.json`, `static/game_configs/region_tile.csv`, `tools/map_presets/**/*.py`, `tools/map_creator/**/*.py`, `tests/test_map_presets.py`, `tests/test_save_load_map_snapshot.py`, `web/src/components/game/**/*.vue`, `web/src/types/**/*.ts` | 官方地图以 `map.json` 的 `region_rows` 为唯一语义矩阵；tile 由 `region_tile.csv` 与 `wilderness_tile` 推导；一个 region 只能有一个 tile 图像；`-1` 是荒野且不可点击；地图特有名称/描述走 `region_overrides` 并随存档和地图工具保留；改图后运行地图校验/预览/相关测试。 |
 | `.cursor/rules/roleplay-mode.mdc` | `src/server/**/*.py`, `src/systems/single_choice/**/*.py`, `src/classes/mutual_action/**/*.py`, `src/sim/**/*.py`, `web/src/components/game/**/*.vue`, `web/src/stores/roleplay.ts`, `web/src/api/modules/avatar.ts`, `web/src/types/api.ts`, `tests/test_public_api_v1.py`, `tests/test_single_choice.py`, `tests/test_action_social.py`, `tests/test_mutual_actions.py`, `web/src/__tests__/components/game/**/*.test.ts`, `docs/specs/avatar-roleplay-mode.md`, `docs/specs/single-choice-unified-framework.md` | 默认仍是上帝视角；扮演态是单角色 runtime 接管；只在决策边界暂停；二期优先重构 `single_choice` 为统一有限决策框架；三期对话必须依附 `Conversation` 动作，原始聊天记录不进存档。 |
 | `.cursor/rules/python-registry.mdc` | `src/classes/**/*.py` | 使用注册装饰器的新类，必须在对应 `__init__.py` 导入，否则注册不生效；同时要补注册测试。 |
 | `.cursor/rules/save-load-serialization.mdc` | `src/sim/save/**/*.py`, `src/sim/load/**/*.py`, `src/classes/**/*.py` | 存档只保存 JSON 基础类型，跨对象引用只存 ID；复杂类序列化拆到 Mixin；加载侧以当前模型清晰为准，旧存档迁就服从 `development-phase.mdc`（零代价可 `.get`，不买单不双轨）。 |
@@ -72,23 +73,24 @@
 16. `gathering` 的故事固定为 `100%`，且所有 LLM 展开的故事正文统一使用 `is_story=True`，不要再混用 `is_major=True` 作为故事正文标记。
 17. 前端自带静态资源（`web/public/*`）禁止写死 `/icons/...`、`/sfx/...`、`/bgm/...` 这类根路径；固定图片优先放 `web/src/assets/*` 模块导入，运行时路径统一通过 `import.meta.env.BASE_URL` helper 生成。
 18. 前端系统级 UI icon 当前统一使用 `Lucide` outline SVG，资源目录为 `web/src/assets/icons/ui/lucide/`；新增 icon 时优先复用该目录并保持单一家族，不要混用多套 icon 风格；关键入口保留文字，优先用 `currentColor + mask-image` 渲染，详见 `docs/frontend.md` 与该目录下 `README.md`。
-19. 前端根层页面编排必须采用 `scene + overlay` 语义：`SystemMenu`、`LoadingOverlay` 不得通过关闭 Splash 等副作用去推断当前底层页面；游戏主界面只能在 `scene === 'game'` 时渲染。
-20. 状态栏与系统级导航配色必须把“模块基础色”和“状态覆盖色”分层：基础色表达栏目归属，状态色只用于激活/可用/稀有度等动态信息；避免黄橙色同时承担多个语义。
-21. Docker / Compose 部署中，容器生命周期由进程管理器控制；不得因 WebSocket 断开、无人连接等桌面版逻辑自动退出。
-22. Docker 健康检查必须尽量反映真实可用性，尤其前端代理链路不能只检查静态首页；若依赖 backend，`depends_on` 优先等待 `service_healthy`。
-23. Docker 生产镜像只安装 runtime dependencies，不要把 `pytest` 等测试依赖装进运行镜像，也不要重新依赖 `/app/assets/saves`、`/app/logs` 等旧运行目录。
-24. 改动 Docker 相关配置、镜像、代理或持久化语义时，必须同步更新 contract/smoke 测试以及 `README.md` / `docs/readme/*.md` 中的部署说明。
-25. 外接控制 API 的稳定契约应优先服务外部 agent / Claw 集成；新增公共接口时先判断是 `query` 还是 `command`，并优先落到 runtime/service 分层与 `/api/v1/*` 稳定命名空间中。
-26. 所有会修改世界状态的 API 必须通过统一 mutation 入口串行化，避免与 `Simulator.step()` 并发写 world；禁止继续扩散路由层直接改 `game_instance` 的写法。
-27. 外接控制 API 的 query builder / command handler / service 若依赖会被测试 patch、配置 reload 或后续继续拆模块的函数与配置，优先使用 `get_*` getter 或在调用时动态读取，不要在模块初始化时把依赖绑死。
-28. 影响运行时语义的配置必须优先按“调用时读取当前配置”处理，尤其是存档目录、数据根、settings/secrets 派生配置；不要假设仓库里某个模块级 `CONFIG` 永远是最新对象。
-29. 编写或修改测试时，禁止硬编码只在单一操作系统下成立的绝对路径；涉及路径断言时优先使用 `tmp_path`、`pathlib.Path`、`os.path.join()` 等按当前平台生成路径，确保 Windows 本地与 GitHub Actions Linux 的结果一致。
-30. 角色扮演模式默认是“上帝视角下的单角色接管”，不是独立全局模式；实现时不要再把“个人模式”和“上帝模式”分成两套系统。
-31. 扮演态、`pending_request`、`conversation_session`、choice continuation 全部属于 runtime；不得写入存档，也必须在 `load/reinit/reset/start` 后显式清空。
-32. 角色扮演只允许在决策边界暂停，禁止中途打断动作链；二期有限选择必须优先走统一 choice resolver / continuation，不要在业务场景里散落 `if roleplay ... else ...`。
-33. 三期自由对话必须依附 `Conversation` 动作触发，采用“玩家一侧输入、目标角色由 LLM 回复”的单边接管模式；原始聊天记录不进长期事件流，只以 summary 落地。
-34. 前端大型面板/弹窗/详情页的业务状态、数据加载、派生字段、跳转、提交、timer 与 Pixi 生命周期应优先放入既有 composable；不要把这些逻辑重新堆回 `.vue` 展示组件。
-35. 使用 `defineAsyncComponent` + `v-if` 懒加载的弹窗，如果依赖 `props.show` 触发请求，watcher 必须 `{ immediate: true }`，并补“初始挂载 `show=true` 也会请求”的测试，避免王朝、天下武道会等状态栏入口首次打开为空。
+19. 地图系统以 `static/game_configs/maps/<id>/map.json` 为官方真源，`region_rows` 是唯一语义矩阵；不要恢复 `tile_map.csv/region_map.csv` 平行主路径；一个 region 只能绑定一个 tile 图像，`-1` 是荒野且不可点击，地图特有名称/描述必须走 `region_overrides` 并随地图工具和存档保留；改官方地图后至少运行 `python tools\map_presets\validate_presets.py`。
+20. 前端根层页面编排必须采用 `scene + overlay` 语义：`SystemMenu`、`LoadingOverlay` 不得通过关闭 Splash 等副作用去推断当前底层页面；游戏主界面只能在 `scene === 'game'` 时渲染。
+21. 状态栏与系统级导航配色必须把“模块基础色”和“状态覆盖色”分层：基础色表达栏目归属，状态色只用于激活/可用/稀有度等动态信息；避免黄橙色同时承担多个语义。
+22. Docker / Compose 部署中，容器生命周期由进程管理器控制；不得因 WebSocket 断开、无人连接等桌面版逻辑自动退出。
+23. Docker 健康检查必须尽量反映真实可用性，尤其前端代理链路不能只检查静态首页；若依赖 backend，`depends_on` 优先等待 `service_healthy`。
+24. Docker 生产镜像只安装 runtime dependencies，不要把 `pytest` 等测试依赖装进运行镜像，也不要重新依赖 `/app/assets/saves`、`/app/logs` 等旧运行目录。
+25. 改动 Docker 相关配置、镜像、代理或持久化语义时，必须同步更新 contract/smoke 测试以及 `README.md` / `docs/readme/*.md` 中的部署说明。
+26. 外接控制 API 的稳定契约应优先服务外部 agent / Claw 集成；新增公共接口时先判断是 `query` 还是 `command`，并优先落到 runtime/service 分层与 `/api/v1/*` 稳定命名空间中。
+27. 所有会修改世界状态的 API 必须通过统一 mutation 入口串行化，避免与 `Simulator.step()` 并发写 world；禁止继续扩散路由层直接改 `game_instance` 的写法。
+28. 外接控制 API 的 query builder / command handler / service 若依赖会被测试 patch、配置 reload 或后续继续拆模块的函数与配置，优先使用 `get_*` getter 或在调用时动态读取，不要在模块初始化时把依赖绑死。
+29. 影响运行时语义的配置必须优先按“调用时读取当前配置”处理，尤其是存档目录、数据根、settings/secrets 派生配置；不要假设仓库里某个模块级 `CONFIG` 永远是最新对象。
+30. 编写或修改测试时，禁止硬编码只在单一操作系统下成立的绝对路径；涉及路径断言时优先使用 `tmp_path`、`pathlib.Path`、`os.path.join()` 等按当前平台生成路径，确保 Windows 本地与 GitHub Actions Linux 的结果一致。
+31. 角色扮演模式默认是“上帝视角下的单角色接管”，不是独立全局模式；实现时不要再把“个人模式”和“上帝模式”分成两套系统。
+32. 扮演态、`pending_request`、`conversation_session`、choice continuation 全部属于 runtime；不得写入存档，也必须在 `load/reinit/reset/start` 后显式清空。
+33. 角色扮演只允许在决策边界暂停，禁止中途打断动作链；二期有限选择必须优先走统一 choice resolver / continuation，不要在业务场景里散落 `if roleplay ... else ...`。
+34. 三期自由对话必须依附 `Conversation` 动作触发，采用“玩家一侧输入、目标角色由 LLM 回复”的单边接管模式；原始聊天记录不进长期事件流，只以 summary 落地。
+35. 前端大型面板/弹窗/详情页的业务状态、数据加载、派生字段、跳转、提交、timer 与 Pixi 生命周期应优先放入既有 composable；不要把这些逻辑重新堆回 `.vue` 展示组件。
+36. 使用 `defineAsyncComponent` + `v-if` 懒加载的弹窗，如果依赖 `props.show` 触发请求，watcher 必须 `{ immediate: true }`，并补“初始挂载 `show=true` 也会请求”的测试，避免王朝、天下武道会等状态栏入口首次打开为空。
 
 ## 4. `.cursor/skills` 沉淀
 
@@ -147,6 +149,7 @@
 3. 若后续引入子目录 `AGENTS.md`，请遵循“越近优先”的覆盖策略，并在对应子目录内写局部规则。
 4. 若后续新增语言，先更新 `static/locales/registry.json`，再处理目录、脚本与资源骨架；不要先从前端菜单或单个测试文件开始零散修改。
 5. 若后续继续调整小故事逻辑，请同步维护 `.cursor/rules/story-event-system.mdc`、`docs/specs/story-event-system.md` 与本文件中的摘要说明。
+6. 若后续继续调整地图系统或官方地图预设，请同步维护 `.cursor/rules/map-system.mdc`、`docs/specs/region-first-map-system.md` 与本文件中的摘要说明。
 
 ## 8. 原始来源路径
 
@@ -156,3 +159,4 @@
 4. `docs/specs/story-event-system.md`
 5. `docs/specs/avatar-roleplay-mode.md`
 6. `docs/specs/single-choice-unified-framework.md`
+7. `docs/specs/region-first-map-system.md`

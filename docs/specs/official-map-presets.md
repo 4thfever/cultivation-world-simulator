@@ -2,6 +2,8 @@
 
 本文档记录“多个官方地图 + 开局地图选择 + 存档地图快照”的设计方案。
 
+当前状态说明：本文档保留官方地图预设、开局选择和存档快照的第一版设计背景。地图源格式和快照格式已经升级为 region-first schema v2，官方地图真源不再是 `tile_map.csv + region_map.csv`，而是 `static/game_configs/maps/<id>/map.json`。涉及地图源、region/tile 绑定、`wilderness_tile`、`region_overrides`、地图设计工具和快照 schema v2 的当前事实，请优先参考 `docs/specs/region-first-map-system.md`。
+
 当前目标不是动态地图生成，也不是完整地理模拟，而是把现有唯一静态地图升级为三张官方地图预设，并为后续“地图可被角色行动改变”预留清晰的数据接口。
 
 ## 目标
