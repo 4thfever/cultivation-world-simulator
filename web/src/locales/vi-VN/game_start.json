@@ -2,6 +2,7 @@
   "title": "Bắt Đầu Trò Chơi",
   "description": "Thiết lập trạng thái ban đầu của thế giới. Lưu ý: Sau khi trò chơi bắt đầu, những thiết lập này sẽ không thể thay đổi.",
   "labels": {
+    "map": "Bản Đồ Thế Giới",
     "init_npc_num": "Số Tu Sĩ Ban Đầu",
     "sect_num": "Số Tông Môn Hoạt Động",
     "new_npc_rate": "Tỷ Lệ Tu Sĩ Mới Mỗi Tháng",

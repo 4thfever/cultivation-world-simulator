@@ -2,6 +2,7 @@
   "title": "開始遊戲",
   "description": "設定世界的初始狀態。注意：遊戲開始後，這些設定將無法更改。",
   "labels": {
+    "map": "世界地圖",
     "init_npc_num": "初始修士數量",
     "sect_num": "活躍宗門數量",
     "new_npc_rate": "每月新生修士概率",

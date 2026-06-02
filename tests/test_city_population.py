@@ -136,8 +136,9 @@ class TestCityPopulation:
 
         sim = Simulator(base_world)
 
+        city_id = 301
         city = CityRegion(
-            id=999,
+            id=city_id,
             name="SaveLoadCity",
             desc="Test",
             population=88.8,
@@ -147,25 +148,13 @@ class TestCityPopulation:
         tile = Tile(0, 0, TileType.CITY)
         tile.region = city
         base_world.map.tiles[(0, 0)] = tile
-        base_world.map.regions[999] = city
+        base_world.map.regions[city_id] = city
 
         save_path = tmp_path / "test_city_population_save.json"
         success, _ = save_game(base_world, sim, [], save_path=save_path)
         assert success
 
-        with pytest.MonkeyPatch.context() as m:
-            from src.classes.environment.map import Map
+        loaded_world, _, _ = load_game(save_path)
 
-            empty_map = Map(10, 10)
-            new_city = CityRegion(id=999, name="SaveLoadCity", desc="Test")
-            new_tile = Tile(0, 0, TileType.CITY)
-            new_tile.region = new_city
-            empty_map.tiles[(0, 0)] = new_tile
-            empty_map.regions[999] = new_city
-
-            m.setattr("src.run.load_map.load_cultivation_world_map", lambda: empty_map)
-
-            loaded_world, _, _ = load_game(save_path)
-
-            loaded_city = loaded_world.map.regions[999]
-            assert loaded_city.population == pytest.approx(88.8)
+        loaded_city = loaded_world.map.regions[city_id]
+        assert loaded_city.population == pytest.approx(88.8)
