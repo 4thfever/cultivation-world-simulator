@@ -57,6 +57,21 @@ const mockRuntimeStatus = {
   },
 }
 
+const mockMapPresets = {
+  ok: true,
+  data: {
+    maps: [
+      {
+        id: 'classic',
+        name: '九州中土',
+        desc: '',
+        size_label: '',
+        is_default: true,
+      },
+    ],
+  },
+}
+
 async function installApiMocks(page: Page) {
   if (!mockApi) return
 
@@ -89,6 +104,14 @@ async function installApiMocks(page: Page) {
       status: 200,
       contentType: 'application/json',
       body: JSON.stringify(mockRuntimeStatus),
+    })
+  })
+
+  await page.route('**/api/v1/query/world/map-presets', async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify(mockMapPresets),
     })
   })
 }
