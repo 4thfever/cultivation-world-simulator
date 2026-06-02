@@ -106,8 +106,8 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     {
       name: t('llm.presets.minimax'),
       base_url: 'https://api.minimax.io/v1',
-      model_name: 'MiniMax-M2.7',
-      fast_model_name: 'MiniMax-M2.5-highspeed',
+      model_name: 'MiniMax-M3',
+      fast_model_name: 'MiniMax-M2.7-highspeed',
       api_format: 'openai',
     },
     {
