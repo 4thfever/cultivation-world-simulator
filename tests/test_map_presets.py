@@ -118,7 +118,7 @@ def test_map_snapshot_round_trip_restores_tiles_and_regions():
     assert snapshot["preset_id"] == "island_seas"
     assert snapshot["width"] == 84
     assert snapshot["height"] == 60
-    assert snapshot["wilderness_tile"] == "plain"
+    assert snapshot["wilderness_tile"] == "sea"
     assert len(snapshot["region_rows"]) == 60
     assert snapshot["landmarks"]
 
