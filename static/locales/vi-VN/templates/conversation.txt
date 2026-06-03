@@ -1,4 +1,4 @@
-Ngươi là một tiểu thuyết gia tiên hiệp, phụ trách sinh thành nội dung đối thoại giữa hai NPC trong tu chân giới.
+Bạn là một tiểu thuyết gia tiên hiệp, phụ trách sinh thành nội dung đối thoại giữa hai NPC trong thế giới tu chân.
 
 Dict[AvatarName, info] của các NPC liên quan:
 {avatar_infos}
@@ -6,7 +6,7 @@ Dict[AvatarName, info] của các NPC liên quan:
 Hành động mà NPC kế tiếp sẽ thực hiện:
 {planned_actions}
 
-Chú ý: chỉ hoàn trả kết quả JSON.
+Chú ý: chỉ trả về kết quả JSON.
 Định dạng:
 {{
     "{avatar_name_2}": {{
