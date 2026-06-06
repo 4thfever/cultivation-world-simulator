@@ -36,7 +36,18 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
   const testing = ref(false)
   const showHelpModal = ref(false)
   const hasSavedApiKey = ref(false)
+  const apiKeyFocused = ref(false)
   const config = ref<LLMConfigDTO>(createEmptyConfig())
+
+  const hasDraftApiKey = computed(() => Boolean(config.value.api_key))
+  const showSavedApiKeyMask = computed(
+    () => hasSavedApiKey.value && !hasDraftApiKey.value && !apiKeyFocused.value,
+  )
+  const apiKeyPlaceholder = computed(() => (
+    hasSavedApiKey.value
+      ? t('llm.placeholders.api_key_saved')
+      : t('llm.placeholders.api_key')
+  ))
 
   const modeOptions = computed(() => [
     { label: t('llm.modes.default'), value: 'default', desc: t('llm.modes.default_desc') },
@@ -169,11 +180,14 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     config.value.model_name = preset.model_name
     config.value.fast_model_name = preset.fast_model_name
     config.value.api_format = preset.api_format || 'openai'
+
     if (preset.isLocal) {
-      config.value.api_key = 'ollama'
       message.info(t('llm.preset_applied', { name: preset.name, extra: t('llm.preset_extra_local') }))
+    } else if (hasDraftApiKey.value) {
+      message.info(t('llm.preset_applied', { name: preset.name, extra: t('llm.preset_extra_keep_draft_key') }))
+    } else if (hasSavedApiKey.value) {
+      message.info(t('llm.preset_applied', { name: preset.name, extra: t('llm.preset_extra_keep_saved_key') }))
     } else {
-      config.value.api_key = ''
       message.info(t('llm.preset_applied', { name: preset.name, extra: t('llm.preset_extra_key') }))
     }
   }
@@ -186,9 +200,12 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
 
     testing.value = true
     try {
-      await llmApi.testConnection(config.value)
+      const payload = { ...config.value }
+      await llmApi.testConnection(payload)
       message.success(t('llm.test_success'))
-      await llmApi.saveConfig(config.value)
+      const saved = await llmApi.saveConfig(payload)
+      hasSavedApiKey.value = saved.config?.has_api_key ?? Boolean(config.value.api_key || hasSavedApiKey.value)
+      config.value.api_key = ''
       message.success(t('llm.save_success'))
       uiStore.clearLlmConfigError()
       onConfigSaved()
@@ -204,6 +221,41 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     }
   }
 
+  function clearSavedApiKey() {
+    if (!hasSavedApiKey.value || testing.value) {
+      return
+    }
+
+    dialog.warning({
+      title: t('llm.clear_key.title'),
+      content: t('llm.clear_key.content'),
+      positiveText: t('llm.clear_key.confirm'),
+      negativeText: t('common.cancel'),
+      onPositiveClick: async () => {
+        testing.value = true
+        try {
+          const saved = await llmApi.saveConfig({
+            ...config.value,
+            api_key: '',
+            clear_api_key: true,
+          })
+          hasSavedApiKey.value = saved.config?.has_api_key ?? false
+          config.value.api_key = ''
+          message.success(t('llm.clear_key.success'))
+        } catch (error) {
+          const errorMsg = error instanceof Error ? error.message : t('llm.clear_key.failed')
+          dialog.error({
+            title: t('llm.clear_key.failed'),
+            content: errorMsg,
+            positiveText: t('common.confirm'),
+          })
+        } finally {
+          testing.value = false
+        }
+      },
+    })
+  }
+
   onMounted(() => {
     void fetchConfig()
   })
@@ -213,6 +265,10 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     testing,
     showHelpModal,
     hasSavedApiKey,
+    apiKeyFocused,
+    hasDraftApiKey,
+    showSavedApiKeyMask,
+    apiKeyPlaceholder,
     llmConfigError,
     config,
     modeOptions,
@@ -221,5 +277,6 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     fetchConfig,
     applyPreset,
     handleTestAndSave,
+    clearSavedApiKey,
   }
 }

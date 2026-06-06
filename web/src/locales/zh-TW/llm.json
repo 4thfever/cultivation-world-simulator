@@ -7,9 +7,19 @@
   "test_save_failed_title": "測試或儲存失敗",
   "api_key_required": "請填寫 API Key",
   "base_url_required": "請填寫 Base URL",
+  "api_key_saved_hint": "已儲存 API Key。留空儲存會繼續使用它，輸入新 Key 可替換。",
   "preset_applied": "已應用 {name} 預設 ({extra})",
   "preset_extra_key": "請填寫 API Key",
+  "preset_extra_keep_saved_key": "將繼續使用已儲存的 API Key；如切換服務商，請填寫新的 Key",
+  "preset_extra_keep_draft_key": "已保留目前輸入的 API Key",
   "preset_extra_local": "請確保 Ollama 已啓動",
+  "clear_key": {
+    "title": "清除已儲存 API Key?",
+    "content": "清除後將無法繼續使用目前密鑰。之後需要重新填寫 API Key 才能連接需要密鑰的服務商。",
+    "confirm": "清除",
+    "success": "已清除儲存的 API Key",
+    "failed": "清除 API Key 失敗"
+  },
   "sections": {
     "quick_fill": "快速填充",
     "api_config": "API 配置",
@@ -32,6 +42,7 @@
   },
   "placeholders": {
     "api_key": "在此填入你自己的 API Key (通常以 sk- 開頭)",
+    "api_key_saved": "輸入新的 API Key 可替換已儲存密鑰",
     "base_url": "https://api.example.com/v1",
     "normal_model": "例如: gpt-4, claude-3-opus, qwen-plus",
     "fast_model": "例如: gpt-3.5-turbo, qwen3.5-flash",
@@ -53,7 +64,8 @@
   },
   "actions": {
     "testing": "測試連接中...",
-    "test_and_save": "測試連通性並儲存"
+    "test_and_save": "測試連通性並儲存",
+    "clear_saved_key": "清除已儲存 Key"
   },
   "help": {
     "title": "什麼是 API? 新手配置指南",

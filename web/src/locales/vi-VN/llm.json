@@ -7,9 +7,19 @@
   "test_save_failed_title": "Kiểm Tra Hoặc Lưu Thất Bại",
   "api_key_required": "Vui lòng nhập API Key",
   "base_url_required": "Vui lòng nhập Base URL",
+  "api_key_saved_hint": "API Key đã được lưu. Để trống khi lưu để tiếp tục dùng key này, hoặc nhập key mới để thay thế.",
   "preset_applied": "Đã áp dụng preset {name} ({extra})",
   "preset_extra_key": "Vui lòng nhập API Key",
+  "preset_extra_keep_saved_key": "sẽ tiếp tục dùng API Key đã lưu; nếu đổi nhà cung cấp, hãy nhập key mới",
+  "preset_extra_keep_draft_key": "đã giữ API Key bạn vừa nhập",
   "preset_extra_local": "Vui lòng đảm bảo Ollama đang chạy",
+  "clear_key": {
+    "title": "Xóa API Key đã lưu?",
+    "content": "Sau khi xóa, các nhà cung cấp yêu cầu key sẽ không thể kết nối cho đến khi bạn nhập API Key mới.",
+    "confirm": "Xóa",
+    "success": "Đã xóa API Key đã lưu",
+    "failed": "Xóa API Key thất bại"
+  },
   "sections": {
     "quick_fill": "Điền Nhanh",
     "api_config": "Cấu Hình API",
@@ -32,6 +42,7 @@
   },
   "placeholders": {
     "api_key": "Nhập API Key của bạn tại đây (thường bắt đầu bằng sk-)",
+    "api_key_saved": "Nhập API Key mới để thay thế key đã lưu",
     "base_url": "https://api.example.com/v1",
     "normal_model": "ví dụ: gpt-4, claude-3-opus, qwen-plus",
     "fast_model": "ví dụ: gpt-3.5-turbo, qwen3.5-flash",
@@ -53,7 +64,8 @@
   },
   "actions": {
     "testing": "Đang kiểm tra kết nối...",
-    "test_and_save": "Kiểm Tra Kết Nối Và Lưu"
+    "test_and_save": "Kiểm Tra Kết Nối Và Lưu",
+    "clear_saved_key": "Xóa Key Đã Lưu"
   },
   "help": {
     "title": "API là gì? Hướng dẫn cấu hình",

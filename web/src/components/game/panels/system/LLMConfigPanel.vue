@@ -14,6 +14,9 @@ const {
   testing,
   showHelpModal,
   hasSavedApiKey,
+  apiKeyFocused,
+  showSavedApiKeyMask,
+  apiKeyPlaceholder,
   llmConfigError,
   config,
   modeOptions,
@@ -21,6 +24,7 @@ const {
   presets,
   applyPreset,
   handleTestAndSave,
+  clearSavedApiKey,
 } = useLlmConfigPanel(() => emit('config-saved'))
 </script>
 
@@ -57,12 +61,30 @@ const {
             <label>{{ t('llm.labels.api_key') }}</label>
             <button class="help-btn" @click="showHelpModal = true">{{ t('llm.labels.what_is_api') }}</button>
           </div>
-          <input 
-            v-model="config.api_key" 
-            type="password" 
-            :placeholder="hasSavedApiKey ? t('ui.saved_secret_keep_empty') : t('llm.placeholders.api_key')"
-            class="input-field"
-          />
+          <div class="api-key-input-wrap" :class="{ 'has-mask': showSavedApiKeyMask }">
+            <input 
+              v-model="config.api_key" 
+              type="password" 
+              :placeholder="apiKeyPlaceholder"
+              class="input-field"
+              @focus="apiKeyFocused = true"
+              @blur="apiKeyFocused = false"
+            />
+            <div v-if="showSavedApiKeyMask" class="saved-key-mask" aria-hidden="true">
+              ********
+            </div>
+          </div>
+          <div v-if="hasSavedApiKey" class="secret-status-row">
+            <span>{{ t('llm.api_key_saved_hint') }}</span>
+            <button
+              type="button"
+              class="clear-secret-btn"
+              :disabled="testing"
+              @click="clearSavedApiKey"
+            >
+              {{ t('llm.actions.clear_saved_key') }}
+            </button>
+          </div>
         </div>
 
         <div class="form-item">
@@ -384,6 +406,72 @@ const {
   outline: none;
   border-color: #4a9eff;
   background: #1a1a1a;
+}
+
+.api-key-input-wrap {
+  position: relative;
+}
+
+.api-key-input-wrap .input-field {
+  position: relative;
+  z-index: 1;
+}
+
+.api-key-input-wrap.has-mask .input-field::placeholder {
+  color: transparent;
+}
+
+.saved-key-mask {
+  align-items: center;
+  bottom: 1px;
+  color: #b9c0c8;
+  display: flex;
+  font-family: monospace;
+  font-size: 0.9em;
+  left: 0.8em;
+  letter-spacing: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 1px;
+  z-index: 2;
+}
+
+.secret-status-row {
+  align-items: center;
+  display: flex;
+  gap: 0.8em;
+  justify-content: space-between;
+  margin-top: 0.45em;
+}
+
+.secret-status-row span {
+  color: #7f98ad;
+  font-size: 0.78em;
+  line-height: 1.35;
+}
+
+.clear-secret-btn {
+  background: transparent;
+  border: 1px solid #4c3b3b;
+  border-radius: 0.3em;
+  color: #d49b9b;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 0.78em;
+  padding: 0.25em 0.65em;
+  transition: all 0.2s;
+}
+
+.clear-secret-btn:hover:not(:disabled) {
+  background: rgba(150, 58, 58, 0.18);
+  border-color: #865454;
+  color: #f0b7b7;
+}
+
+.clear-secret-btn:disabled {
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.65;
 }
 
 .label-row {

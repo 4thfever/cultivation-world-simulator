@@ -7,9 +7,19 @@
   "test_save_failed_title": "テストまたは保存に失敗しました",
   "api_key_required": "API Key を入力してください",
   "base_url_required": "Base URL を入力してください",
+  "api_key_saved_hint": "API Key は保存済みです。空欄のまま保存すると引き続き使用され、新しい Key を入力すると置き換えられます。",
   "preset_applied": "{name} プリセットを適用しました（{extra}）",
   "preset_extra_key": "API Key を入力してください",
+  "preset_extra_keep_saved_key": "保存済みの API Key を引き続き使用します。プロバイダを変更した場合は新しい Key を入力してください",
+  "preset_extra_keep_draft_key": "入力済みの API Key は保持されました",
   "preset_extra_local": "Ollama が起動していることを確認してください",
+  "clear_key": {
+    "title": "保存済み API Key を削除しますか？",
+    "content": "削除すると、Key が必要なプロバイダには新しい API Key を入力するまで接続できません。",
+    "confirm": "削除",
+    "success": "保存済み API Key を削除しました",
+    "failed": "API Key の削除に失敗しました"
+  },
   "sections": {
     "quick_fill": "クイック設定",
     "api_config": "API 設定",
@@ -32,6 +42,7 @@
   },
   "placeholders": {
     "api_key": "ここに API Key を入力してください（通常は sk- で始まります）",
+    "api_key_saved": "新しい API Key を入力すると保存済み Key を置き換えます",
     "base_url": "https://api.example.com/v1",
     "normal_model": "例: gpt-4, claude-3-opus, qwen-plus",
     "fast_model": "例: gpt-3.5-turbo, qwen3.5-flash",
@@ -53,7 +64,8 @@
   },
   "actions": {
     "testing": "接続テスト中...",
-    "test_and_save": "接続テストして保存"
+    "test_and_save": "接続テストして保存",
+    "clear_saved_key": "保存済み Key を削除"
   },
   "help": {
     "title": "API とは？ 設定ガイド",

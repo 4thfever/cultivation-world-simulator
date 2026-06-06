@@ -19,6 +19,7 @@ const messageMock = {
 }
 const dialogMock = {
   error: vi.fn(),
+  warning: vi.fn(),
 }
 
 vi.mock('naive-ui', () => ({
@@ -45,6 +46,7 @@ const i18n = createI18n({
     'zh-CN': {
       common: {
         confirm: '确认',
+        cancel: '取消',
       },
       ui: {
         other: '其他',
@@ -64,6 +66,19 @@ const i18n = createI18n({
         preset_applied: '已应用{name}{extra}',
         preset_extra_local: '本地',
         preset_extra_key: '密钥',
+        preset_extra_keep_saved_key: '保留已保存密钥',
+        preset_extra_keep_draft_key: '保留当前密钥',
+        clear_key: {
+          title: '清除密钥？',
+          content: '确认清除密钥？',
+          confirm: '清除',
+          success: '已清除',
+          failed: '清除失败',
+        },
+        placeholders: {
+          api_key: '输入密钥',
+          api_key_saved: '输入新密钥可替换',
+        },
         modes: {
           default: '默认',
           default_desc: '默认说明',
@@ -184,26 +199,63 @@ describe('useLlmConfigPanel', () => {
       api_format: 'openai',
     })
     vi.mocked(llmApi.testConnection).mockResolvedValue(true)
-    vi.mocked(llmApi.saveConfig).mockResolvedValue(true)
+    vi.mocked(llmApi.saveConfig).mockResolvedValue({
+      status: 'ok',
+      message: 'saved',
+      config: {
+        base_url: 'https://example.com',
+        model_name: 'normal',
+        fast_model_name: 'fast',
+        mode: 'default',
+        max_concurrent_requests: 8,
+        has_api_key: true,
+        api_format: 'openai',
+      },
+    })
   })
 
-  it('loads config, applies local preset, then tests and saves', async () => {
+  it('loads config, keeps API key while applying preset, then tests and saves', async () => {
     const onSaved = vi.fn()
     const panel = mountComposable(() => useLlmConfigPanel(onSaved))
     await settle()
 
     expect(panel.hasSavedApiKey.value).toBe(true)
+    expect(panel.showSavedApiKeyMask.value).toBe(true)
     expect(panel.config.value.model_name).toBe('normal')
 
+    panel.config.value.api_key = 'draft-secret'
     const ollama = panel.presets.value.find(preset => preset.isLocal)
     expect(ollama).toBeTruthy()
     panel.applyPreset(ollama!)
-    expect(panel.config.value.api_key).toBe('ollama')
+    expect(panel.config.value.api_key).toBe('draft-secret')
 
     await panel.handleTestAndSave()
-    expect(llmApi.testConnection).toHaveBeenCalledWith(panel.config.value)
-    expect(llmApi.saveConfig).toHaveBeenCalledWith(panel.config.value)
+    expect(llmApi.testConnection).toHaveBeenCalledWith(expect.objectContaining({
+      api_key: 'draft-secret',
+      base_url: ollama!.base_url,
+    }))
+    expect(llmApi.saveConfig).toHaveBeenCalledWith(expect.objectContaining({
+      api_key: 'draft-secret',
+      base_url: ollama!.base_url,
+    }))
+    expect(panel.config.value.api_key).toBe('')
+    expect(panel.hasSavedApiKey.value).toBe(true)
     expect(onSaved).toHaveBeenCalled()
+  })
+
+  it('clears saved API key only after confirmation', async () => {
+    const panel = mountComposable(() => useLlmConfigPanel(vi.fn()))
+    await settle()
+
+    panel.clearSavedApiKey()
+    expect(dialogMock.warning).toHaveBeenCalled()
+    const warningOptions = dialogMock.warning.mock.calls[0][0]
+    await warningOptions.onPositiveClick()
+
+    expect(llmApi.saveConfig).toHaveBeenCalledWith(expect.objectContaining({
+      api_key: '',
+      clear_api_key: true,
+    }))
   })
 
   it('warns before saving without base url', async () => {

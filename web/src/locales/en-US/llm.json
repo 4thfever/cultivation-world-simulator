@@ -7,9 +7,19 @@
   "test_save_failed_title": "Test or Save Failed",
   "api_key_required": "Please fill in API Key",
   "base_url_required": "Please fill in Base URL",
+  "api_key_saved_hint": "API Key is saved. Leave it empty to keep using it, or enter a new key to replace it.",
   "preset_applied": "Applied {name} preset ({extra})",
   "preset_extra_key": "Please fill in API Key",
+  "preset_extra_keep_saved_key": "will keep using the saved API Key; enter a new key if you changed providers",
+  "preset_extra_keep_draft_key": "kept the API Key you already entered",
   "preset_extra_local": "Please ensure Ollama is running",
+  "clear_key": {
+    "title": "Clear saved API Key?",
+    "content": "After clearing it, providers that require a key will not connect until you enter a new API Key.",
+    "confirm": "Clear",
+    "success": "Saved API Key cleared",
+    "failed": "Failed to clear API Key"
+  },
   "sections": {
     "quick_fill": "Quick Fill",
     "api_config": "API Configuration",
@@ -32,6 +42,7 @@
   },
   "placeholders": {
     "api_key": "Enter your API Key here (usually starts with sk-)",
+    "api_key_saved": "Enter a new API Key to replace the saved key",
     "base_url": "https://api.example.com/v1",
     "normal_model": "e.g., gpt-4, claude-3-opus, qwen-plus",
     "fast_model": "e.g., gpt-3.5-turbo, qwen3.5-flash",
@@ -53,7 +64,8 @@
   },
   "actions": {
     "testing": "Testing connection...",
-    "test_and_save": "Test Connectivity and Save"
+    "test_and_save": "Test Connectivity and Save",
+    "clear_saved_key": "Clear Saved Key"
   },
   "help": {
     "title": "What is API? Configuration Guide",
