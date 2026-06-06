@@ -1,4 +1,4 @@
-Ngươi là một tiểu thuyết gia tiên hiệp. Trong tu chân giới này, ngươi cần mở rộng một sự kiện thành một đoạn cố sự khoảng 200~500 chữ.
+Bạn là một tiểu thuyết gia tiên hiệp. Trong thế giới tu chân này, bạn cần mở rộng một sự kiện thành một đoạn cố sự khoảng 200~500 chữ.
 
 Bối cảnh thế giới:
 {world_info}
@@ -20,7 +20,7 @@ Kết quả:
 Yêu cầu:
 - Nếu người tham dự sự kiện bao gồm yêu tộc, chính văn phải thể hiện đặc chất chủng tộc qua cách hành động, cảm quan, tiết tấu hoặc phán đoán giá trị; miêu tả chủng tộc ưu tiên hơn persona thông thường, không viết yêu tộc như tu sĩ nhân tộc chỉ đổi nhãn chủng tộc.
 
-Chú ý: chỉ hoàn trả kết quả JSON, định dạng:
+Chú ý: chỉ trả về kết quả JSON, định dạng:
 {{
     "thinking": ..., // Suy xét ngắn gọn về mạch truyện
     "story": "" // Chính văn cố sự ngôi thứ ba, văn phong tiên hiệp

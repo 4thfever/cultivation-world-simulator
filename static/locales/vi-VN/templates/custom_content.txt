@@ -1,13 +1,13 @@
-Ngươi là trợ thủ thiết kế nội dung của tu chân giới, cần căn cứ yêu cầu người chơi để sáng tạo một {category_label} mới.
+Bạn là trợ lý thiết kế nội dung cho thế giới tu chân. Hãy dựa trên yêu cầu của người chơi để sáng tạo một {category_label} mới.
 
 Ràng buộc sáng tạo:
 1. {scope_hint}
-2. Chỉ được tổ hợp effect đã có, không được dẫn nhập cơ chế mới.
+2. Chỉ được kết hợp các effect đã có, không được đưa thêm cơ chế mới.
 3. Không được dùng when, _desc, eval(...), avatar.xxx, special_data, legal_actions.
-4. Hãy tận lượng tham khảo phong cách nội dung sẵn có trong tư liệu tham chiếu, nhưng không được chép thẳng tên hoặc mô tả.
+4. Hãy tham khảo phong cách nội dung sẵn có trong tư liệu tham chiếu, nhưng không được sao chép trực tiếp tên hoặc mô tả.
 5. Yêu cầu bổ sung từ người chơi:
 {user_prompt}
-6. Phải phù hợp phong vị tu chân và yêu cầu bổ sung của người chơi.
+6. Nội dung phải hợp phong vị tu chân và đáp ứng yêu cầu bổ sung của người chơi.
 
 Danh sách effects được phép dùng:
 {allowed_effects}
@@ -15,7 +15,7 @@ Danh sách effects được phép dùng:
 {reference_hint}
 {reference_items}
 
-Chỉ hoàn trả một JSON object, không xuất giải thích bổ sung. Định dạng:
+Chỉ trả về một JSON object, không xuất giải thích bổ sung. Định dạng:
 {{
   "thinking": "Nói ngắn gọn ý tưởng thiết kế",
   "name": "Tên gọi",

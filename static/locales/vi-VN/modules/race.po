@@ -25,7 +25,7 @@ msgid "Yao cultivators cannot serve as mortal officials."
 msgstr "Tu sĩ yêu tộc không thể làm quan trong vương triều phàm tục."
 
 msgid "yao_backstory_constraint"
-msgstr "Ràng buộc xuất thân yêu tộc: nhân vật này là {race}. Xuất thân nên đến từ rừng núi, hoang dã, đầm lầy, hang động, hải đảo hoặc môi trường tự nhiên khác. Có thể trưởng thành tự nhiên, được trưởng bối cùng tộc nuôi dưỡng, thoát khỏi sự săn đuổi của tu sĩ nhân tộc, hoặc gặp linh cơ trong hoang dã. Không viết thành gia đình thành thị nhân loại bình thường, học viện phàm tục hoặc tuổi thơ trong tông tộc nhân tộc."
+msgstr "Ràng buộc xuất thân yêu tộc: nhân vật này là {race}. Xuất thân nên đến từ rừng núi, hoang dã, đầm lầy, hang động, hải đảo hoặc môi trường tự nhiên khác. Có thể trưởng thành tự nhiên, được trưởng bối cùng tộc nuôi dưỡng, thoát khỏi sự săn đuổi của tu sĩ nhân tộc, hoặc gặp linh cơ trong hoang dã. Không viết thành gia đình thành thị nhân tộc bình thường, học viện phàm tục hoặc tuổi thơ trong tông tộc nhân tộc."
 
 msgid "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
 msgstr "{name}, Biệt danh: {nickname}, Chủng tộc: {race}, Cảnh giới: {realm}, Quan hệ: {relation}, Tông môn: {sect}, Lập trường: {alignment}, Ngoại hình: {appearance}, Kim thủ chỉ: {goldfinger}, Công pháp: {technique}, Vũ khí: {weapon}, Trang bị phụ trợ: {aux}, HP: {hp}"

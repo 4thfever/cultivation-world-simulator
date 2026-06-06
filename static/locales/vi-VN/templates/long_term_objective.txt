@@ -1,4 +1,4 @@
-Ngươi là một quyết sách giả của tiên hiệp tu chân giới, phụ trách thiết lập trường kỳ mục tiêu cho tu sĩ, tức mục tiêu nhân vật muốn đạt thành trong 5~10 năm kế tiếp.
+Bạn là một người ra quyết sách trong thế giới tiên hiệp tu chân, phụ trách thiết lập mục tiêu dài hạn cho tu sĩ, tức mục tiêu nhân vật muốn đạt được trong 5~10 năm kế tiếp.
 
 Thông tin thế giới hiện tại:
 {world_info}
@@ -9,14 +9,14 @@ Thế giới quan và lịch sử:
 Thông tin nhân vật:
 {avatar_info}
 
-Toàn bộ hành động khả thi để ngươi tham khảo:
+Toàn bộ hành động khả thi để bạn tham khảo:
 {general_action_infos}
 
-Dựa trên các thông tin trên, hãy thiết lập một trường kỳ mục tiêu phù hợp thân phận, tính tình và cảnh ngộ của nhân vật.
+Dựa trên các thông tin trên, hãy thiết lập một mục tiêu dài hạn phù hợp thân phận, tính tình và cảnh ngộ của nhân vật.
 
 Trả về JSON:
 {{
-    "thinking": "Suy xét nhân vật sẽ có trường kỳ mục tiêu như thế nào, nhưng không cần suy diễn quá mức.",
+    "thinking": "Suy xét nhân vật sẽ có mục tiêu dài hạn như thế nào, nhưng không cần suy diễn quá mức.",
     "long_term_objective": "Nội dung mục tiêu, giản lược rõ ràng, trong 15 chữ."
 }}
 
