@@ -4,6 +4,8 @@ import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
 
+type TaskkillRunner = (pid: number) => void
+
 export interface BackendEnvOptions {
   port: number
   baseEnv?: NodeJS.ProcessEnv
@@ -16,6 +18,11 @@ export interface StartBackendOptions {
   logDir: string
   baseEnv?: NodeJS.ProcessEnv
   seedEnv?: NodeJS.ProcessEnv
+}
+
+export interface StopBackendOptions {
+  platform?: NodeJS.Platform
+  taskkillRunner?: TaskkillRunner
 }
 
 const TRUE_ENV = '1'
@@ -73,18 +80,26 @@ export function startBackend(options: StartBackendOptions): ChildProcess {
   })
 }
 
-export function stopBackend(processRef: ChildProcess | undefined): void {
-  if (!processRef || processRef.killed) return
+function runTaskkill(pid: number): void {
+  spawnSync('taskkill', ['/pid', String(pid), '/t', '/f'], {
+    windowsHide: true,
+    stdio: 'ignore',
+  })
+}
 
-  if (process.platform === 'win32' && processRef.pid) {
-    spawnSync('taskkill', ['/pid', String(processRef.pid), '/t', '/f'], {
-      windowsHide: true,
-      stdio: 'ignore',
-    })
-    return
+export function stopBackend(processRef: ChildProcess | undefined, options: StopBackendOptions = {}): boolean {
+  if (!processRef || processRef.killed) return false
+
+  const platform = options.platform ?? process.platform
+
+  if (platform === 'win32' && processRef.pid) {
+    const taskkillRunner = options.taskkillRunner ?? runTaskkill
+    taskkillRunner(processRef.pid)
+    return true
   }
 
   processRef.kill('SIGTERM')
+  return true
 }
 
 export function getDefaultLogDir(appName = 'CultivationWorldSimulator'): string {

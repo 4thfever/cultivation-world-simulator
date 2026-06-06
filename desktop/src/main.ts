@@ -1,16 +1,16 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import path from 'node:path'
-import type { ChildProcess } from 'node:child_process'
 
-import { collectSeedEnv, findFreePort, getDefaultLogDir, startBackend, stopBackend } from './backend.js'
+import { collectSeedEnv, findFreePort, getDefaultLogDir, startBackend } from './backend.js'
+import { createBackendController, installBackendCleanupHooks } from './backendLifecycle.js'
 import { waitForHealth } from './health.js'
 import { isAllowedAppNavigation, shouldOpenExternally } from './navigation.js'
 import { normalizeHttpUrl, resolvePackagedBackendExe } from './paths.js'
 import { readSeedEnv } from './seed.js'
 
 let mainWindow: BrowserWindow | undefined
-let backendProcess: ChildProcess | undefined
 let logDir = getDefaultLogDir()
+const backendController = createBackendController()
 
 function createWindow(targetUrl: string): BrowserWindow {
   const window = new BrowserWindow({
@@ -53,7 +53,7 @@ async function boot(): Promise<void> {
   const targetUrl = normalizeHttpUrl(port)
   const backendExe = resolvePackagedBackendExe({ resourcesPath: process.resourcesPath })
 
-  backendProcess = startBackend({
+  const backendProcess = startBackend({
     executable: backendExe,
     port,
     logDir,
@@ -63,9 +63,7 @@ async function boot(): Promise<void> {
     },
   })
 
-  backendProcess.once('exit', (_code, _signal) => {
-    backendProcess = undefined
-  })
+  backendController.set(backendProcess)
 
   await waitForHealth({ url: `${targetUrl}/api/health`, timeoutMs: 45000 })
   mainWindow = createWindow(targetUrl)
@@ -85,6 +83,10 @@ app.on('window-all-closed', () => {
   app.quit()
 })
 
-app.on('before-quit', () => {
-  stopBackend(backendProcess)
+installBackendCleanupHooks({
+  app,
+  processRef: process,
+  cleanup: () => {
+    backendController.cleanup()
+  },
 })
