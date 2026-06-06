@@ -2,7 +2,7 @@
 
 本文档记录 Steam Electron 版本的前置优化、正式 Electron 宿主方案，以及面向 SteamCMD 的一键打包上传管线设计。
 
-> 维护状态：本文档是历史设计记录。当前通用桌面构建已迁移到 `tools/package/pack_desktop.ps1`，详见 `docs/specs/desktop-distribution-pipeline.md`；Epic 上传入口目前仅保留占位脚本。
+> 维护状态：本文档是历史设计记录。当前通用桌面构建已迁移到 `tools/package/pack_desktop.ps1`，详见 `docs/specs/desktop-distribution-pipeline.md`；Epic 上传已接入 `tools/package/publish_epic.ps1` + BuildPatchTool，真实上传需显式传入 `-RequireUpload`。
 
 当前文档分为两层：
 

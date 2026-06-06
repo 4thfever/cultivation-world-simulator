@@ -87,6 +87,6 @@ if ($LASTEXITCODE -ne 0) {
     throw "epic/publish.ps1 failed with exit code $LASTEXITCODE"
 }
 
-Write-Host "`n=== Epic publish placeholder completed ===" -ForegroundColor Green
+Write-Host "`n=== Epic publish flow completed ===" -ForegroundColor Green
 Write-Host "Build version: $BuildVersion"
 Write-Host "Content root: $ContentRoot"

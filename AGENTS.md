@@ -113,12 +113,12 @@
 | `.cursor/commands/pack_desktop.md` | `/pack_desktop` | 默认桌面 Electron 打包流程：运行 `powershell ./tools/package/pack_desktop.ps1`，生成 `tmp/<tag>_desktop/win-unpacked` 并写入 `tmp/desktop_content_root.txt`；只构建，不上传商店。 |
 | `.cursor/commands/publish_github.md` | `/publish_github` | GitHub Release 发布流程：运行 `powershell ./tools/package/publish_github.ps1`，依次执行 `pack_github.ps1`、`compress.ps1`、`release.ps1`。 |
 | `.cursor/commands/publish_steam.md` | `/publish_steam` | Steam 发布流程：运行 `powershell ./tools/package/publish_steam.ps1`，复用 `pack_desktop.ps1` 的 content root，再进入 `steam/publish.ps1`。 |
-| `.cursor/commands/publish_epic.md` | `/publish_epic` | Epic 桌面发布入口占位：运行 `powershell ./tools/package/publish_epic.ps1`，复用 `pack_desktop.ps1` 生成 content root，再进入 `epic/publish.ps1`；当前 Epic 官方分发工具尚未接入，默认成功结束并提示占位，只有 `-RequireUpload` 会强制失败。 |
+| `.cursor/commands/publish_epic.md` | `/publish_epic` | Epic 发布流程：运行 `powershell ./tools/package/publish_epic.ps1`，复用 `pack_desktop.ps1` 的 content root，再进入 `epic/publish.ps1`；加 `-RequireUpload` 时调用 BuildPatchTool 真实上传。 |
 | `.cursor/commands/sync_contributors.md` | `/sync_contributors` | 从 GitHub contributors API 同步仓库贡献者，并自动更新根目录 `CONTRIBUTORS.md`。 |
 | `.cursor/commands/sync_roleplay_docs.md` | `/sync_roleplay_docs` | 同步角色扮演模式相关的 rule / skill / spec / AGENTS / 测试收尾，重点核对上帝视角单角色接管、决策边界暂停、runtime 不进存档、choice continuation 与 `Conversation` 对话语义。 |
 | `.cursor/commands/sync_readme.md` | `/sync_readme` | 以 `README.md` 为源，按 `static/locales/registry.json` 中需同步语言，更新 `docs/readme/` 下各 `*_README.md`。 |
 | `.cursor/commands/update_version.md` | `/update_version` | 打 tag、更新 `static/config.yml` 版本并提交。 |
-| `.cursor/commands/sync_agents.md` | `/sync_agents` | 重新扫描 `.cursor` 并更新根目录 `AGENTS.md`（本次新增）。 |
+| `.cursor/commands/sync_agents.md` | `/sync_agents` | 重新扫描 `.cursor` 并更新根目录 `AGENTS.md`。 |
 
 ## 6. 测试与验证命令（从技能中提炼）
 
@@ -139,7 +139,7 @@
 2. Desktop 构建：`powershell ./tools/package/pack_desktop.ps1`
 3. GitHub 发布：`powershell ./tools/package/publish_github.ps1`
 4. Steam 发布：`powershell ./tools/package/publish_steam.ps1`
-5. Epic 发布：`powershell ./tools/package/publish_epic.ps1`（当前 Epic 上传层仍是占位，默认不报错；需要强制上传可用性时加 `-RequireUpload`）
+5. Epic 发布：`powershell ./tools/package/publish_epic.ps1 -RequireUpload`
 6. 统一入口与列表：`powershell ./tools/package/task.ps1 -List`
 
 ## 7. 维护约定

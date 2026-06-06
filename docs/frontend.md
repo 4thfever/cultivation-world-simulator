@@ -214,7 +214,7 @@
 3.  **打包与发布**:
     *   普通开源包仍可走本地服务 + 系统浏览器体验。
     *   商店发布统一基于 Electron desktop content root；具体平台发布脚本在 `tools/package/<platform>/publish.ps1` 中分层维护。
-    *   Steam 发布入口是 `tools/package/publish_steam.ps1`，Epic 发布入口已预留为 `tools/package/publish_epic.ps1`。
+    *   Steam 发布入口是 `tools/package/publish_steam.ps1`，Epic 发布入口是 `tools/package/publish_epic.ps1`，真实上传需显式传入 `-RequireUpload`。
     *   旧 PyInstaller Steam 包脚本已经删除；Steam 只作为平台发布层复用通用 desktop 构建结果。
 
 4.  **画布尺寸原则**:

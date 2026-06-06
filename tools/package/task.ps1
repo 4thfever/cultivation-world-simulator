@@ -23,7 +23,7 @@ function Show-TaskList {
     Write-Host "Publish:" -ForegroundColor Cyan
     Write-Host "  github   Build, compress, and upload GitHub Release asset."
     Write-Host "  steam    Build desktop package and publish to Steam."
-    Write-Host "  epic     Build desktop package, then stop at Epic placeholder until tooling is configured."
+    Write-Host "  epic     Build desktop package and enter Epic BuildPatchTool publishing flow."
 }
 
 if ($List) {
