@@ -10,7 +10,7 @@
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E5%8B%95%E7%94%BB%E3%82%92%E8%A6%8B%E3%82%8B-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ 群](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
-[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Wishlist-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
+[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Get%20It%20Free-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](../../LICENSE)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
@@ -26,7 +26,7 @@
 </p>
 
 > **あなたは「天道」として、ルール体系と AI によって駆動される修仙世界シミュレーターが自律的に進化していく様子を見守ります。**
-> **全員が LLM 駆動、群像劇的な物語の創出、デスクトップ版のウィッシュリスト公開、Docker デプロイ、ソースコード開発や二次創作にも対応しています。**
+> **全員が LLM 駆動、群像劇的な物語の創出、デスクトップ版は Epic Games Store で無料配信中で、Docker デプロイ、ソースコード開発や二次創作にも対応しています。**
 
 <table align="center">
   <tr>
@@ -92,13 +92,22 @@
 ### 推奨方法
 
 - **コードの変更やデバッグをしたい場合**: ソースコードデプロイを使用し、Python `3.10+`、Node.js `18+`、および利用可能なモデルサービスを用意してください。
-- **直接体験したい場合**: [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8) でウィッシュリストに追加できます。Docker によるワンクリックデプロイも利用できます。
+- **直接体験したい場合**: [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8) でデスクトップ版を無料入手できます。Docker によるワンクリックデプロイも利用できます。
 - 世界情報、行動、宗門などを手早く確認したい場合は、`tools/wiki` でローカルの補助 wiki を生成できます。
 
 ### 初回起動時の説明
 
-- ソースコードでも Docker でも、初回起動後は設定ページで利用可能なモデルプリセット（DeepSeek / MiniMax / Ollama など）を設定してから、新しいゲームを開始する必要があります。
+- Epic デスクトップ版を使用する場合は、ゲーム起動後に設定ページの案内に従ってモデル設定を確認してから、新しいゲームを開始してください。
+- ソースコードまたは Docker を使用する場合は、初回起動後に設定ページで利用可能なモデルプリセット（DeepSeek / MiniMax / Ollama など）を設定してから、新しいゲームを開始する必要があります。
 - 開発モードでは、通常フロントエンドページが自動的に開きます。自動的に開かない場合は、起動ログに表示されているフロントエンドのアドレスにアクセスしてください。
+
+### 方法 0: Epic Games Store デスクトップ版
+
+開発環境を構築せず、すぐに遊びたいプレイヤー向けです。
+
+1. [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8) から無料で入手してインストールします。
+2. ゲーム起動後、設定ページの案内に従ってモデル設定を確認し、新しいゲームを開始します。
+3. 自分のモデルサービスを使いたい場合は、設定ページで DeepSeek / MiniMax / Ollama などのプリセットに切り替えられます。
 
 ### 方法 1: ソースコードデプロイ（開発モード、推奨）
 
@@ -261,7 +270,7 @@ docker-compose up -d --build
 - ✅ Web フロントエンド表示インターフェース
 - ✅ 基礎シミュレーターフレームワーク
 - ✅ 設定ファイル
-- ✅ release ワンクリックで遊べる exe
+- ✅ ワンクリックで起動できるデスクトップ版
 - ✅ メニューバー & アーカイブ & ロード
 - ✅ 柔軟なカスタム LLM インターフェース
 - ✅ Mac OS 対応

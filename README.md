@@ -10,7 +10,7 @@
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A7%86%E9%A2%91-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
-[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Wishlist-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
+[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Get%20It%20Free-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](LICENSE)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
@@ -26,7 +26,7 @@
 </p>
 
 > **你将作为“天道”，观察一个由规则系统与 AI 共同驱动的修仙世界模拟器自行演化。**
-> **全员 LLM 驱动、群像涌现叙事，已开放桌面版愿望单，也支持 Docker 部署、源码开发与二次创作。**
+> **全员 LLM 驱动、群像涌现叙事，桌面版已在 Epic Games Store 免费发布，也支持 Docker 部署、源码开发与二次创作。**
 
 <table align="center">
   <tr>
@@ -92,13 +92,22 @@
 ### 推荐方式
 
 - **想改代码或调试**：使用源码部署，并准备 Python `3.10+`、Node.js `18+` 和可用的模型服务。
-- **想直接体验**：可前往 [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8) 加入愿望单；也可以使用 Docker 一键部署。
+- **想直接体验**：可前往 [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8) 免费获取桌面版；也可以使用 Docker 一键部署。
 - 如需快速查阅世界信息、动作、宗门等资料，可在 `tools/wiki` 生成本地辅助 wiki。
 
 ### 首次启动说明
 
-- 无论使用源码还是 Docker，首次进入后都需要先在设置页配置可用的模型预设（如 DeepSeek / MiniMax / Ollama），再开始新游戏。
+- 使用 Epic 桌面版时，启动后按设置页提示确认模型配置，即可开始新游戏。
+- 使用源码或 Docker 时，首次进入后需要先在设置页配置可用的模型预设（如 DeepSeek / MiniMax / Ollama），再开始新游戏。
 - 开发模式下，前端页面通常会自动打开；如果没有自动打开，请访问启动日志中显示的前端地址。
+
+### 方式零：Epic Games Store 桌面版
+
+适合只想游玩、不想配置开发环境的玩家。
+
+1. 前往 [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8) 免费获取并安装。
+2. 启动游戏后，按设置页提示确认模型配置，即可开始新游戏。
+3. 如果你希望使用自己的模型服务，可以在设置页切换 DeepSeek / MiniMax / Ollama 等预设。
 
 ### 方式一：源码部署（开发模式，推荐）
 
@@ -261,7 +270,7 @@ docker-compose up -d --build
 - ✅ 基于Web前端显示界面
 - ✅ 基础模拟器框架
 - ✅ 配置文件
-- ✅ release 一键即玩的exe
+- ✅ 桌面版一键启动包
 - ✅ 菜单栏 & 存档 & 读档
 - ✅ 灵活自定义LLM接口
 - ✅ 支持mac os

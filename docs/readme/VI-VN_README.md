@@ -10,7 +10,7 @@
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A6%96%E9%A0%BB-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
-[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Wishlist-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
+[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Get%20It%20Free-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](../../LICENSE)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
@@ -26,7 +26,7 @@
 </p>
 
 > **Bạn sẽ đóng vai "Thiên Đạo", quan sát một trình mô phỏng thế giới tu tiên do hệ thống quy tắc và AI cùng vận hành tự mình diễn hóa.**
-> **Toàn bộ nhân vật đều do LLM dẫn động, cốt truyện quần tượng nảy sinh tự nhiên, đã mở wishlist cho bản desktop, đồng thời hỗ trợ Docker, phát triển mã nguồn và sáng tạo thứ cấp.**
+> **Toàn bộ nhân vật đều do LLM dẫn động, cốt truyện quần tượng nảy sinh tự nhiên, bản desktop hiện đã phát hành miễn phí trên Epic Games Store, đồng thời hỗ trợ Docker, phát triển mã nguồn và sáng tạo thứ cấp.**
 
 <table align="center">
   <tr>
@@ -92,13 +92,22 @@ Trong trình mô phỏng, mỗi tu sĩ đều là một Agent độc lập, có 
 ### Cách Được Khuyến Nghị
 
 - **Nếu muốn sửa code hoặc debug**: Dùng cách chạy từ mã nguồn, đồng thời chuẩn bị Python `3.10+`, Node.js `18+` và một dịch vụ mô hình khả dụng.
-- **Nếu chỉ muốn trải nghiệm ngay**: Có thể thêm vào wishlist trên [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8), hoặc dùng Docker để triển khai một lệnh.
+- **Nếu muốn trải nghiệm ngay**: Nhận miễn phí bản desktop trên [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8), hoặc dùng Docker để triển khai một lệnh.
 - Nếu cần tra nhanh thông tin thế giới, hành động, tông môn và dữ liệu liên quan, hãy tạo wiki cục bộ trong `tools/wiki`.
 
 ### Lưu Ý Khi Khởi Chạy Lần Đầu
 
-- Dù chạy từ mã nguồn hay Docker, sau khi vào game lần đầu bạn vẫn cần vào trang cài đặt để cấu hình một preset mô hình khả dụng, như DeepSeek, MiniMax hoặc Ollama, rồi mới bắt đầu ván mới.
+- Khi dùng bản desktop trên Epic, hãy khởi động game rồi xác nhận cấu hình mô hình theo hướng dẫn trên trang cài đặt trước khi bắt đầu ván mới.
+- Khi chạy từ mã nguồn hoặc Docker, sau khi vào game lần đầu bạn vẫn cần vào trang cài đặt để cấu hình một preset mô hình khả dụng, như DeepSeek, MiniMax hoặc Ollama, rồi mới bắt đầu ván mới.
 - Ở chế độ phát triển, frontend thường sẽ tự mở. Nếu không tự mở, hãy truy cập vào địa chỉ frontend xuất hiện trong log khởi động.
+
+### Cách 0: Bản Desktop Trên Epic Games Store
+
+Phù hợp cho người chơi chỉ muốn chơi game mà không cần thiết lập môi trường phát triển.
+
+1. Nhận và cài đặt miễn phí từ [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8).
+2. Sau khi khởi động game, xác nhận cấu hình mô hình theo hướng dẫn trên trang cài đặt, rồi bắt đầu ván mới.
+3. Nếu muốn dùng dịch vụ mô hình riêng, bạn có thể chuyển sang các preset như DeepSeek, MiniMax hoặc Ollama trên trang cài đặt.
 
 ### Cách 1: Chạy Từ Mã Nguồn (Chế Độ Phát Triển, Khuyến Nghị)
 
@@ -261,7 +270,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Giao diện hiển thị trên Web frontend
 - ✅ Khung mô phỏng cơ bản
 - ✅ Tệp cấu hình
-- ✅ Bản exe phát hành chơi ngay chỉ bằng một lần mở
+- ✅ Bản desktop khởi động chỉ bằng một lần mở
 - ✅ Thanh menu, lưu game và đọc save
 - ✅ Tùy biến linh hoạt giao diện LLM
 - ✅ Hỗ trợ macOS

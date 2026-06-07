@@ -10,7 +10,7 @@
 [![Bilibili](https://img.shields.io/badge/Bilibili-Watch_Video-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%20Group-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
-[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Wishlist-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
+[![Epic Games Store](https://img.shields.io/badge/Epic%20Games%20Store-Get%20It%20Free-313131?logo=epicgames&logoColor=white)](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](../../LICENSE)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
@@ -26,7 +26,7 @@
 </p>
 
 > **Act as the "Heavenly Dao" and observe a cultivation world simulator driven by rule systems and AI as it evolves on its own.**
-> **Fully LLM-driven with emergent ensemble storytelling, now open for desktop wishlisting, and also suitable for Docker deployment, source development, and secondary creation.**
+> **Fully LLM-driven with emergent ensemble storytelling, now available for free on the Epic Games Store, and also suitable for Docker deployment, source development, and secondary creation.**
 
 <table align="center">
   <tr>
@@ -92,13 +92,22 @@ In the simulator, every cultivator is an independent Agent who can freely observ
 ### Recommended Method
 
 - **Want to modify code or debug**: Use source code deployment and prepare Python `3.10+`, Node.js `18+`, and available model services.
-- **Want to experience it directly**: Wishlist it on the [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8), or use one-click Docker deployment.
+- **Want to play directly**: Get the desktop version for free on the [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8), or use one-click Docker deployment.
 - For a quick reference wiki on world info, actions, sects, and more, generate the local helper site in `tools/wiki`.
 
 ### First Launch Instructions
 
-- Whether using source code or Docker, after entering for the first time, you need to configure available model presets (such as DeepSeek / MiniMax / Ollama) on the settings page before starting a new game.
+- When using the Epic desktop version, launch the game and confirm the model configuration as prompted on the settings page before starting a new game.
+- When using source code or Docker, after entering for the first time, you need to configure available model presets (such as DeepSeek / MiniMax / Ollama) on the settings page before starting a new game.
 - In development mode, the frontend page usually opens automatically; if it doesn't, please visit the frontend address shown in the startup logs.
+
+### Method 0: Epic Games Store Desktop Version
+
+Suitable for players who just want to play without setting up a development environment.
+
+1. Get and install it for free from the [Epic Games Store](https://store.epicgames.com/p/ai-cultivation-world-simulator-adebb8).
+2. After launching the game, confirm the model configuration as prompted on the settings page, then start a new game.
+3. If you want to use your own model service, switch to presets such as DeepSeek / MiniMax / Ollama on the settings page.
 
 ### Method 1: Source Code Deployment (Development Mode, Recommended)
 
@@ -261,7 +270,7 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 - ✅ Web frontend-based display interface
 - ✅ Basic simulator framework
 - ✅ Configuration files
-- ✅ release one-click playable exe
+- ✅ One-click desktop build
 - ✅ Menu bar & Save & Load
 - ✅ Flexible custom LLM interface
 - ✅ Support Mac OS
