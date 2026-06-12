@@ -1,10 +1,12 @@
 # Contributors
 
-感谢每一位为这个开源项目贡献代码、创意、反馈与时间的朋友。
-每一个 Pull Request、Issue、讨论和评审，都在帮助 `Cultivation World Simulator` 变得更完整、更有生命力。
+感谢每一位为这个开源项目贡献代码、创意、反馈与时间的朋友。每一个 Pull Request、Issue、讨论和评审，都在帮助 `Cultivation World Simulator` 变得更完整、更有生命力。
 
-Thanks to everyone who has contributed code, ideas, feedback, and time to this open source project.
-Every pull request, issue, discussion, and review helps `Cultivation World Simulator` grow into something better.
+Thanks to everyone who has contributed code, ideas, feedback, and time to this open source project. Every pull request, issue, discussion, and review helps `Cultivation World Simulator` grow into something better.
+
+## Contributor List
+
+The list below follows the GitHub contributors data for this repository.
 
 | Name | Avatar | GitHub |
 | --- | --- | --- |
@@ -21,3 +23,7 @@ Every pull request, issue, discussion, and review helps `Cultivation World Simul
 | Tianrant | <img src="https://avatars.githubusercontent.com/u/260025727?v=4" alt="Tianrant avatar" width="64" height="64" /> | [@Tianrant](https://github.com/Tianrant) |
 | cw1990 | <img src="https://avatars.githubusercontent.com/u/10458746?v=4" alt="cw1990 avatar" width="64" height="64" /> | [@cw1990](https://github.com/cw1990) |
 | RealityError | <img src="https://avatars.githubusercontent.com/u/67266280?v=4" alt="RealityError avatar" width="64" height="64" /> | [@RealityError](https://github.com/RealityError) |
+
+## Updating This File
+
+Run `python tools/github/sync_contributors.py` to refresh this list from the GitHub contributors API.
