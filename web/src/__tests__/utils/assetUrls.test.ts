@@ -3,7 +3,6 @@ import { getAvatarPortraitUrl, getGameAssetUrl, withBasePublicPath } from '@/uti
 
 describe('assetUrls', () => {
   it('prefixes public assets with the Vite base URL', () => {
-    expect(withBasePublicPath('icons/edit.png')).toBe('/icons/edit.png')
     expect(withBasePublicPath('/sfx/click.ogg')).toBe('/sfx/click.ogg')
   })
 

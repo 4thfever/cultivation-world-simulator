@@ -119,8 +119,8 @@ class TestLanguage:
         # 确保不会报错
         try:
             reload_game_configs()
-            # 至少应该有 sects 或者 region_map
-            assert "sect" in game_configs or "region_map" in game_configs
+            # 至少应该加载到当前核心配置表。
+            assert "sect" in game_configs
         except Exception as e:
             pytest.fail(f"reload_game_configs failed: {e}")
 

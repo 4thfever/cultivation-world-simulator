@@ -45,9 +45,6 @@ The project must be able to:
   - Wrote preview output relative to cwd
 - `tools/i18n/split_po.py`
   - Reads `static/locales`
-- `tools/migrate_assets_and_map.py`
-  - Reads `static/game_configs`
-  - Reads `assets/sects`
 - Tests that open templates or configs with `Path("static/...")`
   - `tests/test_language.py`
   - `tests/test_sect_thinker.py`
@@ -99,7 +96,6 @@ If static config loading fails to provide optional sections such as `resources`,
    - `tools/i18n/align_po_files.py`
    - `tools/i18n/align_po_files_preview.py`
    - `tools/i18n/split_po.py`
-   - `tools/migrate_assets_and_map.py`
 5. Updated direct-file-reading tests to use project-root paths.
 6. Added subprocess regression coverage for importing `src.server.main` from a non-project cwd.
 
@@ -117,7 +113,7 @@ If static config loading fails to provide optional sections such as `resources`,
 1. Importing backend entry modules from a non-project cwd does not fail because repo-owned static files cannot be found.
 2. `src.utils.config.update_paths_for_language()` works even if `resources` is absent from the loaded config object.
 3. Template-reading tests do not depend on ambient cwd.
-4. Repo-owned i18n and migration tools updated in this change resolve `static/` and `assets/` from project root.
+4. Repo-owned i18n tools updated in this change resolve `static/` from project root.
 5. Existing targeted regression tests pass.
 
 ## Validation Plan
