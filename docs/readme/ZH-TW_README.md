@@ -7,7 +7,7 @@
 # 修仙世界模擬器 (Cultivation World Simulator)
 
 ![GitHub stars](https://img.shields.io/github/stars/4thfever/cultivation-world-simulator?style=social)
-[![LINUX DO](https://img.shields.io/badge/LINUX.DO-%E7%A4%BE%E7%BE%A4-2EA44F)](https://linux.do)
+[![LINUX DO](https://img.shields.io/badge/LINUX.DO-%E7%A4%BE%E7%BE%A4-2EA44F)](https://linux.do/t/topic/2439437)
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A6%96%E9%A0%BB-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ 群](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
@@ -231,12 +231,13 @@ docker-compose up -d --build
   </a>
 </div>
 
-# 插件
+# 分享
 
-感謝貢獻者為本 repo 貢獻插件。
+感謝貢獻者為本 repo 貢獻分享。
 
 - [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
 - [cultivation-world-simulator-android](https://github.com/RealityError/cultivation-world-simulator-android)
+- [LINUX DO 社群分享帖](https://linux.do/t/topic/2439437)
 
 ## 👥 貢獻者
 

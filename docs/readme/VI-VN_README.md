@@ -7,7 +7,7 @@
 # Mô Phỏng Thế Giới Tu Tiên (Cultivation World Simulator)
 
 ![GitHub stars](https://img.shields.io/github/stars/4thfever/cultivation-world-simulator?style=social)
-[![LINUX DO](https://img.shields.io/badge/LINUX.DO-Community-2EA44F)](https://linux.do)
+[![LINUX DO](https://img.shields.io/badge/LINUX.DO-Community-2EA44F)](https://linux.do/t/topic/2439437)
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A6%96%E9%A0%BB-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
@@ -231,12 +231,13 @@ Nếu bạn thấy dự án này thú vị, hãy cho chúng tôi một Star ⭐.
   </a>
 </div>
 
-# Plugin
+# Chia sẻ
 
-Cảm ơn các contributor đã đóng góp plugin cho repo này.
+Cảm ơn các contributor đã chia sẻ repo này và các dự án liên quan.
 
 - [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
 - [cultivation-world-simulator-android](https://github.com/RealityError/cultivation-world-simulator-android)
+- [Bài đăng cộng đồng LINUX DO](https://linux.do/t/topic/2439437)
 
 ## 👥 Contributors
 
