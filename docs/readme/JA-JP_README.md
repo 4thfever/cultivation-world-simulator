@@ -7,6 +7,7 @@
 # 修仙世界シミュレーター (Cultivation World Simulator)
 
 ![GitHub stars](https://img.shields.io/github/stars/4thfever/cultivation-world-simulator?style=social)
+[![LINUX DO](https://img.shields.io/badge/LINUX.DO-Community-2EA44F)](https://linux.do)
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E5%8B%95%E7%94%BB%E3%82%92%E8%A6%8B%E3%82%8B-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ 群](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
