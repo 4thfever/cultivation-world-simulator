@@ -288,7 +288,7 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 - ✅ Spiritual energy distribution and output design
 - ✅ World events
 - ✅ Heaven, Earth, and Mortal Rankings
-- [ ] Larger and more beautiful maps & Random maps
+- ✅ Larger and more beautiful maps & Random maps
 
 ### 👤 Character System
 - ✅ Character basic attribute system
@@ -312,7 +312,6 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
   - ✅ Casting
   - ✅ Alchemy
 - ✅ Mortals
-- [ ] Deity Transformation realm
 
 ### 🏛️ Organizations
 - ✅ Sects
@@ -386,11 +385,10 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 - [ ] Opportunity & Karma
 - [ ] Divination & Prophecy
 - [ ] Character Secrets & Conspiracies
-- [ ] Ascension to the upper realm
+- [ ] Incarnations & Ascension to the upper realm
 - [ ] Formations
 - [ ] World secrets & World laws
 - [ ] Gu
-- [ ] World-ending crisis
 - [ ] Found a sect / Establish a clan / Become emperor
 
 ###  telescope Long-term Prospects

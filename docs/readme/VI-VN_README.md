@@ -288,7 +288,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Thiết kế phân bố và sản xuất linh khí
 - ✅ Sự kiện thế giới
 - ✅ Thiên bảng, Địa bảng và Nhân bảng
-- [ ] Bản đồ lớn hơn, đẹp hơn và hỗ trợ bản đồ ngẫu nhiên
+- ✅ Bản đồ lớn hơn, đẹp hơn và hỗ trợ bản đồ ngẫu nhiên
 
 ### 👤 Hệ Thống Nhân Vật
 - ✅ Hệ thống thuộc tính cơ bản của nhân vật
@@ -312,7 +312,6 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
   - ✅ Đúc tạo
   - ✅ Luyện đan
 - ✅ Phàm nhân
-- [ ] Cảnh giới Hóa Thần
 
 ### 🏛️ Tổ Chức
 - ✅ Tông môn
@@ -386,11 +385,10 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - [ ] Cơ duyên và nhân quả
 - [ ] Chiêm bốc và sấm vĩ
 - [ ] Bí mật nhân vật và âm mưu
-- [ ] Phi thăng thượng giới
+- [ ] Hóa thân và phi thăng thượng giới
 - [ ] Trận pháp
 - [ ] Bí mật thế giới và pháp tắc thế giới
 - [ ] Cổ
-- [ ] Khủng hoảng diệt thế
 - [ ] Tự lập tông môn / tự lập thế gia / trở thành hoàng đế
 
 ### 🔭 Triển Vọng Dài Hạn
