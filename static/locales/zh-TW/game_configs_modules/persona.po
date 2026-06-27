@@ -675,3 +675,15 @@ msgstr "你習慣收斂鋒芒、示敵以弱，他人常常誤判你的實力與
 
 msgid "PERSONA_1014_NAME"
 msgstr "扮豬吃老虎"
+
+msgid "PERSONA_1017_DESC"
+msgstr ""
+
+msgid "PERSONA_1017_NAME"
+msgstr ""
+
+msgid "PERSONA_1018_DESC"
+msgstr ""
+
+msgid "PERSONA_1018_NAME"
+msgstr ""

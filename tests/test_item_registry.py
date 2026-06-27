@@ -153,3 +153,22 @@ def test_item_instantiation():
     assert clone.some_attr == original.some_attr
     assert clone.some_attr is not original.some_attr # Deep copy check
 
+
+def test_gu_auxiliaries_loaded_with_expected_effects():
+    from src.classes.items.auxiliary import auxiliaries_by_id
+
+    assert auxiliaries_by_id[2071].name == "百虫囊"
+    assert auxiliaries_by_id[2071].effects["legal_actions"] == ["InflictGu"]
+    assert auxiliaries_by_id[2074].effects["extra_gu_success_rate"] == 0.10
+    assert auxiliaries_by_id[2074].effects["extra_gu_duration_months"] == 9
+    assert auxiliaries_by_id[2062].effects["extra_gu_resistance_rate"] == 0.20
+
+
+def test_gu_personas_loaded_with_expected_effects():
+    from src.classes.persona import personas_by_name
+
+    assert personas_by_name["蛊师"].effects["extra_gu_success_rate"] == 0.10
+    assert personas_by_name["蛊师"].effects["extra_gu_duration_months"] == 6
+    assert personas_by_name["蛊仙"].effects["extra_gu_success_rate"] == 0.18
+    assert personas_by_name["蛊仙"].effects["extra_gu_duration_months"] == 12
+

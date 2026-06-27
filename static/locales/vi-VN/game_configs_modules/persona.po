@@ -139,8 +139,8 @@ msgstr "Nhát Gan"
 #. persona.csv: 你行事强势，不讲道理，习惯以自己的利益为...
 msgid "PERSONA_18_DESC"
 msgstr ""
-"Ngươi hành sự cường thế, không nói đạo lý, quen đặt lợi ích của bản thân lên hàng "
-"đầu."
+"Ngươi hành sự cường thế, không nói đạo lý, quen đặt lợi ích của bản thân lên"
+" hàng đầu."
 
 #. persona.csv: 霸道
 msgid "PERSONA_18_NAME"
@@ -215,7 +215,8 @@ msgstr "Cực Đoan Chính Nghĩa"
 #. persona.csv: 你推崇权力与恐惧，为达目的不择手段。...
 msgid "PERSONA_25_DESC"
 msgstr ""
-"Ngươi tôn sùng quyền lực và nỗi sợ hãi, vì đạt mục đích mà không từ thủ đoạn."
+"Ngươi tôn sùng quyền lực và nỗi sợ hãi, vì đạt mục đích mà không từ thủ "
+"đoạn."
 
 #. persona.csv: 极端邪恶
 msgid "PERSONA_25_NAME"
@@ -312,8 +313,8 @@ msgstr "Trung Thành"
 #. persona.csv: 行事果决狠辣，不留后患，斩草必除根。...
 msgid "PERSONA_35_DESC"
 msgstr ""
-"Ngươi hành sự quyết đoán tàn độc, diệt cỏ tất nhổ tận gốc, không để lại "
-"hậu hoạn."
+"Ngươi hành sự quyết đoán tàn độc, diệt cỏ tất nhổ tận gốc, không để lại hậu "
+"hoạn."
 
 #. persona.csv: 狠辣
 msgid "PERSONA_35_NAME"
@@ -340,8 +341,7 @@ msgstr "Đa Nghi"
 #. persona.csv: 专注肉身淬炼，体魄强健，近战无敌。...
 msgid "PERSONA_38_DESC"
 msgstr ""
-"Ngươi chuyên chú Luyện Thể, thể phách cường kiện, cận chiến gần như vô "
-"địch."
+"Ngươi chuyên chú Luyện Thể, thể phách cường kiện, cận chiến gần như vô địch."
 
 #. persona.csv: 体修
 msgid "PERSONA_38_NAME"
@@ -576,7 +576,8 @@ msgstr "Đại Khí Vãn Thành"
 #. persona.csv: 精通炼器之道，对材料敏锐。...
 msgid "PERSONA_61_DESC"
 msgstr ""
-"Ngươi tinh thông luyện khí chi đạo, cực kỳ nhạy bén đối với vật liệu và hỏa hầu."
+"Ngươi tinh thông luyện khí chi đạo, cực kỳ nhạy bén đối với vật liệu và hỏa "
+"hầu."
 
 #. persona.csv: 炼器师
 msgid "PERSONA_61_NAME"
@@ -649,7 +650,8 @@ msgstr "Cô Thân"
 
 #. persona.csv: 你对爱情专一，一旦认定便不会改变。...
 msgid "PERSONA_69_DESC"
-msgstr "Ngươi chuyên nhất trong tình ái, một khi đã nhận định thì sẽ không đổi thay."
+msgstr ""
+"Ngươi chuyên nhất trong tình ái, một khi đã nhận định thì sẽ không đổi thay."
 
 #. persona.csv: 专情
 msgid "PERSONA_69_NAME"
@@ -666,7 +668,8 @@ msgstr "Tham Tài"
 #. persona.csv: 你容易动情，对美好的感情充满向往。...
 msgid "PERSONA_70_DESC"
 msgstr ""
-"Ngươi dễ động tình, trong lòng tràn đầy khát vọng đối với những mối tình tốt đẹp."
+"Ngươi dễ động tình, trong lòng tràn đầy khát vọng đối với những mối tình tốt"
+" đẹp."
 
 #. persona.csv: 多情
 msgid "PERSONA_70_NAME"
@@ -702,8 +705,7 @@ msgstr "Liệp Nhân"
 
 #. persona.csv: 你总是会深思熟虑，思考问题比较有哲理。...
 msgid "PERSONA_9_DESC"
-msgstr ""
-"Ngươi luôn thâm tư thục lự, suy xét vấn đề khá có triết lý."
+msgstr "Ngươi luôn thâm tư thục lự, suy xét vấn đề khá có triết lý."
 
 #. persona.csv: 沉思
 msgid "PERSONA_9_NAME"
@@ -718,43 +720,70 @@ msgid "PERSONA_1007_NAME"
 msgstr "Linh Nông"
 
 msgid "PERSONA_1008_DESC"
-msgstr "Ngươi xa lánh hồng trần, không thích bị cuốn vào quyền thế phàm tục và việc triều chính."
+msgstr ""
+"Ngươi xa lánh hồng trần, không thích bị cuốn vào quyền thế phàm tục và việc "
+"triều chính."
 
 msgid "PERSONA_1008_NAME"
 msgstr "Xuất Thế"
 
 msgid "PERSONA_1009_DESC"
-msgstr "Ngươi quen một mình khổ tu giữa núi sông đầm trạch, ghét nhất là qua lại với triều đình."
+msgstr ""
+"Ngươi quen một mình khổ tu giữa núi sông đầm trạch, ghét nhất là qua lại với"
+" triều đình."
 
 msgid "PERSONA_1009_NAME"
 msgstr "Sơn Trạch Cô Tu"
 
 msgid "PERSONA_1010_DESC"
-msgstr "Ngươi nguyện bước vào cõi đời, dùng việc thế tục để tôi luyện bản thân và danh vọng."
+msgstr ""
+"Ngươi nguyện bước vào cõi đời, dùng việc thế tục để tôi luyện bản thân và "
+"danh vọng."
 
 msgid "PERSONA_1010_NAME"
 msgstr "Nhập Thế"
 
 msgid "PERSONA_1011_DESC"
-msgstr "Ngươi tôn sùng trật tự danh giáo, vui lòng lấy văn học giáo hóa và chính vụ để cứu đời."
+msgstr ""
+"Ngươi tôn sùng trật tự danh giáo, vui lòng lấy văn học giáo hóa và chính vụ "
+"để cứu đời."
 
 msgid "PERSONA_1011_NAME"
 msgstr "Danh Giáo Chi Sĩ"
 
 msgid "PERSONA_1012_DESC"
-msgstr "Ngươi rất để tâm đến dung mạo của mình, cũng chịu khó chăm chút dung nghi để bản thân trông tươm tất hơn."
+msgstr ""
+"Ngươi rất để tâm đến dung mạo của mình, cũng chịu khó chăm chút dung nghi để"
+" bản thân trông tươm tất hơn."
 
 msgid "PERSONA_1012_NAME"
 msgstr "Ái Mỹ"
 
 msgid "PERSONA_1013_DESC"
-msgstr "Ngươi cực kỳ để tâm đến dung mạo của mình, gần như xem việc trở nên đẹp hơn là một chấp niệm."
+msgstr ""
+"Ngươi cực kỳ để tâm đến dung mạo của mình, gần như xem việc trở nên đẹp hơn "
+"là một chấp niệm."
 
 msgid "PERSONA_1013_NAME"
 msgstr "Duyệt Kỷ"
 
 msgid "PERSONA_1014_DESC"
-msgstr "Ngươi quen thu lại mũi nhọn, ra vẻ yếu thế, khiến người khác thường phán đoán sai thực lực và mức độ nguy hiểm của ngươi. Thậm chí có kẻ khinh nhục ngươi, rồi cuối cùng lại bị ngươi vả mặt."
+msgstr ""
+"Ngươi quen thu lại mũi nhọn, ra vẻ yếu thế, khiến người khác thường phán "
+"đoán sai thực lực và mức độ nguy hiểm của ngươi. Thậm chí có kẻ khinh nhục "
+"ngươi, rồi cuối cùng lại bị ngươi vả mặt."
 
 msgid "PERSONA_1014_NAME"
 msgstr "Giả Heo Ăn Thịt Hổ"
+
+msgid "PERSONA_1017_DESC"
+msgstr ""
+
+msgid "PERSONA_1017_NAME"
+msgstr ""
+
+msgid "PERSONA_1018_DESC"
+msgstr ""
+
+msgid "PERSONA_1018_NAME"
+msgstr ""

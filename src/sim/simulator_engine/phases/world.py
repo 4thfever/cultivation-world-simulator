@@ -14,6 +14,7 @@ from src.systems.random_minor_event import try_trigger_random_minor_event
 from src.systems.sect_random_event import try_trigger_sect_random_event
 from src.systems.time import Month
 from src.systems.dynasty_generator import generate_emperor
+from src.systems.gu import process_avatar_gu_effects
 from src.classes.official_rank import (
     OFFICIAL_NONE,
     apply_official_reputation_delta,
@@ -91,6 +92,7 @@ async def phase_passive_effects(world, living_avatars: list[Avatar]) -> list[Eve
     for avatar in living_avatars:
         # 先处理本地状态副作用，再统一并发世界事件。
         avatar.process_elixir_expiration(int(world.month_stamp))
+        events.extend(process_avatar_gu_effects(avatar, int(world.month_stamp)))
         avatar.update_time_effect()
 
     target_avatars = [avatar for avatar in living_avatars if avatar.can_trigger_world_event]

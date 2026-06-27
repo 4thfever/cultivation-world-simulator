@@ -308,6 +308,30 @@ msgstr "上古神木雕琢而成，不仅可炼丹，更能自成空间催熟灵
 msgid "AUXILIARY_2065_NAME"
 msgstr "青木神鼎"
 
+msgid "AUXILIARY_2071_DESC"
+msgstr "以粗布与兽皮制成的蛊囊，可收纳寻常灵虫。"
+
+msgid "AUXILIARY_2071_NAME"
+msgstr "百虫囊"
+
+msgid "AUXILIARY_2072_DESC"
+msgstr "以五毒相生之法炼成的蛊盅，蛊性较为稳定。"
+
+msgid "AUXILIARY_2072_NAME"
+msgstr "五毒蛊盅"
+
+msgid "AUXILIARY_2073_DESC"
+msgstr "机关与蛊术结合的蛊匣，便于隐蔽施蛊。"
+
+msgid "AUXILIARY_2073_NAME"
+msgstr "千机蛊匣"
+
+msgid "AUXILIARY_2074_DESC"
+msgstr "母蛊盘踞其中，可统御群蛊。"
+
+msgid "AUXILIARY_2074_NAME"
+msgstr "万蛊母巢"
+
 #. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
 msgid "CELESTIAL_PHENOMENON_10_DESC"
 msgstr "天地灵气井喷复苏，修为进境一日千里，万物竞发宜全力精进"
@@ -1953,6 +1977,30 @@ msgstr "你习惯收敛锋芒、示敌以弱，他人常常误判你的实力与
 
 msgid "PERSONA_1014_NAME"
 msgstr "扮猪吃老虎"
+
+msgid "PERSONA_1015_DESC"
+msgstr "你对不同种族的修士抱有天然好奇与亲近，愿意越过出身差异建立关系。"
+
+msgid "PERSONA_1015_NAME"
+msgstr "亲近异类"
+
+msgid "PERSONA_1016_DESC"
+msgstr "你本能地排斥与自己种族不同的修士，很难真正信任异族。"
+
+msgid "PERSONA_1016_NAME"
+msgstr "痛恨异类"
+
+msgid "PERSONA_1017_DESC"
+msgstr "通晓虫豸毒术，善以蛊入道。"
+
+msgid "PERSONA_1017_NAME"
+msgstr "蛊师"
+
+msgid "PERSONA_1018_DESC"
+msgstr "天生与万蛊相亲，举念之间可令虫豸奉命。"
+
+msgid "PERSONA_1018_NAME"
+msgstr "蛊仙"
 
 #. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
 msgid "PLANT_10_DESC"

@@ -201,3 +201,24 @@ msgstr "Thu nhập linh thạch từ trồng trọt cộng thêm"
 
 msgid "effect_extra_income_per_tile"
 msgstr "Điều chỉnh thu nhập mỗi ô đất theo năm"
+
+msgid "effect_extra_gu_success_rate"
+msgstr ""
+
+msgid "effect_extra_gu_duration_months"
+msgstr ""
+
+msgid "effect_extra_gu_resistance_rate"
+msgstr ""
+
+msgid "effect_source_gu_qianxin"
+msgstr ""
+
+msgid "effect_source_gu_shixue"
+msgstr ""
+
+msgid "effect_source_gu_shiyuan"
+msgstr ""
+
+msgid "effect_source_gu_luanxin"
+msgstr ""

@@ -219,3 +219,27 @@ msgstr "古の神木を削って作られた王鼎。神丹を煉ずるだけで
 #. auxiliary.csv: 神木王鼎
 msgid "AUXILIARY_2065_NAME"
 msgstr "神木王鼎"
+
+msgid "AUXILIARY_2071_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2071_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2072_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2072_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2073_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2073_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2074_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2074_NAME"
+msgstr ""

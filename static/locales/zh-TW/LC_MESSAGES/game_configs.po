@@ -308,6 +308,30 @@ msgstr "上古神木雕琢而成，不僅可煉丹，更能自成空間催熟靈
 msgid "AUXILIARY_2065_NAME"
 msgstr "青木神鼎"
 
+msgid "AUXILIARY_2071_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2071_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2072_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2072_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2073_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2073_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2074_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2074_NAME"
+msgstr ""
+
 #. celestial_phenomenon.csv: 天地靈氣井噴復甦，修爲進境一日千里，萬物...
 msgid "CELESTIAL_PHENOMENON_10_DESC"
 msgstr "天地靈氣井噴復甦，修爲進境一日千里，萬物競發宜全力精進"
@@ -1953,6 +1977,18 @@ msgstr "你習慣收斂鋒芒、示敵以弱，他人常常誤判你的實力與
 
 msgid "PERSONA_1014_NAME"
 msgstr "扮豬吃老虎"
+
+msgid "PERSONA_1017_DESC"
+msgstr ""
+
+msgid "PERSONA_1017_NAME"
+msgstr ""
+
+msgid "PERSONA_1018_DESC"
+msgstr ""
+
+msgid "PERSONA_1018_NAME"
+msgstr ""
 
 #. plant.csv: 頑強生長在戈壁巖縫中的奇異植物，葉片堅硬...
 msgid "PLANT_10_DESC"

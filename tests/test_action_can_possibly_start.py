@@ -8,6 +8,7 @@ from src.classes.action.govern import Govern
 from src.classes.action.rest import Rest
 from src.classes.action.eat_mortals import EatMortals
 from src.classes.action.devour_people import DevourPeople
+from src.classes.action.inflict_gu import InflictGu
 from src.classes.action.plunder_people import PlunderPeople
 from src.classes.action.help_people import HelpPeople
 from src.classes.action.catch import Catch
@@ -93,6 +94,17 @@ def test_devour_people_can_possibly_start(dummy_avatar, base_world):
         
         # legal_actions contains DevourPeople -> True
         mock_effects.return_value = {"legal_actions": ["DevourPeople"]}
+        assert action.can_possibly_start() is True
+
+
+def test_inflict_gu_can_possibly_start(dummy_avatar, base_world):
+    action = InflictGu(dummy_avatar, base_world)
+
+    with patch.object(Avatar, 'effects', new_callable=PropertyMock) as mock_effects:
+        mock_effects.return_value = {}
+        assert action.can_possibly_start() is False
+
+        mock_effects.return_value = {"legal_actions": ["InflictGu"]}
         assert action.can_possibly_start() is True
 
 def test_govern_can_possibly_start(dummy_avatar, base_world):

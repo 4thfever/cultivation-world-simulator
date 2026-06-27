@@ -357,6 +357,59 @@ msgstr "Coordinate Border Defense"
 msgid "sect_task_title_sect_task_investigate_internal_traitor"
 msgstr "Investigate a Suspected Internal Traitor"
 
+msgid "action_inflictgu_short_name"
+msgstr ""
+
+msgid "inflict_gu_action_name"
+msgstr ""
+
+msgid "inflict_gu_description"
+msgstr ""
+
+msgid "inflict_gu_requirements"
+msgstr ""
+
+msgid "gu_qianxin_name"
+msgstr ""
+
+msgid "gu_shixue_name"
+msgstr ""
+
+msgid "gu_shiyuan_name"
+msgstr ""
+
+msgid "gu_luanxin_name"
+msgstr ""
+
+msgid "Missing Gu tool"
+msgstr ""
+
+msgid "Invalid Gu type"
+msgstr ""
+
+msgid "Cannot inflict Gu on self"
+msgstr ""
+
+msgid "{caster} attempts to inflict {gu_name} on {target}."
+msgstr ""
+
+msgid "{caster} successfully inflicted {gu_name} on {target}."
+msgstr ""
+
+msgid "{caster} failed to inflict {gu_name} on {target}."
+msgstr ""
+
+msgid ""
+"{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
+msgstr ""
+
+msgid "{target}'s {gu_name} took effect, losing {amount} HP."
+msgstr ""
+
+msgid ""
+"{target}'s {gu_name} took effect, losing {amount} cultivation experience."
+msgstr ""
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "Assassinate"
@@ -1953,6 +2006,27 @@ msgstr "Extra Plant Income"
 
 msgid "effect_extra_income_per_tile"
 msgstr "Extra income per tile (yearly)"
+
+msgid "effect_extra_gu_success_rate"
+msgstr ""
+
+msgid "effect_extra_gu_duration_months"
+msgstr ""
+
+msgid "effect_extra_gu_resistance_rate"
+msgstr ""
+
+msgid "effect_source_gu_qianxin"
+msgstr ""
+
+msgid "effect_source_gu_shixue"
+msgstr ""
+
+msgid "effect_source_gu_shiyuan"
+msgstr ""
+
+msgid "effect_source_gu_luanxin"
+msgstr ""
 
 msgid "earth_essence"
 msgstr "Earth"

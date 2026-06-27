@@ -201,3 +201,24 @@ msgstr "额外种植灵石收益"
 
 msgid "effect_extra_income_per_tile"
 msgstr "每地块年收入修正"
+
+msgid "effect_extra_gu_success_rate"
+msgstr "下蛊成功率"
+
+msgid "effect_extra_gu_duration_months"
+msgstr "蛊持续月份"
+
+msgid "effect_extra_gu_resistance_rate"
+msgstr "防蛊"
+
+msgid "effect_source_gu_qianxin"
+msgstr "牵心蛊"
+
+msgid "effect_source_gu_shixue"
+msgstr "噬血蛊"
+
+msgid "effect_source_gu_shiyuan"
+msgstr "蚀元蛊"
+
+msgid "effect_source_gu_luanxin"
+msgstr "乱心蛊"

@@ -308,6 +308,30 @@ msgstr "古の神木を削って作られた王鼎。神丹を煉ずるだけで
 msgid "AUXILIARY_2065_NAME"
 msgstr "神木王鼎"
 
+msgid "AUXILIARY_2071_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2071_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2072_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2072_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2073_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2073_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2074_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2074_NAME"
+msgstr ""
+
 #. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
 msgid "CELESTIAL_PHENOMENON_10_DESC"
 msgstr "天地霊気が噴き出すように蘇り、修為の進境は日進月歩となる。万物が競って伸び、全力で修行を進めるのに向く。"
@@ -1954,6 +1978,18 @@ msgstr ""
 
 msgid "PERSONA_1014_NAME"
 msgstr "猪を装い虎を食う"
+
+msgid "PERSONA_1017_DESC"
+msgstr ""
+
+msgid "PERSONA_1017_NAME"
+msgstr ""
+
+msgid "PERSONA_1018_DESC"
+msgstr ""
+
+msgid "PERSONA_1018_NAME"
+msgstr ""
 
 #. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
 msgid "PLANT_10_DESC"

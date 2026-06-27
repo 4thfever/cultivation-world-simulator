@@ -675,3 +675,27 @@ msgstr "你习惯收敛锋芒、示敌以弱，他人常常误判你的实力与
 
 msgid "PERSONA_1014_NAME"
 msgstr "扮猪吃老虎"
+
+msgid "PERSONA_1015_DESC"
+msgstr "你对不同种族的修士抱有天然好奇与亲近，愿意越过出身差异建立关系。"
+
+msgid "PERSONA_1015_NAME"
+msgstr "亲近异类"
+
+msgid "PERSONA_1016_DESC"
+msgstr "你本能地排斥与自己种族不同的修士，很难真正信任异族。"
+
+msgid "PERSONA_1016_NAME"
+msgstr "痛恨异类"
+
+msgid "PERSONA_1017_DESC"
+msgstr "通晓虫豸毒术，善以蛊入道。"
+
+msgid "PERSONA_1017_NAME"
+msgstr "蛊师"
+
+msgid "PERSONA_1018_DESC"
+msgstr "天生与万蛊相亲，举念之间可令虫豸奉命。"
+
+msgid "PERSONA_1018_NAME"
+msgstr "蛊仙"

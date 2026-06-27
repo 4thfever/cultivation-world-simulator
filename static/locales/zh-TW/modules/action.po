@@ -104,7 +104,8 @@ msgid "sect_mission_story_prompt_success"
 msgstr "圍繞這項宗門任務的具體標題展開，描寫任務過程中的細節、波折與宗門氛圍，並以成功完成為結局。任務發生地仍在宗門總部及其附屬區域。"
 
 msgid "sect_mission_story_prompt_fail"
-msgstr "圍繞這項宗門任務的具體標題展開，描寫任務過程中的細節、波折與意外，並以執行失敗、身受重傷甚至瀕死為結局。任務發生地仍在宗門總部及其附屬區域。"
+msgstr ""
+"圍繞這項宗門任務的具體標題展開，描寫任務過程中的細節、波折與意外，並以執行失敗、身受重傷甚至瀕死為結局。任務發生地仍在宗門總部及其附屬區域。"
 
 msgid "action_traveling"
 msgstr "遊歷"
@@ -318,3 +319,56 @@ msgstr "統籌邊境防務"
 
 msgid "sect_task_title_sect_task_investigate_internal_traitor"
 msgstr "查辦內鬼通敵嫌疑"
+
+msgid "action_inflictgu_short_name"
+msgstr ""
+
+msgid "inflict_gu_action_name"
+msgstr ""
+
+msgid "inflict_gu_description"
+msgstr ""
+
+msgid "inflict_gu_requirements"
+msgstr ""
+
+msgid "gu_qianxin_name"
+msgstr ""
+
+msgid "gu_shixue_name"
+msgstr ""
+
+msgid "gu_shiyuan_name"
+msgstr ""
+
+msgid "gu_luanxin_name"
+msgstr ""
+
+msgid "Missing Gu tool"
+msgstr ""
+
+msgid "Invalid Gu type"
+msgstr ""
+
+msgid "Cannot inflict Gu on self"
+msgstr ""
+
+msgid "{caster} attempts to inflict {gu_name} on {target}."
+msgstr ""
+
+msgid "{caster} successfully inflicted {gu_name} on {target}."
+msgstr ""
+
+msgid "{caster} failed to inflict {gu_name} on {target}."
+msgstr ""
+
+msgid ""
+"{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
+msgstr ""
+
+msgid "{target}'s {gu_name} took effect, losing {amount} HP."
+msgstr ""
+
+msgid ""
+"{target}'s {gu_name} took effect, losing {amount} cultivation experience."
+msgstr ""

@@ -387,7 +387,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - [ ] Hóa thân và phi thăng thượng giới
 - [ ] Trận pháp
 - [ ] Bí mật thế giới và pháp tắc thế giới
-- [ ] Cổ
+- ✅ Cổ
 - [ ] Tự lập tông môn / trở thành hoàng đế
 
 ### 🔭 Triển Vọng Dài Hạn

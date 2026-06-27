@@ -511,6 +511,45 @@ LEGAL_ACTIONS = "legal_actions"
 说明: 允许角色执行的特殊动作列表。
 可用值:
   - "DevourPeople": 吞噬生灵（邪道法宝万魂幡）
+  - "InflictGu": 下蛊（蛊具）
+"""
+
+# --- 蛊术相关 ---
+EXTRA_GU_SUCCESS_RATE = "extra_gu_success_rate"
+"""
+额外下蛊成功率
+类型: float
+结算: src/systems/gu.py
+说明: 增加施展下蛊动作时的成功率。
+数值参考:
+  - 蛊具小幅: 0.03
+  - 蛊师: 0.10
+  - 蛊仙: 0.18
+"""
+
+EXTRA_GU_DURATION_MONTHS = "extra_gu_duration_months"
+"""
+额外蛊持续月份
+类型: int
+结算: src/systems/gu.py
+说明: 增加成功下蛊后的持续月份。
+数值参考:
+  - 小幅: 3
+  - 蛊师: 6
+  - 蛊仙: 12
+"""
+
+EXTRA_GU_RESISTANCE_RATE = "extra_gu_resistance_rate"
+"""
+额外防蛊成功率修正
+类型: float
+结算: src/systems/gu.py
+说明: 降低被下蛊时的成功率。
+数值参考:
+  - 普通防护: 0.08
+  - 明显防护: 0.12
+  - 强防护: 0.18
+  - 顶级防护: 0.20
 """
 
 # =============================================================================
@@ -626,6 +665,9 @@ ALL_EFFECTS = [
     "extra_plunder_multiplier",          # float - 额外搜刮收益倍率
     "extra_eat_mortals_exp_multiplier",  # float - 额外吃凡人修为经验倍率
     "extra_cross_race_friendliness",     # int - 跨种族初始好感修正
+    "extra_gu_success_rate",             # float - 额外下蛊成功率
+    "extra_gu_duration_months",          # int - 额外蛊持续月份
+    "extra_gu_resistance_rate",          # float - 额外防蛊成功率修正
     
     # 秘境相关
     "extra_hidden_domain_drop_prob",     # float - 额外秘境掉落概率

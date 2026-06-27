@@ -1,6 +1,7 @@
 from src.classes.actions import get_action_infos
 from src.classes.action.param_options import ParamOptionSource, _get_declared_param_option_sources
 from src.classes.action.buy import Buy
+from src.classes.action.inflict_gu import InflictGu
 from src.classes.mutual_action.gift import Gift
 from src.classes.mutual_action.talk import Talk
 from src.classes.age import Age
@@ -115,6 +116,7 @@ def test_param_option_sources_are_declared_on_actions_and_inherited():
     gift_sources = _get_declared_param_option_sources(Gift)
     assert gift_sources["target_avatar"] == ParamOptionSource.OBSERVABLE_AVATAR_NAME
     assert gift_sources["item_id"] == ParamOptionSource.GIFTABLE_ITEM_ID
+    assert InflictGu.PARAM_OPTION_SOURCES["gu_type"] == ParamOptionSource.AVAILABLE_GU_TYPE
 
 
 def test_action_param_options_are_derived_from_live_world_state(
@@ -161,6 +163,7 @@ def test_contextual_action_parameters_are_grounded_or_left_numeric(
         "item_id",
         "target_realm",
         "direction",
+        "gu_type",
     }
     grounded_param_types = {
         "avatarname",
@@ -182,6 +185,21 @@ def test_contextual_action_parameters_are_grounded_or_left_numeric(
 
             options = info.get("param_options", {}).get(param_name)
             assert options, f"{action_name}.{param_name} should expose contextual options"
+
+
+def test_inflict_gu_param_options_expose_all_gu_types(avatar_in_city):
+    avatar_in_city.temporary_effects.append({
+        "source": "test_gu_permission",
+        "effects": {"legal_actions": ["InflictGu"]},
+        "start_month": int(avatar_in_city.world.month_stamp),
+        "duration": 1,
+    })
+
+    infos = get_action_infos(avatar_in_city)
+    options = infos["InflictGu"]["param_options"]["gu_type"]
+
+    assert _values(options) == {"qianxin", "shixue", "shiyuan", "luanxin"}
+    assert {"牵心蛊", "噬血蛊", "蚀元蛊", "乱心蛊"} <= _names(options)
 
 
 def test_observable_avatar_options_do_not_fallback_to_all_living_when_empty(

@@ -20,6 +20,7 @@ class ParamOptionSource(str, Enum):
     KNOWN_CULTIVATE_REGION_NAME = "known_cultivate_region_name"
     MATERIAL_REALM_VALUE = "material_realm_value"
     CARDINAL_DIRECTION = "cardinal_direction"
+    AVAILABLE_GU_TYPE = "available_gu_type"
 
 
 def build_param_options(action_cls: type, avatar: "Avatar") -> dict[str, list[dict[str, Any]]]:
@@ -86,6 +87,8 @@ def _options_for_source(action_cls: type, avatar: "Avatar", source: ParamOptionS
         return _realm_options_for_material_action(action_cls, avatar)
     if source == ParamOptionSource.CARDINAL_DIRECTION:
         return _direction_options()
+    if source == ParamOptionSource.AVAILABLE_GU_TYPE:
+        return _gu_type_options()
     return []
 
 
@@ -302,3 +305,9 @@ def _direction_options() -> list[dict[str, Any]]:
         {"value": "east", "id": "east", "name": "east"},
         {"value": "west", "id": "west", "name": "west"},
     ]
+
+
+def _gu_type_options() -> list[dict[str, Any]]:
+    from src.systems.gu import get_gu_type_options
+
+    return get_gu_type_options()

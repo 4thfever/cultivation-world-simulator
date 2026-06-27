@@ -39,6 +39,59 @@ msgstr "教化"
 msgid "action_meditate_short_name"
 msgstr "禅定"
 
+msgid "action_inflictgu_short_name"
+msgstr "下蛊"
+
+msgid "inflict_gu_action_name"
+msgstr "下蛊"
+
+msgid "inflict_gu_description"
+msgstr "对目标施加一种蛊，成功后按月结算效果。"
+
+msgid "inflict_gu_requirements"
+msgstr "需要装备蛊具。"
+
+msgid "gu_qianxin_name"
+msgstr "牵心蛊"
+
+msgid "gu_shixue_name"
+msgstr "噬血蛊"
+
+msgid "gu_shiyuan_name"
+msgstr "蚀元蛊"
+
+msgid "gu_luanxin_name"
+msgstr "乱心蛊"
+
+msgid "Missing Gu tool"
+msgstr "缺少蛊具"
+
+msgid "Invalid Gu type"
+msgstr "无效的蛊类型"
+
+msgid "Cannot inflict Gu on self"
+msgstr "不能对自己下蛊"
+
+msgid "{caster} attempts to inflict {gu_name} on {target}."
+msgstr "{caster}尝试对{target}下{gu_name}。"
+
+msgid "{caster} successfully inflicted {gu_name} on {target}."
+msgstr "{caster}成功对{target}下了{gu_name}。"
+
+msgid "{caster} failed to inflict {gu_name} on {target}."
+msgstr "{caster}对{target}下{gu_name}失败。"
+
+msgid ""
+"{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
+msgstr "{caster}对{target}下{gu_name}失败，且被察觉。"
+
+msgid "{target}'s {gu_name} took effect, losing {amount} HP."
+msgstr "{target}的{gu_name}发作，损失{amount}点生命。"
+
+msgid ""
+"{target}'s {gu_name} took effect, losing {amount} cultivation experience."
+msgstr "{target}的{gu_name}发作，损失{amount}点修为经验。"
+
 # Action: Play Extended
 msgid "action_reading"
 msgstr "读书"
@@ -1856,6 +1909,27 @@ msgstr "额外种植灵石收益"
 
 msgid "effect_extra_income_per_tile"
 msgstr "每地块年收入修正"
+
+msgid "effect_extra_gu_success_rate"
+msgstr "下蛊成功率"
+
+msgid "effect_extra_gu_duration_months"
+msgstr "蛊持续月份"
+
+msgid "effect_extra_gu_resistance_rate"
+msgstr "防蛊"
+
+msgid "effect_source_gu_qianxin"
+msgstr "牵心蛊"
+
+msgid "effect_source_gu_shixue"
+msgstr "噬血蛊"
+
+msgid "effect_source_gu_shiyuan"
+msgstr "蚀元蛊"
+
+msgid "effect_source_gu_luanxin"
+msgstr "乱心蛊"
 
 msgid "earth_essence"
 msgstr "土"

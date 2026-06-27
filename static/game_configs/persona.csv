@@ -83,3 +83,5 @@ id,name_id,desc_id,key,name,exclusion_keys,desc,rarity,condition,effects
 1014,PERSONA_1014_NAME,PERSONA_1014_DESC,PLAY_WEAK_HIDE_STRONG,扮猪吃老虎,OVERBEARING;RASH,你习惯收敛锋芒、示敌以弱，他人常常误判你的实力与危险性，甚至有时候欺辱你，反而被你打脸。,R,,
 1015,PERSONA_1015_NAME,PERSONA_1015_DESC,KIN_TO_OUTSIDERS,亲近异类,HATES_OUTSIDERS,你对不同种族的修士抱有天然好奇与亲近，愿意越过出身差异建立关系。,R,,{extra_cross_race_friendliness: 20}
 1016,PERSONA_1016_NAME,PERSONA_1016_DESC,HATES_OUTSIDERS,痛恨异类,KIN_TO_OUTSIDERS,你本能地排斥与自己种族不同的修士，很难真正信任异族。,R,,{extra_cross_race_friendliness: -25}
+1017,PERSONA_1017_NAME,PERSONA_1017_DESC,GU_MASTER,蛊师,GU_IMMORTAL,通晓虫豸毒术，善以蛊入道。,SR,,"{extra_gu_success_rate: 0.10, extra_gu_duration_months: 6}"
+1018,PERSONA_1018_NAME,PERSONA_1018_DESC,GU_IMMORTAL,蛊仙,GU_MASTER,天生与万蛊相亲，举念之间可令虫豸奉命。,SSR,,"{extra_gu_success_rate: 0.18, extra_gu_duration_months: 12}"

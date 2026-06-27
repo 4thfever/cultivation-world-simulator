@@ -219,3 +219,27 @@ msgstr "上古神木雕琢而成，不僅可煉丹，更能自成空間催熟靈
 #. auxiliary.csv: 神木王鼎
 msgid "AUXILIARY_2065_NAME"
 msgstr "青木神鼎"
+
+msgid "AUXILIARY_2071_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2071_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2072_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2072_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2073_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2073_NAME"
+msgstr ""
+
+msgid "AUXILIARY_2074_DESC"
+msgstr ""
+
+msgid "AUXILIARY_2074_NAME"
+msgstr ""

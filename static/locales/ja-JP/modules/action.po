@@ -16,21 +16,18 @@ msgid ""
 "Evil alignment follows the principles of survival of the fittest, "
 "prioritizing self-interest above all, disdaining rules, and venerating power"
 " and fear. Acts ruthlessly, often resorting to murder and plunder."
-msgstr ""
-"邪属性は弱肉強食を信条とし、私利を最優先し、規則を軽んじ、力と恐怖を崇める。行動は冷酷で、しばしば殺戮や略奪に走る。"
+msgstr "邪属性は弱肉強食を信条とし、私利を最優先し、規則を軽んじ、力と恐怖を崇める。行動は冷酷で、しばしば殺戮や略奪に走る。"
 
 msgid ""
 "Neutral alignment follows the principles of going with the flow, seeking "
 "benefit and avoiding harm, valuing self-cultivation and balance, and not "
 "easily taking sides."
-msgstr ""
-"中立属性は流れに従い、利を求め害を避け、自己修養と均衡を重んじ、軽々しく立場を決めない。"
+msgstr "中立属性は流れに従い、利を求め害を避け、自己修養と均衡を重んじ、軽々しく立場を決めない。"
 
 msgid ""
 "Righteous alignment follows the principles of helping the weak, maintaining "
 "order, and vanquishing evil."
-msgstr ""
-"正属性は弱きを助け、秩序を守り、邪を討つことを信条とする。"
+msgstr "正属性は弱きを助け、秩序を守り、邪を討つことを信条とする。"
 
 # Action Short Names (for legal_actions)
 msgid "action_dualcultivation_short_name"
@@ -104,10 +101,12 @@ msgid "sect_mission_result_fail_death_append"
 msgstr " 傷は致命傷となり、その場で命を落とした。"
 
 msgid "sect_mission_story_prompt_success"
-msgstr "この具体的な宗門任務の題名を中心に物語を展開し、任務の細部、障害、宗門の空気感を描写したうえで、最後は任務成功で締めくくれ。舞台は宗門本部とその付属区域に限る。"
+msgstr ""
+"この具体的な宗門任務の題名を中心に物語を展開し、任務の細部、障害、宗門の空気感を描写したうえで、最後は任務成功で締めくくれ。舞台は宗門本部とその付属区域に限る。"
 
 msgid "sect_mission_story_prompt_fail"
-msgstr "この具体的な宗門任務の題名を中心に物語を展開し、任務の細部、障害、予想外の展開を描写したうえで、最後は任務失敗、重傷、あるいは瀕死で終えよ。舞台は宗門本部とその付属区域に限る。"
+msgstr ""
+"この具体的な宗門任務の題名を中心に物語を展開し、任務の細部、障害、予想外の展開を描写したうえで、最後は任務失敗、重傷、あるいは瀕死で終えよ。舞台は宗門本部とその付属区域に限る。"
 
 msgid "action_traveling"
 msgstr "遊歴"
@@ -147,26 +146,24 @@ msgid ""
 "{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
 "vs {target} {def_power})"
 msgstr ""
-"{attacker} は {target} に戦いを仕掛けた（戦力: {attacker} {att_power} 対 {target} {def_power}）"
+"{attacker} は {target} に戦いを仕掛けた（戦力: {attacker} {att_power} 対 {target} "
+"{def_power}）"
 
 msgid "{avatar} begins leisure activities"
 msgstr "{avatar} は気晴らしを始めた"
 
 msgid ""
 "{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
-msgstr ""
-"{avatar} は {realm} 階の宝物の鋳造に失敗し、素材はすべて灰になった"
+msgstr "{avatar} は {realm} 階の宝物の鋳造に失敗し、素材はすべて灰になった"
 
 msgid ""
 "{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
-msgstr ""
-"{avatar} は {realm} 階の丹薬の錬成に失敗し、素材はすべて灰になった"
+msgstr "{avatar} は {realm} 階の丹薬の錬成に失敗し、素材はすべて灰になった"
 
 msgid ""
 "{avatar} finished nurturing {weapon}, proficiency increased to "
 "{proficiency}%"
-msgstr ""
-"{avatar} は {weapon} の温養を終え、熟練度は {proficiency}% まで上昇した"
+msgstr "{avatar} は {weapon} の温養を終え、熟練度は {proficiency}% まで上昇した"
 
 msgid "{avatar} finished {action}."
 msgstr "{avatar} は {action} を終えた。"
@@ -174,20 +171,17 @@ msgstr "{avatar} は {action} を終えた。"
 msgid ""
 "{avatar} had an epiphany during meditation! Cultivation increased "
 "significantly (+{exp})."
-msgstr ""
-"{avatar} は打坐中に頓悟を得た！ 修為が大きく高まった（+{exp}）。"
+msgstr "{avatar} は打坐中に頓悟を得た！ 修為が大きく高まった（+{exp}）。"
 
 msgid ""
 "{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
 "increased, evolved into {new_weapon}!"
-msgstr ""
-"{avatar} が {old_weapon} を温養するうち、その霊性は大きく高まり、{new_weapon} へ進化した！"
+msgstr "{avatar} が {old_weapon} を温養するうち、その霊性は大きく高まり、{new_weapon} へ進化した！"
 
 msgid ""
 "{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
 " spirit beast"
-msgstr ""
-"{avatar} は霊獣の調伏に成功し、{realm} 境の {beast} がその霊獣となった"
+msgstr "{avatar} は霊獣の調伏に成功し、{realm} 境の {beast} がその霊獣となった"
 
 msgid "{root_name} ({elements})"
 msgstr "{root_name}（{elements}）"
@@ -326,3 +320,56 @@ msgstr "辺境防務の統括"
 
 msgid "sect_task_title_sect_task_investigate_internal_traitor"
 msgstr "内通者疑惑の調査"
+
+msgid "action_inflictgu_short_name"
+msgstr ""
+
+msgid "inflict_gu_action_name"
+msgstr ""
+
+msgid "inflict_gu_description"
+msgstr ""
+
+msgid "inflict_gu_requirements"
+msgstr ""
+
+msgid "gu_qianxin_name"
+msgstr ""
+
+msgid "gu_shixue_name"
+msgstr ""
+
+msgid "gu_shiyuan_name"
+msgstr ""
+
+msgid "gu_luanxin_name"
+msgstr ""
+
+msgid "Missing Gu tool"
+msgstr ""
+
+msgid "Invalid Gu type"
+msgstr ""
+
+msgid "Cannot inflict Gu on self"
+msgstr ""
+
+msgid "{caster} attempts to inflict {gu_name} on {target}."
+msgstr ""
+
+msgid "{caster} successfully inflicted {gu_name} on {target}."
+msgstr ""
+
+msgid "{caster} failed to inflict {gu_name} on {target}."
+msgstr ""
+
+msgid ""
+"{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
+msgstr ""
+
+msgid "{target}'s {gu_name} took effect, losing {amount} HP."
+msgstr ""
+
+msgid ""
+"{target}'s {gu_name} took effect, losing {amount} cultivation experience."
+msgstr ""

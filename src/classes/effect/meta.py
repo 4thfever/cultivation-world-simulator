@@ -14,6 +14,9 @@ from .consts import (
     EXTRA_EPIPHANY_PROBABILITY,
     EXTRA_ESCAPE_SUCCESS_RATE,
     EXTRA_FORTUNE_PROBABILITY,
+    EXTRA_GU_DURATION_MONTHS,
+    EXTRA_GU_RESISTANCE_RATE,
+    EXTRA_GU_SUCCESS_RATE,
     EXTRA_HARVEST_MATERIALS,
     EXTRA_HIDDEN_DOMAIN_DANGER_PROB,
     EXTRA_HIDDEN_DOMAIN_DROP_PROB,
@@ -265,6 +268,22 @@ EFFECT_PROMPT_META: dict[str, EffectPromptMeta] = {
         value_type="int",
         example=10,
         references=_refs(("small", "5 to 10"), ("medium", "20 to 30"), ("hostile", "-20 to -30")),
+    ),
+    EXTRA_GU_SUCCESS_RATE: EffectPromptMeta(
+        value_type="float",
+        example=0.1,
+        references=_refs(("minor_tool", "0.03"), ("gu_master", "0.10"), ("gu_immortal", "0.18")),
+        constraints=("cap_0_90_after_all_modifiers",),
+    ),
+    EXTRA_GU_DURATION_MONTHS: EffectPromptMeta(
+        value_type="int",
+        example=6,
+        references=_refs(("minor", "3"), ("gu_master", "6"), ("gu_immortal", "12")),
+    ),
+    EXTRA_GU_RESISTANCE_RATE: EffectPromptMeta(
+        value_type="float",
+        example=0.12,
+        references=_refs(("minor", "0.08"), ("medium", "0.12"), ("strong", "0.18"), ("top", "0.20")),
     ),
     EXTRA_HIDDEN_DOMAIN_DROP_PROB: EffectPromptMeta(
         value_type="float",

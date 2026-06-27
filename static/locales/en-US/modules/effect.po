@@ -201,3 +201,24 @@ msgstr "Extra Plant Income"
 
 msgid "effect_extra_income_per_tile"
 msgstr "Extra income per tile (yearly)"
+
+msgid "effect_extra_gu_success_rate"
+msgstr ""
+
+msgid "effect_extra_gu_duration_months"
+msgstr ""
+
+msgid "effect_extra_gu_resistance_rate"
+msgstr ""
+
+msgid "effect_source_gu_qianxin"
+msgstr ""
+
+msgid "effect_source_gu_shixue"
+msgstr ""
+
+msgid "effect_source_gu_shiyuan"
+msgstr ""
+
+msgid "effect_source_gu_luanxin"
+msgstr ""
