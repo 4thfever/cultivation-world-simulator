@@ -319,7 +319,6 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
   - ✅ Hành động đặc thù của tông môn: Hợp Hoan Tông (song tu), Bách Thú Tông (ngự thú)...
   - ✅ Cấp bậc tông môn
   - ✅ Đạo thống
-- [ ] Thế gia
 - ✅ Triều đình
 - ✅ AI ý chí tổ chức
 - ✅ Nhiệm vụ, tài nguyên và chức năng của tổ chức
@@ -358,7 +357,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 ### 🌿 Hệ Sinh Thái
 - ✅ Động thực vật
 - ✅ Săn bắt, thu thập và hệ thống vật liệu
-- [ ] Ma thú
+- ✅ Yêu tộc
 
 ### 🤖 Hệ Thống Tăng Cường AI
 - ✅ Tích hợp giao diện LLM
@@ -389,7 +388,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - [ ] Trận pháp
 - [ ] Bí mật thế giới và pháp tắc thế giới
 - [ ] Cổ
-- [ ] Tự lập tông môn / tự lập thế gia / trở thành hoàng đế
+- [ ] Tự lập tông môn / trở thành hoàng đế
 
 ### 🔭 Triển Vọng Dài Hạn
 - [ ] Tiểu thuyết hóa / hình ảnh hóa / video hóa lịch sử và sự kiện

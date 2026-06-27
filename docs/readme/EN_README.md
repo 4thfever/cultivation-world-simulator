@@ -319,7 +319,6 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
   - ✅ Sect special actions: Hehuan Sect (dual cultivation), Baishou Sect (beast taming), etc.
   - ✅ Sect tiers
   - ✅ Orthodoxy
-- [ ] Clans
 - ✅ Imperial Court
 - ✅ Organization Will AI
 - ✅ Organization tasks, resources, functions
@@ -358,7 +357,7 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 ### 🌿 Ecosystem
 - ✅ Animals and plants
 - ✅ Hunting, gathering, material system
-- [ ] Demonic beasts
+- ✅ Demon races
 
 ### 🤖 AI Enhancement System
 - ✅ LLM interface integration
@@ -389,9 +388,9 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 - [ ] Formations
 - [ ] World secrets & World laws
 - [ ] Gu
-- [ ] Found a sect / Establish a clan / Become emperor
+- [ ] Found a sect / Become emperor
 
-###  telescope Long-term Prospects
+### 🔭 Long-term Prospects
 - [ ] Novelization & Imaging & Video of history/events
 - [ ] Skill agentification, cultivators independently plan, analyze, call tools, and make decisions
 - [ ] Integrate your own Claw into the cultivation world
