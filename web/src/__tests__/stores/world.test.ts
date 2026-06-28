@@ -498,6 +498,64 @@ describe('useWorldStore', () => {
       expect(worldApi.fetchMap).not.toHaveBeenCalled()
     })
 
+    it('replaces initial state recent events with the full paginated event page', async () => {
+      mapStore.mapData = [[{ type: 'grass' }]] as any
+      vi.mocked(worldApi.fetchInitialState).mockResolvedValue({
+        year: 100,
+        month: 1,
+        avatars: [],
+        events: [
+          {
+            id: 'recent-only',
+            text: 'Recent only',
+            content: 'Recent only',
+            year: 100,
+            month: 1,
+            month_stamp: 1201,
+            related_avatar_ids: [],
+            is_major: false,
+            is_story: false,
+            created_at: 2,
+          },
+        ],
+      } as any)
+      vi.mocked(eventApi.fetchEvents).mockResolvedValue({
+        events: [
+          {
+            id: 'recent-only',
+            text: 'Recent only',
+            content: 'Recent only',
+            year: 100,
+            month: 1,
+            month_stamp: 1201,
+            related_avatar_ids: [],
+            is_major: false,
+            is_story: false,
+            created_at: 2,
+          },
+          {
+            id: 'older-from-page',
+            text: 'Older from full page',
+            content: 'Older from full page',
+            year: 100,
+            month: 1,
+            month_stamp: 1200,
+            related_avatar_ids: [],
+            is_major: false,
+            is_story: false,
+            created_at: 1,
+          },
+        ],
+        nextCursor: null,
+        hasMore: false,
+      } as any)
+
+      await store.initialize()
+
+      expect(eventApi.fetchEvents).toHaveBeenCalledWith({ limit: 100 })
+      expect(store.events.map(event => event.id)).toEqual(['older-from-page', 'recent-only'])
+    })
+
     it('should surface initialization errors to the caller', async () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       vi.mocked(worldApi.fetchMap).mockRejectedValue(new Error('Network error'))

@@ -1,12 +1,17 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { httpClient } from '@/api/http'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { ApiError, httpClient } from '@/api/http'
 
 describe('httpClient api', () => {
   beforeEach(() => {
+    vi.useRealTimers()
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: vi.fn().mockResolvedValue({ data: 'test' })
     }) as any
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
   })
 
   it('should make GET request successfully', async () => {
@@ -54,5 +59,24 @@ describe('httpClient api', () => {
     global.fetch = vi.fn().mockRejectedValue(new Error('Network error')) as any
 
     await expect(httpClient.get('/test')).rejects.toThrow('Network error')
+  })
+
+  it('uses custom timeout values for long-running requests', async () => {
+    vi.useFakeTimers()
+    global.fetch = vi.fn((_url: string, init?: RequestInit) => new Promise((_resolve, reject) => {
+      init?.signal?.addEventListener('abort', () => {
+        reject(new DOMException('Aborted', 'AbortError'))
+      })
+    })) as any
+
+    const requestPromise = httpClient.post('/slow', { data: 1 }, { timeoutMs: 120000 })
+    const expectation = expect(requestPromise).rejects.toMatchObject<ApiError>({
+      status: 408,
+      message: 'Request timed out after 120s',
+    })
+
+    await vi.advanceTimersByTimeAsync(120000)
+
+    await expectation
   })
 })

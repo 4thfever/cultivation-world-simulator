@@ -88,7 +88,7 @@ describe('avatarApi', () => {
       category: 'weapon',
       realm: 'CORE_FORMATION',
       user_prompt: '想要一把金丹剑',
-    })
+    }, { timeoutMs: 120000 })
   })
 
   it('posts custom goldfinger generation requests without realm', async () => {
@@ -103,7 +103,7 @@ describe('avatarApi', () => {
     expect(postMock).toHaveBeenCalledWith('/api/v1/command/avatar/generate-custom-content', {
       category: 'goldfinger',
       user_prompt: '想要一个偏签到流的外挂',
-    })
+    }, { timeoutMs: 120000 })
   })
 
   it('posts custom content creation requests', async () => {
@@ -145,7 +145,7 @@ describe('avatarApi', () => {
     expect(postMock).toHaveBeenCalledWith('/api/v1/command/avatar/generate-custom-content', {
       category: 'technique',
       user_prompt: '我想要一本偏火属性的功法',
-    })
+    }, { timeoutMs: 120000 })
   })
 
   it('fetches avatar meta from /api/v1', async () => {

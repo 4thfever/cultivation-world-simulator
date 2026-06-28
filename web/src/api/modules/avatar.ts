@@ -15,6 +15,8 @@ import type {
 } from '../../types/api';
 import type { AvatarSummary } from '../../types/core';
 
+const CUSTOM_CONTENT_GENERATION_TIMEOUT_MS = 120000;
+
 export interface HoverParams {
   type: string;
   id: string;
@@ -69,7 +71,11 @@ export const avatarApi = {
   },
 
   generateCustomContent(params: GenerateCustomContentParams) {
-    return httpClient.post<{ status: string; draft: CustomContentDraftDTO }>('/api/v1/command/avatar/generate-custom-content', params);
+    return httpClient.post<{ status: string; draft: CustomContentDraftDTO }>(
+      '/api/v1/command/avatar/generate-custom-content',
+      params,
+      { timeoutMs: CUSTOM_CONTENT_GENERATION_TIMEOUT_MS },
+    );
   },
 
   createCustomContent(params: CreateCustomContentParams) {

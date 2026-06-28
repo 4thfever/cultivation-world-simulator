@@ -164,6 +164,78 @@ describe('EventPanel', () => {
     expect(wrapper.exists()).toBe(true)
   })
 
+  it('reloads the full default event page when mounted', async () => {
+    const i18n = createEventPanelI18n()
+
+    mount(EventPanel, {
+      global: {
+        plugins: [i18n],
+      },
+    })
+
+    await Promise.resolve()
+
+    expect(eventStoreMock.resetEvents).toHaveBeenCalledWith({})
+  })
+
+  it('replaces incomplete startup snapshot events with the full default event page on mount', async () => {
+    const i18n = createEventPanelI18n()
+    eventStoreMock.events = [
+      {
+        id: 'recent-only',
+        text: '',
+        content: 'Recent event from startup snapshot',
+        year: 100,
+        month: 1,
+        timestamp: 1201,
+        relatedAvatarIds: [],
+        isMajor: false,
+        isStory: false,
+      },
+    ]
+    eventStoreMock.resetEvents.mockImplementationOnce(async () => {
+      eventStoreMock.events = [
+        {
+          id: 'older-from-page',
+          text: '',
+          content: 'Older event from full event page',
+          year: 100,
+          month: 1,
+          timestamp: 1200,
+          relatedAvatarIds: [],
+          isMajor: false,
+          isStory: false,
+        },
+        {
+          id: 'recent-only',
+          text: '',
+          content: 'Recent event from startup snapshot',
+          year: 100,
+          month: 1,
+          timestamp: 1201,
+          relatedAvatarIds: [],
+          isMajor: false,
+          isStory: false,
+        },
+      ]
+    })
+
+    const wrapper = mount(EventPanel, {
+      global: {
+        plugins: [i18n],
+      },
+    })
+
+    expect(wrapper.text()).not.toContain('Older event from full event page')
+
+    await Promise.resolve()
+    await wrapper.vm.$nextTick()
+
+    expect(eventStoreMock.resetEvents).toHaveBeenCalledWith({})
+    expect(wrapper.text()).toContain('Older event from full event page')
+    expect(wrapper.text()).toContain('Recent event from startup snapshot')
+  })
+
   it('should render event content as text, not raw html', async () => {
     const i18n = createEventPanelI18n()
 

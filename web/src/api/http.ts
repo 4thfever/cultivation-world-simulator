@@ -7,6 +7,11 @@
 const API_BASE = import.meta.env.VITE_API_TARGET || '';
 const DEFAULT_TIMEOUT_MS = 30000;
 
+export interface HttpRequestOptions {
+  timeoutMs?: number;
+  signal?: AbortSignal;
+}
+
 export class ApiError extends Error {
   public status: number;
   public response: { data: unknown };
@@ -19,17 +24,25 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
+async function request<T>(
+  path: string,
+  options: RequestInit = {},
+  requestOptions: HttpRequestOptions = {},
+): Promise<T> {
   const url = `${API_BASE}${path}`;
   const controller = new AbortController();
-  const timeout = globalThis.setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
+  const timeoutMs = requestOptions.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+  const timeout = globalThis.setTimeout(() => controller.abort(), timeoutMs);
 
   let response: Response;
   try {
-    response = await fetch(url, { ...options, signal: options.signal ?? controller.signal });
+    response = await fetch(url, {
+      ...options,
+      signal: requestOptions.signal ?? options.signal ?? controller.signal,
+    });
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') {
-      throw new ApiError(408, `Request timed out after ${Math.round(DEFAULT_TIMEOUT_MS / 1000)}s`);
+      throw new ApiError(408, `Request timed out after ${Math.round(timeoutMs / 1000)}s`);
     }
     throw error;
   } finally {
@@ -83,34 +96,34 @@ export const httpClient = {
     return request<T>(path, { method: 'GET' });
   },
 
-  post<T>(path: string, body: unknown) {
+  post<T>(path: string, body: unknown, options?: HttpRequestOptions) {
     return request<T>(path, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    });
+    }, options);
   },
 
-  patch<T>(path: string, body: unknown) {
+  patch<T>(path: string, body: unknown, options?: HttpRequestOptions) {
     return request<T>(path, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    });
+    }, options);
   },
 
-  put<T>(path: string, body: unknown) {
+  put<T>(path: string, body: unknown, options?: HttpRequestOptions) {
     return request<T>(path, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    });
+    }, options);
   },
 
   delete<T>(path: string) {

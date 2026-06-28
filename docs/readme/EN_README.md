@@ -385,7 +385,7 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 - [ ] Divination & Prophecy
 - [ ] Character Secrets & Conspiracies
 - [ ] Incarnations & Ascension to the upper realm
-- [ ] Formations
+- ✅ Formations
 - [ ] World secrets & World laws
 - ✅ Gu
 - [ ] Found a sect / Become emperor

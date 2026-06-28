@@ -176,6 +176,11 @@ def create_command_handlers(
         )
 
     async def run_update_avatar_adjustment(req) -> dict:
+        # Avatar edits are user-directed maintenance operations. Pause the
+        # background loop before waiting for the mutation lock so a running
+        # simulation step can finish without another tick immediately queuing
+        # ahead of the edit.
+        runtime.set_paused(True)
         return await runtime.run_mutation(
             update_avatar_adjustment_in_world,
             runtime,

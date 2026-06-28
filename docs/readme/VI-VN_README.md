@@ -385,7 +385,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - [ ] Chiêm bốc và sấm vĩ
 - [ ] Bí mật nhân vật và âm mưu
 - [ ] Hóa thân và phi thăng thượng giới
-- [ ] Trận pháp
+- ✅ Trận pháp
 - [ ] Bí mật thế giới và pháp tắc thế giới
 - ✅ Cổ
 - [ ] Tự lập tông môn / trở thành hoàng đế

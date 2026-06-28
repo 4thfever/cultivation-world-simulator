@@ -155,6 +155,9 @@ export function useEventPanel() {
     if (!sectStore.isLoaded && mapStore.isLoaded) {
       void sectStore.refreshTerritories()
     }
+    if (!controlledAvatarId.value) {
+      void reloadEvents()
+    }
   })
 
   watch(

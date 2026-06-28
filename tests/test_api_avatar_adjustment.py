@@ -220,6 +220,32 @@ def test_update_technique_and_auxiliary_allow_clearing(base_world):
         main.game_instance.update(original_instance)
 
 
+def test_update_adjustment_pauses_running_simulation(base_world):
+    original_instance = main.game_instance.copy()
+    try:
+        avatar = _make_avatar(base_world)
+        auxiliary_id = next(iter(main.auxiliaries_by_id.keys()))
+        main.game_instance["world"] = base_world
+        main.game_instance["is_paused"] = False
+
+        client = TestClient(main.app)
+        response = client.post(
+            "/api/v1/command/avatar/update-adjustment",
+            json={
+                "avatar_id": avatar.id,
+                "category": "auxiliary",
+                "target_id": auxiliary_id,
+            },
+        )
+
+        assert response.status_code == 200
+        assert main.game_instance["is_paused"] is True
+        assert avatar.auxiliary is not None
+        assert avatar.auxiliary.id == auxiliary_id
+    finally:
+        main.game_instance.update(original_instance)
+
+
 def test_update_goldfinger_adjustment_allows_setting_and_clearing(base_world):
     original_instance = main.game_instance.copy()
     try:
