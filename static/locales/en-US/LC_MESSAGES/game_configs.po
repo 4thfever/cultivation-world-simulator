@@ -2879,11 +2879,14 @@ msgstr ""
 "Thousand-Array Gallery, formation testing valley, and geomantic wells. A "
 "disciple who does not understand array maps may fail even to find the way "
 "home. Its branches include heavenly deduction, earth-vein arrays, artifact "
-"arrays, and defensive formations, and everyone has grown used to speaking "
-"through deduction results, whether laying a small formation or reshaping an "
-"entire landscape. The sect attracts minds obsessed with structure and law, "
-"and it often produces cold array masters who treat human affairs as "
-"variables to be calculated."
+"arrays, and defensive formations. Its members are adept at deducing array "
+"diagrams and can use formation disks to temporarily draw earth-vein power "
+"through spiritual lands, sect grounds, mines, herb fields, and beast "
+"domains, setting spirit-gathering, mountain-guarding, healing, clarity, and "
+"other formations. Whether laying a small formation or reshaping an entire "
+"landscape, they prize precision and order. The sect attracts minds obsessed "
+"with structure and law, and it often produces cold array masters who treat "
+"human affairs as variables to be calculated."
 
 #. sect.csv: SECT_11_NAME
 msgid "SECT_11_NAME"
@@ -3073,11 +3076,15 @@ msgstr ""
 " terraces and halls appear intricate and elegant, yet within them lie "
 "mechanism corridors, puppet workshops, poison arsenals, and secret tunnels "
 "where every brick may conceal a killing trap. Its disciples broadly divide "
-"into mechanism masters, puppet makers, poison specialists, and stealth "
-"operatives, all of whom must understand both construction and ambush while "
-"learning how to preserve themselves in silence. The sect prizes efficiency, "
-"secrecy, and results, so cooperation usually rests on shared benefit, making"
-" it a cradle for brilliant schemers and endlessly tense rivalries."
+"into mechanism masters, puppet makers, poison specialists, Gu masters, and "
+"stealth operatives. They must understand both construction and ambush, and "
+"learn to preserve themselves through insects, poison devices, and hidden "
+"passages. The Gu lineage excels at using Gu vessels to cast subtle arts, "
+"relying on Mind-Sinking, Blood-Devouring, Essence-Eroding, and Heart-"
+"Disordering Gu to influence enemies from the dark. Success lets the effect "
+"linger; failure may expose their trail. The sect prizes efficiency, secrecy,"
+" and results, so cooperation usually rests on shared benefit, making it a "
+"cradle for brilliant schemers and endlessly tense rivalries."
 
 #. sect.csv: SECT_5_NAME
 msgid "SECT_5_NAME"
@@ -4648,6 +4655,45 @@ msgstr "Realm Aliases"
 #. world_info.csv: Realm Aliases
 msgid "WORLD_INFO_CULTIVATION_ALIAS_TITLE"
 msgstr "Realm Aliases"
+
+#. world_info.csv: 蛊术需要修士持有蛊具并拥有下蛊能力，才能对可观测目标施加蛊。
+msgid "WORLD_INFO_GU_DESC"
+msgstr ""
+"Gu arts require a cultivator to carry a Gu tool and have the ability to "
+"inflict Gu before applying it to an observable target. Different Gu act in "
+"different ways: Mind-Sinking Gu subtly shifts relationships, Blood-Devouring"
+" Gu periodically damages life, while Essence-Eroding Gu and Heart-"
+"Disordering Gu disturb cultivation. Inflicting Gu has a success rate "
+"affected by the tool, the caster's bonuses, and the target's Gu resistance; "
+"failure may be detected and harm the relationship."
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_NAME"
+msgstr "Gu"
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_TITLE"
+msgstr "Gu"
+
+#. world_info.csv: 阵法需要修士持有阵盘并拥有布阵能力，才能在当前区域布置限时区域效果。
+msgid "WORLD_INFO_FORMATION_DESC"
+msgstr ""
+"Formations require a cultivator to carry a formation disk and have "
+"formation-setting ability before placing a temporary regional effect at the "
+"current location. Different formations suit different regions: cultivation "
+"grounds and sect regions can hold spirit-gathering, mountain-guarding, "
+"clarity, and similar arrays; cities can hold healing arrays; mines, herb "
+"fields, and beast domains can hold vein-seeking, wood-growth, and beast-"
+"driving arrays. Formations consume spirit stones and expire after their "
+"duration ends."
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_NAME"
+msgstr "Formations"
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_TITLE"
+msgstr "Formations"
 
 msgid "PERSONA_1015_NAME"
 msgstr "Kindred to Other Kinds"

@@ -161,6 +161,30 @@ class TestSectLoading:
         assert sect is not None
         assert sect.technique_names == []
 
+    def test_gu_and_formation_specialist_sects_have_conservative_bonus_only(self, game_lang):
+        """蛊/阵法专长宗门只提供保守加成，不直接解锁动作。"""
+        gu_sect = sects_by_id.get(5)
+        formation_sect = sects_by_id.get(11)
+        assert gu_sect is not None
+        assert formation_sect is not None
+
+        gu_actions = gu_sect.effects.get("legal_actions", [])
+        assert "InflictGu" not in gu_actions
+        assert "SetFormation" not in gu_actions
+        assert gu_sect.effects["extra_gu_success_rate"] == 0.03
+        assert gu_sect.effects["extra_gu_duration_months"] == 2
+        assert "extra_gu_success_rate" not in formation_sect.effects
+
+        formation_actions = formation_sect.effects.get("legal_actions", [])
+        assert "InflictGu" not in formation_actions
+        assert "SetFormation" not in formation_actions
+        assert formation_sect.effects["extra_formation_power"] == 0.05
+        assert formation_sect.effects["extra_formation_duration_months"] == 2
+        assert formation_sect.effects["formation_cost_reduction"] == 0.05
+
+        assert gu_sect.effect_desc
+        assert formation_sect.effect_desc
+
 
 class TestTechniqueLoading:
     """测试功法数据加载"""

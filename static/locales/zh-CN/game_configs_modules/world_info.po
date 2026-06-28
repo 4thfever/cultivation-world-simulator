@@ -264,3 +264,27 @@ msgstr "阶层别名"
 #. world_info.csv: 阶层别名
 msgid "WORLD_INFO_CULTIVATION_ALIAS_TITLE"
 msgstr "阶层别名"
+
+#. world_info.csv: 蛊术需要修士持有蛊具并拥有下蛊能力，才能对可观测目标施加蛊。
+msgid "WORLD_INFO_GU_DESC"
+msgstr "蛊术需要修士持有蛊具并拥有下蛊能力，才能对可观测目标施加蛊。不同蛊有不同发作方式：潜心蛊会潜移默化影响关系，噬血蛊会周期性损伤生命，蚀元蛊与乱心蛊会侵扰修为。下蛊有成功率，受蛊具、施术者加成与目标抗蛊能力影响；失败时可能被目标察觉并损害关系。"
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_NAME"
+msgstr "蛊"
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_TITLE"
+msgstr "蛊"
+
+#. world_info.csv: 阵法需要修士持有阵盘并拥有布阵能力，才能在当前区域布置限时区域效果。
+msgid "WORLD_INFO_FORMATION_DESC"
+msgstr "阵法需要修士持有阵盘并拥有布阵能力，才能在当前区域布置限时区域效果。不同阵法适合不同区域：修行地与宗门可布聚灵、守山、明心等阵；城市可布疗愈阵；矿脉、药田、兽域可布对应的寻脉、生木、驱兽阵。阵法会消耗灵石，并在持续时间结束后失效。"
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_NAME"
+msgstr "阵法"
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_TITLE"
+msgstr "阵法"

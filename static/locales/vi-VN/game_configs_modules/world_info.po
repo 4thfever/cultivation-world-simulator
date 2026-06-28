@@ -271,3 +271,27 @@ msgstr "Biệt Danh Tầng Bậc"
 #. world_info.csv: Realm Aliases
 msgid "WORLD_INFO_CULTIVATION_ALIAS_TITLE"
 msgstr "Biệt Danh Tầng Bậc"
+
+#. world_info.csv: 蛊术需要修士持有蛊具并拥有下蛊能力，才能对可观测目标施加蛊。
+msgid "WORLD_INFO_GU_DESC"
+msgstr "Cổ thuật yêu cầu tu sĩ mang cổ cụ và có năng lực hạ cổ thì mới có thể thi cổ lên mục tiêu quan sát được. Mỗi loại cổ phát tác khác nhau: Tiềm Tâm cổ âm thầm ảnh hưởng quan hệ, Phệ Huyết cổ định kỳ tổn hại sinh mệnh, còn Thực Nguyên cổ và Loạn Tâm cổ quấy nhiễu tu vi. Hạ cổ có tỷ lệ thành công, chịu ảnh hưởng bởi cổ cụ, gia thành của người thi thuật và năng lực kháng cổ của mục tiêu; thất bại có thể bị mục tiêu phát hiện và làm tổn hại quan hệ."
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_NAME"
+msgstr "Cổ"
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_TITLE"
+msgstr "Cổ"
+
+#. world_info.csv: 阵法需要修士持有阵盘并拥有布阵能力，才能在当前区域布置限时区域效果。
+msgid "WORLD_INFO_FORMATION_DESC"
+msgstr "Trận pháp yêu cầu tu sĩ mang trận bàn và có năng lực bố trận thì mới có thể đặt hiệu ứng khu vực có thời hạn tại khu vực hiện tại. Mỗi loại trận phù hợp với khu vực khác nhau: nơi tu hành và tông môn có thể bố tụ linh, hộ sơn, minh tâm; thành thị có thể bố trị liệu trận; mỏ quặng, ruộng thuốc và thú vực có thể bố tầm mạch, sinh mộc, khu thú trận tương ứng. Trận pháp tiêu hao linh thạch và sẽ mất hiệu lực khi hết thời gian duy trì."
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_NAME"
+msgstr "Trận Pháp"
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_TITLE"
+msgstr "Trận Pháp"

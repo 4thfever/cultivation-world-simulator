@@ -39,17 +39,7 @@ msgstr ""
 
 #. sect.csv: SECT_11_DESC
 msgid "SECT_11_DESC"
-msgstr ""
-"Heavenly Deduction Sect stands in Mizhongtian, where a single peak conceals "
-"countless folded spaces layered with the Heaven-Deduction Platform, Ten-"
-"Thousand-Array Gallery, formation testing valley, and geomantic wells. A "
-"disciple who does not understand array maps may fail even to find the way "
-"home. Its branches include heavenly deduction, earth-vein arrays, artifact "
-"arrays, and defensive formations, and everyone has grown used to speaking "
-"through deduction results, whether laying a small formation or reshaping an "
-"entire landscape. The sect attracts minds obsessed with structure and law, "
-"and it often produces cold array masters who treat human affairs as "
-"variables to be calculated."
+msgstr "Heavenly Deduction Sect stands in Mizhongtian, where a single peak conceals countless folded spaces layered with the Heaven-Deduction Platform, Ten-Thousand-Array Gallery, formation testing valley, and geomantic wells. A disciple who does not understand array maps may fail even to find the way home. Its branches include heavenly deduction, earth-vein arrays, artifact arrays, and defensive formations. Its members are adept at deducing array diagrams and can use formation disks to temporarily draw earth-vein power through spiritual lands, sect grounds, mines, herb fields, and beast domains, setting spirit-gathering, mountain-guarding, healing, clarity, and other formations. Whether laying a small formation or reshaping an entire landscape, they prize precision and order. The sect attracts minds obsessed with structure and law, and it often produces cold array masters who treat human affairs as variables to be calculated."
 
 #. sect.csv: SECT_11_NAME
 msgid "SECT_11_NAME"
@@ -234,16 +224,7 @@ msgstr ""
 
 #. sect.csv: SECT_5_DESC
 msgid "SECT_5_DESC"
-msgstr ""
-"Thousand Mechanisms Sect hides in the depths of Qianji Valley. From afar its"
-" terraces and halls appear intricate and elegant, yet within them lie "
-"mechanism corridors, puppet workshops, poison arsenals, and secret tunnels "
-"where every brick may conceal a killing trap. Its disciples broadly divide "
-"into mechanism masters, puppet makers, poison specialists, and stealth "
-"operatives, all of whom must understand both construction and ambush while "
-"learning how to preserve themselves in silence. The sect prizes efficiency, "
-"secrecy, and results, so cooperation usually rests on shared benefit, making"
-" it a cradle for brilliant schemers and endlessly tense rivalries."
+msgstr "Thousand Mechanisms Sect hides in the depths of Qianji Valley. From afar its terraces and halls appear intricate and elegant, yet within them lie mechanism corridors, puppet workshops, poison arsenals, and secret tunnels where every brick may conceal a killing trap. Its disciples broadly divide into mechanism masters, puppet makers, poison specialists, Gu masters, and stealth operatives. They must understand both construction and ambush, and learn to preserve themselves through insects, poison devices, and hidden passages. The Gu lineage excels at using Gu vessels to cast subtle arts, relying on Mind-Sinking, Blood-Devouring, Essence-Eroding, and Heart-Disordering Gu to influence enemies from the dark. Success lets the effect linger; failure may expose their trail. The sect prizes efficiency, secrecy, and results, so cooperation usually rests on shared benefit, making it a cradle for brilliant schemers and endlessly tense rivalries."
 
 #. sect.csv: SECT_5_NAME
 msgid "SECT_5_NAME"

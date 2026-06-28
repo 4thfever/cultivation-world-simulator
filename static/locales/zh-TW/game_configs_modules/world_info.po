@@ -248,3 +248,27 @@ msgstr "階層別名"
 #. world_info.csv: 阶层别名
 msgid "WORLD_INFO_CULTIVATION_ALIAS_TITLE"
 msgstr "階層別名"
+
+#. world_info.csv: 蛊术需要修士持有蛊具并拥有下蛊能力，才能对可观测目标施加蛊。
+msgid "WORLD_INFO_GU_DESC"
+msgstr "蠱術需要修士持有蠱具並擁有下蠱能力，才能對可觀測目標施加蠱。不同蠱有不同發作方式：潛心蠱會潛移默化影響關係，噬血蠱會週期性損傷生命，蝕元蠱與亂心蠱會侵擾修為。下蠱有成功率，受蠱具、施術者加成與目標抗蠱能力影響；失敗時可能被目標察覺並損害關係。"
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_NAME"
+msgstr "蠱"
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_TITLE"
+msgstr "蠱"
+
+#. world_info.csv: 阵法需要修士持有阵盘并拥有布阵能力，才能在当前区域布置限时区域效果。
+msgid "WORLD_INFO_FORMATION_DESC"
+msgstr "陣法需要修士持有陣盤並擁有布陣能力，才能在當前區域布置限時區域效果。不同陣法適合不同區域：修行地與宗門可布聚靈、守山、明心等陣；城市可布療癒陣；礦脈、藥田、獸域可布對應的尋脈、生木、驅獸陣。陣法會消耗靈石，並在持續時間結束後失效。"
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_NAME"
+msgstr "陣法"
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_TITLE"
+msgstr "陣法"

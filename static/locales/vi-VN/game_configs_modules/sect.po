@@ -37,15 +37,7 @@ msgstr ""
 
 #. sect.csv: SECT_11_DESC
 msgid "SECT_11_DESC"
-msgstr ""
-"Thiên Diễn Trận Tông tọa lạc tại Mê Tung Thiên, nơi một ngọn núi duy nhất "
-"lại ẩn giấu vô số không gian gấp lớp, chồng lên nhau bởi Diễn Thiên Đài, Vạn"
-" Trận Lang, Thí Trận Cốc và địa mạch giếng. Đệ tử nếu không hiểu trận đồ thì"
-" ngay cả đường về chỗ ở cũng có thể đi nhầm. Trong tông đại khái phân thành "
-"các lộ thiên diễn, địa mạch, khí trận và thủ ngự, ai cũng quen dùng kết quả "
-"suy diễn để lên tiếng, từ bố một tiểu trận cho tới cải biến cả sơn hà. Nơi "
-"đây rất dễ hấp dẫn những kẻ say mê cấu trúc và quy luật, đồng thời cũng nuôi"
-" ra các trận sư lạnh lùng coi nhân tình thế thái chỉ là biến số."
+msgstr "Thiên Diễn Trận Tông tọa lạc tại Mê Tung Thiên, nơi một ngọn núi duy nhất lại ẩn giấu vô số không gian gấp lớp, chồng lên nhau bởi Diễn Thiên Đài, Vạn Trận Lang, Thí Trận Cốc và địa mạch giếng. Đệ tử nếu không hiểu trận đồ thì ngay cả đường về chỗ ở cũng có thể đi nhầm. Trong tông đại khái phân thành các lộ thiên diễn, địa mạch, khí trận và thủ ngự; môn nhân không chỉ giỏi suy diễn trận đồ mà còn có thể mượn trận bàn tạm thời dẫn động địa mạch tại linh địa, tông môn, mỏ quặng, ruộng thuốc và thú vực, bày ra các trận tụ linh, hộ sơn, trị liệu, minh tâm. Từ bố một tiểu trận cho tới cải biến cả sơn hà đều coi trọng chính xác và trật tự. Nơi đây rất dễ hấp dẫn những kẻ say mê cấu trúc và quy luật, đồng thời cũng nuôi ra các trận sư lạnh lùng coi nhân tình thế thái chỉ là biến số."
 
 #. sect.csv: SECT_11_NAME
 msgid "SECT_11_NAME"
@@ -219,15 +211,7 @@ msgstr ""
 
 #. sect.csv: SECT_5_DESC
 msgid "SECT_5_DESC"
-msgstr ""
-"Thiên Cơ Quỷ Môn ẩn mình trong sâu thẳm Thiên Cơ Cốc. Từ bên ngoài, đài tạ "
-"lầu các tinh xảo mà hoa lệ, nhưng bên trong lại ken dày hành lang cơ quan, "
-"phường khôi lỗi, kho độc khí và mật đạo tối tăm, đến từng viên gạch mái ngói"
-" cũng có thể giấu sát cơ. Đệ tử trong môn thường chia thành cơ quan sư, khôi"
-" lỗi sư, độc sư và ẩn hành khách, vừa phải biết chế tác, vừa phải biết phục "
-"kích, còn phải học cách tự bảo toàn trong im lặng. Nơi đây đề cao hiệu suất,"
-" bí mật và kết quả, vì vậy rất dễ sinh ra thiên tài mưu toán cùng những mối "
-"quan hệ luôn căng như dây đàn."
+msgstr "Thiên Cơ Quỷ Môn ẩn mình trong sâu thẳm Thiên Cơ Cốc. Từ bên ngoài, đài tạ lầu các tinh xảo mà hoa lệ, nhưng bên trong lại ken dày hành lang cơ quan, phường khôi lỗi, kho độc khí và mật đạo tối tăm, đến từng viên gạch mái ngói cũng có thể giấu sát cơ. Đệ tử trong môn thường chia thành cơ quan sư, khôi lỗi sư, độc sư, cổ sư và ẩn hành khách; vừa phải biết chế tác, vừa phải biết phục kích, còn phải học cách tự bảo toàn bằng trùng độc, độc khí và mật đạo trong im lặng. Một mạch cổ sư giỏi dùng cổ cụ thi thuật, mượn Tiềm Tâm, Phệ Huyết, Thực Nguyên và Loạn Tâm cổ để âm thầm ảnh hưởng địch thủ; thành công thì hiệu lực kéo dài, thất bại cũng có thể để lộ dấu vết. Nơi đây đề cao hiệu suất, bí mật và kết quả, vì vậy rất dễ sinh ra thiên tài mưu toán cùng những mối quan hệ luôn căng như dây đàn."
 
 #. sect.csv: SECT_5_NAME
 msgid "SECT_5_NAME"

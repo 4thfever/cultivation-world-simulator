@@ -2902,10 +2902,13 @@ msgstr ""
 "lại ẩn giấu vô số không gian gấp lớp, chồng lên nhau bởi Diễn Thiên Đài, Vạn"
 " Trận Lang, Thí Trận Cốc và địa mạch giếng. Đệ tử nếu không hiểu trận đồ thì"
 " ngay cả đường về chỗ ở cũng có thể đi nhầm. Trong tông đại khái phân thành "
-"các lộ thiên diễn, địa mạch, khí trận và thủ ngự, ai cũng quen dùng kết quả "
-"suy diễn để lên tiếng, từ bố một tiểu trận cho tới cải biến cả sơn hà. Nơi "
-"đây rất dễ hấp dẫn những kẻ say mê cấu trúc và quy luật, đồng thời cũng nuôi"
-" ra các trận sư lạnh lùng coi nhân tình thế thái chỉ là biến số."
+"các lộ thiên diễn, địa mạch, khí trận và thủ ngự; môn nhân không chỉ giỏi "
+"suy diễn trận đồ mà còn có thể mượn trận bàn tạm thời dẫn động địa mạch tại "
+"linh địa, tông môn, mỏ quặng, ruộng thuốc và thú vực, bày ra các trận tụ "
+"linh, hộ sơn, trị liệu, minh tâm. Từ bố một tiểu trận cho tới cải biến cả "
+"sơn hà đều coi trọng chính xác và trật tự. Nơi đây rất dễ hấp dẫn những kẻ "
+"say mê cấu trúc và quy luật, đồng thời cũng nuôi ra các trận sư lạnh lùng "
+"coi nhân tình thế thái chỉ là biến số."
 
 #. sect.csv: SECT_11_NAME
 msgid "SECT_11_NAME"
@@ -3084,10 +3087,13 @@ msgstr ""
 "lầu các tinh xảo mà hoa lệ, nhưng bên trong lại ken dày hành lang cơ quan, "
 "phường khôi lỗi, kho độc khí và mật đạo tối tăm, đến từng viên gạch mái ngói"
 " cũng có thể giấu sát cơ. Đệ tử trong môn thường chia thành cơ quan sư, khôi"
-" lỗi sư, độc sư và ẩn hành khách, vừa phải biết chế tác, vừa phải biết phục "
-"kích, còn phải học cách tự bảo toàn trong im lặng. Nơi đây đề cao hiệu suất,"
-" bí mật và kết quả, vì vậy rất dễ sinh ra thiên tài mưu toán cùng những mối "
-"quan hệ luôn căng như dây đàn."
+" lỗi sư, độc sư, cổ sư và ẩn hành khách; vừa phải biết chế tác, vừa phải "
+"biết phục kích, còn phải học cách tự bảo toàn bằng trùng độc, độc khí và mật"
+" đạo trong im lặng. Một mạch cổ sư giỏi dùng cổ cụ thi thuật, mượn Tiềm Tâm,"
+" Phệ Huyết, Thực Nguyên và Loạn Tâm cổ để âm thầm ảnh hưởng địch thủ; thành "
+"công thì hiệu lực kéo dài, thất bại cũng có thể để lộ dấu vết. Nơi đây đề "
+"cao hiệu suất, bí mật và kết quả, vì vậy rất dễ sinh ra thiên tài mưu toán "
+"cùng những mối quan hệ luôn căng như dây đàn."
 
 #. sect.csv: SECT_5_NAME
 msgid "SECT_5_NAME"
@@ -4609,6 +4615,42 @@ msgstr "Biệt Danh Tầng Bậc"
 #. world_info.csv: Realm Aliases
 msgid "WORLD_INFO_CULTIVATION_ALIAS_TITLE"
 msgstr "Biệt Danh Tầng Bậc"
+
+#. world_info.csv: 蛊术需要修士持有蛊具并拥有下蛊能力，才能对可观测目标施加蛊。
+msgid "WORLD_INFO_GU_DESC"
+msgstr ""
+"Cổ thuật yêu cầu tu sĩ mang cổ cụ và có năng lực hạ cổ thì mới có thể thi cổ"
+" lên mục tiêu quan sát được. Mỗi loại cổ phát tác khác nhau: Tiềm Tâm cổ âm "
+"thầm ảnh hưởng quan hệ, Phệ Huyết cổ định kỳ tổn hại sinh mệnh, còn Thực "
+"Nguyên cổ và Loạn Tâm cổ quấy nhiễu tu vi. Hạ cổ có tỷ lệ thành công, chịu "
+"ảnh hưởng bởi cổ cụ, gia thành của người thi thuật và năng lực kháng cổ của "
+"mục tiêu; thất bại có thể bị mục tiêu phát hiện và làm tổn hại quan hệ."
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_NAME"
+msgstr "Cổ"
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_TITLE"
+msgstr "Cổ"
+
+#. world_info.csv: 阵法需要修士持有阵盘并拥有布阵能力，才能在当前区域布置限时区域效果。
+msgid "WORLD_INFO_FORMATION_DESC"
+msgstr ""
+"Trận pháp yêu cầu tu sĩ mang trận bàn và có năng lực bố trận thì mới có thể "
+"đặt hiệu ứng khu vực có thời hạn tại khu vực hiện tại. Mỗi loại trận phù hợp"
+" với khu vực khác nhau: nơi tu hành và tông môn có thể bố tụ linh, hộ sơn, "
+"minh tâm; thành thị có thể bố trị liệu trận; mỏ quặng, ruộng thuốc và thú "
+"vực có thể bố tầm mạch, sinh mộc, khu thú trận tương ứng. Trận pháp tiêu hao"
+" linh thạch và sẽ mất hiệu lực khi hết thời gian duy trì."
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_NAME"
+msgstr "Trận Pháp"
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_TITLE"
+msgstr "Trận Pháp"
 
 msgid "PERSONA_1015_NAME"
 msgstr "Thân Thiện Với Dị Tộc"
