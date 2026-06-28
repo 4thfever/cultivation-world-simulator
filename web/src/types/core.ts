@@ -31,6 +31,8 @@ export interface EffectEntity extends EntityBase {
   color?: string | number[]; // 某些实体自带颜色
   attribute?: string;
   key?: string;
+  icon_key?: string;
+  icon_category?: string;
   is_custom?: boolean;
   drops?: EffectEntity[];
   hq_name?: string;

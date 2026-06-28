@@ -4,6 +4,7 @@ import { getEntityColor, getEntityGradeTone } from '@/utils/theme';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { formatAttributeLabel, formatEntityGrade } from '@/utils/cultivationText';
+import { getItemIconUrl } from '@/utils/itemIcons';
 
 const { t } = useI18n();
 
@@ -34,11 +35,23 @@ const displayAttribute = computed(() => {
 const displayDescription = computed(() => {
   return props.item?.desc || '';
 });
+
+const iconUrl = computed(() => getItemIconUrl(props.item));
 </script>
 
 <template>
   <div class="entity-detail-card">
     <template v-if="item">
+      <div class="detail-head" :class="{ 'without-icon': !iconUrl }">
+        <img
+          v-if="iconUrl"
+          class="detail-icon"
+          :src="iconUrl"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+        <div class="detail-main">
       <div class="sec-row" v-if="displayGrade || displayType || displayAttribute">
         <span v-if="displayGrade" class="badge grade-badge" :class="gradeBadgeClass">{{ displayGrade }}</span>
         <span v-if="displayType" class="badge type-badge">{{ displayType }}</span>
@@ -47,6 +60,8 @@ const displayDescription = computed(() => {
 
       <div v-if="showName !== false" class="sec-title" :style="{ color: getEntityColor(item) }">
         {{ item.name }}
+      </div>
+        </div>
       </div>
 
       <div class="sec-desc" v-if="displayDescription">{{ displayDescription }}</div>
@@ -94,6 +109,32 @@ const displayDescription = computed(() => {
 .sec-title {
   font-size: 15px;
   font-weight: bold;
+}
+
+.detail-head {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.detail-head.without-icon {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.detail-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+}
+
+.detail-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
 
 .badge {

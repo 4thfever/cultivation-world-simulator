@@ -5,6 +5,7 @@ import type { EffectEntity } from '@/types/core';
 import { useI18n } from 'vue-i18n';
 import { formatEntityGrade } from '@/utils/cultivationText';
 import { getEntityRowDetailLayout } from '@/utils/infoPanelLocaleConfig';
+import { getItemIconUrl } from '@/utils/itemIcons';
 
 const props = defineProps<{
   item: EffectEntity;
@@ -32,6 +33,8 @@ const displayGrade = computed(() => {
 const gradeBadgeClass = computed(() => {
   return `grade-${getEntityGradeTone(displayGrade.value)}`;
 });
+
+const iconUrl = computed(() => getItemIconUrl(props.item));
 </script>
 
 <template>
@@ -44,6 +47,15 @@ const gradeBadgeClass = computed(() => {
     @click="$emit('click')"
     v-sound
   >
+    <img
+      v-if="iconUrl"
+      class="entity-icon"
+      :class="{ 'entity-icon-compact': compact }"
+      :src="iconUrl"
+      alt=""
+      aria-hidden="true"
+      draggable="false"
+    />
     <template v-if="detailsBelow">
       <div class="content">
         <div class="primary-line">
@@ -79,7 +91,7 @@ const gradeBadgeClass = computed(() => {
 <style scoped>
 .entity-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
   align-items: center;
   gap: 8px;
   padding: 6px 8px;
@@ -91,7 +103,7 @@ const gradeBadgeClass = computed(() => {
 }
 
 .entity-row.details-below {
-  display: block;
+  grid-template-columns: 28px minmax(0, 1fr);
 }
 
 .entity-row:hover {
@@ -99,8 +111,27 @@ const gradeBadgeClass = computed(() => {
 }
 
 .entity-row.compact {
+  grid-template-columns: 24px minmax(0, 1fr) auto;
   padding: 4px 8px;
   font-size: 12px;
+}
+
+.entity-row.compact.details-below {
+  grid-template-columns: 24px minmax(0, 1fr);
+}
+
+.entity-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45));
+}
+
+.entity-icon-compact {
+  width: 24px;
+  height: 24px;
 }
 
 .content {

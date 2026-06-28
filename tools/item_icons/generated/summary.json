@@ -1,0 +1,15 @@
+{
+  "total_items": 162,
+  "total_batches": 18,
+  "batch_size": 9,
+  "columns": 3,
+  "rows": 3,
+  "categories": [
+    "weapon",
+    "elixir",
+    "auxiliary",
+    "technique",
+    "goldfinger"
+  ],
+  "fallback_count": 6
+}

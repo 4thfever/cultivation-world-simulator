@@ -1,0 +1,11 @@
+.env
+*.env
+raw/
+split/
+processed/
+tmp/
+manifest.generated.json
+connectivity.png
+connectivity.json
+
+!.env.example

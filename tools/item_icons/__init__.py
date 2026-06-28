@@ -1,0 +1,2 @@
+"""Item icon generation tooling."""
+
