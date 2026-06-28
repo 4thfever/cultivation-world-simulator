@@ -10,6 +10,7 @@ from src.classes.close_relation_event_service import (
     apply_kill_hatred,
 )
 from src.classes.technique import TechniqueGrade, get_suppression_bonus
+from src.systems.formation import get_current_region_formation_effects
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
@@ -63,11 +64,25 @@ def get_base_strength(self_avatar: "Avatar") -> float:
     return strength_from_level + extra_points
 
 
+def _formation_battle_strength_bonus(self_avatar: "Avatar", opponent: "Avatar") -> float:
+    self_region = getattr(getattr(self_avatar, "tile", None), "region", None)
+    opponent_region = getattr(getattr(opponent, "tile", None), "region", None)
+    if self_region is None or opponent_region is None:
+        return 0.0
+    if getattr(self_region, "id", None) != getattr(opponent_region, "id", None):
+        return 0.0
+    effects = get_current_region_formation_effects(self_avatar)
+    try:
+        return float(effects.get("extra_battle_strength_points", 0) or 0.0)
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def _combat_strength_vs(opponent: "Avatar", self_avatar: "Avatar") -> float:
     """
     相对战斗力：= 基础战斗力 + 克制点数(若克制则+3)
     """
-    base = get_base_strength(self_avatar)
+    base = get_base_strength(self_avatar) + _formation_battle_strength_bonus(self_avatar, opponent)
     
     # 属性克制加成
     suppression_points = 0.0

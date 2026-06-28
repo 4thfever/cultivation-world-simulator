@@ -516,7 +516,8 @@
       },
       "host_meta": "Owner",
       "no_host": "Unowned",
-      "price_meta": "{price} Stones"
+      "price_meta": "{price} Stones",
+      "formation_remaining": "{months} months remaining"
     },
     "sect": {
       "stats": {

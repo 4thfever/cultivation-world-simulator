@@ -4,6 +4,7 @@ from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.sect_metadata import is_in_sect_headquarter
+from src.systems.formation import get_region_formation_effect_value
 
 
 class SelfHeal(TimedAction):
@@ -33,6 +34,8 @@ class SelfHeal(TimedAction):
         # 特质/效果加成
         # extra_self_heal_efficiency 为小数，例如 0.5 代表 +50% 效率
         effect_bonus = float(self.avatar.effects.get("extra_self_heal_efficiency", 0.0))
+        effect_bonus += float(self.avatar.effects.get("extra_hp_recovery_rate", 0.0) or 0.0)
+        effect_bonus += float(get_region_formation_effect_value(self.avatar, "extra_hp_recovery_rate", 0.0) or 0.0)
         
         # 地点加成
         # 宗门总部：直接回满 (覆盖基础值，视为极大加成)

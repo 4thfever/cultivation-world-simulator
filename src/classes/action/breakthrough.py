@@ -12,6 +12,7 @@ from src.systems.cultivation import Realm
 from src.systems.tribulation import TribulationSelector
 from src.classes.hp import HP_MAX_BY_REALM
 from src.classes.effect import _merge_effects
+from src.systems.formation import get_region_formation_effect_value
 
 # —— 配置：哪些"出发境界"会生成突破小故事（global var）——
 ALLOW_STORY_FROM_REALMS: list[Realm] = [
@@ -52,6 +53,7 @@ class Breakthrough(TimedAction):
         base = self.avatar.cultivation_progress.get_breakthrough_success_rate()
         # 统一从 avatar.effects 读取额外加成（root/technique/sect 等已合并）
         bonus = float(self.avatar.effects.get("extra_breakthrough_success_rate", 0.0))
+        bonus += float(get_region_formation_effect_value(self.avatar, "extra_breakthrough_success_rate", 0.0) or 0.0)
         # 夹紧到 [0, 1]
         return max(0.0, min(1.0, base + bonus))
 

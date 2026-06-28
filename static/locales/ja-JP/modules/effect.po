@@ -202,23 +202,32 @@ msgstr "耕作追加収益"
 msgid "effect_extra_income_per_tile"
 msgstr "1 マスごとの追加収入（年次）"
 
+msgid "effect_extra_formation_power"
+msgstr "陣法強度"
+
+msgid "effect_extra_formation_duration_months"
+msgstr "陣法持続月数"
+
+msgid "effect_formation_cost_reduction"
+msgstr "布陣消費軽減"
+
 msgid "effect_extra_gu_success_rate"
-msgstr ""
+msgstr "蠱付与成功率"
 
 msgid "effect_extra_gu_duration_months"
-msgstr ""
+msgstr "蠱の持続月数"
 
 msgid "effect_extra_gu_resistance_rate"
-msgstr ""
+msgstr "対蠱耐性"
 
 msgid "effect_source_gu_qianxin"
-msgstr ""
+msgstr "牽心蠱"
 
 msgid "effect_source_gu_shixue"
-msgstr ""
+msgstr "噬血蠱"
 
 msgid "effect_source_gu_shiyuan"
-msgstr ""
+msgstr "蝕元蠱"
 
 msgid "effect_source_gu_luanxin"
-msgstr ""
+msgstr "乱心蠱"

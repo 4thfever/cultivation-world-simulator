@@ -514,10 +514,11 @@
         "lodes": "矿脉分布",
         "market": "坊市交易"
       },
-      "host_meta": "主人",
-      "no_host": "无主（可占据）",
-      "price_meta": "{price}灵石"
-    },
+        "host_meta": "主人",
+        "no_host": "无主（可占据）",
+        "price_meta": "{price}灵石",
+        "formation_remaining": "剩余 {months} 个月"
+      },
     "sect": {
       "stats": {
         "alignment": "阵营",

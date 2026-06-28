@@ -90,6 +90,66 @@ msgstr "{target}的{gu_name}发作，损失{amount}点生命。"
 msgid "{target}'s {gu_name} took effect, losing {amount} cultivation experience."
 msgstr "{target}的{gu_name}发作，损失{amount}点修为经验。"
 
+msgid "action_setformation_short_name"
+msgstr "布阵"
+
+msgid "set_formation_action_name"
+msgstr "布置阵法"
+
+msgid "set_formation_description"
+msgstr "在当前区域布置一个阵法。需要装备阵盘并消耗灵石。每个区域同时只能存在一个阵法，新阵法会替换该区域原有阵法。聚灵阵提升吐纳收益，适合修炼区域和宗门总部。护山阵提升阵内战斗能力，适合宗门总部和修炼区域。疗愈阵提升疗伤恢复，适合宗门总部、修炼区域和城市。清心阵提升闭关和突破稳定性，适合修炼区域和宗门总部。寻脉阵提升挖矿收益，适合有矿脉的普通区域。丰木阵提升采集收益，适合有植物的普通区域。驱兽阵提升狩猎收益，适合有动物的普通区域。"
+
+msgid "set_formation_requirements"
+msgstr "需要装备阵盘，当前位置必须允许布置所选阵法，并且灵石足够。"
+
+msgid "formation_spirit_gathering_name"
+msgstr "聚灵阵"
+
+msgid "formation_mountain_guard_name"
+msgstr "护山阵"
+
+msgid "formation_healing_name"
+msgstr "疗愈阵"
+
+msgid "formation_clarity_name"
+msgstr "清心阵"
+
+msgid "formation_vein_seeking_name"
+msgstr "寻脉阵"
+
+msgid "formation_wood_growth_name"
+msgstr "丰木阵"
+
+msgid "formation_beast_driving_name"
+msgstr "驱兽阵"
+
+msgid "Missing formation disk"
+msgstr "缺少阵盘"
+
+msgid "Invalid formation type"
+msgstr "无效的阵法类型"
+
+msgid "Current location cannot set formation"
+msgstr "当前位置不能布置阵法"
+
+msgid "Formation cannot be set in current region"
+msgstr "该阵法不能布置在当前区域"
+
+msgid "Not enough spirit stones"
+msgstr "灵石不足"
+
+msgid "Current region"
+msgstr "当前区域"
+
+msgid "{avatar} begins setting {formation} in {region}."
+msgstr "{avatar}开始在{region}布置{formation}。"
+
+msgid "{avatar} set {formation} in {region}."
+msgstr "{avatar}在{region}布置了{formation}。"
+
+msgid "{avatar} set {formation} in {region}; the original formation in this region was replaced."
+msgstr "{avatar}在{region}布置了{formation}，该区域原有阵法已被替换。"
+
 # Action: Play Extended
 msgid "action_reading"
 msgstr "读书"

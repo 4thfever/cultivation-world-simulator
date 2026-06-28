@@ -10,6 +10,7 @@ import gemIcon from '@/assets/icons/ui/lucide/gem.svg';
 import leafIcon from '@/assets/icons/ui/lucide/leaf.svg';
 import messageCircleIcon from '@/assets/icons/ui/lucide/message-circle.svg';
 import packageIcon from '@/assets/icons/ui/lucide/package.svg';
+import sparkleIcon from '@/assets/icons/ui/lucide/sparkles.svg';
 
 const { locale, t } = useI18n();
 const props = defineProps<{
@@ -77,6 +78,18 @@ const {
       </div>
       <div class="essence-info">
         {{ t('game.info_panel.region.essence_info', { type: formatEssenceType(data.essence.type), density: data.essence.density }) }}
+      </div>
+    </div>
+
+    <!-- Formation -->
+    <div class="section" v-if="data.formation">
+      <div class="section-title">
+        <span class="section-title-icon" :style="{ '--icon-url': `url(${sparkleIcon})` }" aria-hidden="true"></span>
+        {{ data.formation.name }}
+      </div>
+      <div class="formation-info">
+        <div>{{ t('game.info_panel.region.formation_remaining', { months: data.formation.remaining_months }) }}</div>
+        <div v-if="data.formation.effect_desc">{{ data.formation.effect_desc }}</div>
       </div>
     </div>
 
@@ -223,6 +236,12 @@ const {
 .essence-info {
   font-size: 13px;
   color: #88fdc4;
+}
+
+.formation-info {
+  font-size: 13px;
+  color: #d8c27a;
+  line-height: 1.5;
 }
 
 .empty-hint {

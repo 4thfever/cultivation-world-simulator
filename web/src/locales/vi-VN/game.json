@@ -516,7 +516,8 @@
       },
       "host_meta": "Chủ nhân",
       "no_host": "Vô Chủ",
-      "price_meta": "{price} Linh Thạch"
+      "price_meta": "{price} Linh Thạch",
+      "formation_remaining": "Còn {months} tháng"
     },
     "sect": {
       "stats": {

@@ -516,7 +516,8 @@
       },
       "host_meta": "所有者",
       "no_host": "無主",
-      "price_meta": "{price} 霊石"
+      "price_meta": "{price} 霊石",
+      "formation_remaining": "残り {months} か月"
     },
     "sect": {
       "stats": {

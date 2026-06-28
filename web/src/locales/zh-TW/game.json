@@ -516,7 +516,8 @@
       },
       "host_meta": "主人",
       "no_host": "無主（可佔據）",
-      "price_meta": "{price}靈石"
+      "price_meta": "{price}靈石",
+      "formation_remaining": "剩餘 {months} 個月"
     },
     "sect": {
       "stats": {

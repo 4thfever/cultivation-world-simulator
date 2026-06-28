@@ -6,6 +6,7 @@ from src.classes.event import Event
 from src.classes.root import get_essence_types_for_root
 from src.classes.environment.region import CultivateRegion
 from src.classes.environment.sect_region import SectRegion
+from src.systems.formation import get_region_formation_effect_value
 
 
 class Respire(TimedAction):
@@ -53,6 +54,7 @@ class Respire(TimedAction):
 
         # 结算额外吐纳经验倍率
         multiplier = float(self.avatar.effects.get("extra_respire_exp_multiplier", 0.0) or 0.0)
+        multiplier += float(get_region_formation_effect_value(self.avatar, "extra_respire_exp_multiplier", 0.0) or 0.0)
         if multiplier > 0:
             exp = int(exp * (1 + multiplier))
             

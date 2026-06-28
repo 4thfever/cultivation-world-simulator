@@ -426,6 +426,11 @@ def get_world_map(runtime, *, sects_by_id: dict[int, Any], render_config: dict[s
                 "x": region_x,
                 "y": region_y,
             }
+            from src.systems.formation import get_formation_display_info
+
+            formation_info = get_formation_display_info(world, getattr(region, "id", None))
+            if formation_info is not None:
+                region_dict["formation"] = formation_info
             if hasattr(region, "sect_id"):
                 region_dict["sect_id"] = region.sect_id
                 region_dict["sect_name"] = (
@@ -568,6 +573,10 @@ def get_detail(
         return build_sect_detail(target, world, language_manager)
 
     info = target.get_structured_info()
+    if target_type == "region":
+        from src.systems.formation import get_formation_display_info
+
+        info["formation"] = get_formation_display_info(world, getattr(target, "id", None))
     if target_type == "avatar":
         info["pic_id"] = resolve_avatar_pic_id(target)
         info["realm_id"] = target.cultivation_progress.realm.value

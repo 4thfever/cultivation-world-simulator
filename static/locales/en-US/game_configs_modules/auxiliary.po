@@ -235,26 +235,50 @@ msgstr ""
 msgid "AUXILIARY_2065_NAME"
 msgstr "Green Wood Divine Cauldron"
 
+msgid "AUXILIARY_2081_DESC"
+msgstr "A formation disk engraved with basic formation patterns. It can set low-grade formations in the current region."
+
+msgid "AUXILIARY_2081_NAME"
+msgstr "Low-Grade Formation Disk"
+
+msgid "AUXILIARY_2082_DESC"
+msgstr "A formation disk with relatively stable formation patterns. It can set mid-grade formations in the current region."
+
+msgid "AUXILIARY_2082_NAME"
+msgstr "Mid-Grade Formation Disk"
+
+msgid "AUXILIARY_2083_DESC"
+msgstr "A formation disk capable of carrying complex spirit circuits. It can set high-grade formations in the current region."
+
+msgid "AUXILIARY_2083_NAME"
+msgstr "High-Grade Formation Disk"
+
+msgid "AUXILIARY_2084_DESC"
+msgstr "A formation disk whose spirit patterns form a self-contained cycle. It can set top-grade formations in the current region."
+
+msgid "AUXILIARY_2084_NAME"
+msgstr "Top-Grade Formation Disk"
+
 msgid "AUXILIARY_2071_DESC"
-msgstr ""
+msgstr "A Gu pouch made of coarse cloth and beast hide, used to hold common spirit insects."
 
 msgid "AUXILIARY_2071_NAME"
-msgstr ""
+msgstr "Hundred-Bug Pouch"
 
 msgid "AUXILIARY_2072_DESC"
-msgstr ""
+msgstr "A Gu vessel refined through the mutual generation method of the five venoms. Its Gu nature is relatively stable."
 
 msgid "AUXILIARY_2072_NAME"
-msgstr ""
+msgstr "Five-Venom Gu Vessel"
 
 msgid "AUXILIARY_2073_DESC"
-msgstr ""
+msgstr "A Gu box combining mechanisms and Gu arts, suitable for concealed Gu infliction."
 
 msgid "AUXILIARY_2073_NAME"
-msgstr ""
+msgstr "Thousand-Mechanism Gu Box"
 
 msgid "AUXILIARY_2074_DESC"
-msgstr ""
+msgstr "A brood nest occupied by mother Gu, able to command many Gu."
 
 msgid "AUXILIARY_2074_NAME"
-msgstr ""
+msgstr "Myriad-Gu Brood Nest"

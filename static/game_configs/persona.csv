@@ -85,3 +85,5 @@ id,name_id,desc_id,key,name,exclusion_keys,desc,rarity,condition,effects
 1016,PERSONA_1016_NAME,PERSONA_1016_DESC,HATES_OUTSIDERS,痛恨异类,KIN_TO_OUTSIDERS,你本能地排斥与自己种族不同的修士，很难真正信任异族。,R,,{extra_cross_race_friendliness: -25}
 1017,PERSONA_1017_NAME,PERSONA_1017_DESC,GU_MASTER,蛊师,GU_IMMORTAL,通晓虫豸毒术，善以蛊入道。,SR,,"{extra_gu_success_rate: 0.10, extra_gu_duration_months: 6}"
 1018,PERSONA_1018_NAME,PERSONA_1018_DESC,GU_IMMORTAL,蛊仙,GU_MASTER,天生与万蛊相亲，举念之间可令虫豸奉命。,SSR,,"{extra_gu_success_rate: 0.18, extra_gu_duration_months: 12}"
+1019,PERSONA_1019_NAME,PERSONA_1019_DESC,FORMATION_MASTER,阵师,FORMATION_IMMORTAL,通晓阵法结构，能以阵盘调动区域灵机。,SR,,"{extra_formation_power: 0.15, extra_formation_duration_months: 6, formation_cost_reduction: 0.10}"
+1020,PERSONA_1020_NAME,PERSONA_1020_DESC,FORMATION_IMMORTAL,阵仙,FORMATION_MASTER,天生精通阵道，布阵时能更高效地牵引地脉与灵机。,SSR,,"{extra_formation_power: 0.35, extra_formation_duration_months: 12, formation_cost_reduction: 0.25}"

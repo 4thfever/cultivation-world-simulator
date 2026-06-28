@@ -366,29 +366,64 @@ msgstr ""
 msgid "AUXILIARY_2065_NAME"
 msgstr "Thanh Mộc Thần Đỉnh"
 
+msgid "AUXILIARY_2081_DESC"
+msgstr ""
+"Trận bàn khắc trận văn cơ bản, có thể bố trí trận pháp cấp thấp trong khu "
+"vực hiện tại."
+
+msgid "AUXILIARY_2081_NAME"
+msgstr "Hạ Phẩm Trận Bàn"
+
+msgid "AUXILIARY_2082_DESC"
+msgstr ""
+"Trận bàn có trận văn khá ổn định, có thể bố trí trận pháp trung cấp trong "
+"khu vực hiện tại."
+
+msgid "AUXILIARY_2082_NAME"
+msgstr "Trung Phẩm Trận Bàn"
+
+msgid "AUXILIARY_2083_DESC"
+msgstr ""
+"Trận bàn có thể gánh linh lộ phức tạp, có thể bố trí trận pháp cao cấp trong"
+" khu vực hiện tại."
+
+msgid "AUXILIARY_2083_NAME"
+msgstr "Thượng Phẩm Trận Bàn"
+
+msgid "AUXILIARY_2084_DESC"
+msgstr ""
+"Trận bàn có linh văn tự thành tuần hoàn, có thể bố trí trận pháp đỉnh cấp "
+"trong khu vực hiện tại."
+
+msgid "AUXILIARY_2084_NAME"
+msgstr "Cực Phẩm Trận Bàn"
+
 msgid "AUXILIARY_2071_DESC"
 msgstr ""
+"Túi cổ làm từ vải thô và da thú, dùng để chứa linh trùng thông thường."
 
 msgid "AUXILIARY_2071_NAME"
-msgstr ""
+msgstr "Túi Bách Trùng"
 
 msgid "AUXILIARY_2072_DESC"
 msgstr ""
+"Cổ chén luyện theo phép ngũ độc tương sinh, tính cổ tương đối ổn định."
 
 msgid "AUXILIARY_2072_NAME"
-msgstr ""
+msgstr "Chén Ngũ Độc Cổ"
 
 msgid "AUXILIARY_2073_DESC"
 msgstr ""
+"Cổ hộp kết hợp cơ quan và cổ thuật, thuận tiện cho việc hạ cổ kín đáo."
 
 msgid "AUXILIARY_2073_NAME"
-msgstr ""
+msgstr "Hộp Thiên Cơ Cổ"
 
 msgid "AUXILIARY_2074_DESC"
-msgstr ""
+msgstr "Nơi mẫu cổ chiếm cứ, có thể thống ngự nhiều loại cổ."
 
 msgid "AUXILIARY_2074_NAME"
-msgstr ""
+msgstr "Sào Mẫu Vạn Cổ"
 
 #. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
 msgid "CELESTIAL_PHENOMENON_10_DESC"
@@ -2408,17 +2443,51 @@ msgstr ""
 msgid "PERSONA_1014_NAME"
 msgstr "Giả Heo Ăn Thịt Hổ"
 
-msgid "PERSONA_1017_DESC"
+msgid "PERSONA_1015_DESC"
 msgstr ""
+"Ngươi có sự hiếu kỳ và thân cận tự nhiên với tu sĩ thuộc chủng tộc khác, sẵn"
+" lòng vượt qua khác biệt xuất thân để xây dựng quan hệ."
+
+msgid "PERSONA_1015_NAME"
+msgstr "Thân Thiện Dị Tộc"
+
+msgid "PERSONA_1016_DESC"
+msgstr ""
+"Ngươi bản năng bài xích tu sĩ khác chủng tộc với mình, rất khó thật sự tin "
+"tưởng dị tộc."
+
+msgid "PERSONA_1016_NAME"
+msgstr "Căm Ghét Dị Tộc"
+
+msgid "PERSONA_1019_DESC"
+msgstr ""
+"Thông hiểu cấu trúc trận pháp, có thể dùng trận bàn điều động linh cơ trong "
+"khu vực."
+
+msgid "PERSONA_1019_NAME"
+msgstr "Trận Sư"
+
+msgid "PERSONA_1020_DESC"
+msgstr ""
+"Trời sinh tinh thông trận đạo, khi bố trận có thể dẫn dắt địa mạch và linh "
+"cơ hiệu quả hơn."
+
+msgid "PERSONA_1020_NAME"
+msgstr "Trận Tiên"
+
+msgid "PERSONA_1017_DESC"
+msgstr "Thông hiểu trùng độc thuật, giỏi dùng cổ để nhập đạo."
 
 msgid "PERSONA_1017_NAME"
-msgstr ""
+msgstr "Cổ Sư"
 
 msgid "PERSONA_1018_DESC"
 msgstr ""
+"Trời sinh tương hợp với vạn cổ, chỉ một ý niệm cũng có thể khiến trùng độc "
+"tuân lệnh."
 
 msgid "PERSONA_1018_NAME"
-msgstr ""
+msgstr "Cổ Tiên"
 
 #. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
 msgid "PLANT_10_DESC"

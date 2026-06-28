@@ -21,6 +21,7 @@ class ParamOptionSource(str, Enum):
     MATERIAL_REALM_VALUE = "material_realm_value"
     CARDINAL_DIRECTION = "cardinal_direction"
     AVAILABLE_GU_TYPE = "available_gu_type"
+    AVAILABLE_FORMATION_TYPE = "available_formation_type"
 
 
 def build_param_options(action_cls: type, avatar: "Avatar") -> dict[str, list[dict[str, Any]]]:
@@ -89,6 +90,8 @@ def _options_for_source(action_cls: type, avatar: "Avatar", source: ParamOptionS
         return _direction_options()
     if source == ParamOptionSource.AVAILABLE_GU_TYPE:
         return _gu_type_options()
+    if source == ParamOptionSource.AVAILABLE_FORMATION_TYPE:
+        return _formation_type_options(avatar)
     return []
 
 
@@ -311,3 +314,9 @@ def _gu_type_options() -> list[dict[str, Any]]:
     from src.systems.gu import get_gu_type_options
 
     return get_gu_type_options()
+
+
+def _formation_type_options(avatar: "Avatar") -> list[dict[str, Any]]:
+    from src.systems.formation import get_available_formation_type_options
+
+    return get_available_formation_type_options(avatar)

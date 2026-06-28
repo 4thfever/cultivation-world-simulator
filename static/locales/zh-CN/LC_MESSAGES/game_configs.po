@@ -332,6 +332,30 @@ msgstr "母蛊盘踞其中，可统御群蛊。"
 msgid "AUXILIARY_2074_NAME"
 msgstr "万蛊母巢"
 
+msgid "AUXILIARY_2081_DESC"
+msgstr "刻有基础阵纹的阵盘，可在当前区域布置低阶阵法。"
+
+msgid "AUXILIARY_2081_NAME"
+msgstr "下品阵盘"
+
+msgid "AUXILIARY_2082_DESC"
+msgstr "阵纹较为稳定的阵盘，可在当前区域布置中阶阵法。"
+
+msgid "AUXILIARY_2082_NAME"
+msgstr "中品阵盘"
+
+msgid "AUXILIARY_2083_DESC"
+msgstr "可承载复杂灵路的阵盘，可在当前区域布置高阶阵法。"
+
+msgid "AUXILIARY_2083_NAME"
+msgstr "上品阵盘"
+
+msgid "AUXILIARY_2084_DESC"
+msgstr "灵纹自成循环的阵盘，可在当前区域布置顶级阵法。"
+
+msgid "AUXILIARY_2084_NAME"
+msgstr "极品阵盘"
+
 #. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
 msgid "CELESTIAL_PHENOMENON_10_DESC"
 msgstr "天地灵气井喷复苏，修为进境一日千里，万物竞发宜全力精进"
@@ -2001,6 +2025,18 @@ msgstr "天生与万蛊相亲，举念之间可令虫豸奉命。"
 
 msgid "PERSONA_1018_NAME"
 msgstr "蛊仙"
+
+msgid "PERSONA_1019_DESC"
+msgstr "通晓阵法结构，能以阵盘调动区域灵机。"
+
+msgid "PERSONA_1019_NAME"
+msgstr "阵师"
+
+msgid "PERSONA_1020_DESC"
+msgstr "天生精通阵道，布阵时能更高效地牵引地脉与灵机。"
+
+msgid "PERSONA_1020_NAME"
+msgstr "阵仙"
 
 #. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
 msgid "PLANT_10_DESC"

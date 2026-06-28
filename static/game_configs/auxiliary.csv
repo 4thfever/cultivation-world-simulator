@@ -30,3 +30,7 @@ item_id,name_id,desc_id,name,grade,desc,effects
 2072,AUXILIARY_2072_NAME,AUXILIARY_2072_DESC,五毒蛊盅,筑基,以五毒相生之法炼成的蛊盅，蛊性较为稳定。,"{legal_actions: ['InflictGu'], extra_gu_success_rate: 0.03, extra_gu_duration_months: 3}"
 2073,AUXILIARY_2073_NAME,AUXILIARY_2073_DESC,千机蛊匣,金丹,机关与蛊术结合的蛊匣，便于隐蔽施蛊。,"{legal_actions: ['InflictGu'], extra_gu_success_rate: 0.06, extra_gu_duration_months: 6}"
 2074,AUXILIARY_2074_NAME,AUXILIARY_2074_DESC,万蛊母巢,元婴,母蛊盘踞其中，可统御群蛊。,"{legal_actions: ['InflictGu'], extra_gu_success_rate: 0.10, extra_gu_duration_months: 9}"
+2081,AUXILIARY_2081_NAME,AUXILIARY_2081_DESC,下品阵盘,练气,刻有基础阵纹的阵盘，可在当前区域布置低阶阵法。,{legal_actions: ['SetFormation']}
+2082,AUXILIARY_2082_NAME,AUXILIARY_2082_DESC,中品阵盘,筑基,阵纹较为稳定的阵盘，可在当前区域布置中阶阵法。,{legal_actions: ['SetFormation']}
+2083,AUXILIARY_2083_NAME,AUXILIARY_2083_DESC,上品阵盘,金丹,可承载复杂灵路的阵盘，可在当前区域布置高阶阵法。,{legal_actions: ['SetFormation']}
+2084,AUXILIARY_2084_NAME,AUXILIARY_2084_DESC,极品阵盘,元婴,灵纹自成循环的阵盘，可在当前区域布置顶级阵法。,{legal_actions: ['SetFormation']}

@@ -10,6 +10,7 @@ from src.classes.event import Event
 from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.systems.cultivation import REALM_RANK
 from src.classes.action_runtime import ActionResult, ActionStatus
+from src.systems.formation import get_region_formation_effect_value
 
 @cooldown_action
 class Retreat(TimedAction):
@@ -61,6 +62,7 @@ class Retreat(TimedAction):
         
         # 应用effect加成
         extra_rate = self.avatar.effects.get("extra_retreat_success_rate", 0.0)
+        extra_rate = float(extra_rate) + float(get_region_formation_effect_value(self.avatar, "extra_retreat_success_rate", 0.0) or 0.0)
         return min(1.0, base + float(extra_rate))
 
     def _execute(self) -> None:

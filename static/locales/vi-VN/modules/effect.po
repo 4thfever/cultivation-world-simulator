@@ -202,23 +202,32 @@ msgstr "Thu nhập linh thạch từ trồng trọt cộng thêm"
 msgid "effect_extra_income_per_tile"
 msgstr "Điều chỉnh thu nhập mỗi ô đất theo năm"
 
+msgid "effect_extra_formation_power"
+msgstr "Cường độ trận pháp"
+
+msgid "effect_extra_formation_duration_months"
+msgstr "Số tháng duy trì trận pháp"
+
+msgid "effect_formation_cost_reduction"
+msgstr "Giảm tiêu hao bố trận"
+
 msgid "effect_extra_gu_success_rate"
-msgstr ""
+msgstr "Tỷ lệ hạ cổ thành công"
 
 msgid "effect_extra_gu_duration_months"
-msgstr ""
+msgstr "Số tháng duy trì cổ"
 
 msgid "effect_extra_gu_resistance_rate"
-msgstr ""
+msgstr "Kháng cổ"
 
 msgid "effect_source_gu_qianxin"
-msgstr ""
+msgstr "Khiên Tâm Cổ"
 
 msgid "effect_source_gu_shixue"
-msgstr ""
+msgstr "Thị Huyết Cổ"
 
 msgid "effect_source_gu_shiyuan"
-msgstr ""
+msgstr "Thực Nguyên Cổ"
 
 msgid "effect_source_gu_luanxin"
-msgstr ""
+msgstr "Loạn Tâm Cổ"

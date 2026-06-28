@@ -776,14 +776,38 @@ msgstr ""
 msgid "PERSONA_1014_NAME"
 msgstr "Giả Heo Ăn Thịt Hổ"
 
+msgid "PERSONA_1015_DESC"
+msgstr "Ngươi có sự hiếu kỳ và thân cận tự nhiên với tu sĩ thuộc chủng tộc khác, sẵn lòng vượt qua khác biệt xuất thân để xây dựng quan hệ."
+
+msgid "PERSONA_1015_NAME"
+msgstr "Thân Thiện Dị Tộc"
+
+msgid "PERSONA_1016_DESC"
+msgstr "Ngươi bản năng bài xích tu sĩ khác chủng tộc với mình, rất khó thật sự tin tưởng dị tộc."
+
+msgid "PERSONA_1016_NAME"
+msgstr "Căm Ghét Dị Tộc"
+
+msgid "PERSONA_1019_DESC"
+msgstr "Thông hiểu cấu trúc trận pháp, có thể dùng trận bàn điều động linh cơ trong khu vực."
+
+msgid "PERSONA_1019_NAME"
+msgstr "Trận Sư"
+
+msgid "PERSONA_1020_DESC"
+msgstr "Trời sinh tinh thông trận đạo, khi bố trận có thể dẫn dắt địa mạch và linh cơ hiệu quả hơn."
+
+msgid "PERSONA_1020_NAME"
+msgstr "Trận Tiên"
+
 msgid "PERSONA_1017_DESC"
-msgstr ""
+msgstr "Thông hiểu trùng độc thuật, giỏi dùng cổ để nhập đạo."
 
 msgid "PERSONA_1017_NAME"
-msgstr ""
+msgstr "Cổ Sư"
 
 msgid "PERSONA_1018_DESC"
-msgstr ""
+msgstr "Trời sinh tương hợp với vạn cổ, chỉ một ý niệm cũng có thể khiến trùng độc tuân lệnh."
 
 msgid "PERSONA_1018_NAME"
-msgstr ""
+msgstr "Cổ Tiên"

@@ -255,7 +255,11 @@ class EffectsMixin:
             
             # 应用HP恢复速率加成
             recovery_rate_raw = self.effects.get("extra_hp_recovery_rate", 0.0)
-            recovery_rate_multiplier = 1.0 + float(recovery_rate_raw or 0.0)
+            recovery_rate = float(recovery_rate_raw or 0.0)
+            from src.systems.formation import get_region_formation_effect_value
+
+            recovery_rate += float(get_region_formation_effect_value(self, "extra_hp_recovery_rate", 0.0) or 0.0)
+            recovery_rate_multiplier = 1.0 + recovery_rate
             
             recover_amount = int(base_recover * recovery_rate_multiplier)
             self.hp.recover(recover_amount)

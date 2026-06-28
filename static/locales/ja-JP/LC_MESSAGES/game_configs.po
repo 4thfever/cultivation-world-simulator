@@ -308,29 +308,53 @@ msgstr "古の神木を削って作られた王鼎。神丹を煉ずるだけで
 msgid "AUXILIARY_2065_NAME"
 msgstr "神木王鼎"
 
+msgid "AUXILIARY_2081_DESC"
+msgstr "基礎的な陣紋が刻まれた陣盤。現在の地域に低階陣法を布ける。"
+
+msgid "AUXILIARY_2081_NAME"
+msgstr "下品陣盤"
+
+msgid "AUXILIARY_2082_DESC"
+msgstr "陣紋が比較的安定した陣盤。現在の地域に中階陣法を布ける。"
+
+msgid "AUXILIARY_2082_NAME"
+msgstr "中品陣盤"
+
+msgid "AUXILIARY_2083_DESC"
+msgstr "複雑な霊路を支えられる陣盤。現在の地域に高階陣法を布ける。"
+
+msgid "AUXILIARY_2083_NAME"
+msgstr "上品陣盤"
+
+msgid "AUXILIARY_2084_DESC"
+msgstr "霊紋が自律的な循環を成す陣盤。現在の地域に最上級陣法を布ける。"
+
+msgid "AUXILIARY_2084_NAME"
+msgstr "極品陣盤"
+
 msgid "AUXILIARY_2071_DESC"
-msgstr ""
+msgstr "粗布と獣皮で作られた蠱袋。一般的な霊虫を収められる。"
 
 msgid "AUXILIARY_2071_NAME"
-msgstr ""
+msgstr "百虫袋"
 
 msgid "AUXILIARY_2072_DESC"
-msgstr ""
+msgstr "五毒相生の法で練られた蠱盅。蠱の性質は比較的安定している。"
 
 msgid "AUXILIARY_2072_NAME"
-msgstr ""
+msgstr "五毒蠱盅"
 
 msgid "AUXILIARY_2073_DESC"
-msgstr ""
+msgstr "機巧と蠱術を組み合わせた蠱匣。隠密に蠱を仕掛けやすい。"
 
 msgid "AUXILIARY_2073_NAME"
-msgstr ""
+msgstr "千機蠱匣"
 
 msgid "AUXILIARY_2074_DESC"
-msgstr ""
+msgstr "母蠱が宿る巣。多くの蠱を統御できる。"
 
 msgid "AUXILIARY_2074_NAME"
-msgstr ""
+msgstr "万蠱母巣"
 
 #. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
 msgid "CELESTIAL_PHENOMENON_10_DESC"
@@ -1979,17 +2003,41 @@ msgstr ""
 msgid "PERSONA_1014_NAME"
 msgstr "猪を装い虎を食う"
 
+msgid "PERSONA_1015_DESC"
+msgstr "異なる種族の修士に対して自然な好奇心と親しみを抱き、出自の違いを越えて関係を築こうとする。"
+
+msgid "PERSONA_1015_NAME"
+msgstr "異類に親しむ"
+
+msgid "PERSONA_1016_DESC"
+msgstr "自分とは異なる種族の修士を本能的に排斥し、異族を心から信頼することが難しい。"
+
+msgid "PERSONA_1016_NAME"
+msgstr "異類を憎む"
+
+msgid "PERSONA_1019_DESC"
+msgstr "陣法構造に通じ、陣盤で地域の霊機を動かすことができる。"
+
+msgid "PERSONA_1019_NAME"
+msgstr "陣師"
+
+msgid "PERSONA_1020_DESC"
+msgstr "生まれつき陣道に精通し、布陣時に地脈と霊機をより効率よく引き寄せられる。"
+
+msgid "PERSONA_1020_NAME"
+msgstr "陣仙"
+
 msgid "PERSONA_1017_DESC"
-msgstr ""
+msgstr "虫と毒術に通じ、蠱をもって道に入ることに長ける。"
 
 msgid "PERSONA_1017_NAME"
-msgstr ""
+msgstr "蠱師"
 
 msgid "PERSONA_1018_DESC"
-msgstr ""
+msgstr "生まれつき万蠱と親和し、一念で虫たちを従わせることができる。"
 
 msgid "PERSONA_1018_NAME"
-msgstr ""
+msgstr "蠱仙"
 
 #. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
 msgid "PLANT_10_DESC"

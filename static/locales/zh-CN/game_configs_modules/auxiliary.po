@@ -243,3 +243,27 @@ msgstr "母蛊盘踞其中，可统御群蛊。"
 
 msgid "AUXILIARY_2074_NAME"
 msgstr "万蛊母巢"
+
+msgid "AUXILIARY_2081_DESC"
+msgstr "刻有基础阵纹的阵盘，可在当前区域布置低阶阵法。"
+
+msgid "AUXILIARY_2081_NAME"
+msgstr "下品阵盘"
+
+msgid "AUXILIARY_2082_DESC"
+msgstr "阵纹较为稳定的阵盘，可在当前区域布置中阶阵法。"
+
+msgid "AUXILIARY_2082_NAME"
+msgstr "中品阵盘"
+
+msgid "AUXILIARY_2083_DESC"
+msgstr "可承载复杂灵路的阵盘，可在当前区域布置高阶阵法。"
+
+msgid "AUXILIARY_2083_NAME"
+msgstr "上品阵盘"
+
+msgid "AUXILIARY_2084_DESC"
+msgstr "灵纹自成循环的阵盘，可在当前区域布置顶级阵法。"
+
+msgid "AUXILIARY_2084_NAME"
+msgstr "极品阵盘"

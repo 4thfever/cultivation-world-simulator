@@ -251,6 +251,20 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
                 region = game_map.regions[rid]
                 if isinstance(region, CityRegion):
                     region.population = status.get("population", region.population)
+
+        region_formations = {}
+        for rid_str, formation in (world_data.get("region_formations", {}) or {}).items():
+            try:
+                rid = int(rid_str)
+            except (TypeError, ValueError):
+                continue
+            if rid not in game_map.regions or not isinstance(formation, dict):
+                continue
+            region_formations[rid] = dict(formation)
+        game_map.region_formations = region_formations
+        from src.systems.formation import cleanup_expired_region_formations
+
+        cleanup_expired_region_formations(world, int(world.month_stamp))
         
         # 重建宗门成员关系与功法列表
         from src.classes.technique import techniques_by_name

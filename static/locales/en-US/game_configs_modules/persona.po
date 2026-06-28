@@ -737,14 +737,38 @@ msgstr ""
 msgid "PERSONA_1014_NAME"
 msgstr "Play Weak, Hide Strong"
 
+msgid "PERSONA_1015_DESC"
+msgstr "You have a natural curiosity and affinity toward cultivators of other races, and are willing to build relationships across differences of origin."
+
+msgid "PERSONA_1015_NAME"
+msgstr "Kin to Outsiders"
+
+msgid "PERSONA_1016_DESC"
+msgstr "You instinctively reject cultivators of races different from your own, and find it hard to truly trust outsiders."
+
+msgid "PERSONA_1016_NAME"
+msgstr "Hates Outsiders"
+
+msgid "PERSONA_1019_DESC"
+msgstr "Understands formation structures and can use formation disks to guide regional spiritual mechanisms."
+
+msgid "PERSONA_1019_NAME"
+msgstr "Formation Master"
+
+msgid "PERSONA_1020_DESC"
+msgstr "Born with mastery of formation arts, able to draw ley lines and spiritual mechanisms more efficiently when setting formations."
+
+msgid "PERSONA_1020_NAME"
+msgstr "Formation Immortal"
+
 msgid "PERSONA_1017_DESC"
-msgstr ""
+msgstr "Skilled in insects and poison arts, and adept at cultivating through Gu."
 
 msgid "PERSONA_1017_NAME"
-msgstr ""
+msgstr "Gu Master"
 
 msgid "PERSONA_1018_DESC"
-msgstr ""
+msgstr "Naturally attuned to myriad Gu, able to command insects with a thought."
 
 msgid "PERSONA_1018_NAME"
-msgstr ""
+msgstr "Gu Immortal"

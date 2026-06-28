@@ -204,6 +204,10 @@ def save_game(
             "phenomenon_start_year": world.phenomenon_start_year if hasattr(world, 'phenomenon_start_year') else 0,
             "cultivate_regions_hosts": cultivate_regions_hosts,
             "regions_status": regions_status,
+            "region_formations": {
+                str(region_id): dict(formation)
+                for region_id, formation in (getattr(world.map, "region_formations", {}) or {}).items()
+            },
             # 出世物品流转
             "circulation": world.circulation.to_save_dict(),
             # 本局世界观与历史输入

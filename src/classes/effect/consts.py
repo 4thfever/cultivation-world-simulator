@@ -552,6 +552,40 @@ EXTRA_GU_RESISTANCE_RATE = "extra_gu_resistance_rate"
   - 顶级防护: 0.20
 """
 
+# --- 阵法相关 ---
+EXTRA_FORMATION_POWER = "extra_formation_power"
+"""
+额外阵法强度
+类型: float
+结算: src/systems/formation.py
+说明: 布置阵法时提高最终区域阵法效果。
+数值参考:
+  - 阵师: 0.15
+  - 阵仙: 0.35
+"""
+
+EXTRA_FORMATION_DURATION_MONTHS = "extra_formation_duration_months"
+"""
+额外阵法持续月份
+类型: int
+结算: src/systems/formation.py
+说明: 布置阵法时增加持续时间。
+数值参考:
+  - 阵师: 6
+  - 阵仙: 12
+"""
+
+FORMATION_COST_REDUCTION = "formation_cost_reduction"
+"""
+布阵灵石消耗降低
+类型: float
+结算: src/systems/formation.py
+说明: 布置阵法时降低灵石消耗。
+数值参考:
+  - 阵师: 0.10
+  - 阵仙: 0.25
+"""
+
 # =============================================================================
 # CSV 配置格式规范
 # =============================================================================
@@ -668,6 +702,9 @@ ALL_EFFECTS = [
     "extra_gu_success_rate",             # float - 额外下蛊成功率
     "extra_gu_duration_months",          # int - 额外蛊持续月份
     "extra_gu_resistance_rate",          # float - 额外防蛊成功率修正
+    "extra_formation_power",             # float - 额外阵法强度
+    "extra_formation_duration_months",   # int - 额外阵法持续月份
+    "formation_cost_reduction",          # float - 布阵灵石消耗降低
     
     # 秘境相关
     "extra_hidden_domain_drop_prob",     # float - 额外秘境掉落概率

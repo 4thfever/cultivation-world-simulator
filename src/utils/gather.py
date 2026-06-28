@@ -68,6 +68,9 @@ def execute_gather(
     
     base_quantity = 1
     extra_materials = int(avatar.effects.get(extra_effect_key, 0) or 0)
+    from src.systems.formation import get_region_formation_effect_value
+
+    extra_materials += int(get_region_formation_effect_value(avatar, extra_effect_key, 0) or 0)
     total_quantity = base_quantity + extra_materials
     
     avatar.add_material(material, total_quantity)

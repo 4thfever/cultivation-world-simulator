@@ -202,23 +202,32 @@ msgstr "額外種植靈石收益"
 msgid "effect_extra_income_per_tile"
 msgstr "每地塊年收入修正"
 
+msgid "effect_extra_formation_power"
+msgstr "陣法強度"
+
+msgid "effect_extra_formation_duration_months"
+msgstr "陣法持續月份"
+
+msgid "effect_formation_cost_reduction"
+msgstr "布陣消耗降低"
+
 msgid "effect_extra_gu_success_rate"
-msgstr ""
+msgstr "下蠱成功率"
 
 msgid "effect_extra_gu_duration_months"
-msgstr ""
+msgstr "蠱持續月份"
 
 msgid "effect_extra_gu_resistance_rate"
-msgstr ""
+msgstr "防蠱"
 
 msgid "effect_source_gu_qianxin"
-msgstr ""
+msgstr "牽心蠱"
 
 msgid "effect_source_gu_shixue"
-msgstr ""
+msgstr "噬血蠱"
 
 msgid "effect_source_gu_shiyuan"
-msgstr ""
+msgstr "蝕元蠱"
 
 msgid "effect_source_gu_luanxin"
-msgstr ""
+msgstr "亂心蠱"

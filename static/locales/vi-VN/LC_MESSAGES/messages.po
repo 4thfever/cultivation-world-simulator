@@ -356,58 +356,139 @@ msgstr "Điều phối phòng vụ biên cảnh"
 msgid "sect_task_title_sect_task_investigate_internal_traitor"
 msgstr "Điều tra nghi án nội gián thông địch"
 
-msgid "action_inflictgu_short_name"
+msgid "action_setformation_short_name"
+msgstr "Bố Trận"
+
+msgid "set_formation_action_name"
+msgstr "Bố Trí Trận Pháp"
+
+msgid "set_formation_description"
 msgstr ""
+"Bố trí một trận pháp tại khu vực hiện tại. Cần trang bị trận bàn và tiêu hao"
+" linh thạch. Mỗi khu vực chỉ có thể tồn tại một trận pháp cùng lúc; trận "
+"pháp mới sẽ thay thế trận pháp cũ trong khu vực. Tụ Linh Trận tăng lợi ích "
+"thổ nạp, phù hợp khu tu luyện và tổng bộ tông môn. Hộ Sơn Trận tăng năng lực"
+" chiến đấu trong trận, phù hợp tổng bộ tông môn và khu tu luyện. Liệu Dũ "
+"Trận tăng hồi phục khi trị thương, phù hợp tổng bộ tông môn, khu tu luyện và"
+" thành thị. Thanh Tâm Trận tăng ổn định khi bế quan và đột phá, phù hợp khu "
+"tu luyện và tổng bộ tông môn. Tầm Mạch Trận tăng lợi ích khai khoáng, phù "
+"hợp khu vực thường có khoáng mạch. Phong Mộc Trận tăng lợi ích thu thập, phù"
+" hợp khu vực thường có linh thực. Khu Thú Trận tăng lợi ích săn bắt, phù hợp"
+" khu vực thường có linh thú."
+
+msgid "set_formation_requirements"
+msgstr ""
+"Cần trang bị trận bàn, vị trí hiện tại phải cho phép bố trí trận pháp đã "
+"chọn, và phải có đủ linh thạch."
+
+msgid "formation_spirit_gathering_name"
+msgstr "Tụ Linh Trận"
+
+msgid "formation_mountain_guard_name"
+msgstr "Hộ Sơn Trận"
+
+msgid "formation_healing_name"
+msgstr "Liệu Dũ Trận"
+
+msgid "formation_clarity_name"
+msgstr "Thanh Tâm Trận"
+
+msgid "formation_vein_seeking_name"
+msgstr "Tầm Mạch Trận"
+
+msgid "formation_wood_growth_name"
+msgstr "Phong Mộc Trận"
+
+msgid "formation_beast_driving_name"
+msgstr "Khu Thú Trận"
+
+msgid "Missing formation disk"
+msgstr "Thiếu trận bàn"
+
+msgid "Invalid formation type"
+msgstr "Loại trận pháp không hợp lệ"
+
+msgid "Current location cannot set formation"
+msgstr "Vị trí hiện tại không thể bố trí trận pháp"
+
+msgid "Formation cannot be set in current region"
+msgstr "Trận pháp này không thể bố trí ở khu vực hiện tại"
+
+msgid "Not enough spirit stones"
+msgstr "Không đủ linh thạch"
+
+msgid "Current region"
+msgstr "Khu vực hiện tại"
+
+msgid "{avatar} begins setting {formation} in {region}."
+msgstr "{avatar} bắt đầu bố trí {formation} tại {region}."
+
+msgid "{avatar} set {formation} in {region}."
+msgstr "{avatar} đã bố trí {formation} tại {region}."
+
+msgid ""
+"{avatar} set {formation} in {region}; the original formation in this region "
+"was replaced."
+msgstr ""
+"{avatar} đã bố trí {formation} tại {region}; trận pháp vốn có trong khu vực "
+"đã bị thay thế."
+
+msgid "action_inflictgu_short_name"
+msgstr "Hạ Cổ"
 
 msgid "inflict_gu_action_name"
-msgstr ""
+msgstr "Hạ Cổ"
 
 msgid "inflict_gu_description"
 msgstr ""
+"Đặt một loại cổ lên mục tiêu. Nếu thành công, hiệu quả được kết toán hằng "
+"tháng."
 
 msgid "inflict_gu_requirements"
-msgstr ""
+msgstr "Cần trang bị cổ cụ."
 
 msgid "gu_qianxin_name"
-msgstr ""
+msgstr "Khiên Tâm Cổ"
 
 msgid "gu_shixue_name"
-msgstr ""
+msgstr "Thị Huyết Cổ"
 
 msgid "gu_shiyuan_name"
-msgstr ""
+msgstr "Thực Nguyên Cổ"
 
 msgid "gu_luanxin_name"
-msgstr ""
+msgstr "Loạn Tâm Cổ"
 
 msgid "Missing Gu tool"
-msgstr ""
+msgstr "Thiếu cổ cụ"
 
 msgid "Invalid Gu type"
-msgstr ""
+msgstr "Loại cổ không hợp lệ"
 
 msgid "Cannot inflict Gu on self"
-msgstr ""
+msgstr "Không thể hạ cổ lên chính mình"
 
 msgid "{caster} attempts to inflict {gu_name} on {target}."
-msgstr ""
+msgstr "{caster} thử hạ {gu_name} lên {target}."
 
 msgid "{caster} successfully inflicted {gu_name} on {target}."
-msgstr ""
+msgstr "{caster} đã hạ {gu_name} lên {target} thành công."
 
 msgid "{caster} failed to inflict {gu_name} on {target}."
-msgstr ""
+msgstr "{caster} không hạ được {gu_name} lên {target}."
 
 msgid ""
 "{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
 msgstr ""
+"{caster} không hạ được {gu_name} lên {target}; hành động đã bị phát hiện."
 
 msgid "{target}'s {gu_name} took effect, losing {amount} HP."
-msgstr ""
+msgstr "{gu_name} trên {target} phát tác, mất {amount} HP."
 
 msgid ""
 "{target}'s {gu_name} took effect, losing {amount} cultivation experience."
 msgstr ""
+"{gu_name} trên {target} phát tác, mất {amount} điểm kinh nghiệm tu vi."
 
 # Action: Assassinate
 msgid "assassinate_action_name"
@@ -2010,26 +2091,35 @@ msgstr "Thu nhập linh thạch từ trồng trọt cộng thêm"
 msgid "effect_extra_income_per_tile"
 msgstr "Điều chỉnh thu nhập mỗi ô đất theo năm"
 
+msgid "effect_extra_formation_power"
+msgstr "Cường độ trận pháp"
+
+msgid "effect_extra_formation_duration_months"
+msgstr "Số tháng duy trì trận pháp"
+
+msgid "effect_formation_cost_reduction"
+msgstr "Giảm tiêu hao bố trận"
+
 msgid "effect_extra_gu_success_rate"
-msgstr ""
+msgstr "Tỷ lệ hạ cổ thành công"
 
 msgid "effect_extra_gu_duration_months"
-msgstr ""
+msgstr "Số tháng duy trì cổ"
 
 msgid "effect_extra_gu_resistance_rate"
-msgstr ""
+msgstr "Kháng cổ"
 
 msgid "effect_source_gu_qianxin"
-msgstr ""
+msgstr "Khiên Tâm Cổ"
 
 msgid "effect_source_gu_shixue"
-msgstr ""
+msgstr "Thị Huyết Cổ"
 
 msgid "effect_source_gu_shiyuan"
-msgstr ""
+msgstr "Thực Nguyên Cổ"
 
 msgid "effect_source_gu_luanxin"
-msgstr ""
+msgstr "Loạn Tâm Cổ"
 
 msgid "earth_essence"
 msgstr "Thổ"

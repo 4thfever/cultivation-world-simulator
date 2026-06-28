@@ -220,26 +220,50 @@ msgstr "上古神木雕琢而成，不僅可煉丹，更能自成空間催熟靈
 msgid "AUXILIARY_2065_NAME"
 msgstr "青木神鼎"
 
+msgid "AUXILIARY_2081_DESC"
+msgstr "刻有基礎陣紋的陣盤，可在當前區域布置低階陣法。"
+
+msgid "AUXILIARY_2081_NAME"
+msgstr "下品陣盤"
+
+msgid "AUXILIARY_2082_DESC"
+msgstr "陣紋較為穩定的陣盤，可在當前區域布置中階陣法。"
+
+msgid "AUXILIARY_2082_NAME"
+msgstr "中品陣盤"
+
+msgid "AUXILIARY_2083_DESC"
+msgstr "可承載複雜靈路的陣盤，可在當前區域布置高階陣法。"
+
+msgid "AUXILIARY_2083_NAME"
+msgstr "上品陣盤"
+
+msgid "AUXILIARY_2084_DESC"
+msgstr "靈紋自成循環的陣盤，可在當前區域布置頂級陣法。"
+
+msgid "AUXILIARY_2084_NAME"
+msgstr "極品陣盤"
+
 msgid "AUXILIARY_2071_DESC"
-msgstr ""
+msgstr "以粗布與獸皮製成的蠱囊，可收納尋常靈蟲。"
 
 msgid "AUXILIARY_2071_NAME"
-msgstr ""
+msgstr "百蟲囊"
 
 msgid "AUXILIARY_2072_DESC"
-msgstr ""
+msgstr "以五毒相生之法煉成的蠱盅，蠱性較為穩定。"
 
 msgid "AUXILIARY_2072_NAME"
-msgstr ""
+msgstr "五毒蠱盅"
 
 msgid "AUXILIARY_2073_DESC"
-msgstr ""
+msgstr "機關與蠱術結合的蠱匣，便於隱蔽施蠱。"
 
 msgid "AUXILIARY_2073_NAME"
-msgstr ""
+msgstr "千機蠱匣"
 
 msgid "AUXILIARY_2074_DESC"
-msgstr ""
+msgstr "母蠱盤踞其中，可統御群蠱。"
 
 msgid "AUXILIARY_2074_NAME"
-msgstr ""
+msgstr "萬蠱母巢"

@@ -320,55 +320,115 @@ msgstr "統籌邊境防務"
 msgid "sect_task_title_sect_task_investigate_internal_traitor"
 msgstr "查辦內鬼通敵嫌疑"
 
+msgid "action_setformation_short_name"
+msgstr "布陣"
+
+msgid "set_formation_action_name"
+msgstr "布置陣法"
+
+msgid "set_formation_description"
+msgstr "在當前區域布置一個陣法。需要裝備陣盤並消耗靈石。每個區域同時只能存在一個陣法，新陣法會替換該區域原有陣法。聚靈陣提升吐納收益，適合修煉區域和宗門總部。護山陣提升陣內戰鬥能力，適合宗門總部和修煉區域。療癒陣提升療傷恢復，適合宗門總部、修煉區域和城市。清心陣提升閉關和突破穩定性，適合修煉區域和宗門總部。尋脈陣提升挖礦收益，適合有礦脈的普通區域。豐木陣提升採集收益，適合有植物的普通區域。驅獸陣提升狩獵收益，適合有動物的普通區域。"
+
+msgid "set_formation_requirements"
+msgstr "需要裝備陣盤，當前位置必須允許布置所選陣法，並且靈石足夠。"
+
+msgid "formation_spirit_gathering_name"
+msgstr "聚靈陣"
+
+msgid "formation_mountain_guard_name"
+msgstr "護山陣"
+
+msgid "formation_healing_name"
+msgstr "療癒陣"
+
+msgid "formation_clarity_name"
+msgstr "清心陣"
+
+msgid "formation_vein_seeking_name"
+msgstr "尋脈陣"
+
+msgid "formation_wood_growth_name"
+msgstr "豐木陣"
+
+msgid "formation_beast_driving_name"
+msgstr "驅獸陣"
+
+msgid "Missing formation disk"
+msgstr "缺少陣盤"
+
+msgid "Invalid formation type"
+msgstr "無效的陣法類型"
+
+msgid "Current location cannot set formation"
+msgstr "當前位置不能布置陣法"
+
+msgid "Formation cannot be set in current region"
+msgstr "該陣法不能布置在當前區域"
+
+msgid "Not enough spirit stones"
+msgstr "靈石不足"
+
+msgid "Current region"
+msgstr "當前區域"
+
+msgid "{avatar} begins setting {formation} in {region}."
+msgstr "{avatar}開始在{region}布置{formation}。"
+
+msgid "{avatar} set {formation} in {region}."
+msgstr "{avatar}在{region}布置了{formation}。"
+
+msgid "{avatar} set {formation} in {region}; the original formation in this region was replaced."
+msgstr "{avatar}在{region}布置了{formation}，該區域原有陣法已被替換。"
+
 msgid "action_inflictgu_short_name"
-msgstr ""
+msgstr "下蠱"
 
 msgid "inflict_gu_action_name"
-msgstr ""
+msgstr "下蠱"
 
 msgid "inflict_gu_description"
-msgstr ""
+msgstr "對目標施加一種蠱，成功後按月結算效果。"
 
 msgid "inflict_gu_requirements"
-msgstr ""
+msgstr "需要裝備蠱具。"
 
 msgid "gu_qianxin_name"
-msgstr ""
+msgstr "牽心蠱"
 
 msgid "gu_shixue_name"
-msgstr ""
+msgstr "噬血蠱"
 
 msgid "gu_shiyuan_name"
-msgstr ""
+msgstr "蝕元蠱"
 
 msgid "gu_luanxin_name"
-msgstr ""
+msgstr "亂心蠱"
 
 msgid "Missing Gu tool"
-msgstr ""
+msgstr "缺少蠱具"
 
 msgid "Invalid Gu type"
-msgstr ""
+msgstr "無效的蠱類型"
 
 msgid "Cannot inflict Gu on self"
-msgstr ""
+msgstr "不能對自己下蠱"
 
 msgid "{caster} attempts to inflict {gu_name} on {target}."
-msgstr ""
+msgstr "{caster}嘗試對{target}下{gu_name}。"
 
 msgid "{caster} successfully inflicted {gu_name} on {target}."
-msgstr ""
+msgstr "{caster}成功對{target}下了{gu_name}。"
 
 msgid "{caster} failed to inflict {gu_name} on {target}."
-msgstr ""
+msgstr "{caster}未能對{target}下{gu_name}。"
 
 msgid ""
 "{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
-msgstr ""
+msgstr "{caster}未能對{target}下{gu_name}，且被對方察覺。"
 
 msgid "{target}'s {gu_name} took effect, losing {amount} HP."
-msgstr ""
+msgstr "{target}身上的{gu_name}生效，損失{amount}點氣血。"
 
 msgid ""
 "{target}'s {gu_name} took effect, losing {amount} cultivation experience."
-msgstr ""
+msgstr "{target}身上的{gu_name}生效，損失{amount}點修為經驗。"

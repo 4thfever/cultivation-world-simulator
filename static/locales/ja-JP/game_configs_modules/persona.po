@@ -677,14 +677,38 @@ msgstr ""
 msgid "PERSONA_1014_NAME"
 msgstr "猪を装い虎を食う"
 
+msgid "PERSONA_1015_DESC"
+msgstr "異なる種族の修士に対して自然な好奇心と親しみを抱き、出自の違いを越えて関係を築こうとする。"
+
+msgid "PERSONA_1015_NAME"
+msgstr "異類に親しむ"
+
+msgid "PERSONA_1016_DESC"
+msgstr "自分とは異なる種族の修士を本能的に排斥し、異族を心から信頼することが難しい。"
+
+msgid "PERSONA_1016_NAME"
+msgstr "異類を憎む"
+
+msgid "PERSONA_1019_DESC"
+msgstr "陣法構造に通じ、陣盤で地域の霊機を動かすことができる。"
+
+msgid "PERSONA_1019_NAME"
+msgstr "陣師"
+
+msgid "PERSONA_1020_DESC"
+msgstr "生まれつき陣道に精通し、布陣時に地脈と霊機をより効率よく引き寄せられる。"
+
+msgid "PERSONA_1020_NAME"
+msgstr "陣仙"
+
 msgid "PERSONA_1017_DESC"
-msgstr ""
+msgstr "虫と毒術に通じ、蠱をもって道に入ることに長ける。"
 
 msgid "PERSONA_1017_NAME"
-msgstr ""
+msgstr "蠱師"
 
 msgid "PERSONA_1018_DESC"
-msgstr ""
+msgstr "生まれつき万蠱と親和し、一念で虫たちを従わせることができる。"
 
 msgid "PERSONA_1018_NAME"
-msgstr ""
+msgstr "蠱仙"

@@ -202,23 +202,32 @@ msgstr "Extra Plant Income"
 msgid "effect_extra_income_per_tile"
 msgstr "Extra income per tile (yearly)"
 
+msgid "effect_extra_formation_power"
+msgstr "Formation Power"
+
+msgid "effect_extra_formation_duration_months"
+msgstr "Formation Duration Months"
+
+msgid "effect_formation_cost_reduction"
+msgstr "Formation Cost Reduction"
+
 msgid "effect_extra_gu_success_rate"
-msgstr ""
+msgstr "Gu Infliction Success Rate"
 
 msgid "effect_extra_gu_duration_months"
-msgstr ""
+msgstr "Gu Duration Months"
 
 msgid "effect_extra_gu_resistance_rate"
-msgstr ""
+msgstr "Gu Resistance"
 
 msgid "effect_source_gu_qianxin"
-msgstr ""
+msgstr "Heartlink Gu"
 
 msgid "effect_source_gu_shixue"
-msgstr ""
+msgstr "Bloodgnaw Gu"
 
 msgid "effect_source_gu_shiyuan"
-msgstr ""
+msgstr "Essence-Eroding Gu"
 
 msgid "effect_source_gu_luanxin"
-msgstr ""
+msgstr "Mind-Disorder Gu"

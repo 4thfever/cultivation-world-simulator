@@ -321,55 +321,115 @@ msgstr "辺境防務の統括"
 msgid "sect_task_title_sect_task_investigate_internal_traitor"
 msgstr "内通者疑惑の調査"
 
+msgid "action_setformation_short_name"
+msgstr "布陣"
+
+msgid "set_formation_action_name"
+msgstr "陣法を布く"
+
+msgid "set_formation_description"
+msgstr "現在の地域に陣法を布く。陣盤を装備し、霊石を消費する必要がある。各地域に同時に存在できる陣法は一つだけで、新しい陣法はその地域の既存陣法を置き換える。聚霊陣は吐納の収益を高め、修行地域と宗門本部に適する。護山陣は陣内の戦闘能力を高め、宗門本部と修行地域に適する。療癒陣は治療回復を高め、宗門本部、修行地域、都市に適する。清心陣は閉関と突破の安定性を高め、修行地域と宗門本部に適する。尋脈陣は採掘収益を高め、鉱脈のある通常地域に適する。豊木陣は採集収益を高め、植物のある通常地域に適する。駆獣陣は狩猟収益を高め、動物のある通常地域に適する。"
+
+msgid "set_formation_requirements"
+msgstr "陣盤を装備し、現在地が選択した陣法の布陣を許可しており、霊石が十分にある必要がある。"
+
+msgid "formation_spirit_gathering_name"
+msgstr "聚霊陣"
+
+msgid "formation_mountain_guard_name"
+msgstr "護山陣"
+
+msgid "formation_healing_name"
+msgstr "療癒陣"
+
+msgid "formation_clarity_name"
+msgstr "清心陣"
+
+msgid "formation_vein_seeking_name"
+msgstr "尋脈陣"
+
+msgid "formation_wood_growth_name"
+msgstr "豊木陣"
+
+msgid "formation_beast_driving_name"
+msgstr "駆獣陣"
+
+msgid "Missing formation disk"
+msgstr "陣盤がない"
+
+msgid "Invalid formation type"
+msgstr "無効な陣法タイプ"
+
+msgid "Current location cannot set formation"
+msgstr "現在地では陣法を布けない"
+
+msgid "Formation cannot be set in current region"
+msgstr "この陣法は現在の地域に布けない"
+
+msgid "Not enough spirit stones"
+msgstr "霊石が足りない"
+
+msgid "Current region"
+msgstr "現在の地域"
+
+msgid "{avatar} begins setting {formation} in {region}."
+msgstr "{avatar}は{region}で{formation}を布き始めた。"
+
+msgid "{avatar} set {formation} in {region}."
+msgstr "{avatar}は{region}に{formation}を布いた。"
+
+msgid "{avatar} set {formation} in {region}; the original formation in this region was replaced."
+msgstr "{avatar}は{region}に{formation}を布き、この地域の既存陣法は置き換えられた。"
+
 msgid "action_inflictgu_short_name"
-msgstr ""
+msgstr "蠱を仕掛ける"
 
 msgid "inflict_gu_action_name"
-msgstr ""
+msgstr "蠱を仕掛ける"
 
 msgid "inflict_gu_description"
-msgstr ""
+msgstr "対象に一種の蠱を仕掛ける。成功すると効果は毎月処理される。"
 
 msgid "inflict_gu_requirements"
-msgstr ""
+msgstr "蠱具を装備している必要がある。"
 
 msgid "gu_qianxin_name"
-msgstr ""
+msgstr "牽心蠱"
 
 msgid "gu_shixue_name"
-msgstr ""
+msgstr "噬血蠱"
 
 msgid "gu_shiyuan_name"
-msgstr ""
+msgstr "蝕元蠱"
 
 msgid "gu_luanxin_name"
-msgstr ""
+msgstr "乱心蠱"
 
 msgid "Missing Gu tool"
-msgstr ""
+msgstr "蠱具がない"
 
 msgid "Invalid Gu type"
-msgstr ""
+msgstr "無効な蠱タイプ"
 
 msgid "Cannot inflict Gu on self"
-msgstr ""
+msgstr "自分に蠱を仕掛けることはできない"
 
 msgid "{caster} attempts to inflict {gu_name} on {target}."
-msgstr ""
+msgstr "{caster}は{target}に{gu_name}を仕掛けようとした。"
 
 msgid "{caster} successfully inflicted {gu_name} on {target}."
-msgstr ""
+msgstr "{caster}は{target}に{gu_name}を仕掛けた。"
 
 msgid "{caster} failed to inflict {gu_name} on {target}."
-msgstr ""
+msgstr "{caster}は{target}に{gu_name}を仕掛けられなかった。"
 
 msgid ""
 "{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
-msgstr ""
+msgstr "{caster}は{target}に{gu_name}を仕掛けられず、その試みは発覚した。"
 
 msgid "{target}'s {gu_name} took effect, losing {amount} HP."
-msgstr ""
+msgstr "{target}の{gu_name}が発動し、HPを{amount}失った。"
 
 msgid ""
 "{target}'s {gu_name} took effect, losing {amount} cultivation experience."
-msgstr ""
+msgstr "{target}の{gu_name}が発動し、修為経験を{amount}失った。"

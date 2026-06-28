@@ -49,6 +49,7 @@ from .temper import Temper
 from .plant import Plant
 from .sect_mission import SectMission
 from .inflict_gu import InflictGu
+from .set_formation import SetFormation
 
 # 注册到 ActionRegistry（标注是否为实际可执行动作）
 register_action(actual=False)(Action)
@@ -97,6 +98,7 @@ register_action(actual=True)(Temper)
 register_action(actual=True)(Plant)
 register_action(actual=True)(SectMission)
 register_action(actual=True)(InflictGu)
+register_action(actual=True)(SetFormation)
 # Talk 已移动到 mutual_action 模块，在那里注册
 
 __all__ = [
@@ -148,4 +150,5 @@ __all__ = [
     "Plant",
     "SectMission",
     "InflictGu",
+    "SetFormation",
 ]

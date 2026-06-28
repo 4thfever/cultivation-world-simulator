@@ -699,3 +699,15 @@ msgstr "天生与万蛊相亲，举念之间可令虫豸奉命。"
 
 msgid "PERSONA_1018_NAME"
 msgstr "蛊仙"
+
+msgid "PERSONA_1019_DESC"
+msgstr "通晓阵法结构，能以阵盘调动区域灵机。"
+
+msgid "PERSONA_1019_NAME"
+msgstr "阵师"
+
+msgid "PERSONA_1020_DESC"
+msgstr "天生精通阵道，布阵时能更高效地牵引地脉与灵机。"
+
+msgid "PERSONA_1020_NAME"
+msgstr "阵仙"

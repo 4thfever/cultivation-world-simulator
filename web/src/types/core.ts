@@ -283,6 +283,18 @@ export interface RegionSummary extends EntityBase, Coordinates {
   // 是否为激活宗门（由后端地图查询接口提供，当前主路径为 /api/v1/query/world/map）。未提供时视为 true。
   sect_is_active?: boolean;
   sub_type?: string; // for cultivate regions: "cave" or "ruin"
+  formation?: RegionFormationInfo | null;
+}
+
+export interface RegionFormationInfo {
+  formation_type: string;
+  name: string;
+  remaining_months: number;
+  effect_desc: string;
+  caster_id?: string;
+  disk_item_id?: number;
+  cost?: number;
+  effects?: Record<string, number | string | boolean | string[]>;
 }
 
 export interface RegionDetail extends EntityBase {
@@ -309,6 +321,7 @@ export interface RegionDetail extends EntityBase {
   plants: EffectEntity[];
   lodes: EffectEntity[];
   store_items?: (EffectEntity & { price: number })[];
+  formation?: RegionFormationInfo | null;
 }
 
 // --- 天地灵机 ---

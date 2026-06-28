@@ -308,29 +308,53 @@ msgstr "上古神木雕琢而成，不僅可煉丹，更能自成空間催熟靈
 msgid "AUXILIARY_2065_NAME"
 msgstr "青木神鼎"
 
+msgid "AUXILIARY_2081_DESC"
+msgstr "刻有基礎陣紋的陣盤，可在當前區域布置低階陣法。"
+
+msgid "AUXILIARY_2081_NAME"
+msgstr "下品陣盤"
+
+msgid "AUXILIARY_2082_DESC"
+msgstr "陣紋較為穩定的陣盤，可在當前區域布置中階陣法。"
+
+msgid "AUXILIARY_2082_NAME"
+msgstr "中品陣盤"
+
+msgid "AUXILIARY_2083_DESC"
+msgstr "可承載複雜靈路的陣盤，可在當前區域布置高階陣法。"
+
+msgid "AUXILIARY_2083_NAME"
+msgstr "上品陣盤"
+
+msgid "AUXILIARY_2084_DESC"
+msgstr "靈紋自成循環的陣盤，可在當前區域布置頂級陣法。"
+
+msgid "AUXILIARY_2084_NAME"
+msgstr "極品陣盤"
+
 msgid "AUXILIARY_2071_DESC"
-msgstr ""
+msgstr "以粗布與獸皮製成的蠱囊，可收納尋常靈蟲。"
 
 msgid "AUXILIARY_2071_NAME"
-msgstr ""
+msgstr "百蟲囊"
 
 msgid "AUXILIARY_2072_DESC"
-msgstr ""
+msgstr "以五毒相生之法煉成的蠱盅，蠱性較為穩定。"
 
 msgid "AUXILIARY_2072_NAME"
-msgstr ""
+msgstr "五毒蠱盅"
 
 msgid "AUXILIARY_2073_DESC"
-msgstr ""
+msgstr "機關與蠱術結合的蠱匣，便於隱蔽施蠱。"
 
 msgid "AUXILIARY_2073_NAME"
-msgstr ""
+msgstr "千機蠱匣"
 
 msgid "AUXILIARY_2074_DESC"
-msgstr ""
+msgstr "母蠱盤踞其中，可統御群蠱。"
 
 msgid "AUXILIARY_2074_NAME"
-msgstr ""
+msgstr "萬蠱母巢"
 
 #. celestial_phenomenon.csv: 天地靈氣井噴復甦，修爲進境一日千里，萬物...
 msgid "CELESTIAL_PHENOMENON_10_DESC"
@@ -1978,17 +2002,41 @@ msgstr "你習慣收斂鋒芒、示敵以弱，他人常常誤判你的實力與
 msgid "PERSONA_1014_NAME"
 msgstr "扮豬吃老虎"
 
+msgid "PERSONA_1015_DESC"
+msgstr "你對不同種族的修士抱有天然好奇與親近，願意越過出身差異建立關係。"
+
+msgid "PERSONA_1015_NAME"
+msgstr "親近異類"
+
+msgid "PERSONA_1016_DESC"
+msgstr "你本能地排斥與自己種族不同的修士，很難真正信任異族。"
+
+msgid "PERSONA_1016_NAME"
+msgstr "痛恨異類"
+
+msgid "PERSONA_1019_DESC"
+msgstr "通曉陣法結構，能以陣盤調動區域靈機。"
+
+msgid "PERSONA_1019_NAME"
+msgstr "陣師"
+
+msgid "PERSONA_1020_DESC"
+msgstr "天生精通陣道，布陣時能更高效地牽引地脈與靈機。"
+
+msgid "PERSONA_1020_NAME"
+msgstr "陣仙"
+
 msgid "PERSONA_1017_DESC"
-msgstr ""
+msgstr "通曉蟲豸毒術，善以蠱入道。"
 
 msgid "PERSONA_1017_NAME"
-msgstr ""
+msgstr "蠱師"
 
 msgid "PERSONA_1018_DESC"
-msgstr ""
+msgstr "天生與萬蠱相親，舉念之間可令蟲豸奉命。"
 
 msgid "PERSONA_1018_NAME"
-msgstr ""
+msgstr "蠱仙"
 
 #. plant.csv: 頑強生長在戈壁巖縫中的奇異植物，葉片堅硬...
 msgid "PLANT_10_DESC"
