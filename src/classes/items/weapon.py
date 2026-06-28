@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import random
+import copy
 from dataclasses import dataclass, field
 from typing import Optional, Dict
 
@@ -32,6 +33,11 @@ class Weapon(Item):
 
     def __hash__(self):
         return hash(self.id)
+
+    def instantiate(self) -> "Weapon":
+        instance = copy.copy(self)
+        instance.special_data = copy.deepcopy(self.special_data)
+        return instance
 
     def get_info(self, detailed: bool = False) -> str:
         """获取信息"""

@@ -42,7 +42,7 @@ class TestEquipment:
             assert w_core.realm == Realm.Core_Formation
 
     def test_weapon_deepcopy(self):
-        """测试兵器深拷贝独立性"""
+        """测试兵器实例化独立性"""
         w1 = get_random_weapon_by_realm(Realm.Qi_Refinement)
         if not w1:
             pytest.skip("No Qi Refinement weapons available")
@@ -62,6 +62,7 @@ class TestEquipment:
         # 修改一个不影响另一个
         w_copy1.special_data["test"] = 123
         assert "test" not in w_copy2.special_data
+        assert w_copy1.effects is prototype.effects
 
     def test_auxiliary_structure(self):
         """测试辅助装备数据结构和加载"""
@@ -80,5 +81,26 @@ class TestEquipment:
         detailed = aux.get_detailed_info()
         assert aux.name in detailed
         assert str(aux.realm) in detailed
+
+    def test_auxiliary_instantiate_keeps_special_data_independent(self):
+        """测试辅助装备实例化只隔离实例状态"""
+        prototype = auxiliaries_by_id[2001]
+        prototype.special_data["source"] = {"nested": 1}
+
+        try:
+            aux_copy1 = prototype.instantiate()
+            aux_copy2 = prototype.instantiate()
+
+            assert aux_copy1 is not aux_copy2
+            assert aux_copy1.id == aux_copy2.id == prototype.id
+            assert aux_copy1.effects is prototype.effects
+
+            aux_copy1.special_data["source"]["nested"] = 2
+            aux_copy1.special_data["test"] = 123
+
+            assert aux_copy2.special_data["source"]["nested"] == 1
+            assert "test" not in aux_copy2.special_data
+        finally:
+            prototype.special_data.clear()
 
 

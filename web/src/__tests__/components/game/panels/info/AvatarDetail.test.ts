@@ -4,8 +4,19 @@ import { defineComponent, h, nextTick } from 'vue'
 import AvatarDetail from '@/components/game/panels/info/AvatarDetail.vue'
 import { createPinia, setActivePinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
+import { systemApi } from '@/api'
 
 const entityRowSpy = vi.fn()
+
+vi.mock('@/api', () => ({
+  avatarApi: {
+    setLongTermObjective: vi.fn(),
+    clearLongTermObjective: vi.fn(),
+  },
+  systemApi: {
+    pauseGame: vi.fn(),
+  },
+}))
 
 vi.mock('@/components/game/panels/info/components/EntityRow.vue', () => ({
   default: defineComponent({
@@ -23,6 +34,7 @@ describe('AvatarDetail', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
     entityRowSpy.mockClear()
+    vi.mocked(systemApi.pauseGame).mockResolvedValue(undefined)
   })
 
   const i18n = createI18n({
@@ -516,6 +528,7 @@ describe('AvatarDetail', () => {
 
     await adjustButtons[3].trigger('click')
 
+    expect(systemApi.pauseGame).toHaveBeenCalledTimes(1)
     expect(capturedProps).not.toBeNull()
     expect(capturedProps?.category).toBe('goldfinger')
     expect(capturedProps?.currentItem).toMatchObject({

@@ -2,7 +2,7 @@ import { computed, ref } from 'vue'
 import type { ComposerTranslation } from 'vue-i18n'
 import type { AvatarDetail, EffectEntity, RelationInfo } from '@/types/core'
 import { BloodRelationType } from '@/constants/relations'
-import { avatarApi } from '@/api'
+import { avatarApi, systemApi } from '@/api'
 import type { useUiStore } from '@/stores/ui'
 import { logError } from '@/utils/appError'
 import { getAvatarPortraitUrl } from '@/utils/assetUrls'
@@ -236,6 +236,9 @@ export function useAvatarDetailPanel(
   }
 
   function openAdjustPanel(category: AvatarAdjustCategory) {
+    void systemApi.pauseGame().catch(error => {
+      logError('AvatarDetail.openAdjustPanel.pauseGame', error)
+    })
     adjustCategory.value = category
   }
 

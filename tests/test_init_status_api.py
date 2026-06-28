@@ -337,6 +337,40 @@ class TestInitGameAsync:
             assert game_instance["init_progress"] == 100
 
     @pytest.mark.asyncio
+    async def test_init_waits_for_initial_events_before_ready(self, reset_game_instance, mock_llm_managers):
+        """Ready should not be exposed until the initial simulator step has finished."""
+        observed_status_during_step = None
+
+        async def step():
+            nonlocal observed_status_during_step
+            observed_status_during_step = game_instance["init_status"]
+
+        with patch.object(main, 'scan_avatar_assets'), \
+             patch.object(main, 'load_cultivation_world_map') as mock_load_map, \
+             patch.object(main, 'check_llm_connectivity', return_value=(True, "")), \
+             patch('src.server.main.World') as mock_world_class, \
+             patch('src.server.main.Simulator') as mock_sim_class, \
+             patch('src.server.main.sects_by_id', {}), \
+             patch('src.server.main.CONFIG') as mock_config:
+
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 0
+
+            mock_map = MagicMock()
+            mock_load_map.return_value = mock_map
+            mock_world = MagicMock()
+            mock_world.avatar_manager.avatars = {}
+            mock_world_class.return_value = mock_world
+            mock_sim = MagicMock()
+            mock_sim.step = AsyncMock(side_effect=step)
+            mock_sim_class.return_value = mock_sim
+
+            await main.init_game_async()
+
+            assert observed_status_during_step == "in_progress"
+            assert game_instance["init_status"] == "ready"
+
+    @pytest.mark.asyncio
     async def test_init_records_llm_failure(self, reset_game_instance, mock_llm_managers):
         """Test LLM check failure is recorded but doesn't stop initialization."""
         with patch.object(main, 'scan_avatar_assets'), \

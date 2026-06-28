@@ -155,23 +155,13 @@ async def _run_llm_check_background(
         print(f"[Warning] LLM connectivity check failed: {exc}")
 
 
-async def _run_initial_events_background(*, runtime, sim, init_generation: int) -> None:
-    async def _do_step() -> None:
-        if int(runtime.get("init_generation", 0) or 0) != init_generation:
-            return
-        print("Generating initial events in background...")
-        try:
-            await sim.step()
-            print("Initial events generation completed")
-        except Exception as exc:
-            print(f"[Warning] Initial events generation failed: {exc}")
-
+async def _generate_initial_events(*, sim) -> None:
+    print("Generating initial events...")
     try:
-        if int(runtime.get("init_generation", 0) or 0) != init_generation:
-            return
-        await runtime.run_mutation(_do_step)
+        await sim.step()
+        print("Initial events generation completed")
     except Exception as exc:
-        print(f"[Warning] Initial events background task failed: {exc}")
+        print(f"[Warning] Initial events generation failed: {exc}")
 
 
 async def perform_game_initialization(
@@ -287,6 +277,7 @@ async def perform_game_initialization(
 
         update_init_progress(6, "generating_initial_events")
         runtime.set_paused(True)
+        await _generate_initial_events(sim=sim)
         runtime.finish_initialization(phase_name="complete")
         runtime.update(
             {
@@ -302,13 +293,6 @@ async def perform_game_initialization(
                 runtime=runtime,
                 init_generation=init_generation,
                 check_llm_connectivity=check_llm_connectivity,
-            )
-        )
-        asyncio.create_task(
-            _run_initial_events_background(
-                runtime=runtime,
-                sim=sim,
-                init_generation=init_generation,
             )
         )
         print("Game world initialization completed!")
