@@ -1,0 +1,14 @@
+{
+  "total_items": 56,
+  "total_batches": 7,
+  "batch_size": 9,
+  "columns": 3,
+  "rows": 3,
+  "categories": [
+    "animal",
+    "plant",
+    "lode",
+    "material"
+  ],
+  "fallback_count": 4
+}

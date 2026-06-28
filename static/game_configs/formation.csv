@@ -1,0 +1,9 @@
+key,name_id,base_duration_months,base_cost,effects
+,名称ID,基础持续月份,基础灵石消耗,阵法基础效果
+spirit_gathering,formation_spirit_gathering_name,24,120,{extra_respire_exp_multiplier: 0.20}
+mountain_guard,formation_mountain_guard_name,24,160,{extra_battle_strength_points: 3}
+healing,formation_healing_name,18,100,{extra_hp_recovery_rate: 0.40}
+clarity,formation_clarity_name,18,140,"{extra_breakthrough_success_rate: 0.06, extra_retreat_success_rate: 0.06}"
+vein_seeking,formation_vein_seeking_name,18,80,{extra_mine_materials: 1}
+wood_growth,formation_wood_growth_name,18,80,{extra_harvest_materials: 1}
+beast_driving,formation_beast_driving_name,18,80,{extra_hunt_materials: 1}

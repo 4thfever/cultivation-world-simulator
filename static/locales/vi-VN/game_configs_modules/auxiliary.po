@@ -256,28 +256,28 @@ msgid "AUXILIARY_2065_NAME"
 msgstr "Thanh Mộc Thần Đỉnh"
 
 msgid "AUXILIARY_2081_DESC"
-msgstr "Trận bàn khắc trận văn cơ bản, có thể bố trí trận pháp cấp thấp trong khu vực hiện tại."
+msgstr "Trận bàn khắc linh văn dẫn linh cơ bản, có thể dẫn động linh cơ trong khu vực hiện tại để bố trí trận pháp tạm thời."
 
 msgid "AUXILIARY_2081_NAME"
-msgstr "Hạ Phẩm Trận Bàn"
+msgstr "Dẫn Linh Trận Bàn"
 
 msgid "AUXILIARY_2082_DESC"
-msgstr "Trận bàn có trận văn khá ổn định, có thể bố trí trận pháp trung cấp trong khu vực hiện tại."
+msgstr "Trận văn trên bàn có thể nối với địa mạch nông, khiến trận pháp ổn định hơn, uy năng và thời gian duy trì tăng nhẹ."
 
 msgid "AUXILIARY_2082_NAME"
-msgstr "Trung Phẩm Trận Bàn"
+msgstr "Tụ Mạch Trận Bàn"
 
 msgid "AUXILIARY_2083_DESC"
-msgstr "Trận bàn có thể gánh linh lộ phức tạp, có thể bố trí trận pháp cao cấp trong khu vực hiện tại."
+msgstr "Dùng linh văn huyền xu thống ngự nhiều linh lộ, giúp trận thế mạnh hơn khi bố trận và giảm một phần hao tổn linh thạch."
 
 msgid "AUXILIARY_2083_NAME"
-msgstr "Thượng Phẩm Trận Bàn"
+msgstr "Huyền Xu Trận Bàn"
 
 msgid "AUXILIARY_2084_DESC"
-msgstr "Trận bàn có linh văn tự thành tuần hoàn, có thể bố trí trận pháp đỉnh cấp trong khu vực hiện tại."
+msgstr "Linh văn tự thành chu thiên tuần hoàn, có thể mượn linh cơ hư không để bổ toàn trận thế, tăng mạnh uy năng, thời gian duy trì và hiệu suất vận chuyển."
 
 msgid "AUXILIARY_2084_NAME"
-msgstr "Cực Phẩm Trận Bàn"
+msgstr "Thái Hư Trận Bàn"
 
 msgid "AUXILIARY_2071_DESC"
 msgstr "Túi cổ làm từ vải thô và da thú, dùng để chứa linh trùng thông thường."

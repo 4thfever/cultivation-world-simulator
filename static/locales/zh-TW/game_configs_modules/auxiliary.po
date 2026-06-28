@@ -221,28 +221,28 @@ msgid "AUXILIARY_2065_NAME"
 msgstr "青木神鼎"
 
 msgid "AUXILIARY_2081_DESC"
-msgstr "刻有基礎陣紋的陣盤，可在當前區域布置低階陣法。"
+msgstr "刻有基礎引靈紋路的陣盤，可牽動當前區域靈機，布置臨時陣法。"
 
 msgid "AUXILIARY_2081_NAME"
-msgstr "下品陣盤"
+msgstr "引靈陣盤"
 
 msgid "AUXILIARY_2082_DESC"
-msgstr "陣紋較為穩定的陣盤，可在當前區域布置中階陣法。"
+msgstr "盤中陣紋能接續淺層地脈，使布下的陣法更穩，威能與持續時間略有提升。"
 
 msgid "AUXILIARY_2082_NAME"
-msgstr "中品陣盤"
+msgstr "聚脈陣盤"
 
 msgid "AUXILIARY_2083_DESC"
-msgstr "可承載複雜靈路的陣盤，可在當前區域布置高階陣法。"
+msgstr "以玄樞靈紋統攝多重靈路，布陣時能令陣勢更盛，並減少部分靈石損耗。"
 
 msgid "AUXILIARY_2083_NAME"
-msgstr "上品陣盤"
+msgstr "玄樞陣盤"
 
 msgid "AUXILIARY_2084_DESC"
-msgstr "靈紋自成循環的陣盤，可在當前區域布置頂級陣法。"
+msgstr "靈紋自成周天循環，可借虛空靈機補全陣勢，使陣法威能、持續與運轉效率大幅提升。"
 
 msgid "AUXILIARY_2084_NAME"
-msgstr "極品陣盤"
+msgstr "太虛陣盤"
 
 msgid "AUXILIARY_2071_DESC"
 msgstr "以粗布與獸皮製成的蠱囊，可收納尋常靈蟲。"

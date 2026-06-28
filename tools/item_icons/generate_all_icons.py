@@ -14,6 +14,7 @@ from tools.item_icons.utils.fal_client import FalApiError, FalImageConfig, gener
 
 ROOT = Path(__file__).resolve().parents[2]
 INCLUDED_CATEGORIES = ("weapon", "elixir", "auxiliary", "technique", "goldfinger")
+ECOLOGY_CATEGORIES = ("animal", "plant", "lode", "material")
 FALLBACK_ITEMS = [
     {
         "icon_key": "fallback_weapon",
@@ -64,6 +65,40 @@ FALLBACK_ITEMS = [
         "meta": "mysterious item pouch",
     },
 ]
+ECOLOGY_FALLBACK_ITEMS = [
+    {
+        "icon_key": "fallback_animal",
+        "category": "fallback",
+        "id": "animal",
+        "name": "动物兜底",
+        "desc": "通用灵兽或妖兽图标。",
+        "meta": "generic spirit beast",
+    },
+    {
+        "icon_key": "fallback_plant",
+        "category": "fallback",
+        "id": "plant",
+        "name": "植物兜底",
+        "desc": "通用灵草灵植图标。",
+        "meta": "generic spiritual herb",
+    },
+    {
+        "icon_key": "fallback_lode",
+        "category": "fallback",
+        "id": "lode",
+        "name": "矿脉兜底",
+        "desc": "通用矿脉矿石图标。",
+        "meta": "generic ore vein",
+    },
+    {
+        "icon_key": "fallback_material",
+        "category": "fallback",
+        "id": "material",
+        "name": "材料兜底",
+        "desc": "通用掉落材料图标。",
+        "meta": "generic crafting material",
+    },
+]
 
 
 def _load_fal_config() -> FalImageConfig:
@@ -93,7 +128,41 @@ def _chunks(items: list[dict[str, str]], size: int) -> list[list[dict[str, str]]
     return [items[index : index + size] for index in range(0, len(items), size)]
 
 
-def _selected_manifest(include_material: bool) -> list[dict[str, str]]:
+def _read_simple_config(category: str) -> list[dict[str, str]]:
+    import csv
+
+    path = ROOT / "static" / "game_configs" / f"{category}.csv"
+    rows: list[dict[str, str]] = []
+    with path.open("r", encoding="utf-8-sig", newline="") as file:
+        for row in csv.DictReader(file):
+            item_id = str(row.get("id") or "").strip()
+            name = str(row.get("name") or "").strip()
+            if not item_id or not name or name == "名称":
+                continue
+            desc = str(row.get("desc") or "").strip()
+            stage_id = str(row.get("stage_id") or "").strip()
+            rows.append(
+                {
+                    "icon_key": f"{category}_{item_id}",
+                    "category": category,
+                    "id": item_id,
+                    "name": name,
+                    "desc": desc,
+                    "meta": f"stage {stage_id}" if stage_id else "",
+                    "asset_path": f"icons/items/{category}_{item_id}.png",
+                }
+            )
+    return rows
+
+
+def _selected_manifest(include_material: bool, ecology_only: bool) -> list[dict[str, str]]:
+    if ecology_only:
+        items: list[dict[str, str]] = []
+        for category in ECOLOGY_CATEGORIES:
+            items.extend(_read_simple_config(category))
+        items.extend(ECOLOGY_FALLBACK_ITEMS)
+        return items
+
     categories = set(INCLUDED_CATEGORIES)
     if include_material:
         categories.add("material")
@@ -135,6 +204,7 @@ def _process_batch(
     config: FalImageConfig,
     dry_run: bool,
 ) -> dict[str, object]:
+    batch_rows = math.ceil(len(batch) / columns)
     raw_path = out_dir / "raw" / f"{batch_id}.png"
     split_dir = out_dir / "split" / batch_id
     alpha_dir = out_dir / "alpha" / batch_id
@@ -146,7 +216,7 @@ def _process_batch(
         return {"ok": True, "batch_id": batch_id, "dry_run": True, "items": batch, "prompt": prompt}
 
     result = generate_to_file(prompt, raw_path, config=config)
-    split_paths = split_contact_sheet(raw_path, split_dir, columns=columns, rows=rows, prefix=batch_id)
+    split_paths = split_contact_sheet(raw_path, split_dir, columns=columns, rows=batch_rows, prefix=batch_id)
     processed: list[dict[str, str]] = []
     spill_rgb = _hex_to_rgb(CHROMA_KEY)
     for item, split_path in zip(batch, split_paths):
@@ -185,13 +255,14 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int, default=9)
     parser.add_argument("--columns", type=int, default=3)
     parser.add_argument("--include-material", action="store_true")
+    parser.add_argument("--ecology-only", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
 
     out_dir = ROOT / args.out_dir
     meta_path = out_dir / "generation_manifest.json"
-    items = _selected_manifest(args.include_material)
+    items = _selected_manifest(args.include_material, args.ecology_only)
     batches = _chunks(items, args.batch_size)
     rows = math.ceil(args.batch_size / args.columns)
     config = _load_fal_config()
@@ -203,8 +274,8 @@ def main() -> None:
         "batch_size": args.batch_size,
         "columns": args.columns,
         "rows": rows,
-        "categories": INCLUDED_CATEGORIES + (("material",) if args.include_material else ()),
-        "fallback_count": len(FALLBACK_ITEMS),
+        "categories": ECOLOGY_CATEGORIES if args.ecology_only else INCLUDED_CATEGORIES + (("material",) if args.include_material else ()),
+        "fallback_count": len(ECOLOGY_FALLBACK_ITEMS) if args.ecology_only else len(FALLBACK_ITEMS),
     }
     (out_dir / "summary.json").parent.mkdir(parents=True, exist_ok=True)
     (out_dir / "summary.json").write_text(

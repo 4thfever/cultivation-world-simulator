@@ -88,4 +88,13 @@ describe('public api module migration', () => {
     expect(postMock).toHaveBeenNthCalledWith(1, '/api/v1/command/game/reinit', {})
     expect(postMock).toHaveBeenNthCalledWith(2, '/api/v1/command/system/shutdown', {})
   })
+
+  it('systemApi exposes pause-and-drain for edit panels', async () => {
+    const { systemApi } = await import('@/api/modules/system')
+    postMock.mockResolvedValue({ status: 'ok' })
+
+    await systemApi.pauseGameAndDrain()
+
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/game/pause-and-drain', {})
+  })
 })

@@ -115,3 +115,17 @@ class TestEffectDescI18n:
         assert "level" in text or "等级" in text 
         assert "[" in text and "]" in text
 
+    def test_formation_effect_values_are_player_readable(self):
+        language_manager.set_language(get_source_locale())
+        reload_translations()
+
+        text = format_effects_to_text({
+            "extra_formation_power": 0.08,
+            "extra_formation_duration_months": 2,
+            "formation_cost_reduction": 0.05,
+        })
+
+        assert "阵法威能 +8.0%" in text
+        assert "阵法持续 +2" in text
+        assert "布阵消耗 -5.0%" in text
+

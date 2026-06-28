@@ -473,6 +473,7 @@ run_start_game = command_handlers.run_start_game
 run_reinit_game = command_handlers.run_reinit_game
 run_reset_game = command_handlers.run_reset_game
 run_pause_game = command_handlers.run_pause_game
+run_pause_game_and_drain = command_handlers.run_pause_game_and_drain
 run_resume_game = command_handlers.run_resume_game
 run_cleanup_events = command_handlers.run_cleanup_events
 run_set_phenomenon = command_handlers.run_set_phenomenon
@@ -649,6 +650,7 @@ configure_routes_and_mounts(
     run_reset_game=run_reset_game,
     trigger_process_shutdown=lambda: trigger_process_shutdown(is_dev_mode=IS_DEV_MODE),
     run_pause_game=run_pause_game,
+    run_pause_game_and_drain=run_pause_game_and_drain,
     run_resume_game=run_resume_game,
     run_set_long_term_objective=run_set_long_term_objective,
     run_clear_long_term_objective=run_clear_long_term_objective,

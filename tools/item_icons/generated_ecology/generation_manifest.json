@@ -1,0 +1,578 @@
+{
+  "batches": [
+    {
+      "ok": true,
+      "batch_id": "batch_001",
+      "request_id": "019f0ea2-460a-7ad1-80f0-fdabf23dc81f",
+      "image_url": "https://v3b.fal.media/files/b/0aa01e5e/eCi-u_xu0_kNdVNga2sok_2uH7fMH2.png",
+      "raw": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\raw\\batch_001.png",
+      "items": [
+        {
+          "icon_key": "animal_1",
+          "category": "animal",
+          "name": "灵兔",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_001\\batch_001_01.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_001\\animal_1.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_001\\animal_1.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_1.png"
+        },
+        {
+          "icon_key": "animal_2",
+          "category": "animal",
+          "name": "魔狼",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_001\\batch_001_02.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_001\\animal_2.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_001\\animal_2.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_2.png"
+        },
+        {
+          "icon_key": "animal_3",
+          "category": "animal",
+          "name": "青云鹿",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_001\\batch_001_03.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_001\\animal_3.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_001\\animal_3.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_3.png"
+        },
+        {
+          "icon_key": "animal_4",
+          "category": "animal",
+          "name": "暗影豹",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_001\\batch_001_04.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_001\\animal_4.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_001\\animal_4.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_4.png"
+        },
+        {
+          "icon_key": "animal_5",
+          "category": "animal",
+          "name": "碧海龙龟",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_001\\batch_001_05.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_001\\animal_5.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_001\\animal_5.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_5.png"
+        },
+        {
+          "icon_key": "animal_6",
+          "category": "animal",
+          "name": "石甲山熊",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_001\\batch_001_06.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_001\\animal_6.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_001\\animal_6.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_6.png"
+        },
+        {
+          "icon_key": "animal_7",
+          "category": "animal",
+          "name": "风速马",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_001\\batch_001_07.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_001\\animal_7.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_001\\animal_7.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_7.png"
+        },
+        {
+          "icon_key": "animal_8",
+          "category": "animal",
+          "name": "熔岩蜥蜴",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_001\\batch_001_08.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_001\\animal_8.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_001\\animal_8.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_8.png"
+        },
+        {
+          "icon_key": "animal_9",
+          "category": "animal",
+          "name": "毒瘴蛙",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_001\\batch_001_09.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_001\\animal_9.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_001\\animal_9.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_9.png"
+        }
+      ],
+      "prompt": "Create a single pixel-art RPG item icon contact sheet for later transparent-background extraction.\n\nCanvas/layout:\n- Exactly 3 columns by 3 rows, one centered icon per cell.\n- Keep every icon fully inside its cell with generous padding.\n- No labels, no numbers, no UI frame, no watermark, no text.\n- Use one perfectly flat solid #ff00ff chroma-key background across the whole image.\n- The background must be mathematically plain: no dithering, no pixel speckles, no texture, no gradients, no vignette, no floor plane.\n- Do not use #ff00ff, purple-magenta outlines, or pink particles anywhere inside the items.\n- Keep item glow, particles, smoke, and magic aura inside the item silhouette; do not scatter decorative pixels into the background.\n\nStyle:\n- 32-bit fantasy cultivation RPG pixel art.\n- Clear silhouette, readable at 64x64, crisp hard edges.\n- Slight top-left highlight, subtle item detail, no cast shadow, no ambient shadow.\n- Transparent-ready asset style, isolated objects only.\n- Each icon should look like a standalone inventory item sprite, not a scene.\n\nItems in reading order:\n1. animal: 灵兔 - 天性机敏的灵性兔子，毛色雪白，蕴含微弱灵力，性情温和易驯服 stage 1\n2. animal: 魔狼 - 凶猛的魔性狼族，体型巨大，拥有强大的魔力和锋利的爪牙 stage 2\n3. animal: 青云鹿 - 栖息于平原地带的温和灵兽，通体青色，角如玉石，善于感知灵气变化 stage 1\n4. animal: 暗影豹 - 南疆蛮荒中的敏捷猎手，身形如影，爪牙锋利，擅长潜行狩猎 stage 2\n5. animal: 碧海龙龟 - 无边碧海的古老灵兽，龟甲如碧玉，能操控海水，寿命极长 stage 3\n6. animal: 石甲山熊 - 青峰山脉的强壮守护者，皮毛坚如磐石，力大无穷，性情憨厚 stage 2\n7. animal: 风速马 - 驰骋于碧野千里的神骏灵兽，四蹄生风，速度如电，鬃毛飘逸 stage 2\n8. animal: 熔岩蜥蜴 - 炎狱火山中的火系灵兽，鳞片赤红如火，能在岩浆中游泳，喷吐烈焰 stage 3\n9. animal: 毒瘴蛙 - 迷雾沼泽的剧毒生物，体色斑斓，能释放致命毒气，善于隐匿 stage 2\n"
+    },
+    {
+      "ok": true,
+      "batch_id": "batch_002",
+      "request_id": "019f0ea2-e7f8-7660-8db9-194f216bb366",
+      "image_url": "https://v3b.fal.media/files/b/0aa01e62/wuvCBFUODxR2WTos82Ox1_K6G1uqU5.png",
+      "raw": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\raw\\batch_002.png",
+      "items": [
+        {
+          "icon_key": "animal_10",
+          "category": "animal",
+          "name": "撼地神牛",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_002\\batch_002_01.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_002\\animal_10.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_002\\animal_10.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_10.png"
+        },
+        {
+          "icon_key": "animal_11",
+          "category": "animal",
+          "name": "冰魄骨蛇",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_002\\batch_002_02.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_002\\animal_11.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_002\\animal_11.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\animal_11.png"
+        },
+        {
+          "icon_key": "plant_1",
+          "category": "plant",
+          "name": "奇草",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_002\\batch_002_03.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_002\\plant_1.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_002\\plant_1.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_1.png"
+        },
+        {
+          "icon_key": "plant_2",
+          "category": "plant",
+          "name": "灵木",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_002\\batch_002_04.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_002\\plant_2.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_002\\plant_2.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_2.png"
+        },
+        {
+          "icon_key": "plant_3",
+          "category": "plant",
+          "name": "沙漠仙人掌",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_002\\batch_002_05.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_002\\plant_3.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_002\\plant_3.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_3.png"
+        },
+        {
+          "icon_key": "plant_4",
+          "category": "plant",
+          "name": "寒霜雪莲",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_002\\batch_002_06.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_002\\plant_4.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_002\\plant_4.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_4.png"
+        },
+        {
+          "icon_key": "plant_5",
+          "category": "plant",
+          "name": "水灵芝",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_002\\batch_002_07.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_002\\plant_5.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_002\\plant_5.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_5.png"
+        },
+        {
+          "icon_key": "plant_6",
+          "category": "plant",
+          "name": "雪绒花",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_002\\batch_002_08.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_002\\plant_6.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_002\\plant_6.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_6.png"
+        },
+        {
+          "icon_key": "plant_7",
+          "category": "plant",
+          "name": "千年古松",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_002\\batch_002_09.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_002\\plant_7.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_002\\plant_7.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_7.png"
+        }
+      ],
+      "prompt": "Create a single pixel-art RPG item icon contact sheet for later transparent-background extraction.\n\nCanvas/layout:\n- Exactly 3 columns by 3 rows, one centered icon per cell.\n- Keep every icon fully inside its cell with generous padding.\n- No labels, no numbers, no UI frame, no watermark, no text.\n- Use one perfectly flat solid #ff00ff chroma-key background across the whole image.\n- The background must be mathematically plain: no dithering, no pixel speckles, no texture, no gradients, no vignette, no floor plane.\n- Do not use #ff00ff, purple-magenta outlines, or pink particles anywhere inside the items.\n- Keep item glow, particles, smoke, and magic aura inside the item silhouette; do not scatter decorative pixels into the background.\n\nStyle:\n- 32-bit fantasy cultivation RPG pixel art.\n- Clear silhouette, readable at 64x64, crisp hard edges.\n- Slight top-left highlight, subtle item detail, no cast shadow, no ambient shadow.\n- Transparent-ready asset style, isolated objects only.\n- Each icon should look like a standalone inventory item sprite, not a scene.\n\nItems in reading order:\n1. animal: 撼地神牛 - 拥有上古血脉的巨型妖兽，皮毛如铁，行走间地动山摇，力大无穷 stage 3\n2. animal: 冰魄骨蛇 - 生存于冻土深处的冷血妖兽，身躯由半透明的骨骼和冰霜构成，无声无息，能瞬间冻结猎物 stage 2\n3. plant: 奇草 - 生长在灵气充沛之地的奇异草药，叶片呈淡蓝色，具有神奇的治愈效果 stage 1\n4. plant: 灵木 - 千年古树吸收天地灵气而成，木质坚硬且蕴含浓郁灵力 stage 2\n5. plant: 沙漠仙人掌 - 生长于西域流沙的神奇植物，能储存大量灵气和水分，刺中含灵药 stage 1\n6. plant: 寒霜雪莲 - 极北冰原的珍贵灵药，花瓣洁白如雪，蕴含极寒之气，能清热解毒 stage 2\n7. plant: 水灵芝 - 生长于天河河底的水系灵药，呈半透明蓝色，能增强修炼者水行灵力 stage 2\n8. plant: 雪绒花 - 万丈雪峰的高山植物，花瓣细小洁白，能抗严寒，具有安神镇静功效 stage 1\n9. plant: 千年古松 - 青云林海中的古老巨树，树龄超过千年，树脂含有丰富灵力 stage 3\n"
+    },
+    {
+      "ok": true,
+      "batch_id": "batch_003",
+      "request_id": "019f0ea3-bc00-70d1-b42a-ad4b95d2d0e9",
+      "image_url": "https://v3b.fal.media/files/b/0aa01e70/6_Z_dM7RT7TFe3B8lZlPh_C3xjV0e9.png",
+      "raw": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\raw\\batch_003.png",
+      "items": [
+        {
+          "icon_key": "plant_8",
+          "category": "plant",
+          "name": "五谷灵稻",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_003\\batch_003_01.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_003\\plant_8.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_003\\plant_8.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_8.png"
+        },
+        {
+          "icon_key": "plant_9",
+          "category": "plant",
+          "name": "九曲清音竹",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_003\\batch_003_02.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_003\\plant_9.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_003\\plant_9.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_9.png"
+        },
+        {
+          "icon_key": "plant_10",
+          "category": "plant",
+          "name": "聚星草",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_003\\batch_003_03.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_003\\plant_10.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_003\\plant_10.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_10.png"
+        },
+        {
+          "icon_key": "plant_11",
+          "category": "plant",
+          "name": "涅盘赤果",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_003\\batch_003_04.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_003\\plant_11.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_003\\plant_11.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\plant_11.png"
+        },
+        {
+          "icon_key": "lode_1",
+          "category": "lode",
+          "name": "玄铁矿脉",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_003\\batch_003_05.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_003\\lode_1.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_003\\lode_1.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\lode_1.png"
+        },
+        {
+          "icon_key": "lode_2",
+          "category": "lode",
+          "name": "赤铜矿脉",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_003\\batch_003_06.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_003\\lode_2.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_003\\lode_2.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\lode_2.png"
+        },
+        {
+          "icon_key": "lode_3",
+          "category": "lode",
+          "name": "秘银矿床",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_003\\batch_003_07.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_003\\lode_3.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_003\\lode_3.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\lode_3.png"
+        },
+        {
+          "icon_key": "lode_4",
+          "category": "lode",
+          "name": "庚金矿洞",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_003\\batch_003_08.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_003\\lode_4.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_003\\lode_4.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\lode_4.png"
+        },
+        {
+          "icon_key": "material_1",
+          "category": "material",
+          "name": "灵兔毛",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_003\\batch_003_09.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_003\\material_1.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_003\\material_1.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_1.png"
+        }
+      ],
+      "prompt": "Create a single pixel-art RPG item icon contact sheet for later transparent-background extraction.\n\nCanvas/layout:\n- Exactly 3 columns by 3 rows, one centered icon per cell.\n- Keep every icon fully inside its cell with generous padding.\n- No labels, no numbers, no UI frame, no watermark, no text.\n- Use one perfectly flat solid #ff00ff chroma-key background across the whole image.\n- The background must be mathematically plain: no dithering, no pixel speckles, no texture, no gradients, no vignette, no floor plane.\n- Do not use #ff00ff, purple-magenta outlines, or pink particles anywhere inside the items.\n- Keep item glow, particles, smoke, and magic aura inside the item silhouette; do not scatter decorative pixels into the background.\n\nStyle:\n- 32-bit fantasy cultivation RPG pixel art.\n- Clear silhouette, readable at 64x64, crisp hard edges.\n- Slight top-left highlight, subtle item detail, no cast shadow, no ambient shadow.\n- Transparent-ready asset style, isolated objects only.\n- Each icon should look like a standalone inventory item sprite, not a scene.\n\nItems in reading order:\n1. plant: 五谷灵稻 - 沃土良田中培育的灵性稻谷，粒粒饱满灵气，能增强修炼者体质 stage 1\n2. plant: 九曲清音竹 - 紫竹林中的变异异种，竹身九曲，内空外坚。风吹过时能发出九种不同的清越之音，直抵神魂，可涤荡心魔 stage 2\n3. plant: 聚星草 - 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬如剑，夜间能引动并吞噬星辉 stage 2\n4. plant: 涅盘赤果 - 生长在蓬莱岛灵泉之眼的伴生神树上，三百年一开花，三百年一结果，蕴含庞大生机 stage 3\n5. lode: 玄铁矿脉 - 蕴含玄铁的普通矿脉，常见于浅层地表 stage 1\n6. lode: 赤铜矿脉 - 深埋地下的赤铜矿脉，周围往往伴生火热之气 stage 2\n7. lode: 秘银矿床 - 极其罕见的秘银富集地，银光闪烁，灵气逼人 stage 3\n8. lode: 庚金矿洞 - 位于绝壁深处的庚金矿脉，开采极为困难，但价值连城 stage 4\n9. material: 灵兔毛 - 灵性充沛的兔子细毛，质地柔软温暖，适合编织防寒衣物 stage 1\n"
+    },
+    {
+      "ok": true,
+      "batch_id": "batch_004",
+      "request_id": "019f0ea4-8c21-7af3-974e-2f1b208bc585",
+      "image_url": "https://v3b.fal.media/files/b/0aa01e6d/9LF4YmkykvICjtFno-AeX_PBZS62ju.png",
+      "raw": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\raw\\batch_004.png",
+      "items": [
+        {
+          "icon_key": "material_2",
+          "category": "material",
+          "name": "魔狼牙",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_004\\batch_004_01.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_004\\material_2.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_004\\material_2.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_2.png"
+        },
+        {
+          "icon_key": "material_3",
+          "category": "material",
+          "name": "青云鹿角",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_004\\batch_004_02.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_004\\material_3.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_004\\material_3.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_3.png"
+        },
+        {
+          "icon_key": "material_4",
+          "category": "material",
+          "name": "暗影豹爪",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_004\\batch_004_03.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_004\\material_4.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_004\\material_4.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_4.png"
+        },
+        {
+          "icon_key": "material_5",
+          "category": "material",
+          "name": "龙龟甲片",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_004\\batch_004_04.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_004\\material_5.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_004\\material_5.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_5.png"
+        },
+        {
+          "icon_key": "material_6",
+          "category": "material",
+          "name": "山熊胆",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_004\\batch_004_05.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_004\\material_6.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_004\\material_6.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_6.png"
+        },
+        {
+          "icon_key": "material_7",
+          "category": "material",
+          "name": "风速马鬃",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_004\\batch_004_06.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_004\\material_7.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_004\\material_7.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_7.png"
+        },
+        {
+          "icon_key": "material_8",
+          "category": "material",
+          "name": "熔岩鳞片",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_004\\batch_004_07.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_004\\material_8.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_004\\material_8.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_8.png"
+        },
+        {
+          "icon_key": "material_9",
+          "category": "material",
+          "name": "毒瘴囊",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_004\\batch_004_08.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_004\\material_9.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_004\\material_9.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_9.png"
+        },
+        {
+          "icon_key": "material_10",
+          "category": "material",
+          "name": "奇草精华",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_004\\batch_004_09.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_004\\material_10.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_004\\material_10.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_10.png"
+        }
+      ],
+      "prompt": "Create a single pixel-art RPG item icon contact sheet for later transparent-background extraction.\n\nCanvas/layout:\n- Exactly 3 columns by 3 rows, one centered icon per cell.\n- Keep every icon fully inside its cell with generous padding.\n- No labels, no numbers, no UI frame, no watermark, no text.\n- Use one perfectly flat solid #ff00ff chroma-key background across the whole image.\n- The background must be mathematically plain: no dithering, no pixel speckles, no texture, no gradients, no vignette, no floor plane.\n- Do not use #ff00ff, purple-magenta outlines, or pink particles anywhere inside the items.\n- Keep item glow, particles, smoke, and magic aura inside the item silhouette; do not scatter decorative pixels into the background.\n\nStyle:\n- 32-bit fantasy cultivation RPG pixel art.\n- Clear silhouette, readable at 64x64, crisp hard edges.\n- Slight top-left highlight, subtle item detail, no cast shadow, no ambient shadow.\n- Transparent-ready asset style, isolated objects only.\n- Each icon should look like a standalone inventory item sprite, not a scene.\n\nItems in reading order:\n1. material: 魔狼牙 - 凶猛魔狼的锋利狼牙，蕴含魔力，是锻造利器的珍贵材料 stage 2\n2. material: 青云鹿角 - 青云鹿的羼玉之角，蕴含清灵之气，是炼丹的上品药材 stage 1\n3. material: 暗影豹爪 - 暗影豹的锋利爪子，轻盈而德，能增强武器的敏捷度 stage 2\n4. material: 龙龟甲片 - 碧海龙龟的古老甲片，坚不可摧，蕴含海洋灵力，是顶级防具材料 stage 3\n5. material: 山熊胆 - 石甲山熊的珍贵熊胆，能增强体质和力量，是体修者的珍贵药材 stage 2\n6. material: 风速马鬃 - 风速马的飘逸鬃毛，轻如风羽，能用于炼制速度类法器 stage 2\n7. material: 熔岩鳞片 - 熔岩蜥蜴的赤红鳞片，耐高温且蕴含火系灵力，是火属性法器的核心材料 stage 3\n8. material: 毒瘴囊 - 毒瘴蛙的毒素囊袋，内含剧毒，是炼制毒类丹药的稀有材料 stage 2\n9. material: 奇草精华 - 奇草提炼的精华，具有神奇的治愈效果 stage 1\n"
+    },
+    {
+      "ok": true,
+      "batch_id": "batch_005",
+      "request_id": "019f0ea5-475c-7862-abcb-bff1b3dbdd96",
+      "image_url": "https://v3b.fal.media/files/b/0aa01e72/_fXphkaFiRM64MKyzZ7M2_Cr8ZMPOP.png",
+      "raw": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\raw\\batch_005.png",
+      "items": [
+        {
+          "icon_key": "material_11",
+          "category": "material",
+          "name": "灵木心",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_005\\batch_005_01.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_005\\material_11.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_005\\material_11.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_11.png"
+        },
+        {
+          "icon_key": "material_12",
+          "category": "material",
+          "name": "仙人掌刺",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_005\\batch_005_02.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_005\\material_12.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_005\\material_12.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_12.png"
+        },
+        {
+          "icon_key": "material_13",
+          "category": "material",
+          "name": "雪莲花瓣",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_005\\batch_005_03.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_005\\material_13.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_005\\material_13.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_13.png"
+        },
+        {
+          "icon_key": "material_14",
+          "category": "material",
+          "name": "灵芝孢子",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_005\\batch_005_04.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_005\\material_14.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_005\\material_14.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_14.png"
+        },
+        {
+          "icon_key": "material_15",
+          "category": "material",
+          "name": "雪绒花蕊",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_005\\batch_005_05.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_005\\material_15.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_005\\material_15.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_15.png"
+        },
+        {
+          "icon_key": "material_16",
+          "category": "material",
+          "name": "古松松脂",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_005\\batch_005_06.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_005\\material_16.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_005\\material_16.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_16.png"
+        },
+        {
+          "icon_key": "material_17",
+          "category": "material",
+          "name": "灵稻精华",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_005\\batch_005_07.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_005\\material_17.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_005\\material_17.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_17.png"
+        },
+        {
+          "icon_key": "material_18",
+          "category": "material",
+          "name": "神牛角",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_005\\batch_005_08.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_005\\material_18.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_005\\material_18.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_18.png"
+        },
+        {
+          "icon_key": "material_19",
+          "category": "material",
+          "name": "清音竹节",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_005\\batch_005_09.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_005\\material_19.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_005\\material_19.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_19.png"
+        }
+      ],
+      "prompt": "Create a single pixel-art RPG item icon contact sheet for later transparent-background extraction.\n\nCanvas/layout:\n- Exactly 3 columns by 3 rows, one centered icon per cell.\n- Keep every icon fully inside its cell with generous padding.\n- No labels, no numbers, no UI frame, no watermark, no text.\n- Use one perfectly flat solid #ff00ff chroma-key background across the whole image.\n- The background must be mathematically plain: no dithering, no pixel speckles, no texture, no gradients, no vignette, no floor plane.\n- Do not use #ff00ff, purple-magenta outlines, or pink particles anywhere inside the items.\n- Keep item glow, particles, smoke, and magic aura inside the item silhouette; do not scatter decorative pixels into the background.\n\nStyle:\n- 32-bit fantasy cultivation RPG pixel art.\n- Clear silhouette, readable at 64x64, crisp hard edges.\n- Slight top-left highlight, subtle item detail, no cast shadow, no ambient shadow.\n- Transparent-ready asset style, isolated objects only.\n- Each icon should look like a standalone inventory item sprite, not a scene.\n\nItems in reading order:\n1. material: 灵木心 - 灵木的珍贵木心，蕴含浓郁灵力，是制作法器的核心材料 stage 2\n2. material: 仙人掌刺 - 沙漠仙人掌的灵药刻刺，能解百毒，制成针剂后效果显著 stage 1\n3. material: 雪莲花瓣 - 寒霜雪莲的洁白花瓣，蕴含极寒之气，是寒性药材的最佳选择 stage 2\n4. material: 灵芝孢子 - 水灵芝的蓝色孢子，能增强水行修炼者的灵力流通 stage 2\n5. material: 雪绒花蕊 - 雪绒花的纯白花蕊，具有安神镇静功效，是冥想辅助的理想药材 stage 1\n6. material: 古松松脂 - 千年古松的珍贵松脂，晶莹如琥珀，蕴含浓郁灵力，是高级炼器的稀有材料 stage 3\n7. material: 灵稻精华 - 五谷灵稻提炼的精华，能快速强化体质，是体修丹药的主要成分 stage 1\n8. material: 神牛角 - 撼地神牛的独角，蕴含厚重的大地之力，是炼制重型法宝和防御阵盘的极品材料 stage 3\n9. material: 清音竹节 - 九曲清音竹中最精华的一节，敲击时能发出安神定志的清音，是制作音波类法宝的绝佳材料 stage 2\n"
+    },
+    {
+      "ok": true,
+      "batch_id": "batch_006",
+      "request_id": "019f0ea5-e40c-7123-9e1e-6186c842d825",
+      "image_url": "https://v3b.fal.media/files/b/0aa01e76/2dq6i9WMMKauHC3Sr0CGt_oM2QDy91.png",
+      "raw": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\raw\\batch_006.png",
+      "items": [
+        {
+          "icon_key": "material_20",
+          "category": "material",
+          "name": "冰魄蛇胆",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_006\\batch_006_01.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_006\\material_20.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_006\\material_20.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_20.png"
+        },
+        {
+          "icon_key": "material_21",
+          "category": "material",
+          "name": "星纹叶",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_006\\batch_006_02.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_006\\material_21.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_006\\material_21.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_21.png"
+        },
+        {
+          "icon_key": "material_22",
+          "category": "material",
+          "name": "赤果核",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_006\\batch_006_03.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_006\\material_22.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_006\\material_22.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_22.png"
+        },
+        {
+          "icon_key": "material_101",
+          "category": "material",
+          "name": "玄铁",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_006\\batch_006_04.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_006\\material_101.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_006\\material_101.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_101.png"
+        },
+        {
+          "icon_key": "material_102",
+          "category": "material",
+          "name": "赤精铜",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_006\\batch_006_05.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_006\\material_102.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_006\\material_102.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_102.png"
+        },
+        {
+          "icon_key": "material_103",
+          "category": "material",
+          "name": "秘银",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_006\\batch_006_06.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_006\\material_103.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_006\\material_103.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_103.png"
+        },
+        {
+          "icon_key": "material_104",
+          "category": "material",
+          "name": "庚金",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_006\\batch_006_07.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_006\\material_104.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_006\\material_104.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\material_104.png"
+        },
+        {
+          "icon_key": "fallback_animal",
+          "category": "fallback",
+          "name": "动物兜底",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_006\\batch_006_08.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_006\\fallback_animal.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_006\\fallback_animal.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\fallback_animal.png"
+        },
+        {
+          "icon_key": "fallback_plant",
+          "category": "fallback",
+          "name": "植物兜底",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_006\\batch_006_09.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_006\\fallback_plant.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_006\\fallback_plant.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\fallback_plant.png"
+        }
+      ],
+      "prompt": "Create a single pixel-art RPG item icon contact sheet for later transparent-background extraction.\n\nCanvas/layout:\n- Exactly 3 columns by 3 rows, one centered icon per cell.\n- Keep every icon fully inside its cell with generous padding.\n- No labels, no numbers, no UI frame, no watermark, no text.\n- Use one perfectly flat solid #ff00ff chroma-key background across the whole image.\n- The background must be mathematically plain: no dithering, no pixel speckles, no texture, no gradients, no vignette, no floor plane.\n- Do not use #ff00ff, purple-magenta outlines, or pink particles anywhere inside the items.\n- Keep item glow, particles, smoke, and magic aura inside the item silhouette; do not scatter decorative pixels into the background.\n\nStyle:\n- 32-bit fantasy cultivation RPG pixel art.\n- Clear silhouette, readable at 64x64, crisp hard edges.\n- Slight top-left highlight, subtle item detail, no cast shadow, no ambient shadow.\n- Transparent-ready asset style, isolated objects only.\n- Each icon should look like a standalone inventory item sprite, not a scene.\n\nItems in reading order:\n1. material: 冰魄蛇胆 - 冰魄骨蛇的内丹所在，虽为极寒之物，但吞服后能大幅增强修士对寒气的亲和力，是修炼寒系功法的至宝 stage 2\n2. material: 星纹叶 - 叶面上天生带有星辰纹路的草叶，蕴含纯净的星辰之力，是炼制星辰属性丹药的主材 stage 2\n3. material: 赤果核 - 涅盘赤果的果核，即便果肉枯萎，核心仍锁有一丝不灭生机，是炼制延寿丹和疗伤圣药的关键 stage 3\n4. material: 玄铁 - 普通的黑色铁矿，质地坚硬，适合打造练气期法器 stage 1\n5. material: 赤精铜 - 通体赤红的铜矿，蕴含火灵之力，是筑基期炼器的常用材料 stage 2\n6. material: 秘银 - 银白色的稀有金属，延展性极佳且能传导灵力，适用于金丹期法宝 stage 3\n7. material: 庚金 - 锐气逼人的金色矿石，坚不可摧，乃是元婴期炼制本命法宝的顶级材料 stage 4\n8. fallback: 动物兜底 - 通用灵兽或妖兽图标。 generic spirit beast\n9. fallback: 植物兜底 - 通用灵草灵植图标。 generic spiritual herb\n"
+    },
+    {
+      "ok": true,
+      "batch_id": "batch_007",
+      "request_id": "019f0ea6-91cb-75d0-a790-8021e60d7e1e",
+      "image_url": "https://v3b.fal.media/files/b/0aa01e83/wzjVr09aUJYGEHbZ7kFsu_tObRBjDe.png",
+      "raw": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\raw\\batch_007.png",
+      "items": [
+        {
+          "icon_key": "fallback_lode",
+          "category": "fallback",
+          "name": "矿脉兜底",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_007\\batch_007_01.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_007\\fallback_lode.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_007\\fallback_lode.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\fallback_lode.png"
+        },
+        {
+          "icon_key": "fallback_material",
+          "category": "fallback",
+          "name": "材料兜底",
+          "split": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\split\\batch_007\\batch_007_02.png",
+          "alpha": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\alpha\\batch_007\\fallback_material.png",
+          "despill": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\despill\\batch_007\\fallback_material.png",
+          "pixel": "E:\\projects\\cultivation-world-simulator\\tools\\item_icons\\generated_ecology\\pixel\\fallback_material.png"
+        }
+      ],
+      "prompt": "Create a single pixel-art RPG item icon contact sheet for later transparent-background extraction.\n\nCanvas/layout:\n- Exactly 3 columns by 1 rows, one centered icon per cell.\n- Keep every icon fully inside its cell with generous padding.\n- No labels, no numbers, no UI frame, no watermark, no text.\n- Use one perfectly flat solid #ff00ff chroma-key background across the whole image.\n- The background must be mathematically plain: no dithering, no pixel speckles, no texture, no gradients, no vignette, no floor plane.\n- Do not use #ff00ff, purple-magenta outlines, or pink particles anywhere inside the items.\n- Keep item glow, particles, smoke, and magic aura inside the item silhouette; do not scatter decorative pixels into the background.\n\nStyle:\n- 32-bit fantasy cultivation RPG pixel art.\n- Clear silhouette, readable at 64x64, crisp hard edges.\n- Slight top-left highlight, subtle item detail, no cast shadow, no ambient shadow.\n- Transparent-ready asset style, isolated objects only.\n- Each icon should look like a standalone inventory item sprite, not a scene.\n\nItems in reading order:\n1. fallback: 矿脉兜底 - 通用矿脉矿石图标。 generic ore vein\n2. fallback: 材料兜底 - 通用掉落材料图标。 generic crafting material\n"
+    }
+  ]
+}

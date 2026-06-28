@@ -309,28 +309,28 @@ msgid "AUXILIARY_2065_NAME"
 msgstr "神木王鼎"
 
 msgid "AUXILIARY_2081_DESC"
-msgstr "基礎的な陣紋が刻まれた陣盤。現在の地域に低階陣法を布ける。"
+msgstr "基礎的な引霊紋が刻まれた陣盤。現在の地域の霊機を引き、臨時の陣法を布ける。"
 
 msgid "AUXILIARY_2081_NAME"
-msgstr "下品陣盤"
+msgstr "引霊陣盤"
 
 msgid "AUXILIARY_2082_DESC"
-msgstr "陣紋が比較的安定した陣盤。現在の地域に中階陣法を布ける。"
+msgstr "盤中の陣紋が浅層の地脈に接続し、布いた陣法をより安定させ、威能と持続時間をわずかに高める。"
 
 msgid "AUXILIARY_2082_NAME"
-msgstr "中品陣盤"
+msgstr "聚脈陣盤"
 
 msgid "AUXILIARY_2083_DESC"
-msgstr "複雑な霊路を支えられる陣盤。現在の地域に高階陣法を布ける。"
+msgstr "玄枢霊紋で複数の霊路を統べ、布陣時に陣勢を高め、霊石の損耗を一部抑える。"
 
 msgid "AUXILIARY_2083_NAME"
-msgstr "上品陣盤"
+msgstr "玄枢陣盤"
 
 msgid "AUXILIARY_2084_DESC"
-msgstr "霊紋が自律的な循環を成す陣盤。現在の地域に最上級陣法を布ける。"
+msgstr "霊紋が周天循環を成し、虚空の霊機で陣勢を補い、陣法の威能、持続、運転効率を大きく高める。"
 
 msgid "AUXILIARY_2084_NAME"
-msgstr "極品陣盤"
+msgstr "太虚陣盤"
 
 msgid "AUXILIARY_2071_DESC"
 msgstr "粗布と獣皮で作られた蠱袋。一般的な霊虫を収められる。"

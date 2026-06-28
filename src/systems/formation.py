@@ -4,8 +4,9 @@ from dataclasses import dataclass
 import random
 from typing import TYPE_CHECKING, Any
 
-from src.classes.effect import format_effects_to_text
+from src.classes.effect import format_effects_to_text, load_effect_from_str
 from src.i18n import t
+from src.utils.df import game_configs, get_int, get_str
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
@@ -32,106 +33,93 @@ FORMATION_COST_REDUCTION = "formation_cost_reduction"
 @dataclass(frozen=True)
 class FormationDiskConfig:
     item_id: int
-    rank: int
-    base_duration_months: int
-    base_cost: int
 
 
 @dataclass(frozen=True)
 class FormationTypeConfig:
     key: str
     name_id: str
-    cost_multiplier: float
-    effects_by_disk_rank: tuple[dict[str, int | float], ...]
+    base_duration_months: int
+    base_cost: int
+    effects: dict[str, int | float]
 
 
-FORMATION_DISK_CONFIGS: dict[int, FormationDiskConfig] = {
-    2081: FormationDiskConfig(item_id=2081, rank=0, base_duration_months=18, base_cost=80),
-    2082: FormationDiskConfig(item_id=2082, rank=1, base_duration_months=24, base_cost=200),
-    2083: FormationDiskConfig(item_id=2083, rank=2, base_duration_months=30, base_cost=600),
-    2084: FormationDiskConfig(item_id=2084, rank=3, base_duration_months=36, base_cost=1800),
-}
-
-
-FORMATION_TYPES: dict[str, FormationTypeConfig] = {
+DEFAULT_FORMATION_TYPES: dict[str, FormationTypeConfig] = {
     FORMATION_SPIRIT_GATHERING: FormationTypeConfig(
         key=FORMATION_SPIRIT_GATHERING,
         name_id="formation_spirit_gathering_name",
-        cost_multiplier=1.2,
-        effects_by_disk_rank=(
-            {"extra_respire_exp_multiplier": 0.10},
-            {"extra_respire_exp_multiplier": 0.18},
-            {"extra_respire_exp_multiplier": 0.28},
-            {"extra_respire_exp_multiplier": 0.40},
-        ),
+        base_duration_months=24,
+        base_cost=120,
+        effects={"extra_respire_exp_multiplier": 0.20},
     ),
     FORMATION_MOUNTAIN_GUARD: FormationTypeConfig(
         key=FORMATION_MOUNTAIN_GUARD,
         name_id="formation_mountain_guard_name",
-        cost_multiplier=1.4,
-        effects_by_disk_rank=(
-            {"extra_battle_strength_points": 1},
-            {"extra_battle_strength_points": 2},
-            {"extra_battle_strength_points": 4},
-            {"extra_battle_strength_points": 7},
-        ),
+        base_duration_months=24,
+        base_cost=160,
+        effects={"extra_battle_strength_points": 3},
     ),
     FORMATION_HEALING: FormationTypeConfig(
         key=FORMATION_HEALING,
         name_id="formation_healing_name",
-        cost_multiplier=1.0,
-        effects_by_disk_rank=(
-            {"extra_hp_recovery_rate": 0.20},
-            {"extra_hp_recovery_rate": 0.35},
-            {"extra_hp_recovery_rate": 0.55},
-            {"extra_hp_recovery_rate": 0.80},
-        ),
+        base_duration_months=18,
+        base_cost=100,
+        effects={"extra_hp_recovery_rate": 0.40},
     ),
     FORMATION_CLARITY: FormationTypeConfig(
         key=FORMATION_CLARITY,
         name_id="formation_clarity_name",
-        cost_multiplier=1.3,
-        effects_by_disk_rank=(
-            {"extra_breakthrough_success_rate": 0.03, "extra_retreat_success_rate": 0.03},
-            {"extra_breakthrough_success_rate": 0.05, "extra_retreat_success_rate": 0.05},
-            {"extra_breakthrough_success_rate": 0.08, "extra_retreat_success_rate": 0.08},
-            {"extra_breakthrough_success_rate": 0.12, "extra_retreat_success_rate": 0.12},
-        ),
+        base_duration_months=18,
+        base_cost=140,
+        effects={"extra_breakthrough_success_rate": 0.06, "extra_retreat_success_rate": 0.06},
     ),
     FORMATION_VEIN_SEEKING: FormationTypeConfig(
         key=FORMATION_VEIN_SEEKING,
         name_id="formation_vein_seeking_name",
-        cost_multiplier=0.8,
-        effects_by_disk_rank=(
-            {"extra_mine_materials": 1},
-            {"extra_mine_materials": 1},
-            {"extra_mine_materials": 2},
-            {"extra_mine_materials": 3},
-        ),
+        base_duration_months=18,
+        base_cost=80,
+        effects={"extra_mine_materials": 1},
     ),
     FORMATION_WOOD_GROWTH: FormationTypeConfig(
         key=FORMATION_WOOD_GROWTH,
         name_id="formation_wood_growth_name",
-        cost_multiplier=0.8,
-        effects_by_disk_rank=(
-            {"extra_harvest_materials": 1},
-            {"extra_harvest_materials": 1},
-            {"extra_harvest_materials": 2},
-            {"extra_harvest_materials": 3},
-        ),
+        base_duration_months=18,
+        base_cost=80,
+        effects={"extra_harvest_materials": 1},
     ),
     FORMATION_BEAST_DRIVING: FormationTypeConfig(
         key=FORMATION_BEAST_DRIVING,
         name_id="formation_beast_driving_name",
-        cost_multiplier=0.8,
-        effects_by_disk_rank=(
-            {"extra_hunt_materials": 1},
-            {"extra_hunt_materials": 1},
-            {"extra_hunt_materials": 2},
-            {"extra_hunt_materials": 3},
-        ),
+        base_duration_months=18,
+        base_cost=80,
+        effects={"extra_hunt_materials": 1},
     ),
 }
+
+
+def get_formation_types() -> dict[str, FormationTypeConfig]:
+    rows = game_configs.get("formation", []) or []
+    if not rows:
+        return DEFAULT_FORMATION_TYPES
+
+    configs: dict[str, FormationTypeConfig] = {}
+    for row in rows:
+        key = normalize_formation_type(get_str(row, "key"))
+        if not key:
+            continue
+        default = DEFAULT_FORMATION_TYPES.get(key, FormationTypeConfig(key, key, 1, 1, {}))
+        effects = load_effect_from_str(get_str(row, "effects"))
+        if not isinstance(effects, dict):
+            effects = {}
+        configs[key] = FormationTypeConfig(
+            key=key,
+            name_id=get_str(row, "name_id") or default.name_id,
+            base_duration_months=max(1, get_int(row, "base_duration_months", default.base_duration_months)),
+            base_cost=max(1, get_int(row, "base_cost", default.base_cost)),
+            effects={k: v for k, v in effects.items() if isinstance(v, (int, float))},
+        )
+
+    return configs or DEFAULT_FORMATION_TYPES
 
 
 def normalize_formation_type(formation_type: str) -> str:
@@ -139,22 +127,26 @@ def normalize_formation_type(formation_type: str) -> str:
 
 
 def is_valid_formation_type(formation_type: str) -> bool:
-    return normalize_formation_type(formation_type) in FORMATION_TYPES
+    return normalize_formation_type(formation_type) in get_formation_types()
 
 
 def get_formation_type_name(formation_type: str) -> str:
-    cfg = FORMATION_TYPES.get(normalize_formation_type(formation_type))
+    cfg = get_formation_types().get(normalize_formation_type(formation_type))
     return t(cfg.name_id) if cfg else str(formation_type)
 
 
 def get_formation_disk_config(auxiliary: "Auxiliary | None") -> FormationDiskConfig | None:
     if auxiliary is None:
         return None
+    effects = getattr(auxiliary, "effects", {}) or {}
+    legal = effects.get("legal_actions", [])
+    if SET_FORMATION_ACTION not in legal:
+        return None
     try:
         item_id = int(getattr(auxiliary, "id", 0) or 0)
     except (TypeError, ValueError):
-        return None
-    return FORMATION_DISK_CONFIGS.get(item_id)
+        item_id = 0
+    return FormationDiskConfig(item_id=item_id)
 
 
 def is_formation_disk(auxiliary: "Auxiliary | None") -> bool:
@@ -238,7 +230,7 @@ def is_formation_allowed_in_region(formation_type: str, region: "Region | None")
     if region is None:
         return False
     key = normalize_formation_type(formation_type)
-    if key not in FORMATION_TYPES:
+    if key not in get_formation_types():
         return False
 
     from src.classes.environment.region import CityRegion, CultivateRegion, NormalRegion
@@ -260,7 +252,7 @@ def is_formation_allowed_in_region(formation_type: str, region: "Region | None")
 def get_available_formation_types_for_region(region: "Region | None") -> list[FormationTypeConfig]:
     return [
         cfg
-        for cfg in FORMATION_TYPES.values()
+        for cfg in get_formation_types().values()
         if is_formation_allowed_in_region(cfg.key, region)
     ]
 
@@ -278,7 +270,7 @@ def get_available_formation_type_options(avatar: "Avatar") -> list[dict[str, Any
         if disk_cfg is not None:
             effects = build_formation_effects(avatar, cfg.key, disk_cfg)
             option["cost"] = compute_formation_cost(avatar, cfg.key, region, disk_cfg)
-            option["duration"] = compute_formation_duration(avatar, disk_cfg, randomize=False)
+            option["duration"] = compute_formation_duration(avatar, cfg.key, randomize=False)
             option["effect_desc"] = format_effects_to_text(effects)
         options.append(option)
     return options
@@ -290,11 +282,11 @@ def compute_formation_cost(
     region: "Region | None",
     disk_cfg: FormationDiskConfig | None = None,
 ) -> int:
-    cfg = FORMATION_TYPES[normalize_formation_type(formation_type)]
+    cfg = get_formation_types()[normalize_formation_type(formation_type)]
     disk = disk_cfg or get_formation_disk_config(getattr(avatar, "auxiliary", None))
     if disk is None:
         return 0
-    cost = float(disk.base_cost) * cfg.cost_multiplier * _region_cost_multiplier(region)
+    cost = float(cfg.base_cost) * _region_cost_multiplier(region)
     reduction = float(getattr(avatar, "effects", {}).get(FORMATION_COST_REDUCTION, 0.0) or 0.0)
     reduction = max(0.0, min(0.8, reduction))
     return max(1, int(round(cost * (1.0 - reduction))))
@@ -302,13 +294,14 @@ def compute_formation_cost(
 
 def compute_formation_duration(
     avatar: "Avatar",
-    disk_cfg: FormationDiskConfig,
+    formation_type: str,
     *,
     randomize: bool = True,
 ) -> int:
+    cfg = get_formation_types()[normalize_formation_type(formation_type)]
     extra = int(getattr(avatar, "effects", {}).get(EXTRA_FORMATION_DURATION_MONTHS, 0) or 0)
     delta = random.randint(-3, 6) if randomize else 0
-    return max(1, int(disk_cfg.base_duration_months + extra + delta))
+    return max(1, int(cfg.base_duration_months + extra + delta))
 
 
 def build_formation_effects(
@@ -316,8 +309,8 @@ def build_formation_effects(
     formation_type: str,
     disk_cfg: FormationDiskConfig,
 ) -> dict[str, int | float]:
-    cfg = FORMATION_TYPES[normalize_formation_type(formation_type)]
-    base_effects = cfg.effects_by_disk_rank[disk_cfg.rank]
+    cfg = get_formation_types()[normalize_formation_type(formation_type)]
+    base_effects = cfg.effects
     power_bonus = float(getattr(avatar, "effects", {}).get(EXTRA_FORMATION_POWER, 0.0) or 0.0)
     multiplier = 1.0 + max(0.0, power_bonus)
     effects: dict[str, int | float] = {}
@@ -342,7 +335,7 @@ def build_formation_record(
         "caster_id": str(getattr(avatar, "id", "")),
         "disk_item_id": int(disk_cfg.item_id),
         "start_month": int(getattr(getattr(avatar, "world", None), "month_stamp", 0)),
-        "duration": compute_formation_duration(avatar, disk_cfg),
+        "duration": compute_formation_duration(avatar, key),
         "effects": build_formation_effects(avatar, key, disk_cfg),
         "cost": cost,
     }

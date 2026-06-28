@@ -12,9 +12,12 @@
 - 功法：`static/game_configs/technique.csv`
 - 外挂：`static/game_configs/goldfinger.csv`
 
-可选后续范围：
+生态资源范围：
 
 - 材料：`static/game_configs/material.csv`
+- 动物：`static/game_configs/animal.csv`
+- 植物：`static/game_configs/plant.csv`
+- 矿脉：`static/game_configs/lode.csv`
 - 阵盘/阵法道具：如果未来从纯数值配置变成可携带物品，应并入物品图标系统
 - 秘境/区域/宗门不纳入本系统；它们属于地图或面板视觉资产，不应和物品图标混用
 

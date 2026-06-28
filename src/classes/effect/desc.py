@@ -85,6 +85,15 @@ def format_value(key: str, value: Any) -> str:
         return sep.join(actions)
 
     if isinstance(value, (int, float)):
+        if key == "extra_formation_power" and isinstance(value, float):
+            percent = value * 100
+            sign = "+" if percent > 0 else ""
+            return f"{sign}{percent:.1f}%"
+
+        if key == "formation_cost_reduction" and isinstance(value, float):
+            percent = value * 100
+            return f"-{percent:.1f}%"
+
         # 百分比类字段统一展示为百分号。
         if (
             "rate" in key

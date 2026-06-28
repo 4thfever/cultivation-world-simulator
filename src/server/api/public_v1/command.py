@@ -121,6 +121,7 @@ def create_public_command_router(
     run_reset_game: Callable[[], object],
     trigger_process_shutdown: Callable[[], dict],
     run_pause_game: Callable[[], object],
+    run_pause_game_and_drain: Callable[[], object],
     run_resume_game: Callable[[], object],
     run_set_long_term_objective: Callable[[BaseModel], object],
     run_clear_long_term_objective: Callable[[BaseModel], object],
@@ -163,6 +164,10 @@ def create_public_command_router(
     @router.post("/api/v1/command/game/pause")
     async def pause_game_v1():
         return ok_response(await run_pause_game())
+
+    @router.post("/api/v1/command/game/pause-and-drain")
+    async def pause_game_and_drain_v1():
+        return ok_response(await run_pause_game_and_drain())
 
     @router.post("/api/v1/command/game/resume")
     async def resume_game_v1():

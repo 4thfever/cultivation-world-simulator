@@ -2094,10 +2094,10 @@ msgid "effect_extra_formation_power"
 msgstr "Formation Power"
 
 msgid "effect_extra_formation_duration_months"
-msgstr "Formation Duration Months"
+msgstr "Formation Duration"
 
 msgid "effect_formation_cost_reduction"
-msgstr "Formation Cost Reduction"
+msgstr "Formation Cost"
 
 msgid "effect_extra_gu_success_rate"
 msgstr "Gu Infliction Success Rate"

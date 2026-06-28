@@ -203,13 +203,13 @@ msgid "effect_extra_income_per_tile"
 msgstr "1 マスごとの追加収入（年次）"
 
 msgid "effect_extra_formation_power"
-msgstr "陣法強度"
+msgstr "陣法威能"
 
 msgid "effect_extra_formation_duration_months"
-msgstr "陣法持続月数"
+msgstr "陣法持続"
 
 msgid "effect_formation_cost_reduction"
-msgstr "布陣消費軽減"
+msgstr "布陣消費"
 
 msgid "effect_extra_gu_success_rate"
 msgstr "蠱付与成功率"

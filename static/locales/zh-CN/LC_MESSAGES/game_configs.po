@@ -333,28 +333,28 @@ msgid "AUXILIARY_2074_NAME"
 msgstr "万蛊母巢"
 
 msgid "AUXILIARY_2081_DESC"
-msgstr "刻有基础阵纹的阵盘，可在当前区域布置低阶阵法。"
+msgstr "刻有基础引灵纹路的阵盘，可牵动当前区域灵机，布置临时阵法。"
 
 msgid "AUXILIARY_2081_NAME"
-msgstr "下品阵盘"
+msgstr "引灵阵盘"
 
 msgid "AUXILIARY_2082_DESC"
-msgstr "阵纹较为稳定的阵盘，可在当前区域布置中阶阵法。"
+msgstr "盘中阵纹能接续浅层地脉，使布下的阵法更稳，威能与持续时间略有提升。"
 
 msgid "AUXILIARY_2082_NAME"
-msgstr "中品阵盘"
+msgstr "聚脉阵盘"
 
 msgid "AUXILIARY_2083_DESC"
-msgstr "可承载复杂灵路的阵盘，可在当前区域布置高阶阵法。"
+msgstr "以玄枢灵纹统摄多重灵路，布阵时能令阵势更盛，并减少部分灵石损耗。"
 
 msgid "AUXILIARY_2083_NAME"
-msgstr "上品阵盘"
+msgstr "玄枢阵盘"
 
 msgid "AUXILIARY_2084_DESC"
-msgstr "灵纹自成循环的阵盘，可在当前区域布置顶级阵法。"
+msgstr "灵纹自成周天循环，可借虚空灵机补全阵势，使阵法威能、持续与运转效率大幅提升。"
 
 msgid "AUXILIARY_2084_NAME"
-msgstr "极品阵盘"
+msgstr "太虚阵盘"
 
 #. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
 msgid "CELESTIAL_PHENOMENON_10_DESC"

@@ -15,7 +15,7 @@ for (const [path, url] of Object.entries(iconModules)) {
   }
 }
 
-const ITEM_CATEGORIES = ['weapon', 'elixir', 'auxiliary', 'technique', 'goldfinger'] as const;
+const ITEM_CATEGORIES = ['weapon', 'elixir', 'auxiliary', 'technique', 'goldfinger', 'animal', 'plant', 'lode', 'material'] as const;
 type ItemIconCategory = (typeof ITEM_CATEGORIES)[number];
 
 function normalizeId(value: unknown): string {
@@ -40,6 +40,10 @@ function inferCategory(item: Partial<EffectEntity> | undefined | null): ItemIcon
   if (rawType === 'technique') return 'technique';
   if (rawType === 'elixir') return 'elixir';
   if (rawType === 'auxiliary') return 'auxiliary';
+  if (rawType === 'animal') return 'animal';
+  if (rawType === 'plant') return 'plant';
+  if (rawType === 'lode') return 'lode';
+  if (rawType === 'material') return 'material';
   if (item.icon_category && ITEM_CATEGORIES.includes(item.icon_category as ItemIconCategory)) {
     return item.icon_category as ItemIconCategory;
   }
@@ -50,11 +54,19 @@ function inferCategory(item: Partial<EffectEntity> | undefined | null): ItemIcon
   if (rawTypeName.includes('丹') || rawTypeName.includes('elixir')) return 'elixir';
   if (rawTypeName.includes('功法') || rawTypeName.includes('technique')) return 'technique';
   if (rawTypeName.includes('外挂') || rawTypeName.includes('goldfinger')) return 'goldfinger';
+  if (rawTypeName.includes('动物') || rawTypeName.includes('灵兽') || rawTypeName.includes('animal')) return 'animal';
+  if (rawTypeName.includes('植物') || rawTypeName.includes('灵植') || rawTypeName.includes('plant')) return 'plant';
+  if (rawTypeName.includes('矿') || rawTypeName.includes('lode')) return 'lode';
+  if (rawTypeName.includes('材料') || rawTypeName.includes('material')) return 'material';
   if (hasIcon(`weapon_${id}`)) return 'weapon';
   if (hasIcon(`elixir_${id}`)) return 'elixir';
   if (hasIcon(`auxiliary_${id}`)) return 'auxiliary';
   if (hasIcon(`technique_${id}`)) return 'technique';
   if (hasIcon(`goldfinger_${id}`)) return 'goldfinger';
+  if (hasIcon(`animal_${id}`)) return 'animal';
+  if (hasIcon(`plant_${id}`)) return 'plant';
+  if (hasIcon(`lode_${id}`)) return 'lode';
+  if (hasIcon(`material_${id}`)) return 'material';
   return undefined;
 }
 

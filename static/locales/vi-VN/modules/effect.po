@@ -203,13 +203,13 @@ msgid "effect_extra_income_per_tile"
 msgstr "Điều chỉnh thu nhập mỗi ô đất theo năm"
 
 msgid "effect_extra_formation_power"
-msgstr "Cường độ trận pháp"
+msgstr "Uy năng trận pháp"
 
 msgid "effect_extra_formation_duration_months"
-msgstr "Số tháng duy trì trận pháp"
+msgstr "Thời gian duy trì trận pháp"
 
 msgid "effect_formation_cost_reduction"
-msgstr "Giảm tiêu hao bố trận"
+msgstr "Tiêu hao bố trận"
 
 msgid "effect_extra_gu_success_rate"
 msgstr "Tỷ lệ hạ cổ thành công"

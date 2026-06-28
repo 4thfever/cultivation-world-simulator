@@ -236,8 +236,8 @@ export function useAvatarDetailPanel(
   }
 
   function openAdjustPanel(category: AvatarAdjustCategory) {
-    void systemApi.pauseGame().catch(error => {
-      logError('AvatarDetail.openAdjustPanel.pauseGame', error)
+    void systemApi.pauseGameAndDrain().catch(error => {
+      logError('AvatarDetail.openAdjustPanel.pauseGameAndDrain', error)
     })
     adjustCategory.value = category
   }

@@ -1,6 +1,4 @@
 from __future__ import annotations
-
-import time
 from types import SimpleNamespace
 
 from src.config import RunConfig, get_settings_service
@@ -85,6 +83,11 @@ def create_command_handlers(
     async def run_pause_game() -> dict:
         runtime.set_paused(True)
         # Keep top-level external control command messages stable for agents/tests.
+        return {"status": "ok", "message": "Game paused"}
+
+    async def run_pause_game_and_drain() -> dict:
+        runtime.set_paused(True)
+        await runtime.run_mutation(lambda: None)
         return {"status": "ok", "message": "Game paused"}
 
     async def run_resume_game() -> dict:
@@ -182,8 +185,7 @@ def create_command_handlers(
         # simulation step can finish without another tick immediately queuing
         # ahead of the edit.
         runtime.set_paused(True)
-        started_at = time.perf_counter()
-        result = await runtime.run_mutation(
+        return await runtime.run_mutation(
             update_avatar_adjustment_in_world,
             runtime,
             avatar_id=req.avatar_id,
@@ -192,14 +194,6 @@ def create_command_handlers(
             persona_ids=req.persona_ids,
             apply_avatar_adjustment=apply_avatar_adjustment,
         )
-        elapsed = time.perf_counter() - started_at
-        if elapsed > 1.0:
-            print(
-                "[AvatarAdjustment] slow update "
-                f"category={req.category} avatar_id={req.avatar_id} "
-                f"target_id={req.target_id} elapsed={elapsed:.3f}s"
-            )
-        return result
 
     async def run_update_avatar_portrait(*, avatar_id: str, pic_id: int) -> dict:
         return await runtime.run_mutation(
@@ -286,6 +280,7 @@ def create_command_handlers(
         run_reinit_game=run_reinit_game,
         run_reset_game=run_reset_game,
         run_pause_game=run_pause_game,
+        run_pause_game_and_drain=run_pause_game_and_drain,
         run_resume_game=run_resume_game,
         run_cleanup_events=run_cleanup_events,
         run_set_phenomenon=run_set_phenomenon,

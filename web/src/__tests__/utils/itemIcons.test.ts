@@ -7,6 +7,10 @@ describe('itemIcons', () => {
     expect(getItemIconUrl({ id: '3001', name: '练气破境丹', type: 'elixir' })).toContain('elixir_3001');
     expect(getItemIconUrl({ id: '1', name: '混元金身', type: 'technique' })).toContain('technique_1');
     expect(getItemIconUrl({ id: '1', name: '气运之子', key: 'CHILD_OF_FORTUNE', rarity: 'SSR' })).toContain('goldfinger_1');
+    expect(getItemIconUrl({ id: '1', name: '灵兔', type: 'animal' })).toContain('animal_1');
+    expect(getItemIconUrl({ id: '1', name: '奇草', type: 'plant' })).toContain('plant_1');
+    expect(getItemIconUrl({ id: '1', name: '玄铁矿脉', type: 'lode' })).toContain('lode_1');
+    expect(getItemIconUrl({ id: '1', name: '灵兔毛', type: 'material' })).toContain('material_1');
   });
 
   it('falls back to category icons for custom content', () => {

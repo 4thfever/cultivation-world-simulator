@@ -104,9 +104,9 @@ def test_set_formation_places_and_replaces_region_formation(dummy_avatar, base_w
 
     first = base_world.map.region_formations[301]
     assert first["formation_type"] == FORMATION_SPIRIT_GATHERING
-    assert first["duration"] == 24
-    assert first["effects"]["extra_respire_exp_multiplier"] == 0.18
-    assert int(dummy_avatar.magic_stone) == 688
+    assert first["duration"] == 26
+    assert first["effects"]["extra_respire_exp_multiplier"] == 0.216
+    assert int(dummy_avatar.magic_stone) == 844
 
     with patch("random.randint", return_value=0):
         action._execute(FORMATION_HEALING)
@@ -130,9 +130,25 @@ def test_formation_personas_modify_power_duration_and_cost(dummy_avatar, base_wo
         action._execute(FORMATION_SPIRIT_GATHERING)
 
     formation = base_world.map.region_formations[301]
-    assert formation["duration"] == 30
-    assert formation["cost"] == 94
-    assert formation["effects"]["extra_respire_exp_multiplier"] == 0.135
+    assert formation["duration"] == 36
+    assert formation["cost"] == 117
+    assert formation["effects"]["extra_respire_exp_multiplier"] == 0.27
+
+
+def test_formation_disk_effects_modify_power_duration_and_cost(dummy_avatar, base_world):
+    region = CultivateRegion(id=301, name="青云洞府", desc="", cors=[(0, 0)])
+    _place_avatar_in_region(base_world, dummy_avatar, region, tile_type=TileType.CAVE)
+    _equip_disk(dummy_avatar, 2084)
+    dummy_avatar.magic_stone = 1000
+
+    action = SetFormation(dummy_avatar, base_world)
+    with patch("random.randint", return_value=0):
+        action._execute(FORMATION_SPIRIT_GATHERING)
+
+    formation = base_world.map.region_formations[301]
+    assert formation["duration"] == 32
+    assert formation["cost"] == 140
+    assert formation["effects"]["extra_respire_exp_multiplier"] == 0.256
 
 
 def test_cleanup_expired_region_formations(dummy_avatar, base_world):

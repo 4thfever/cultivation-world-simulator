@@ -12,6 +12,10 @@ export const systemApi = {
     return httpClient.post('/api/v1/command/game/pause', {});
   },
 
+  pauseGameAndDrain() {
+    return httpClient.post('/api/v1/command/game/pause-and-drain', {});
+  },
+
   resumeGame() {
     return httpClient.post('/api/v1/command/game/resume', {});
   },

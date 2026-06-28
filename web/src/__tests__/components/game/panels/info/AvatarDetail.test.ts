@@ -15,6 +15,7 @@ vi.mock('@/api', () => ({
   },
   systemApi: {
     pauseGame: vi.fn(),
+    pauseGameAndDrain: vi.fn(),
   },
 }))
 
@@ -35,6 +36,7 @@ describe('AvatarDetail', () => {
     setActivePinia(createPinia())
     entityRowSpy.mockClear()
     vi.mocked(systemApi.pauseGame).mockResolvedValue(undefined)
+    vi.mocked(systemApi.pauseGameAndDrain).mockResolvedValue(undefined)
   })
 
   const i18n = createI18n({
@@ -528,7 +530,7 @@ describe('AvatarDetail', () => {
 
     await adjustButtons[3].trigger('click')
 
-    expect(systemApi.pauseGame).toHaveBeenCalledTimes(1)
+    expect(systemApi.pauseGameAndDrain).toHaveBeenCalledTimes(1)
     expect(capturedProps).not.toBeNull()
     expect(capturedProps?.category).toBe('goldfinger')
     expect(capturedProps?.currentItem).toMatchObject({

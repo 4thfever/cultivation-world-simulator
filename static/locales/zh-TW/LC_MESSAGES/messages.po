@@ -1973,13 +1973,13 @@ msgid "effect_extra_income_per_tile"
 msgstr "每地塊年收入修正"
 
 msgid "effect_extra_formation_power"
-msgstr "陣法強度"
+msgstr "陣法威能"
 
 msgid "effect_extra_formation_duration_months"
-msgstr "陣法持續月份"
+msgstr "陣法持續"
 
 msgid "effect_formation_cost_reduction"
-msgstr "布陣消耗降低"
+msgstr "布陣消耗"
 
 msgid "effect_extra_gu_success_rate"
 msgstr "下蠱成功率"

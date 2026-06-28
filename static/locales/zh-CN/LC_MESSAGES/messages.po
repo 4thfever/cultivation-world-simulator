@@ -1995,13 +1995,13 @@ msgid "effect_source_gu_luanxin"
 msgstr "乱心蛊"
 
 msgid "effect_extra_formation_power"
-msgstr "阵法强度"
+msgstr "阵法威能"
 
 msgid "effect_extra_formation_duration_months"
-msgstr "阵法持续月份"
+msgstr "阵法持续"
 
 msgid "effect_formation_cost_reduction"
-msgstr "布阵消耗降低"
+msgstr "布阵消耗"
 
 msgid "earth_essence"
 msgstr "土"

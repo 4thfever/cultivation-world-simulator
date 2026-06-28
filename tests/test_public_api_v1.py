@@ -163,6 +163,22 @@ def test_v1_game_pause_and_resume_use_ok_envelope():
         main.game_instance.update(original)
 
 
+def test_v1_game_pause_and_drain_use_ok_envelope():
+    original = _reset_state()
+    try:
+        main.game_instance["is_paused"] = False
+        client = TestClient(main.app)
+
+        response = client.post("/api/v1/command/game/pause-and-drain")
+
+        assert response.status_code == 200
+        assert response.json()["ok"] is True
+        assert main.game_instance["is_paused"] is True
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
 def test_v1_game_start_uses_lifecycle_service_and_ok_envelope():
     original = _reset_state()
     try:
