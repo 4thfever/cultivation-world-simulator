@@ -34,7 +34,7 @@ world:
   autonomous_creation_story_probability: 0.5
   fortune_probability: 0.005
   misfortune_probability: 0.005
-  fate_revelation_probability: 0.5
+  fate_revelation_probability: 0.001
   random_minor_event_prob: 0.05
   birth_rate_per_month: 0.005
   max_children_per_couple: 2
