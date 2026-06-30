@@ -382,7 +382,7 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 - ✅ Fortuitous encounters
 - ✅ Heavenly Tribulation & Heart Devil
 - [ ] Opportunity & Karma
-- [ ] Divination & Prophecy
+- ✅ Fate Revelation
 - [ ] Character Secrets & Conspiracies
 - [ ] Incarnations & Ascension to the upper realm
 - ✅ Formations

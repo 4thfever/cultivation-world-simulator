@@ -382,7 +382,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Kỳ ngộ
 - ✅ Thiên kiếp và tâm ma
 - [ ] Cơ duyên và nhân quả
-- [ ] Chiêm bốc và sấm vĩ
+- ✅ Mệnh cách
 - [ ] Bí mật nhân vật và âm mưu
 - [ ] Hóa thân và phi thăng thượng giới
 - ✅ Trận pháp
