@@ -46,6 +46,12 @@ msgstr "Thân Thế"
 msgid "Backstory: {backstory}"
 msgstr "Thân thế: {backstory}"
 
+msgid "Fate"
+msgstr "Mệnh cách"
+
+msgid "Fate Revelation"
+msgstr "Khải thị mệnh cách"
+
 msgid "Current Action"
 msgstr "Hành Động Hiện Tại"
 

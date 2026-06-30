@@ -173,6 +173,7 @@ class AvatarLoadMixin:
 
         # 恢复身世
         avatar.backstory = data.get("backstory")
+        avatar.fate_revelation = data.get("fate_revelation")
 
         # 恢复情绪
         from src.classes.emotions import EmotionType

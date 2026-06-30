@@ -112,3 +112,24 @@ def test_relation_delta_template_can_be_formatted() -> None:
     assert "delta_b_to_a" in prompt
     assert "闻人雾" in prompt
     assert "叶明" in prompt
+
+
+def test_fate_revelation_template_can_be_formatted() -> None:
+    source_locale = get_source_locale()
+    template_path = get_project_root() / "static" / "locales" / source_locale / "templates" / "fate_revelation.txt"
+    template = load_template(template_path)
+
+    infos = {
+        "avatar_info": "{\"name\": \"闻人雾\", \"realm\": \"练气\"}",
+        "location": "青溪渡口",
+        "current_action": "游历",
+        "world_info": "{\"天象\": \"潮声入梦\"}",
+        "current_phenomenon": "潮声入梦: 海潮声在群山间回荡。",
+    }
+
+    prompt = build_prompt(template, infos)
+
+    assert "命格" in prompt
+    assert "oracle_text" in prompt
+    assert "千山暮雪倾东海" in prompt
+    assert "青溪渡口" in prompt

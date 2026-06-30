@@ -1,0 +1,62 @@
+Bạn đang mô phỏng một thế giới tu tiên. Hãy tạo một "Mệnh cách" chỉ có thể hiển hiện nhiều nhất một lần trong đời cho nhân vật.
+
+Mệnh cách không phải phần thưởng và không được trao vật phẩm, tu vi, thuộc tính, quan hệ hay hiệu ứng.
+Nó là một điềm khải thị: một tác nhân huyền bí cụ thể xuất hiện, rồi một câu sấm mơ hồ hiện lên.
+
+Thông tin nhân vật:
+{avatar_info}
+
+Vị trí hiện tại:
+{location}
+
+Hành động hiện tại:
+{current_action}
+
+Thông tin thế giới:
+{world_info}
+
+Thiên tượng hoặc hoàn cảnh hiện tại:
+{current_phenomenon}
+
+Trả về ba mục:
+
+1. trigger_text
+- Một khoảnh khắc cụ thể, huyền bí, có hình ảnh. Nếu có thể, viết bằng tiếng Trung 40 đến 90 chữ.
+- Có cảm giác địa điểm, động tác và hình ảnh.
+- Không giải thích ý nghĩa.
+- Không trao lợi ích thực tế.
+
+2. oracle_text
+- Đây là phần quan trọng nhất.
+- Viết như một câu sấm tiếng Trung, thường 8 đến 32 chữ, không quá 40 chữ.
+- Có thể giống đoản sấm, kệ Phật, thẻ thơ, lời phán, bia vỡ, câu sót trong mộng.
+- Không cố định thành dạng "bốn chữ + bốn chữ".
+- Dùng hình tượng cụ thể như tide/潮, snow/雪, lamp/灯, bell/钟, moon/月, bridge/桥, well/井, gate/门, stele/碑, sword/剑, boat/舟, deer/鹿, flower/花, ash/灰, mirror/镜, cloud/云, fire/火, rain/雨, shadow/影, stone/石, wind/风, sea/海, mountain/山.
+- Nên có động thế như fall/落, return/归, open/开, shine/照, cross/渡, hide/藏, sink/沉, ring/鸣, break/断, turn/回, wax/满, wane/缺, arise/生, vanish/灭.
+- Hàm súc, lạnh, có khoảng trống; giống câu đố hơn là đáp án.
+- Không giải thích nó báo trước điều gì.
+- Không viết kết quả tương lai rõ ràng như chết, phi thăng, xưng đế, kết hôn, trả thù thành công, nhận thần khí, đột phá cảnh giới.
+- Tránh từ hiện đại, hệ thống, thuộc tính, xác suất, phần thưởng.
+
+Tham khảo phong cách, không chép lại:
+- “遇潮而圆，见信而寂”
+- “花落非春尽，钟鸣不是归”
+- “千山暮雪倾东海，初日潮头又上来”
+- “一盏孤灯照旧雪，半生新骨葬春潮”
+- “云根断处，旧门重开”
+- “逢桥莫问渡，见鹿且回身”
+
+3. event_text
+- Nếu có thể, viết bằng tiếng Trung 80 đến 140 chữ.
+- Kết hợp trigger_text và oracle_text tự nhiên.
+- Cuối câu hiển thị oracle_text trong 『』.
+- Không giải thích câu sấm.
+
+Chỉ trả về JSON nghiêm ngặt:
+```json
+{{
+  "trigger_text": "...",
+  "oracle_text": "...",
+  "event_text": "..."
+}}
+```

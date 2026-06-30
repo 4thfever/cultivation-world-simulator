@@ -57,6 +57,13 @@ export interface CultivationDisplay {
   display_full_name: string;
 }
 
+export interface FateRevelation {
+  trigger_text: string;
+  oracle_text: string;
+  revealed_month?: number;
+  location?: string;
+}
+
 // --- 角色 (Avatar) ---
 
 export interface AvatarSummary extends EntityBase, Coordinates {
@@ -126,6 +133,7 @@ export interface AvatarDetail extends EntityBase {
   short_term_objective: string;
   long_term_objective: string;
   backstory?: string | null;
+  fate_revelation?: FateRevelation | null;
   
   // 关联实体
   sect?: SectInfo;

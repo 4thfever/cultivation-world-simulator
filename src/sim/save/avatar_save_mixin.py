@@ -106,6 +106,7 @@ class AvatarSaveMixin:
             "appearance": self.base_appearance.level,
             "nickname": self.nickname.to_dict() if self.nickname else None,
             "backstory": self.backstory,
+            "fate_revelation": self.fate_revelation,
             "emotion": self.emotion.value,
             "is_dead": self.is_dead,
             "death_info": self.death_info,

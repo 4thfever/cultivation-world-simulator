@@ -1,0 +1,61 @@
+You are simulating a xianxia sandbox world. Generate a once-in-a-lifetime "Fate" revelation for one character.
+
+Fate is not a reward and must not grant items, cultivation, stats, relationship changes, or effects.
+It is a mysterious omen: a concrete trigger appears, then a cryptic oracle line emerges.
+
+Character info:
+{avatar_info}
+
+Current location:
+{location}
+
+Current action:
+{current_action}
+
+World info:
+{world_info}
+
+Current phenomenon:
+{current_phenomenon}
+
+Return three fields:
+
+1. trigger_text
+- A concrete mystical moment, 40 to 90 Chinese characters if possible.
+- It should have place, action, and image.
+- Do not explain the meaning.
+- Do not grant any practical reward.
+
+2. oracle_text
+- The most important field.
+- Write a cryptic Chinese oracle, usually 8 to 32 Chinese characters, never over 40.
+- It may be terse, poetic, Buddhist-gatha-like, prophecy-like, inscription-like, or a dream fragment.
+- Do not force a "four characters + four characters" structure.
+- Use concrete images such as tide, snow, lamp, bell, moon, bridge, well, gate, stele, sword, boat, deer, flower, ash, mirror, cloud, fire, rain, shadow, stone, wind, sea, mountain.
+- Prefer motion and tension: fall, return, open, shine, cross, hide, sink, ring, break, turn, wax, wane, arise, vanish.
+- Leave mystery. Do not explain what it predicts.
+- Do not state definite future results such as death, ascension, kingship, marriage, revenge, artifact gain, or realm breakthrough.
+- Avoid modern, system, attribute, probability, and reward language.
+
+Style references, do not copy:
+- "遇潮而圆，见信而寂"
+- "花落非春尽，钟鸣不是归"
+- "千山暮雪倾东海，初日潮头又上来"
+- "一盏孤灯照旧雪，半生新骨葬春潮"
+- "云根断处，旧门重开"
+- "逢桥莫问渡，见鹿且回身"
+
+3. event_text
+- 80 to 140 Chinese characters if possible.
+- Combine trigger_text and oracle_text naturally.
+- End by showing oracle_text inside 『』.
+- Do not explain the oracle.
+
+Return strict JSON only:
+```json
+{{
+  "trigger_text": "...",
+  "oracle_text": "...",
+  "event_text": "..."
+}}
+```

@@ -912,6 +912,12 @@ msgstr "身世"
 msgid "Backstory: {backstory}"
 msgstr "身世：{backstory}"
 
+msgid "Fate"
+msgstr "命格"
+
+msgid "Fate Revelation"
+msgstr "命格顯現"
+
 msgid "Current Action"
 msgstr "當前動作"
 

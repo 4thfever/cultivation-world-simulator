@@ -119,3 +119,44 @@ def test_save_and_load_custom_goldfinger_round_trip(base_world, tmp_path):
     assert loaded_avatar.goldfinger.id == int(created["id"])
     assert loaded_avatar.goldfinger_state == {"trigger_count": 2}
     assert int(created["id"]) in CustomContentRegistry.custom_goldfingers_by_id
+
+
+def test_save_and_load_fate_revelation_round_trip(base_world, tmp_path):
+    from src.classes.core.avatar import Avatar, Gender
+    from src.classes.age import Age
+    from src.classes.root import Root
+    from src.classes.alignment import Alignment
+    from src.systems.cultivation import Realm
+    from src.systems.time import Month, Year, create_month_stamp
+
+    avatar = Avatar(
+        world=base_world,
+        name="FateHolder",
+        id=get_avatar_id(),
+        birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+        age=Age(20, Realm.Qi_Refinement, innate_max_lifespan=80),
+        gender=Gender.MALE,
+        root=Root.FIRE,
+        personas=[],
+        alignment=Alignment.RIGHTEOUS,
+    )
+    avatar.personas = []
+    avatar.fate_revelation = {
+        "trigger_text": "青溪渡口忽有逆流成圆，几片残叶贴着水面缓缓不散。",
+        "oracle_text": "千山暮雪倾东海，初日潮头又上来",
+        "revealed_month": int(base_world.month_stamp),
+        "location": "青溪渡口",
+    }
+    base_world.avatar_manager.register_avatar(avatar)
+
+    simulator = Simulator(base_world)
+    save_path = tmp_path / "fate_revelation_save.json"
+
+    success, _ = save_game(base_world, simulator, existed_sects=[], save_path=save_path)
+    assert success is True
+
+    loaded_world, _loaded_sim, _sects = load_game(save_path)
+    loaded_avatar = loaded_world.avatar_manager.get_avatar(avatar.id)
+
+    assert loaded_avatar is not None
+    assert loaded_avatar.fate_revelation == avatar.fate_revelation

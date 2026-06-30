@@ -1017,6 +1017,12 @@ msgstr "Backstory"
 msgid "Backstory: {backstory}"
 msgstr "Backstory: {backstory}"
 
+msgid "Fate"
+msgstr "Fate"
+
+msgid "Fate Revelation"
+msgstr "Fate Revelation"
+
 msgid "Current Action"
 msgstr "Current Action"
 

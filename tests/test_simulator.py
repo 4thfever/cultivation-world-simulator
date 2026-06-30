@@ -12,7 +12,7 @@ from src.classes.sect_decider import SectDecisionResult
 from src.classes.sect_ranks import get_rank_from_realm
 from src.server.runtime import DEFAULT_GAME_STATE, GameSessionRuntime
 from src.sim.simulator import Simulator
-from src.sim.simulator_engine.phases import annual, sect_war
+from src.sim.simulator_engine.phases import annual, sect_war, world as world_phases
 from src.classes.core.sect import Sect, SectHeadQuarter
 from src.systems.cultivation import Realm
 from src.systems.time import Month, Year, create_month_stamp
@@ -76,6 +76,32 @@ async def test_simulator_interaction_events_do_not_use_legacy_counting(base_worl
 
     count = dummy_avatar.relation_interaction_states[other_avatar.id]["count"]
     assert count == 0
+
+
+@pytest.mark.asyncio
+async def test_phase_passive_effects_collects_fate_revelation_event(base_world, dummy_avatar):
+    event = Event(
+        base_world.month_stamp,
+        "命格显现",
+        related_avatars=[dummy_avatar.id],
+        is_major=True,
+        event_type="fate_revelation",
+    )
+
+    with patch(
+        "src.sim.simulator_engine.phases.world.try_trigger_fortune",
+        new=AsyncMock(return_value=[]),
+    ), patch(
+        "src.sim.simulator_engine.phases.world.try_trigger_misfortune",
+        new=AsyncMock(return_value=[]),
+    ), patch(
+        "src.sim.simulator_engine.phases.world.try_trigger_fate_revelation",
+        new=AsyncMock(return_value=[event]),
+    ) as mock_fate:
+        events = await world_phases.phase_passive_effects(base_world, [dummy_avatar])
+
+    assert events == [event]
+    mock_fate.assert_awaited_once_with(dummy_avatar, base_world)
 
 
 @pytest.mark.asyncio

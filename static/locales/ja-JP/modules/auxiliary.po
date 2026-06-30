@@ -46,6 +46,12 @@ msgstr "来歴"
 msgid "Backstory: {backstory}"
 msgstr "来歴: {backstory}"
 
+msgid "Fate"
+msgstr "命数"
+
+msgid "Fate Revelation"
+msgstr "命数の啓示"
+
 msgid "Current Action"
 msgstr "現在の行動"
 

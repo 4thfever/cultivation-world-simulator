@@ -913,6 +913,12 @@ msgstr "身世"
 msgid "Backstory: {backstory}"
 msgstr "身世：{backstory}"
 
+msgid "Fate"
+msgstr "命格"
+
+msgid "Fate Revelation"
+msgstr "命格显现"
+
 msgid "Current Action"
 msgstr "当前动作"
 

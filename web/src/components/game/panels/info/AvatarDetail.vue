@@ -121,6 +121,12 @@ const {
           <span class="label">{{ t('game.info_panel.avatar.backstory') }}</span>
           <span class="value">{{ data.backstory }}</span>
         </div>
+        <div class="objective-item fate-item" v-if="data.fate_revelation">
+          <span class="label">{{ t('game.info_panel.avatar.fate') }}</span>
+          <span class="value fate-value">
+            <span class="fate-oracle">『{{ data.fate_revelation.oracle_text }}』</span>
+          </span>
+        </div>
         <div class="objective-item">
           <span class="label">{{ t('game.info_panel.avatar.long_term_objective') }}</span>
           <span class="value">{{ data.long_term_objective || t('common.none') }}</span>
@@ -472,6 +478,20 @@ const {
 
 .objective-item .value {
   color: #ccc;
+}
+
+.fate-value {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fate-oracle {
+  color: #d8c39a;
+  font-weight: 600;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .content-scroll {

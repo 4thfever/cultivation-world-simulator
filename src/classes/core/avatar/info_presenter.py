@@ -64,6 +64,18 @@ def _get_goldfinger_detail(avatar: "Avatar", detailed: bool) -> str:
     return goldfinger.get_detailed_info() if detailed else goldfinger.get_info()
 
 
+def _get_fate_revelation(avatar: "Avatar") -> dict | None:
+    fate = getattr(avatar, "fate_revelation", None)
+    return fate if isinstance(fate, dict) else None
+
+
+def _get_fate_oracle_text(avatar: "Avatar") -> str:
+    fate = _get_fate_revelation(avatar)
+    if not fate:
+        return ""
+    return str(fate.get("oracle_text", "") or "").strip()
+
+
 def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     """
     获取 avatar 的信息，返回 dict；根据 detailed 控制信息粒度。
@@ -135,6 +147,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         t("Realm"): cultivation_info,
         t("Traits"): personas_info,
         t("Goldfinger"): goldfinger_info,
+        t("Fate"): _get_fate_oracle_text(avatar) or t("None"),
         t("Materials"): materials_info,
         t("Appearance"): appearance_info,
         t("Weapon"): weapon_info,
@@ -168,6 +181,9 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
             info_dict[t("Race Behavior Priority")] = race_behavior_desc
         if avatar.backstory:
             info_dict[t("Backstory")] = avatar.backstory
+        fate = _get_fate_revelation(avatar)
+        if fate and fate.get("trigger_text"):
+            info_dict[t("Fate Revelation")] = str(fate.get("trigger_text", ""))
 
     # 绰号：仅在存在时显示
     if avatar.nickname is not None:
@@ -236,6 +252,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "short_term_objective": avatar.short_term_objective,
         "long_term_objective": avatar.long_term_objective.content if avatar.long_term_objective else "",
         "backstory": avatar.backstory if avatar.backstory else None,
+        "fate_revelation": _get_fate_revelation(avatar),
         "nickname": avatar.nickname.value if avatar.nickname else None,
         "nickname_reason": avatar.nickname.reason if avatar.nickname else None,
         "is_dead": avatar.is_dead,

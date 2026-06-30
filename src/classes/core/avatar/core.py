@@ -110,6 +110,7 @@ class Avatar(
     spirit_animal: Optional[SpiritAnimal] = None
     nickname: Optional[Nickname] = None
     backstory: Optional[str] = None
+    fate_revelation: Optional[dict] = None
     emotion: EmotionType = EmotionType.CALM
     custom_pic_id: Optional[int] = None
     luck_base: float = 0.0

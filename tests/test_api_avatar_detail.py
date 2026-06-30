@@ -94,6 +94,28 @@ def test_avatar_detail_api_exposes_cultivation_alias_fields(base_world):
         main.game_instance.update(original_instance)
 
 
+def test_avatar_detail_api_exposes_fate_revelation(base_world):
+    original_instance = main.game_instance.copy()
+    try:
+        avatar = _make_avatar(base_world)
+        avatar.fate_revelation = {
+            "trigger_text": "青溪渡口忽有逆流成圆，几片残叶贴着水面缓缓不散。",
+            "oracle_text": "千山暮雪倾东海，初日潮头又上来",
+            "revealed_month": int(base_world.month_stamp),
+            "location": "青溪渡口",
+        }
+        main.game_instance["world"] = base_world
+
+        client = TestClient(main.app)
+        response = client.get("/api/v1/query/detail", params={"type": "avatar", "id": avatar.id})
+
+        assert response.status_code == 200
+        data = response.json()["data"]
+        assert data["fate_revelation"] == avatar.fate_revelation
+    finally:
+        main.game_instance.update(original_instance)
+
+
 def test_avatar_detail_api_surfaces_randomly_initialized_goldfinger(base_world, monkeypatch):
     original_instance = main.game_instance.copy()
     try:

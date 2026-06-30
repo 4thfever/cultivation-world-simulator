@@ -18,6 +18,7 @@ llm:
     history_influence: "normal"
     backstory: "fast"
     custom_content_generation: "normal"
+    fate_revelation: "normal"
     random_minor_event: "fast"
     sect_random_event: "fast"
     sect_random_event_reason: "fast"
@@ -33,6 +34,7 @@ world:
   autonomous_creation_story_probability: 0.5
   fortune_probability: 0.005
   misfortune_probability: 0.005
+  fate_revelation_probability: 0.5
   random_minor_event_prob: 0.05
   birth_rate_per_month: 0.005
   max_children_per_couple: 2
