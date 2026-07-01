@@ -381,13 +381,13 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 ### ✨ Special
 - ✅ Fortuitous encounters
 - ✅ Heavenly Tribulation & Heart Devil
-- [ ] Opportunity & Karma
 - ✅ Fate Revelation
+- ✅ Formations
+- ✅ Gu
+- [ ] Fortuitous opportunity
 - [ ] Character Secrets & Conspiracies
 - [ ] Incarnations & Ascension to the upper realm
-- ✅ Formations
 - [ ] World secrets & World laws
-- ✅ Gu
 - [ ] Found a sect / Become emperor
 
 ### 🔭 Long-term Prospects

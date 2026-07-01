@@ -381,13 +381,13 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 ### ✨ Đặc Thù
 - ✅ Kỳ ngộ
 - ✅ Thiên kiếp và tâm ma
-- [ ] Cơ duyên và nhân quả
 - ✅ Mệnh cách
+- ✅ Trận pháp
+- ✅ Cổ
+- [ ] Cơ duyên
 - [ ] Bí mật nhân vật và âm mưu
 - [ ] Hóa thân và phi thăng thượng giới
-- ✅ Trận pháp
 - [ ] Bí mật thế giới và pháp tắc thế giới
-- ✅ Cổ
 - [ ] Tự lập tông môn / trở thành hoàng đế
 
 ### 🔭 Triển Vọng Dài Hạn
