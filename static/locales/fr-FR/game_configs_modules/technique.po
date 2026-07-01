@@ -1,0 +1,537 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. technique.csv: 最基础的法术，凝聚火炎伤敌，简单实用。...
+msgid "TECHNIQUE_10_DESC"
+msgstr ""
+"La technique la plus basique, concentrant les flammes pour blesser les "
+"ennemis, simple et pratique."
+
+#. technique.csv: 火灵诀
+msgid "TECHNIQUE_10_NAME"
+msgstr "Formule de l'Esprit de Feu"
+
+#. technique.csv: 纯阳之气，刚猛无铸，克制阴邪。...
+msgid "TECHNIQUE_11_DESC"
+msgstr "Le Qi du Yang pur, féroce et inébranlable, contrant le froid et le mal."
+
+#. technique.csv: 纯阳真功
+msgid "TECHNIQUE_11_NAME"
+msgstr "Véritable Art du Yang Pur"
+
+#. technique.csv: 力能扛鼎，气力悠长，如下山猛虎。...
+msgid "TECHNIQUE_13_DESC"
+msgstr ""
+"Capable de soulever un trépied par la force, avec une puissance physique "
+"durable, comme un tigre dévalant la montagne."
+
+#. technique.csv: 搬山诀
+msgid "TECHNIQUE_13_NAME"
+msgstr "Formule de Déplacement de Montagne"
+
+#. technique.csv: 不动如山，动如雷震，佛门护法神功。...
+msgid "TECHNIQUE_14_DESC"
+msgstr ""
+"Immobile comme une montagne, se mouvant comme la foudre, une compétence "
+"divine de gardien bouddhiste."
+
+#. technique.csv: 不动明王诀
+msgid "TECHNIQUE_14_NAME"
+msgstr "Formule du Roi Immuable de Sagesse"
+
+#. technique.csv: 心若冰清，天塌不惊，凝神静气。...
+msgid "TECHNIQUE_16_DESC"
+msgstr ""
+"Le cœur pur comme la glace, l'effondrement du ciel n'effraye pas, concentrant "
+"l'esprit et calmant l'énergie."
+
+#. technique.csv: 凝神冰心诀
+msgid "TECHNIQUE_16_NAME"
+msgstr "Formule du Cœur de Glace Concentré"
+
+#. technique.csv: 寒气透骨，冻结经脉，阴狠霸道。...
+msgid "TECHNIQUE_17_DESC"
+msgstr ""
+"Le froid traverse les os, gèle les méridiens, sinistre et tyrannique."
+
+#. technique.csv: 玄冰劲
+msgid "TECHNIQUE_17_NAME"
+msgstr "Puissance de Glace Mystérieuse"
+
+#. technique.csv: 身法灵动，变幻莫测，逃跑一流。...
+msgid "TECHNIQUE_19_DESC"
+msgstr "Mouvements vifs et insaisissables, impeccables pour s'échapper."
+
+#. technique.csv: 流云百变身
+msgid "TECHNIQUE_19_NAME"
+msgstr "Corps aux Cent Transformations du Nuage Fluide"
+
+#. technique.csv: 佛门护教神功，浑身坚若金石，寻常兵刃难伤。
+msgid "TECHNIQUE_1_DESC"
+msgstr ""
+"Une compétence divine de gardien bouddhiste, le corps dur comme le métal et "
+"la pierre, invulnérable aux armes ordinaires."
+
+#. technique.csv: 混元金身
+msgid "TECHNIQUE_1_NAME"
+msgstr "Corps d'Or Primordial"
+
+#. technique.csv: 借力腾空，左脚踩右脚，直上青云九霄。
+msgid "TECHNIQUE_20_DESC"
+msgstr ""
+"Emprunter la force pour s'élancer, le pied gauche sur le pied droit, montant "
+"droit vers les neuf cieux."
+
+#. technique.csv: 踏云步
+msgid "TECHNIQUE_20_NAME"
+msgstr "Pas de Foulée des Nuages"
+
+#. technique.csv: 收敛气息，如枯木死灰，令人难以察觉。...
+msgid "TECHNIQUE_22_DESC"
+msgstr ""
+"Masquer le souffle, comme du bois mort et des cendres froides, difficile à "
+"détecter pour les autres."
+
+#. technique.csv: 敛息术
+msgid "TECHNIQUE_22_NAME"
+msgstr "Technique de Dissimulation du Souffle"
+
+#. technique.csv: 如鬼魅般难以捉摸，步法诡异，令人眼花缭乱。
+msgid "TECHNIQUE_23_DESC"
+msgstr "Insaisissable comme un fantôme, aux pas mystérieux, étourdissant pour les yeux."
+
+#. technique.csv: 幻影迷踪步
+msgid "TECHNIQUE_23_NAME"
+msgstr "Pas de Trace du Spectre"
+
+#. technique.csv: 道家正宗法术，掌心发雷，震慑妖邪。...
+msgid "TECHNIQUE_25_DESC"
+msgstr ""
+"Un sort taoïste orthodoxe, émettant la foudre de la paume, intimidant les "
+"esprits mauvais."
+
+#. technique.csv: 掌心雷
+msgid "TECHNIQUE_25_NAME"
+msgstr "Foudre de la Paume"
+
+#. technique.csv: 役使五行之雷，刚猛霸道，无坚不摧。...
+msgid "TECHNIQUE_26_DESC"
+msgstr ""
+"Employant la foudre des cinq éléments, féroce et tyrannique, indestructible."
+
+#. technique.csv: 五雷正法
+msgid "TECHNIQUE_26_NAME"
+msgstr "Orthodoxie des Cinq Tonnerres"
+
+#. technique.csv: 燃烧精血，短暂爆发实力，事后虚弱。...
+msgid "TECHNIQUE_28_DESC"
+msgstr ""
+"Brûler le sang d'essence pour une explosion momentanée de puissance, suivie "
+"d'une faiblesse."
+
+#. technique.csv: 燃血爆元术
+msgid "TECHNIQUE_28_NAME"
+msgstr "Art d'Explosion d'Essence par Brûlure de Sang"
+
+#. technique.csv: 强行吸取他人灵力为己用，霸道异常，常有反噬风险。
+msgid "TECHNIQUE_29_DESC"
+msgstr ""
+"Absorber par force la puissance spirituelle d'autrui, extraordinairement "
+"tyrannique, avec risques de contrecoup fréquents."
+
+#. technique.csv: 吞灵归元功
+msgid "TECHNIQUE_29_NAME"
+msgstr "Art de Retour à l'Origine par Déglutition d'Esprit"
+
+#. technique.csv: 运气成钟，护持周身，反震外力。...
+msgid "TECHNIQUE_2_DESC"
+msgstr ""
+"Rassembler le Qi en une cloche pour protéger le corps et réfléchir les forces "
+"externes."
+
+#. technique.csv: 金钟罩
+msgid "TECHNIQUE_2_NAME"
+msgstr "Bouclier de Cloche d'Or"
+
+#. technique.csv: 一剑枯荣，斩尽日月星辰，乃剑道至高境界。
+msgid "TECHNIQUE_30_DESC"
+msgstr ""
+"Une épée apportant le flétrissement et la gloire, tranchant le soleil, la "
+"lune et les étoiles, le plus haut domaine du chemin de l'épée."
+
+#. technique.csv: 斩星枯荣剑
+msgid "TECHNIQUE_30_NAME"
+msgstr "Épée Gloire Fléchie de Tranchement d'Étoile"
+
+#. technique.csv: 引九天雷霆入剑，煌煌天威，荡尽群魔。...
+msgid "TECHNIQUE_31_DESC"
+msgstr ""
+"Guider la foudre des neuf cieux dans l'épée, avec la majesté céleste "
+"grandiose, balayant tous les démons."
+
+#. technique.csv: 九霄御雷术
+msgid "TECHNIQUE_31_NAME"
+msgstr "Art de Contrôle de la Foudre des Neuf Cieux"
+
+#. technique.csv: 君不见沧浪之水天上来，奔流到海不复回。...
+msgid "TECHNIQUE_32_DESC"
+msgstr ""
+"Ne voyez-vous pas l'eau des vagues déferlantes venant du ciel, se ruant vers "
+"la mer sans retour."
+
+#. technique.csv: 沧浪剑意
+msgid "TECHNIQUE_32_NAME"
+msgstr "Intention d'Épée des Vagues Déferlantes"
+
+#. technique.csv: 上古木系至高功法，生生不息，枯木逢春。
+msgid "TECHNIQUE_33_DESC"
+msgstr ""
+"Méthode de cultivation suprême du système Bois ancien, vie sans fin, bois "
+"mort rencontrant le printemps."
+
+#. technique.csv: 乙木长生诀
+msgid "TECHNIQUE_33_NAME"
+msgstr "Formule de Longévité du Bois Yi"
+
+#. technique.csv: 以气引神，力若龙象，举手投足，镇压诸邪。
+msgid "TECHNIQUE_34_DESC"
+msgstr ""
+"Guider l'esprit avec le Qi, puissance comme un dragon et un éléphant, chaque "
+"mouvement supprime tous les maux."
+
+#. technique.csv: 龙象镇魔功
+msgid "TECHNIQUE_34_NAME"
+msgstr "Art de Suppression des Démons du Dragon Éléphant"
+
+#. technique.csv: 入海为鱼，扶摇为鸟。阴阳变化，极速与吞噬并存。
+msgid "TECHNIQUE_35_DESC"
+msgstr ""
+"Entrer la mer comme poisson, s'élancer comme oiseau. Changements Yin-Yang, "
+"coexistant vitesse extrême et déglutition."
+
+#. technique.csv: 垂天阴阳翼
+msgid "TECHNIQUE_35_NAME"
+msgstr "Ailes Yin Yang du Ciel Pendant"
+
+#. technique.csv: 以无限空间证道，掌控虚空，先天立于不败之地。
+msgid "TECHNIQUE_36_DESC"
+msgstr ""
+"Prouver la Voie par l'espace infini, contrôler le vide, intrinsèquement "
+"invincible."
+
+#. technique.csv: 太虚行者录
+msgid "TECHNIQUE_36_NAME"
+msgstr "Registre du Voyageur du Vide Suprême"
+
+#. technique.csv: 太上忘情，非无情，乃忘情。至公至正，威力...
+msgid "TECHNIQUE_37_DESC"
+msgstr ""
+"L'amourosité suprême n'est pas insensibilité, mais oubli de l'émotion. "
+"Justice et impartialité ultimes, avec puissance infinie."
+
+#. technique.csv: 太上忘情篇
+msgid "TECHNIQUE_37_NAME"
+msgstr "Chapitre de l'Oubli Suprême"
+
+#. technique.csv: 乘天地之正，而御六气之辩，以游无穷。...
+msgid "TECHNIQUE_38_DESC"
+msgstr ""
+"Chevaucher la rectitude du ciel et de la terre, et contrôler les changements "
+"des six Qi pour voyager infiniment."
+
+#. technique.csv: 逍遥游
+msgid "TECHNIQUE_38_NAME"
+msgstr "Voyage Insouciant"
+
+#. technique.csv: 吞噬万千体质本源，以后天返先天，铸就混沌之躯。
+msgid "TECHNIQUE_39_DESC"
+msgstr ""
+"Dévorer l'origine de dix mille constitutions, revenir à l'inné du acquis, "
+"forger le Corps du Chaos."
+
+#. technique.csv: 混沌噬灵诀
+msgid "TECHNIQUE_39_NAME"
+msgstr "Art de Déglutition d'Esprit du Chaos"
+
+#. technique.csv: 魔门至高宝典，包罗万象，直指破碎虚空之境。
+msgid "TECHNIQUE_40_DESC"
+msgstr ""
+"Le plus haut grimoire de la porte démoniaque, tout-englobant, pointant "
+"directement vers le royaume de brisure du vide."
+
+#. technique.csv: 罗刹魔典
+msgid "TECHNIQUE_40_NAME"
+msgstr "Canon Démon Rakshasa"
+
+#. technique.csv: 血海不枯，真身不死。演化亿万血神子...
+msgid "TECHNIQUE_41_DESC"
+msgstr ""
+"La mer de sang ne s'assèche jamais, le vrai corps ne meurt pas. Évoluant en "
+"centaines de millions de fils dieu du sang."
+
+#. technique.csv: 血海不灭经
+msgid "TECHNIQUE_41_NAME"
+msgstr "Écriture Indestructible de la Mer de Sang"
+
+#. technique.csv: 通过吞噬天地异火进化功法，潜力无限，号令万火...
+msgid "TECHNIQUE_42_DESC"
+msgstr ""
+"Évoluer la technique en dévorant les flammes exotiques du ciel et de la "
+"terre, potentiel infini, commandant tous les feux."
+
+#. technique.csv: 九转火源经
+msgid "TECHNIQUE_42_NAME"
+msgstr "Écriture de Source de Feu aux Neuf Tours"
+
+#. technique.csv: 以天地为炉鼎，种魔种，夺天地造化，死中求生。
+msgid "TECHNIQUE_43_DESC"
+msgstr ""
+"Utiliser le ciel et la terre comme fourneau, planter des graines démoniaques, "
+"saisir la création du ciel et de la terre, chercher la vie dans la mort."
+
+#. technique.csv: 种魔夺天诀
+msgid "TECHNIQUE_43_NAME"
+msgstr "Art de Saisie du Ciel par Ensemencement Démoniaque"
+
+#. technique.csv: 专修神识，能分心多用，操控万千法器傀儡。...
+msgid "TECHNIQUE_44_DESC"
+msgstr ""
+"Se spécialiser dans le sens divin, capable de multitâche et contrôler des "
+"milliers d'artefacts magiques et de poupées."
+
+#. technique.csv: 千念分神术
+msgid "TECHNIQUE_44_NAME"
+msgstr "Art de Distraction aux Mille Pensées"
+
+#. technique.csv: 阴阳大道，极乐飞升。双修之至高法门。...
+msgid "TECHNIQUE_45_DESC"
+msgstr ""
+"La Grande Voie du Yin et du Yang, ascension en félicité extrême. La méthode "
+"suprême de la double cultivation."
+
+#. technique.csv: 大乐赋
+msgid "TECHNIQUE_45_NAME"
+msgstr "Ode de la Grande Félicité"
+
+#. technique.csv: 域外天魔之舞，勾魂摄魄，乱人心智。...
+msgid "TECHNIQUE_46_DESC"
+msgstr ""
+"La danse du démon céleste extradimensionnel, accrochant l'âme et troublant "
+"l'esprit."
+
+#. technique.csv: 天魔舞
+msgid "TECHNIQUE_46_NAME"
+msgstr "Danse du Démon Céleste"
+
+#. technique.csv: 体迅飞凫，飘忽若神，动无常则，若危若安。
+msgid "TECHNIQUE_47_DESC"
+msgstr ""
+"Se déplaçant aussi vite qu'un canard volant, insaisissable comme un dieu, se "
+"mouvant sans règle, semblant dangereux mais sûr."
+
+#. technique.csv: 烟波渺步
+msgid "TECHNIQUE_47_NAME"
+msgstr "Pas de Vague Brumeuse"
+
+#. technique.csv: 神魂不灭，超脱彼岸。修成无量法身，万劫不磨。
+msgid "TECHNIQUE_48_DESC"
+msgstr ""
+"L'âme divine est indestructible, se transcendant vers l'autre rive. Cultivant "
+"le corps dharma immense, éternel par dix mille calamités."
+
+#. technique.csv: 无量寂灭经
+msgid "TECHNIQUE_48_NAME"
+msgstr "Écriture du Nirvana Immense"
+
+#. technique.csv: 佛门护法金刚之怒，如雷霆万钧，震慑一切邪魔，荡涤世间污秽。
+msgid "TECHNIQUE_49_DESC"
+msgstr ""
+"La colère du Vajra Protecteur Bouddhiste, comme la foudre de dix mille jun, "
+"intimidant tous les démons et purifiant la souillure du monde."
+
+#. technique.csv: 大威德金刚雷
+msgid "TECHNIQUE_49_NAME"
+msgstr "Foudre Vajra Yamantaka"
+
+#. technique.csv: 木系基础功法，气息绵长，有驻颜延寿之效。
+msgid "TECHNIQUE_4_DESC"
+msgstr ""
+"Méthode de cultivation basique du système Bois, au souffle durable et aux "
+"effets de maintien de la jeunesse et prolongement de la vie."
+
+#. technique.csv: 青元长生功
+msgid "TECHNIQUE_4_NAME"
+msgstr "Art de Longévité de l'Origine Azure"
+
+#. technique.csv: 唵嘛呢叭咪吽。佛门至高咒语，蕴含无尽愿力，能净化世间一切罪业与灾厄。
+msgid "TECHNIQUE_50_DESC"
+msgstr ""
+"Om Mani Padme Hum. Le mantra suprême du bouddhisme, contenant le pouvoir "
+"infini des vœux, capable de purifier tous les péchés et calamités du monde."
+
+#. technique.csv: 六字大明咒
+msgid "TECHNIQUE_50_NAME"
+msgstr "Mantra des Six Syllabes"
+
+#. technique.csv: 阴损毒辣，专破内家真气，触之即死。...
+msgid "TECHNIQUE_51_DESC"
+msgstr ""
+"Sinistre et cruel, cassant spécifiquement le vrai Qi interne, mort au contact."
+
+#. technique.csv: 幽冥玄阴爪
+msgid "TECHNIQUE_51_NAME"
+msgstr "Griffe Yin Mystérieuse de l'Au-delà"
+
+#. technique.csv: 身化雷霆，瞬息千里，原地只留残影重重。
+msgid "TECHNIQUE_52_DESC"
+msgstr ""
+"Le corps se transformant en foudre, des milliers de miles en un instant, ne "
+"laissant que des afterimages lourds sur place."
+
+#. technique.csv: 雷影瞬遁
+msgid "TECHNIQUE_52_NAME"
+msgstr "Foudre Ombre Flash"
+
+#. technique.csv: 以自身为皮，鲜血为墨。修炼者必先历经剥皮噬血之苦。
+msgid "TECHNIQUE_53_DESC"
+msgstr ""
+"Utilisant sa propre peau comme papier, le sang frais comme encre. Les "
+"cultivateurs doivent d'abord subir la souffrance du dépouillage et de la "
+"déglutition de sang."
+
+#. technique.csv: 修罗血煞功
+msgid "TECHNIQUE_53_NAME"
+msgstr "Art de Férocité de Sang Asura"
+
+#. technique.csv: 炼器极致，化腐朽为神奇，万物皆可随心炼化。
+msgid "TECHNIQUE_54_DESC"
+msgstr ""
+"L'apogée du raffinement d'artefact, transformant la décadence en magie, tout "
+"peut être raffiné à volonté."
+
+#. technique.csv: 天工造物诀
+msgid "TECHNIQUE_54_NAME"
+msgstr "Art de Création Céleste"
+
+#. technique.csv: 引周天星力，演化宇宙洪荒，攻防一体。...
+msgid "TECHNIQUE_55_DESC"
+msgstr ""
+"Attirant la puissance stellaire du ciel, évoluant l'univers et le chaos, "
+"combinant attaque et défense."
+
+#. technique.csv: 万星飞仙阵
+msgid "TECHNIQUE_55_NAME"
+msgstr "Tableau des Dix Mille Étoiles Immortel Volant"
+
+#. technique.csv: 化作一道流金遁光，瞬息万里，乃逃生赶路之绝学。
+msgid "TECHNIQUE_56_DESC"
+msgstr ""
+"Se transformant en un flux de lumière dorée, des milliers de miles en un "
+"instant, la compétence suprême pour s'échapper et voyager."
+
+#. technique.csv: 金光遁法
+msgid "TECHNIQUE_56_NAME"
+msgstr "Méthode d'Échappement de Lumière Dorée"
+
+#. technique.csv: 天地有正气，杂然赋流形。养胸中浩然之气，诸邪不侵，万法不破。
+msgid "TECHNIQUE_57_DESC"
+msgstr ""
+"Le ciel et la terre possèdent la rectitude, manifestée sous diverses formes. "
+"Cultivant l'esprit noble en dedans, le mal ne peut pas envahir, et toutes "
+"les lois ne peuvent pas le briser."
+
+#. technique.csv: 浩然正气歌
+msgid "TECHNIQUE_57_NAME"
+msgstr "Chanson de la Rectitude"
+
+#. technique.csv: 笔落惊风雨，诗成泣鬼神。以圣人之言判春秋功过，一字千金。
+msgid "TECHNIQUE_58_DESC"
+msgstr ""
+"Avec un coup de pinceau, le vent et la pluie sont surpris, les poèmes font "
+"pleurer les fantômes et les dieux. Utilisant les paroles des sages pour "
+"juger les mérites et les fautes de l'histoire, un mot vaut mille or."
+
+#. technique.csv: 春秋笔法
+msgid "TECHNIQUE_58_NAME"
+msgstr "Technique de Pinceau du Printemps et de l'Automne"
+
+#. technique.csv: 口含天宪，言出法随。以圣贤之语调动天地规则，令行禁止，莫敢不从。
+msgid "TECHNIQUE_59_DESC"
+msgstr ""
+"Parler la loi. Mobilisant les règles du ciel et de la terre avec les paroles "
+"des sages, les ordres sont interdits, et personne ne ose désobéir."
+
+#. technique.csv: 言出法随
+msgid "TECHNIQUE_59_NAME"
+msgstr "La Loi Suit la Parole"
+
+#. technique.csv: 汲取天地草木精气，生机浩荡，万木臣服。
+msgid "TECHNIQUE_5_DESC"
+msgstr ""
+"Absorbant l'essence du ciel et de la terre des plantes, avec vitalité vaste, "
+"faisant soumettre tous les bois."
+
+#. technique.csv: 太乙青木气
+msgid "TECHNIQUE_5_NAME"
+msgstr "Qi Bois Azure Taiyi"
+
+#. technique.csv: Draws the purple qi of the rising sun to temper the skin...
+msgid "TECHNIQUE_60_DESC"
+msgstr ""
+"Dessiner le Qi violet du soleil levant pour tempérer la peau, réchauffant le "
+"corps et le remplissant de vitalité."
+
+#. technique.csv: Sun Tempering Art
+msgid "TECHNIQUE_60_NAME"
+msgstr "Art de Trempe du Soleil"
+
+#. technique.csv: Body like glazed glass...
+msgid "TECHNIQUE_61_DESC"
+msgstr ""
+"Le corps comme du verre glacé, clair dedans et dehors, invulnérable au mal et "
+"indestructible."
+
+#. technique.csv: Radiant Glass Body
+msgid "TECHNIQUE_61_NAME"
+msgstr "Corps de Verre Rayonnant"
+
+#. technique.csv: The supreme technique of the Eternal Bright Palace...
+msgid "TECHNIQUE_62_DESC"
+msgstr ""
+"La technique suprême du Palais Éternellement Brillant. Sanctification de la "
+"chair, un corps d'or impérissable qui brille à travers les âges."
+
+#. technique.csv: Great Bright Golden Body
+msgid "TECHNIQUE_62_NAME"
+msgstr "Corps d'Or Brillant Grandiose"
+
+#. technique.csv: 上善若水，水利万物而不争，绵柔醇厚。...
+msgid "TECHNIQUE_7_DESC"
+msgstr ""
+"Le plus haut bien est comme l'eau, l'eau profite à toutes choses sans "
+"contester, doux et riche."
+
+#. technique.csv: 若水诀
+msgid "TECHNIQUE_7_NAME"
+msgstr "Formule Ruoshui"
+
+#. technique.csv: 驾驭滔滔黑水，重若千钧，拳意如深海暗流。
+msgid "TECHNIQUE_8_DESC"
+msgstr ""
+"Conduire l'eau noire déferlante, lourd comme mille jun, avec intention de "
+"poing comme les courants sombres de la mer profonde."
+
+#. technique.csv: 北冥玄水拳
+msgid "TECHNIQUE_8_NAME"
+msgstr "Poing de l'Eau Mystérieuse du Nord"

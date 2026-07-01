@@ -1,0 +1,128 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr ""
+"(Alignement : {alignment}, Style : {style}, Siège social : {hq_name}){effect}"
+
+msgid "(Unknown technique)"
+msgstr "(Technique inconnue)"
+
+msgid "Current World Phenomenon"
+msgstr "Phénomène Mondial Actuel"
+
+msgid "Drops: {materials}"
+msgstr "Butin : {materials}"
+
+msgid "History"
+msgstr "Historique"
+
+msgid "Unknown character"
+msgstr "Personnage inconnu"
+
+msgid "When alignment is {align}"
+msgstr "Quand l'alignement est {align}"
+
+msgid "When using {weapon_type}"
+msgstr "Lors de l'utilisation {weapon_type}"
+
+msgid "Wilderness"
+msgstr "Désert"
+
+msgid "[{name}] ({realm})"
+msgstr "[{name}] ({realm})"
+
+# Additional (New)
+msgid "action_thinking"
+msgstr "Réflexion"
+
+msgid "battle"
+msgstr "Combat"
+
+msgid "date_format_year_month"
+msgstr "Année {year} Mois {month}"
+
+# Battle - action descriptions
+msgid "defeated"
+msgstr "vaincu"
+
+msgid "old_age"
+msgstr "Mort de Vieillesse"
+
+msgid "phenomenon_format"
+msgstr "{name} : {desc}"
+
+msgid "sect_headquarters_desc_format"
+msgstr "({sect_name} Siège social)"
+
+msgid "serious_injury"
+msgstr "Blessure Grave"
+
+msgid "son"
+msgstr "fils"
+
+msgid "{alignment}: {description}"
+msgstr "{alignment} : {description}"
+
+msgid "{name} ({attribute}) {grade}"
+msgstr "{name} ({attribute}) {grade}"
+
+msgid "{name} ({attribute}) {grade} {desc}{effect}"
+msgstr "{name} ({attribute}) {grade} {desc}{effect}"
+
+msgid "{name} ({attribute}·{grade})"
+msgstr "{name} ({attribute}·{grade})"
+
+msgid "{name} ({desc}{effect})"
+msgstr "{name} ({desc}{effect})"
+
+msgid "{name} ({realm})"
+msgstr "{name} ({realm})"
+
+msgid "{name} ({type}·{realm}, {desc}){effect}"
+msgstr "{name} ({type}·{realm}, {desc}){effect}"
+
+msgid "{name} has ascended to a cultivator."
+msgstr "{name} s'est élevé au rang de cultivateur."
+
+msgid "{name}: {desc}"
+msgstr "{name} : {desc}"
+
+msgid "{name}: {desc} ({realm})"
+msgstr "{name} : {desc} ({realm})"
+
+msgid "{p1} and {p2} gave birth to a {gender} named {child}."
+msgstr "{p1} et {p2} ont donné naissance à {gender} nommé {child}."
+
+msgid "{realm} {stage} (Level {level}) {status}"
+msgstr "{realm} {stage} (Niveau {level}) {status}"
+
+msgid "{realm} {stage} (Level {level}). At bottleneck: {status}"
+msgstr "{realm} {stage} (Niveau {level}). Au goulet : {status}"
+
+# Battle messages
+msgid ""
+"{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally "
+"wounded and perished."
+msgstr ""
+"{winner} a vaincu {loser}, infligeant {damage} dégâts. {loser} a été "
+"mortellement blessé et a péri."
+
+msgid ""
+"{winner} defeated {loser}. {loser} took {loser_dmg} damage, {winner} also "
+"took {winner_dmg} damage."
+msgstr ""
+"{winner} a vaincu {loser}. {loser} a pris {loser_dmg} dégâts, {winner} a "
+"aussi pris {winner_dmg} dégâts."

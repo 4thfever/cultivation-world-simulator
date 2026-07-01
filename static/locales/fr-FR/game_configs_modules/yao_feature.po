@@ -1,0 +1,25 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr-FR\n"
+
+msgid "PERSONA_1015_NAME"
+msgstr "Bienveillant envers les Autres Espèces"
+
+msgid "PERSONA_1015_DESC"
+msgstr "Vous ressentez une curiosité naturelle et de la chaleur envers les cultivateurs d'autres races, et êtes disposé à construire des liens par-delà les différences d'origine."
+
+msgid "PERSONA_1016_NAME"
+msgstr "Déteste les Autres Espèces"
+
+msgid "PERSONA_1016_DESC"
+msgstr "Vous rejetez instinctivement les cultivateurs d'autres races et trouvez difficile de vraiment faire confiance aux étrangers."
+
+msgid "WORLD_INFO_RACE_TITLE"
+msgstr "Race"
+
+msgid "WORLD_INFO_RACE_NAME"
+msgstr "Race"
+
+msgid "WORLD_INFO_RACE_DESC"
+msgstr "Le monde contient à la fois des cultivateurs humains et des Yao. Les Yao incluent les renards, les loups, les oiseaux, les serpents, les tortues et d'autres races, chacun avec des instincts différents : les renards sont rusés et malins, les loups sont des chasseurs féroces, les oiseaux excellent à la migration et à l'éclaireur, les serpents sont patients et venimeux, et les tortues sont longévives et défensives. Les Yao peuvent cultiver et rejoindre des sectes qui les acceptent, mais certaines sectes qui mettent l'accent sur les rites humains ou l'ordre confucéen ne les acceptent pas."

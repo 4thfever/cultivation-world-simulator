@@ -1,0 +1,125 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Action: Assassinate
+msgid "assassinate_action_name"
+msgstr "Assassiner"
+
+msgid "assassinate_description"
+msgstr "Assassinez la cible ; en cas d'échec, transformez-vous en combat"
+
+msgid "assassinate_requirements"
+msgstr "Aucune restriction ; délai d'attente requis"
+
+msgid "assassinate_story_prompt_fail"
+msgstr ""
+"Il s'agit d'un assassinat échoué. L'assassin a tenté de tuer la cible, mais "
+"a été détecté avec vigilance. Les deux parties se sont alors lancées dans "
+"une confrontation directe féroce. Ne mentionnez pas de valeurs de PV spécifiques."
+
+msgid "assassinate_story_prompt_success"
+msgstr ""
+"Il s'agit d'un assassinat réussi. Pas besoin de décrire le processus de "
+"combat, concentrez-vous sur la façon dont l'assassin s'est caché, s'est "
+"approché et a porté le coup fatal et silencieux. La cible n'a même pas eu "
+"le temps de réagir avant de périr."
+
+# Action: Attack
+msgid "attack_action_name"
+msgstr "Engager le Combat"
+
+msgid "attack_description"
+msgstr "Attaquez la cible et engagez un combat"
+
+msgid "attack_requirements"
+msgstr "Aucune restriction"
+
+msgid "attack_story_prompt"
+msgstr ""
+"Ne mentionnez pas les PV spécifiques, les points de dégâts ou toute expression "
+"numérique. Le combat doit refléter les techniques, royaumes de cultivation, "
+"équipements, etc. des deux côtés."
+
+# Action: Catch
+msgid "catch_action_name"
+msgstr "Apprivoiser une Bête"
+
+msgid "catch_description"
+msgstr ""
+"Tentez d'apprivoiser une bête spirituelle pour en faire la vôtre. Vous ne pouvez "
+"avoir qu'une bête spirituelle, mais vous pouvez remplacer une bête inférieure "
+"par une bête de meilleure qualité"
+
+msgid "catch_requirements"
+msgstr ""
+"Seulement Secte des Cent Bêtes ; dans une zone normale avec des animaux ; le "
+"royaume de l'animal cible ne doit pas être plus élevé que celui du personnage"
+
+# Action: DevourPeople
+msgid "devour_people_action_name"
+msgstr "Dévorer les Gens"
+
+msgid "devour_people_description"
+msgstr "Dévorez les gens pour augmenter considérablement votre puissance de combat"
+
+msgid "devour_people_requirements"
+msgstr "Posséder la Bannière des Dix Mille Âmes"
+
+# Action: Escape
+msgid "escape_action_name"
+msgstr "Fuir"
+
+msgid "escape_description"
+msgstr "Fuyez l'adversaire (taux de réussite basé)"
+
+msgid "escape_requirements"
+msgstr "Aucune restriction"
+
+# Action: Hunt
+msgid "hunt_action_name"
+msgstr "Chasser"
+
+msgid "hunt_description"
+msgstr "Chassez les animaux dans la zone actuelle pour obtenir des matériaux d'animaux"
+
+msgid "hunt_requirements"
+msgstr ""
+"Dans une zone normale avec des animaux, et le royaume de l'avatar doit être "
+"supérieur ou égal au royaume de l'animal"
+
+# Action: PlunderPeople
+msgid "plunder_people_action_name"
+msgstr "Piller les Gens"
+
+msgid "plunder_people_description"
+msgstr "Pillez les gens en ville pour obtenir une petite quantité de pierres spirituelles"
+
+msgid "plunder_people_requirements"
+msgstr "Uniquement dans les zones urbaines, et l'alignement du personnage doit être 'maléfique'"
+
+msgid "{avatar} assassinated successfully! {target} fell without any defense."
+msgstr ""
+"{avatar} a assassiné avec succès ! {target} est tombé sans aucune défense."
+
+msgid "{avatar} begins devouring people in town"
+msgstr "{avatar} commence à dévorer les gens en ville"
+
+msgid "{avatar} begins plundering people in town"
+msgstr "{avatar} commence à piller les gens en ville"
+
+msgid "{avatar} failed to tame spirit beast"
+msgstr "{avatar} a échoué à apprivoiser la bête spirituelle"
+
+msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
+msgstr "{avatar} se cache dans l'ombre, tentant d'assassiner {target}..."

@@ -1,0 +1,218 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. normal_region.csv: 位于大陆中部，地势平坦，灵气平和。是初学...
+msgid "NORMAL_REGION_101_DESC"
+msgstr ""
+"Situé au centre du continent, avec un terrain plat et un qi spirituel paisible."
+" Un lieu idéal pour que les débutants établissent des fondations et fondent "
+"des sectes."
+
+#. normal_region.csv: 平原地带
+msgid "NORMAL_REGION_101_NAME"
+msgstr "Région des Plaines"
+
+#. normal_region.csv: 位于大陆极西，茫茫大漠，黄沙漫天。此地气...
+msgid "NORMAL_REGION_102_DESC"
+msgstr ""
+"Situé à l'extrême ouest du continent, un vaste désert avec le sable jaune "
+"remplissant le ciel. Le climat est aride avec une énorme différence de "
+"température entre le jour et la nuit, une route obligatoire pour les caravanes "
+"du désert."
+
+#. normal_region.csv: 西域流沙
+msgid "NORMAL_REGION_102_NAME"
+msgstr "Sables Mouvants de l'Ouest"
+
+#. normal_region.csv: 位于大陆西南，古木参天，藤蔓缠绕。此地森...
+msgid "NORMAL_REGION_103_DESC"
+msgstr ""
+"Situé au sud-ouest du continent, avec des arbres anciens atteignant le ciel "
+"et des vignes s'entrelaçant. La forêt est dense avec de nombreuses bêtes "
+"sauvages, un lieu dangereux pour la cueillette d'herbes médicinales et la "
+"chasse."
+
+#. normal_region.csv: 南疆蛮荒
+msgid "NORMAL_REGION_103_NAME"
+msgstr "Terres Sauvages du Sud"
+
+#. normal_region.csv: 位于大陆极北，千里冰封，万年不化。此地严...
+msgid "NORMAL_REGION_104_DESC"
+msgstr ""
+"Situé à l'extrême nord du continent, gelé sur des milliers de li et immuable "
+"depuis dix mille ans. Il fait un froid glacial avec vent et neige ; seuls les "
+"aventuriers les plus résilients peuvent survivre ici."
+
+#. normal_region.csv: 极北冰原
+msgid "NORMAL_REGION_104_NAME"
+msgstr "Plaine Glacière du Far Nord"
+
+#. normal_region.csv: 位于大陆极东，浩瀚无垠，波涛汹涌。此地风...
+msgid "NORMAL_REGION_105_DESC"
+msgstr ""
+"Situé à l'extrême est du continent, vaste et sans limites avec des vagues "
+"déferlantes. Le vent et les vagues sont traîtres avec des récifs cachés ; "
+"c'est une mer de défis pour les marchands et pêcheurs maritimes."
+
+#. normal_region.csv: 无边碧海
+msgid "NORMAL_REGION_105_NAME"
+msgstr "Mer d'Azur sans Limites"
+
+#. normal_region.csv: 横贯大陆东西，一江春水向东流，奔腾不息入...
+msgid "NORMAL_REGION_106_DESC"
+msgstr ""
+"Traverse le continent d'est en ouest, un fleuve d'eau de printemps coulant "
+"vers l'est, se précipitant sans fin vers la Mer de l'Est. Ce fleuve traverse "
+"l'est et l'ouest avec un flux rapide, servant de route de transport importante."
+
+#. normal_region.csv: 天河奔流
+msgid "NORMAL_REGION_106_NAME"
+msgstr "Fleuve Céleste Tumultueux"
+
+#. normal_region.csv: 位于大陆东部，连绵起伏，直插云霄。此地山...
+msgid "NORMAL_REGION_107_DESC"
+msgstr ""
+"Situé à l'est du continent, ondulant et perçant les nuages. Les montagnes "
+"sont escarpées avec de nombreuses pierres étranges et grottes, un lieu "
+"populaire pour que les aventuriers trouvent des trésors."
+
+#. normal_region.csv: 青峰山脉
+msgid "NORMAL_REGION_107_NAME"
+msgstr "Chaîne Montagneuse Qingfeng"
+
+#. normal_region.csv: 位于大陆西北，雪峰皑皑，寒风刺骨。此地终...
+msgid "NORMAL_REGION_108_DESC"
+msgstr ""
+"Situé au nord-ouest du continent, avec des pics enneigés et des vents glaciaux"
+". Recouvert de neige toute l'année avec des sentiers montagneux accidentés, le"
+" défi ultime pour les grimpeurs."
+
+#. normal_region.csv: 万丈雪峰
+msgid "NORMAL_REGION_108_NAME"
+msgstr "Pic de Neige des Dix Mille Zhangs"
+
+#. normal_region.csv: 位于大陆西部，芳草萋萋，一望无际。此地水...
+msgid "NORMAL_REGION_109_DESC"
+msgstr ""
+"Situé à l'ouest du continent, avec de l'herbe luxuriante s'étendant aussi "
+"loin que l'œil peut voir. L'eau et l'herbe abondent avec des troupeaux de "
+"bétail et de moutons, un pâturage naturel pour les peuples nomades."
+
+#. normal_region.csv: 碧野千里
+msgid "NORMAL_REGION_109_NAME"
+msgstr "Mille Li de Champs Verts"
+
+#. normal_region.csv: 位于大陆中部，古树参天，绿意盎然。此地森...
+msgid "NORMAL_REGION_110_DESC"
+msgstr ""
+"Situé au centre du continent, avec des arbres anciens atteignant le ciel et une"
+" verdure vibrante. La forêt est vaste et riche en ressources, une zone "
+"d'activité principale pour les bûcherons et chasseurs."
+
+#. normal_region.csv: 青云林海
+msgid "NORMAL_REGION_110_NAME"
+msgstr "Mer Forestière de Qingyun"
+
+#. normal_region.csv: 位于大陆东北，烈焰冲天，岩浆奔流。此地火...
+msgid "NORMAL_REGION_111_DESC"
+msgstr ""
+"Situé au nord-est du continent, avec des flammes atteignant le ciel et de la "
+"lave coulant. Le volcan est actif avec une énergie géothermique abondante, un "
+"lieu idéal pour les forgerons, mais aussi extrêmement dangereux."
+
+#. normal_region.csv: 炎狱火山
+msgid "NORMAL_REGION_111_NAME"
+msgstr "Volcan de l'Enfer Flamboyant"
+
+#. normal_region.csv: 位于大陆东部，土地肥沃，五谷丰登。此地土...
+msgid "NORMAL_REGION_112_DESC"
+msgstr ""
+"Situé à l'est du continent, avec une terre fertile et des récoltes abondantes. "
+"Le sol est profond et la pluie abondante, une terre de trésor doré pour que les"
+" agriculteurs cultivent."
+
+#. normal_region.csv: 沃土良田
+msgid "NORMAL_REGION_112_NAME"
+msgstr "Terres Cultivables Fertiles"
+
+#. normal_region.csv: 位于大陆正南，终年被五色瘴气笼罩，毒虫遍...
+msgid "NORMAL_REGION_113_DESC"
+msgstr ""
+"Situé au sud du continent, enveloppé dans un miasme de cinq couleurs toute "
+"l'année avec des insectes venimeux partout. Les mortels se dissolvent en os à "
+"l'entrée ; seuls ceux pratiquant des techniques venimeuses considèrent cela "
+"comme une grotte-ciel suprême."
+
+#. normal_region.csv: 幽冥毒泽
+msgid "NORMAL_REGION_113_NAME"
+msgstr "Marais Vénéneux de l'Ombre"
+
+#. normal_region.csv: 位于大陆南部，苍茫群山连绵不绝，乃是妖族...
+msgid "NORMAL_REGION_114_DESC"
+msgstr ""
+"Situé au sud du continent, de vastes montagnes s'étendant sans fin, la terre "
+"ancestrale de la tribu Yao. Les montagnes sont escarpées et les routes sont "
+"difficiles à traverser."
+
+#. normal_region.csv: 十万大山
+msgid "NORMAL_REGION_114_NAME"
+msgstr "Cent Mille Grandes Montagnes"
+
+#. normal_region.csv: 位于大陆中北，紫竹成林，灵气清冽。风过林...
+msgid "NORMAL_REGION_115_DESC"
+msgstr ""
+"Situé au centre-nord du continent, avec du bambou violet formant des forêts et"
+" un qi spirituel limpide. Le vent à travers la forêt sonne comme de la musique "
+"immortelle ; la cultivation silencieuse ici peut purifier les démons du cœur "
+"et comprendre le Dao du ciel et de la terre."
+
+#. normal_region.csv: 紫竹幽境
+msgid "NORMAL_REGION_115_NAME"
+msgstr "Royaume Reculé du Bambou Violet"
+
+#. normal_region.csv: 位于大陆东北，寸草不生，冻土千尺。此地生...
+msgid "NORMAL_REGION_116_DESC"
+msgstr ""
+"Situé au nord-est du continent, où aucune herbe ne pousse et le permafrost est"
+" mille pieds de profondeur. La vie est éteinte ici, mais il contient le qi "
+"spirituel du froid ultime, avec de la glace profonde de dix mille ans "
+"apparaissant occasionnellement."
+
+#. normal_region.csv: 凛霜荒原
+msgid "NORMAL_REGION_116_NAME"
+msgstr "Steppe Aride du Givre Glacial"
+
+#. normal_region.csv: 位于大陆西南，飞沙走石，狂风如刀。传说曾...
+msgid "NORMAL_REGION_117_DESC"
+msgstr ""
+"Situé au sud-ouest du continent, avec du sable volant et des pierres et du vent"
+" aussi tranchant qu'un couteau. La légende dit que les étoiles sont tombées "
+"ici autrefois, et la puissance des étoiles violente et le fer météoritique "
+"extraterrestre restent."
+
+#. normal_region.csv: 碎星戈壁
+msgid "NORMAL_REGION_117_NAME"
+msgstr "Désert des Étoiles Brisées"
+
+#. normal_region.csv: 位于极东海外，孤悬海外，云雾缭绕。岛上灵...
+msgid "NORMAL_REGION_118_DESC"
+msgstr ""
+"Situé à l'est extrême des mers, suspendu seul en mer et enveloppé dans les "
+"nuages. Les sources spirituelles jaillissent sur l'île, avec des fleurs "
+"étranges et des herbes partout, et la densité du qi spirituel dépassant de "
+"loin le continent, un lieu désiré par les cultivateurs errants d'outre-mer."
+
+#. normal_region.csv: 蓬莱遗岛
+msgid "NORMAL_REGION_118_NAME"
+msgstr "Île Perdue de Penglai"

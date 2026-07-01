@@ -1,0 +1,29 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Mortal"
+msgstr "Mortel"
+
+# Option B
+msgid "Sell new {label}『{new_name}』for spirit stones, keep current status"
+msgstr "Vendre le/la nouveau/nouvelle {label}『{new_name}』contre des pierres spirituelles, conserver le statut actuel"
+
+msgid "core_formation"
+msgstr "Formation du Noyau"
+
+msgid "foundation_establishment"
+msgstr "Établissement des Fondations"
+
+msgid "nascent_soul"
+msgstr "Âme Naissante"

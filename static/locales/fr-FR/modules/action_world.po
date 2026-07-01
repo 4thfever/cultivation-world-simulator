@@ -1,0 +1,152 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "bought"
+msgstr "acheté"
+
+msgid "bought and consumed"
+msgstr "acheté et consommé"
+
+msgid "bought and equipped"
+msgstr "acheté et équipé"
+
+# Action: Buy
+msgid "buy_action_name"
+msgstr "Acheter"
+
+msgid "buy_description"
+msgstr "Achetez des objets/équipements/élixirs en ville"
+
+msgid "buy_requirements"
+msgstr "En ville et avoir assez d'argent"
+
+# Action: HelpPeople
+msgid "help_people_action_name"
+msgstr "Aider les Gens"
+
+msgid "help_people_description"
+msgstr "Aidez les gens en ville, consomme une petite quantité de pierres spirituelles"
+
+msgid "help_people_requirements"
+msgstr "Uniquement dans les zones urbaines, et avoir assez de pierres spirituelles"
+
+# Action: Mine
+msgid "mine_action_name"
+msgstr "Exploiter"
+
+msgid "mine_description"
+msgstr "Exploitez des filons de minerai dans la zone actuelle pour obtenir des matériaux de minerai"
+
+msgid "mine_requirements"
+msgstr ""
+"Dans une zone normale avec des filons de minerai, et le royaume de l'avatar doit être "
+"supérieur ou égal au royaume du filon"
+
+# Action: Move (Base)
+msgid "move_action_name"
+msgstr "Déplacer"
+
+# Action: MoveAwayFromAvatar
+msgid "move_away_from_avatar_action_name"
+msgstr "S'Éloigner du Personnage"
+
+msgid "move_away_from_avatar_description"
+msgstr "Continuez à vous éloigner du personnage spécifié"
+
+msgid "move_away_from_avatar_requirements"
+msgstr "Aucune restriction"
+
+# Action: MoveAwayFromRegion
+msgid "move_away_from_region_action_name"
+msgstr "Quitter la Région"
+
+msgid "move_away_from_region_description"
+msgstr "Quittez la région spécifiée"
+
+msgid "move_away_from_region_requirements"
+msgstr "Aucune restriction"
+
+msgid "move_description"
+msgstr "Déplacez-vous vers une position relative"
+
+# Action: MoveToAvatar
+msgid "move_to_avatar_action_name"
+msgstr "Aller vers le Personnage"
+
+msgid "move_to_avatar_description"
+msgstr "Déplacez-vous vers la localisation d'un personnage spécifique"
+
+msgid "move_to_avatar_requirements"
+msgstr "Aucune restriction"
+
+# Action: MoveToDirection
+msgid "move_to_direction_action_name"
+msgstr "Déplacer & Explorer"
+
+msgid "move_to_direction_description"
+msgstr "Explorez des zones inconnues dans une direction"
+
+msgid "move_to_direction_requirements"
+msgstr "Aucune restriction"
+
+# Action: MoveToRegion
+msgid "move_to_region_action_name"
+msgstr "Aller à la Région"
+
+msgid "move_to_region_description"
+msgstr "Déplacez-vous vers une région spécifique"
+
+msgid "move_to_region_requirements"
+msgstr "Aucune restriction"
+
+# Action: Sell
+msgid "sell_action_name"
+msgstr "Vendre"
+
+msgid "sell_description"
+msgstr ""
+"Vendez tous les objets d'un certain type en votre possession, ou l'équipement "
+"actuel en ville"
+
+msgid "sell_requirements"
+msgstr "En ville et posséder des objets/équipements à vendre"
+
+msgid "wilderness"
+msgstr "désert"
+
+msgid "{avatar} attempted to move but target is invalid"
+msgstr "{avatar} a tenté de se déplacer mais la cible n'est pas valide"
+
+msgid "{avatar} begins helping people in town"
+msgstr "{avatar} commence à aider les gens en ville"
+
+msgid "{avatar} sold {item} in town"
+msgstr "{avatar} a vendu {item} en ville"
+
+msgid "plant_action_name"
+msgstr "Planter"
+
+msgid "plant_description"
+msgstr ""
+"Plantez des cultures spirituelles pour gagner une petite quantité de pierres "
+"spirituelles. Dure 6 mois."
+
+msgid "plant_requirements"
+msgstr "Exige une région normale"
+
+msgid "{avatar} begins planting at {location}"
+msgstr "{avatar} commence à planter à {location}"
+
+msgid "{avatar} finished planting, earned {stones} Spirit Stones"
+msgstr "{avatar} a terminé la plantation, a gagné {stones} Pierres Spirituelles"

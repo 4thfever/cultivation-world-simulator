@@ -1,0 +1,101 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ", defended {region}"
+msgstr ", a défendu {region}"
+
+msgid ", successfully seized {region}"
+msgstr ", s'est emparé de {region} avec succès"
+
+msgid "Already the owner of this cave dwelling"
+msgstr "Déjà propriétaire de cette caverne"
+
+msgid "Cannot drive away in wilderness"
+msgstr "Impossible de chasser en terres sauvages"
+
+msgid "Cannot find region: {region}"
+msgstr "Région introuvable : {region}"
+
+msgid "Cannot initiate interaction with self"
+msgstr "Impossible d'initier une interaction avec soi-même"
+
+msgid "Elixirs cannot be gifted"
+msgstr "Les élixirs ne peuvent pas être offerts"
+
+msgid "Gift you {item}"
+msgstr "Vous offrir {item}"
+
+msgid "Insufficient item: {name}"
+msgstr "Objet insuffisant : {name}"
+
+msgid "Insufficient spirit stones (current: {current}, need: {need})"
+msgstr "Pierres spirituelles insuffisantes (actuel : {current}, requis : {need})"
+
+msgid "Item not equipped: {name}"
+msgstr "Objet non équipé : {name}"
+
+msgid "Item not found: {name}"
+msgstr "Objet introuvable : {name}"
+
+msgid ""
+"Level difference insufficient, need 20 levels (current gap: {diff} levels)"
+msgstr ""
+"Différence de niveau insuffisante, 20 niveaux requis (écart actuel : {diff} niveaux)"
+
+msgid "Target is not your apprentice"
+msgstr "La cible n'est pas votre apprenti"
+
+msgid ""
+"Target is not your disciple, martial grandchild, martial sibling, child, "
+"grandchild, or friend"
+msgstr ""
+"La cible n'est pas votre disciple, petit-disciple, condisciple, enfant, "
+"petit-enfant ou ami"
+
+msgid "Target not within interaction range"
+msgstr "La cible n'est pas à portée d'interaction"
+
+# Misfortune messages
+msgid "misfortune_event_base"
+msgstr "A rencontré une infortune ({title}), {result}"
+
+msgid "misfortune_result_backlash"
+msgstr "La cultivation de {name} a régressé de {amount} points"
+
+msgid "misfortune_result_injury"
+msgstr "{name} a subi {damage} de dégâts, PV restants {current}/{max}"
+
+msgid "misfortune_result_loss_spirit_stone"
+msgstr "{name} a perdu {amount} pierres spirituelles"
+
+msgid "misfortune_title_backlash"
+msgstr "Contrecoup de cultivation"
+
+msgid "misfortune_title_injury"
+msgstr "Blessure accidentelle"
+
+msgid "misfortune_title_loss_spirit_stone"
+msgstr "Perte financière"
+
+msgid "misfortune_title_mystery"
+msgstr "Infortune mystérieuse"
+
+msgid "{name} cultivation regressed by {amount} points"
+msgstr "La cultivation de {name} a régressé de {amount} points"
+
+msgid "{name} lost {amount} spirit stones"
+msgstr "{name} a perdu {amount} pierres spirituelles"
+
+msgid "{name} took {damage} damage, HP remaining {current}/{max}"
+msgstr "{name} a subi {damage} de dégâts, PV restants {current}/{max}"

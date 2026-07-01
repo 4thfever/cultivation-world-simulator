@@ -1,0 +1,578 @@
+{
+  "population": "Population",
+  "status_bar": {
+    "phenomenon": "Phénomène du monde",
+    "effect": "Effet : ",
+    "duration": "Dure {years} ans",
+    "selector_title": "Intervention : changer de phénomène",
+    "empty_data": "Aucune donnée de phénomène",
+    "cultivators": "Cultivateurs : {count}",
+    "change_success": "Phénomène changé en : {name}",
+    "click_to_change": "(Cliquez pour changer de phénomène)",
+    "author_github": "Mettez-nous une étoile sur GitHub",
+    "hidden_domain": {
+      "label": "[Domaine Caché]",
+      "title": "Liste des Domaines Cachés",
+      "empty": "Aucune donnée de domaine caché",
+      "required_realm": "Royaume requis",
+      "danger": "Danger",
+      "drop": "Fortune",
+      "cooldown": "Temps de recharge",
+      "open_chance": "Chance d'apparition"
+    },
+    "world_info": {
+      "label": "[Infos du monde]",
+      "title": "Infos du monde",
+      "ai_knowledge_note": "Ce que l'IA cultivatrice sait du monde de cultivation",
+      "empty": "Aucune info du monde disponible"
+    },
+    "avatar_overview": {
+      "label": "[Personnages]"
+    },
+    "time": {
+      "title": "Aperçu du temps",
+      "current_date": "Date actuelle",
+      "current_date_value": "An {year}, Mois {month}",
+      "elapsed": "Durée d'exécution",
+      "elapsed_months_only": "En cours depuis {months} mois",
+      "elapsed_years_only": "En cours depuis {years} ans",
+      "elapsed_years_months": "En cours depuis {years} ans et {months} mois",
+      "phenomenon": "Phénomène actuel",
+      "no_phenomenon": "Aucun phénomène actuel",
+      "tournament": "Prochain tournoi",
+      "no_tournament": "Aucune info de tournoi disponible",
+      "sect_war": "Guerres de sectes",
+      "war_active": "{count} guerre(s) de sectes actuellement en cours",
+      "war_none": "Aucune guerre de sectes pour le moment"
+    }
+  },
+  "world_info": {
+    "entries": {
+      "WORLD_INFO_ACTION_DESC": "Vous disposez d'une série d'actions exécutables. Faites attention aux effets, aux restrictions, aux régions et au moment des actions.",
+      "WORLD_INFO_ACTION_NAME": "Action",
+      "WORLD_INFO_ACTION_TITLE": "Action",
+      "WORLD_INFO_AUCTION_DESC": "À intervalles incertains, un personnage mystérieux organise une vente aux enchères, où de bonnes marchandises sont peut-être proposées.",
+      "WORLD_INFO_AUCTION_NAME": "Vente aux enchères",
+      "WORLD_INFO_AUCTION_TITLE": "Vente aux enchères",
+      "WORLD_INFO_BATTLE_DESC": "La loi du plus fort ; la suppression de royaume est énorme, les cultivateurs de haut royaume ont un avantage absolu sur ceux de bas royaume. Si l'adversaire meurt, le vainqueur peut piller les biens du perdant.",
+      "WORLD_INFO_BATTLE_NAME": "Combat",
+      "WORLD_INFO_BATTLE_TITLE": "Combat",
+      "WORLD_INFO_CULTIVATION_DESC": "La cultivation accumule de la puissance jusqu'à ce que le rang actuel atteigne son goulet d'étranglement. Les percées peuvent réussir ou échouer ; la réussite fait accéder le personnage au rang suivant, tandis que l'échec peut avoir un coût.",
+      "WORLD_INFO_CULTIVATION_NAME": "Cultivation",
+      "WORLD_INFO_CULTIVATION_TITLE": "Cultivation",
+      "WORLD_INFO_DEATH_DESC": "Des PV tombant sous 0 entraînent également la mort.",
+      "WORLD_INFO_DEATH_NAME": "Mort",
+      "WORLD_INFO_DEATH_TITLE": "Mort",
+      "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC": "Les armes, l'équipement auxiliaire et les élixirs offrent des bonus supplémentaires. Un équipement de haut grade et des élixirs adaptés peuvent grandement améliorer la survie et la capacité de combat d'un cultivateur.",
+      "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME": "Équipement et élixir",
+      "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE": "Équipement et élixir",
+      "WORLD_INFO_INTRO_DESC": "Voici un monde de cultivation où de nombreux cultivateurs rivalisent et où les conflits font rage de toutes parts.",
+      "WORLD_INFO_INTRO_NAME": "Introduction",
+      "WORLD_INFO_INTRO_TITLE": "Introduction",
+      "WORLD_INFO_LIFESPAN_DESC": "Chaque personnage a une espérance de vie limitée. Lorsqu'elle est épuisée, la mort survient ; les percées de royaume prolongent généralement l'espérance de vie, tandis que les percées ratées peuvent la raccourcir.",
+      "WORLD_INFO_LIFESPAN_NAME": "Espérance de vie",
+      "WORLD_INFO_LIFESPAN_TITLE": "Espérance de vie",
+      "WORLD_INFO_ORTHODOXY_DESC": "Les différentes orthodoxies ont des méthodes de cultivation différentes. Les Taoïstes pratiquent la respiration, les Artistes martiaux la Trempe du Corps, les Bouddhistes la méditation, et les Confucéens l'éducation du peuple.",
+      "WORLD_INFO_ORTHODOXY_NAME": "Orthodoxie",
+      "WORLD_INFO_ORTHODOXY_TITLE": "Orthodoxie",
+      "WORLD_INFO_REALM_DESC": "Les royaumes standard fondamentaux du monde, du plus faible au plus fort, sont la Purification du Qi, l'Établissement des Fondations, la Formation du Noyau et l'Âme Naissante. Chaque royaume comporte les étapes Initiale, Intermédiaire et Finale. Différentes traditions peuvent utiliser des alias, mais les règles sont calculées selon cette séquence standard.",
+      "WORLD_INFO_REALM_NAME": "Royaume",
+      "WORLD_INFO_REALM_TITLE": "Royaume",
+      "WORLD_INFO_REGION_DESC": "Les différentes régions ont des effets différents ; faire la bonne chose dans la bonne région donne deux fois plus de résultats pour moitié moins d'efforts.",
+      "WORLD_INFO_REGION_NAME": "Région",
+      "WORLD_INFO_REGION_TITLE": "Région",
+      "WORLD_INFO_ROOT_DESC": "Les racines spirituelles sont composées de cinq éléments (Métal, Bois, Eau, Feu, Terre), divisées en Racines Spirituelles Simples, Doubles et Célestes. Interactions des cinq éléments : le Métal domine le Bois, le Bois domine la Terre, la Terre domine l'Eau, l'Eau domine le Feu, le Feu domine le Métal. La Racine Spirituelle Céleste contient les cinq éléments et bénéficie d'un bonus supplémentaire lors des percées. L'efficacité de cultivation est maximale dans les régions correspondant à l'attribut de sa propre racine spirituelle.",
+      "WORLD_INFO_ROOT_NAME": "Racine spirituelle",
+      "WORLD_INFO_ROOT_TITLE": "Racine spirituelle",
+      "WORLD_INFO_SECRET_REALM_DESC": "Les royaumes secrets s'ouvrent tous les quelques années. Y pénétrer peut exposer à des dangers, mais aussi permettre d'obtenir des artefacts et des techniques de haut niveau.",
+      "WORLD_INFO_SECRET_REALM_NAME": "Royaume secret",
+      "WORLD_INFO_SECRET_REALM_TITLE": "Royaume secret",
+      "WORLD_INFO_SECT_DESC": "Un refuge pour les cultivateurs. Rejoindre une secte permet d'apprendre des techniques uniques et de bénéficier de la protection des condisciples ; les cultivateurs errants sont libres mais manquent de ressources.",
+      "WORLD_INFO_SECT_NAME": "Secte",
+      "WORLD_INFO_SECT_TITLE": "Secte",
+      "WORLD_INFO_SHOPPING_DESC": "Dans les régions urbaines, vous pouvez acheter des élixirs et des armes de grade Purification du Qi. Les élixirs achetés sont consommés immédiatement pour renforcer le personnage ; les armes achetées permettent de basculer vers un type d'arme plus adapté.",
+      "WORLD_INFO_SHOPPING_NAME": "Achats",
+      "WORLD_INFO_SHOPPING_TITLE": "Achats",
+      "WORLD_INFO_SPIRIT_STONE_DESC": "La monnaie commune du monde de cultivation. Elle sert à acheter des artefacts et des élixirs, et s'obtient par la récolte, le commerce ou le pillage.",
+      "WORLD_INFO_SPIRIT_STONE_NAME": "Pierre spirituelle",
+      "WORLD_INFO_SPIRIT_STONE_TITLE": "Pierre spirituelle",
+      "WORLD_INFO_WORLD_QI_DESC": "Le monde connaît des changements célestes (comme les Marées de Qi) tous les quelques années, affectant les capacités des personnages.",
+      "WORLD_INFO_WORLD_QI_NAME": "Qi du monde",
+      "WORLD_INFO_WORLD_QI_TITLE": "Qi du monde",
+      "WORLD_INFO_RANKING_DESC": "Le monde de cultivation comporte les Classements du Ciel, de la Terre et des Hommes, ainsi que le Classement des Sectes. Les trois classements personnels sont regroupés par royaume standard équivalent : le Ciel recense les experts de rang Âme Naissante, la Terre ceux de rang Formation du Noyau, et les Hommes ceux de rang Établissement des Fondations. Le Classement des Sectes classe les sectes selon leur puissance totale.",
+      "WORLD_INFO_RANKING_NAME": "Classement",
+      "WORLD_INFO_RANKING_TITLE": "Classement",
+      "WORLD_INFO_DYNASTY_DESC": "Les dynasties mortelles gouvernent le royaume, maintenant l'ordre et les frontières du monde. Les empereurs ne vivent pas plus longtemps que les mortels ordinaires, et lorsqu'un empereur meurt, un nouvel empereur lui succède sur le trône.",
+      "WORLD_INFO_DYNASTY_NAME": "Dynastie",
+      "WORLD_INFO_DYNASTY_TITLE": "Dynastie",
+      "WORLD_INFO_OFFICIAL_DESC": "Les cultivateurs peuvent gouverner pour la cour impériale, se bâtir une réputation à la cour et recevoir un salaire. Avec assez de réputation, ils peuvent être promus ; plus la charge est élevée, plus le salaire et la chance sont grands. S'ils négligent la gouvernance trop longtemps, leur réputation décline progressivement.",
+      "WORLD_INFO_OFFICIAL_NAME": "Rang officiel",
+      "WORLD_INFO_OFFICIAL_TITLE": "Rang officiel",
+      "WORLD_INFO_CULTIVATION_ALIAS_DESC": "Les mêmes rangs de cultivation portent des noms différents selon les traditions : les Taoïstes et les cultivateurs errants utilisent Purification du Qi, Établissement des Fondations, Formation du Noyau et Âme Naissante ; les cultivateurs martiaux utilisent Trempe du Corps, Trempe des Tendons, Maître martial et Saint martial ; les cultivateurs confucéens utilisent Cultivation du Qi Vital, Illumination des Principes, Établissement du Mandat et Grand Lettré ; les cultivateurs bouddhistes utilisent Moine novice, Moine, Arhat et Bodhisattva ; les cultivateurs yao utilisent Éveil de l'Esprit, Transformation de Forme, Noyau Démoniaque et Roi Démon. Ces noms correspondent à la même séquence de royaumes sous-jacente ; ils changent la formulation narrative et l'interface, mais pas les règles de percée, de puissance, d'espérance de vie, de grade d'objet, etc.",
+      "WORLD_INFO_CULTIVATION_ALIAS_NAME": "Alias de royaume",
+      "WORLD_INFO_CULTIVATION_ALIAS_TITLE": "Alias de royaume"
+    }
+  },
+  "controls": {
+    "resume": "Reprendre la partie",
+    "pause": "Mettre en pause",
+    "paused": "En pause",
+    "closed_msg": "Partie fermée. Vous pouvez fermer cet onglet en toute sécurité."
+  },
+  "event_panel": {
+    "title": "Événements",
+    "filter_all": "Tous",
+    "filter_all_sects": "Toutes les sectes",
+    "filter_event_scope_all": "Tous les événements",
+    "filter_event_scope_major": "Majeurs",
+    "filter_event_scope_minor": "Mineurs",
+    "deceased": "(Décédé)",
+    "add_second": "+ Ajouter un second",
+    "load_more": "Faites défiler vers le haut pour en charger plus",
+    "roleplay_locked": "Jeu de rôle verrouillé : {avatar}",
+    "story_subject_prefix": "[{avatar}] {content}",
+    "empty_dual": "Aucun événement entre ces deux personnages",
+    "empty_single": "Aucun événement pour ce cultivateur",
+    "empty_none": "Aucun événement"
+  },
+  "roleplay": {
+    "panel": {
+      "start": "Jeu de rôle",
+      "stop": "Arrêter le jeu de rôle",
+      "controlled_by": "Jeu de rôle en cours : {avatar}",
+      "go_to_controlled": "Aller au personnage"
+    },
+    "dock": {
+      "interaction_title": "Journal d'interaction",
+      "interaction_caption": "Entrées et sorties durant cette session de jeu de rôle",
+      "interaction_empty": "Aucun nouvel enregistrement d'interaction pour l'instant.",
+      "collapse": "Réduire le panneau de jeu de rôle",
+      "expand": "Agrandir le panneau de jeu de rôle",
+      "collapse_short": "Min",
+      "expand_short": "Max"
+    },
+    "status": {
+      "awaiting_decision": "En attente d'un ordre",
+      "awaiting_choice": "En attente d'un choix",
+      "conversing": "Conversation",
+      "submitting": "Envoi en cours",
+      "observing": "Observation"
+    },
+    "summary": {
+      "decision": "Nécessite une prochaine action",
+      "choice": "Nécessite une réponse",
+      "conversation": "Discussion avec {target}",
+      "observing": "La chaîne d'actions en cours s'exécute encore"
+    },
+    "request": {
+      "title_decision": "Décision",
+      "title_choice": "Choix",
+      "title_conversation": "Conversation",
+      "title_observing": "Observer",
+      "caption_decision": "Saisissez une intention et le système la développera en une chaîne d'actions",
+      "caption_choice": "Faites une réponse parmi des options limitées",
+      "caption_conversation": "Le joueur parle en tant que {avatar}, et l'autre partie répond via le LLM",
+      "caption_observing": "Aucune requête ne nécessite un traitement immédiat pour l'instant",
+      "decision_default_description": "Saisissez une intention et le système la développera en la prochaine chaîne d'actions de ce personnage.",
+      "choice_default_description": "Choisissez une réponse.",
+      "conversation_default_description": "Le monde est en pause, attendant que vous poursuiviez la parole en tant que personnage actuel."
+    },
+    "decision": {
+      "placeholder": "Saisissez la prochaine intention du personnage, par exemple : récupérer d'abord, puis explorer les environs.",
+      "submit": "Envoyer l'ordre",
+      "submitting": "Traitement..."
+    },
+    "choice": {
+      "submitting": "Traitement de votre choix, veuillez patienter..."
+    },
+    "conversation": {
+      "placeholder": "Saisissez ce que vous voulez dire.",
+      "submit": "Envoyer",
+      "sending": "Envoi...",
+      "awaiting_reply": "En attente de réponse...",
+      "end": "Terminer la conversation",
+      "end_disabled": "Vous ne pouvez pas terminer la conversation en attendant une réponse"
+    },
+    "pause_indicator": {
+      "awaiting_decision": "Jeu de rôle en pause : en attente de votre ordre",
+      "awaiting_choice": "Jeu de rôle en pause : en attente de votre choix",
+      "conversing": "Jeu de rôle en pause : conversation en cours",
+      "submitting": "Jeu de rôle en pause : traitement de votre envoi"
+    },
+    "feedback": {
+      "decision_submitted": "Ordre envoyé : {text}",
+      "choice_submitted": "Choix envoyé : {text}",
+      "conversation_failed": "Échec de l'envoi. Votre texte a été conservé pour que vous puissiez le modifier et réessayer."
+    },
+    "errors": {
+      "fetch_session": "Échec de la récupération de l'état du jeu de rôle",
+      "start": "Échec du démarrage du jeu de rôle",
+      "stop": "Échec de l'arrêt du jeu de rôle",
+      "submit_decision": "Échec de l'envoi de l'ordre de jeu de rôle",
+      "submit_choice": "Échec de l'envoi du choix de jeu de rôle",
+      "send_conversation": "Échec de l'envoi du message de conversation",
+      "end_conversation": "Échec de la fin de la conversation"
+    },
+    "idle": {
+      "hint": "Vous observez toujours le monde en vue omnisciente. Lorsque la chaîne d'actions de ce personnage sera terminée, la prochaine requête vous attendra ici."
+    },
+    "fallback": {
+      "avatar_name": "Personnage",
+      "counterpart_name": "L'autre partie"
+    }
+  },
+  "event_templates": {
+    "nickname_awarded": "{avatar_name} s'est fait un nom dans le monde de cultivation et fut désormais connu sous le nom de « {nickname} »."
+  },
+  "ranking": {
+    "stages": {
+      "early": "Étape Initiale",
+      "middle": "Étape Intermédiaire",
+      "late": "Étape Finale"
+    },
+    "title_short": "[Classements]",
+    "tournament_short": "[Tournoi]",
+    "title": "Classements du Ciel, de la Terre et des Hommes",
+    "heaven": "Ciel (Âme Naissante)",
+    "earth": "Terre (Formation du Noyau)",
+    "human": "Homme (Fondations)",
+    "sect_ranking": "Sectes",
+    "rank": "Rang",
+    "name": "Nom",
+    "sect": "Secte",
+    "realm": "Royaume",
+    "power": "Puissance",
+    "sect_name": "Nom de la secte",
+    "alignment": "Alignement",
+    "member_count": "Membres",
+    "total_power": "Puissance totale",
+    "empty": "Aucune donnée",
+    "tournament_title": "Tournoi mondial d'arts martiaux",
+    "tournament_next": "Prochain tournoi dans {years} ans",
+    "heaven_first": "1er du Ciel",
+    "earth_first": "1er de la Terre",
+    "human_first": "1er des Hommes"
+  },
+  "sect_relations": {
+    "title_short": "[Relations des sectes]",
+    "title": "Relations des sectes",
+    "sect_a": "Secte A",
+    "sect_b": "Secte B",
+    "status": "Statut diplomatique",
+    "value": "Valeur de relation",
+    "reasons": "Raisons",
+    "empty": "Aucune donnée de relation",
+    "status_war": "En guerre",
+    "status_peace": "Paix",
+    "duration_months": "{count} mois",
+    "value_label_very_hostile": "Très hostile",
+    "value_label_hostile": "Hostile",
+    "value_label_neutral": "Neutre",
+    "value_label_friendly": "Amical",
+    "value_label_very_friendly": "Très amical",
+    "overlap_tiles": "chevauchement de {count} cases",
+    "reasons_map": {
+      "ALIGNMENT_OPPOSITE": "Alignement opposé",
+      "ALIGNMENT_SAME": "Même alignement",
+      "ORTHODOXY_DIFFERENT": "Orthodoxie différente",
+      "ORTHODOXY_SAME": "Même orthodoxie",
+      "TERRITORY_CONFLICT": "Conflit territorial",
+      "WAR_STATE": "État de guerre",
+      "PEACE_STATE": "État de paix",
+      "LONG_PEACE": "Longue paix",
+      "RANDOM_EVENT": "Événement aléatoire"
+    }
+  },
+  "mortal_system": {
+    "title_short": "[Mortels]",
+    "title": "Système mortel",
+    "empty": "Aucune donnée",
+    "population_value": "{value}",
+    "population_growth_value": "{value}/mois",
+    "population_ratio_value": "{current} / {capacity}",
+    "summary": {
+      "title": "Aperçu du monde",
+      "total_population": "Population totale",
+      "total_capacity": "Capacité totale",
+      "total_growth": "Croissance naturelle totale"
+    },
+    "cities": {
+      "title": "Aperçu des villes",
+      "city": "Ville",
+      "population": "Population",
+      "capacity": "Capacité",
+      "growth": "Croissance naturelle"
+    },
+    "tracked": {
+      "title": "Mortels suivis",
+      "count": "Mortels suivis",
+      "awakening_candidates": "Candidats à l'éveil",
+      "name": "Nom",
+      "gender": "Sexe",
+      "age": "Âge",
+      "birth_region": "Région de naissance",
+      "unknown_region": "Inconnue"
+    }
+  },
+  "dynasty": {
+    "title_short": "[Dynastie]",
+    "title": "Dynastie",
+    "name": "Nom de la dynastie",
+    "royal_house": "Maison royale",
+    "style_tag": "Style de la dynastie",
+    "official_preference": "Préférence officielle",
+    "effect": "Effet de la dynastie",
+    "effect_source": "Dynastie",
+    "effect_empty": "Aucun effet de dynastie pour l'instant. Ceci sera renseigné une fois le système officiel et la logique ultérieure ajoutés.",
+    "low_magic": "Dynastie mortelle",
+    "empty": "Aucune donnée de dynastie",
+    "emperor": {
+      "title": "Empereur actuel",
+      "name": "Nom",
+      "age": "Âge",
+      "lifespan": "Espérance de vie",
+      "identity": "Identité",
+      "mortal": "Mortel",
+      "empty": "Aucune donnée d'empereur"
+    },
+    "summary": {
+      "title": "Aperçu de la dynastie"
+    },
+    "officials": {
+      "title": "Officiels de la cour",
+      "count": "{count} au total",
+      "empty": "Aucun cultivateur à la cour pour l'instant",
+      "realm": "Royaume",
+      "court_reputation": "Réputation à la cour",
+      "sect": "Affiliation",
+      "rogue": "Cultivateur errant"
+    }
+  },
+  "avatar_overview": {
+    "title_short": "[Personnages]",
+    "title": "Aperçu des personnages",
+    "status_summary": "[Personnages {total} · Vivants {alive} · Morts {dead}]",
+    "empty": "Aucune statistique de personnage disponible",
+    "tabs": {
+      "overview": "Aperçu",
+      "deceased": "Décédés"
+    },
+    "summary": {
+      "title": "Statistiques générales",
+      "total_count": "Total des personnages",
+      "alive_count": "Personnages vivants",
+      "dead_count": "Personnages décédés",
+      "sect_member_count": "Membres de sectes",
+      "rogue_count": "Cultivateurs errants"
+    },
+    "realm_distribution": {
+      "title": "Répartition des royaumes standard (vivants)",
+      "realm": "Royaume",
+      "count": "Nombre"
+    }
+  },
+  "info_panel": {
+    "popup": {
+      "effect": "Effet : ",
+      "drops": "Butin : ",
+      "hq": "QG : ",
+      "types": {
+        "animal": "Animal",
+        "elixir": "Élixir",
+        "plant": "Plante",
+        "lode": "Filon",
+        "item": "Objet",
+        "weapon": "Arme",
+        "auxiliary": "Auxiliaire",
+        "technique": "Art",
+        "sect": "Secte",
+        "persona": "Trait",
+        "SWORD": "Épée",
+        "SABER": "Sabre",
+        "SPEAR": "Lance",
+        "STAFF": "Bâton",
+        "FAN": "Éventail",
+        "WHIP": "Fouet",
+        "ZITHER": "Cithare",
+        "FLUTE": "Flûte",
+        "HIDDEN_WEAPON": "Arme cachée"
+      }
+    },
+    "avatar": {
+      "set_objective": "Définir un objectif",
+      "clear_objective": "Effacer l'objectif",
+      "dead_with_reason": "Décédé ({reason})",
+      "unknown_reason": "Inconnue",
+      "long_term_objective": "Long terme",
+      "backstory": "Histoire personnelle",
+      "fate": "Destin",
+      "short_term_objective": "Court terme",
+      "stats": {
+        "realm": "Rang de cultivation",
+        "origin": "Origine",
+        "age": "Âge",
+        "awakened_age": "Début de cultivation à",
+        "hp": "PV",
+        "gender": "Sexe",
+        "race": "Race",
+        "unknown_race": "Inconnue",
+        "alignment": "Alignement",
+        "sect": "Secte",
+        "official_rank": "Rang officiel",
+        "court_reputation": "Réputation à la cour",
+        "rogue": "Errant",
+        "root": "Racine",
+        "luck": "Chance",
+        "magic_stone": "Pierres",
+        "sect_contribution": "Contribution à la secte",
+        "appearance": "Apparence",
+        "battle_strength": "Puissance",
+        "ranking": "Classement",
+        "emotion": "Émotion",
+        "canonical_realm": "Équivalent : {value}"
+      },
+      "sections": {
+        "thinking": "Pensées",
+        "traits": "Traits",
+        "techniques_equipment": "Arts et équipement",
+        "goldfinger": "Doigt d'or",
+        "materials": "Matériaux",
+        "relations": "Relations",
+        "current_effects": "Effets actuels"
+      },
+      "weapon_meta": "Maîtrise {value}",
+      "adjust": {
+        "entry": "Ajuster",
+        "title": "Ajuster {category}",
+        "current": "Objet actuel",
+        "select": "Liste disponible",
+        "search_placeholder": "Rechercher par nom, description ou effet",
+        "apply_personas": "Appliquer les traits",
+        "apply_success": "Ajustement appliqué",
+        "load_failed": "Échec du chargement de la liste d'ajustement",
+        "apply_failed": "Échec de l'ajustement",
+        "empty_item": "Aucun(e) {label} actuellement sélectionné(e)",
+        "custom": {
+          "title": "Créer à partir d'une description textuelle",
+          "tag": "Personnalisé",
+          "unnamed": "Brouillon sans nom",
+          "prompt_placeholder": "Décrivez les effets, le style et l'ambiance souhaités, par exemple : une technique de Formation du Noyau orientée feu qui améliore la cultivation par la respiration et la réussite des percées.",
+          "prompt_required": "Veuillez saisir une description pour le contenu personnalisé",
+          "generate": "Générer",
+          "save": "Enregistrer et équiper",
+          "generate_failed": "Échec de la génération du contenu personnalisé",
+          "create_success": "Contenu personnalisé créé et équipé",
+          "create_failed": "Échec de l'enregistrement du contenu personnalisé"
+        },
+        "categories": {
+          "technique": "Technique",
+          "weapon": "Arme",
+          "auxiliary": "Équipement auxiliaire",
+          "personas": "Traits",
+          "goldfinger": "Doigt d'or"
+        }
+      },
+      "portrait": {
+        "entry": "Changer de portrait",
+        "title": "Changer de portrait",
+        "current": "Aperçu actuel",
+        "library": "Bibliothèque de portraits",
+        "preview_alt": "Aperçu du portrait du personnage",
+        "option_alt": "Portrait",
+        "empty": "Aucun portrait disponible",
+        "empty_library": "Aucun portrait disponible",
+        "load_failed": "Échec du chargement de la bibliothèque de portraits",
+        "apply_success": "Portrait mis à jour",
+        "apply_failed": "Échec de la mise à jour du portrait"
+      },
+      "relation_meta": "{relation} envers {owner}",
+      "father_short": "Père",
+      "mother_short": "Mère",
+      "mortal_realm": "Mortel",
+      "empty_short": "Aucun",
+      "modals": {
+        "set_long_term": "Définir l'objectif à long terme",
+        "placeholder": "Saisissez l'objectif...",
+        "set_failed": "Échec de la définition",
+        "clear_confirm": "Êtes-vous sûr de vouloir effacer l'objectif à long terme ?"
+      }
+    },
+    "region": {
+      "view_sect": "Voir les détails de la secte",
+      "essence_title": "Environnement de Qi",
+      "essence_info": "Qi de {type} · Densité {density}",
+      "type_explanations": {
+        "normal": "Une région sauvage dotée de ressources telles que des bêtes spirituelles, des plantes spirituelles et des filons minéraux.",
+        "city": "Une région urbaine où la population se rassemble et où les marchandises peuvent être échangées au marché.",
+        "cave": "Une caverne. Un site de cultivation riche en qi spirituel, parfois possédé, parfois inoccupé.",
+        "ruin": "Une ruine. Un site de cultivation propice à l'exploration, aux vestiges anciens et au qi résiduel.",
+        "sect": "Quartier général d'une secte. Le territoire central de l'influence d'une secte."
+      },
+      "sections": {
+        "host": "Propriétaire de la caverne",
+        "animals": "Animaux",
+        "plants": "Plantes",
+        "lodes": "Minéraux",
+        "market": "Marché"
+      },
+      "host_meta": "Propriétaire",
+      "no_host": "Sans propriétaire",
+      "price_meta": "{price} pierres",
+      "formation_remaining": "{months} mois restants"
+    },
+    "sect": {
+      "stats": {
+        "alignment": "Alignement",
+        "orthodoxy": "Orthodoxie",
+        "style": "Style",
+        "preferred": "Arme",
+        "members": "Membres",
+        "total_battle_strength": "Puissance",
+        "war_status": "Statut de guerre",
+        "strongest_enemy": "Ennemi principal",
+        "income": "Revenus territoriaux",
+        "income_value": "{income}/cycle",
+        "upkeep": "Entretien des membres",
+        "upkeep_value": "{upkeep}/cycle",
+        "war_weariness": "Lassitude de guerre",
+        "magic_stone": "Pierres"
+      },
+      "sections": {
+        "intro": "Introduction",
+        "rule": "Règle de la secte",
+        "hq": "QG : {name}",
+        "bonus": "Bonus de secte",
+        "diplomacy": "Situation diplomatique",
+        "thinking": "Pensées de la secte",
+        "techniques": "Bibliothèque de techniques",
+        "members": "Disciples"
+      },
+      "diplomacy_meta_relation": "Valeur de relation {value}",
+      "diplomacy_war_years": "Durée de la guerre : {count} ans",
+      "diplomacy_peace_years": "Durée de la paix : {count} ans",
+      "no_rule": "Aucune description explicite de la règle de la secte",
+      "no_bonus": "Aucun bonus spécial",
+      "no_runtime_effect": "Aucun effet de secte actif",
+      "runtime_effect_meta": "Source : {source} - Restant : {months} mois",
+      "runtime_effect_meta_permanent": "Source : {source} - Durée : Permanente"
+    }
+  },
+  "deceased": {
+    "title_short": "Décédés",
+    "title": "Personnages décédés",
+    "empty": "Aucun personnage décédé pour l'instant",
+    "name": "Nom",
+    "sect": "Secte",
+    "alignment": "Alignement",
+    "death_time": "Heure du décès",
+    "death_reason": "Cause du décès",
+    "age_at_death": "Âge au décès",
+    "realm_at_death": "Royaume final",
+    "backstory": "Biographie",
+    "events": "Événements liés",
+    "no_events": "Aucun événement lié",
+    "back_to_list": "Retour à la liste",
+    "death_year": "An {year}, Mois {month}",
+    "rogue": "Errant"
+  }
+}

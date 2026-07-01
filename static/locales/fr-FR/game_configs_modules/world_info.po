@@ -1,0 +1,301 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. world_info.csv: 你有一系列可以执行的动作。要注意动作的效果、限制条件、区域和时间。
+msgid "WORLD_INFO_ACTION_DESC"
+msgstr ""
+"Tu disposés d'une série d'actions exécutables. Fais attention aux effets, "
+"restrictions, régions et délais des actions."
+
+msgid "WORLD_INFO_ACTION_NAME"
+msgstr "Action"
+
+msgid "WORLD_INFO_ACTION_TITLE"
+msgstr "Action"
+
+#. world_info.csv: 每隔一段不确定的时间会有神秘人组织的拍卖会，或许有好货出售。
+msgid "WORLD_INFO_AUCTION_DESC"
+msgstr ""
+"À intervalles imprévisibles, un personnage mystérieux organise une enchère "
+"où l'on peut trouver de bonnes marchandises."
+
+msgid "WORLD_INFO_AUCTION_NAME"
+msgstr "Enchère"
+
+msgid "WORLD_INFO_AUCTION_TITLE"
+msgstr "Enchère"
+
+#. world_info.csv: 弱肉强食，境界压制极大，高境界者对低境界者有绝对优势。若对方死亡，胜者可掠夺败者财物。
+msgid "WORLD_INFO_BATTLE_DESC"
+msgstr ""
+"La loi du plus fort prévaut ; la compression par les royaumes est massive. "
+"Les cultivateurs de haut niveau possèdent un avantage absolu sur ceux de bas "
+"niveau. Si l'adversaire meurt, le vainqueur peut piller ses biens."
+
+msgid "WORLD_INFO_BATTLE_NAME"
+msgstr "Combat"
+
+msgid "WORLD_INFO_BATTLE_TITLE"
+msgstr "Combat"
+
+#. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。
+msgid "WORLD_INFO_CULTIVATION_DESC"
+msgstr ""
+"La culturation accumule le pouvoir jusqu'à ce que le rang actuel atteigne son "
+"point critique. Les percées peuvent réussir ou échouer ; le succès propulse le "
+"personnage au rang suivant, tandis que l'échec peut avoir un prix."
+
+msgid "WORLD_INFO_CULTIVATION_NAME"
+msgstr "Culturation"
+
+msgid "WORLD_INFO_CULTIVATION_TITLE"
+msgstr "Culturation"
+
+#. world_info.csv: HP降至0以下也会死亡。
+msgid "WORLD_INFO_DEATH_DESC"
+msgstr "Tomber sous 0 PV entraîne aussi la mort."
+
+msgid "WORLD_INFO_DEATH_NAME"
+msgstr "Mort"
+
+msgid "WORLD_INFO_DEATH_TITLE"
+msgstr "Mort"
+
+#. world_info.csv: 通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服...
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
+msgstr ""
+"Les armes, équipements auxiliaires et élixirs procurent des bonus "
+"supplémentaires. Un bon équipement et les élixirs appropriés peuvent "
+"considérablement améliorer la survivabilité et les capacités de combat du "
+"cultivateur."
+
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
+msgstr "Équipement & Élixir"
+
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE"
+msgstr "Équipement & Élixir"
+
+#. world_info.csv: 这是一个诸多修士竞相修行，纷争四起的修仙世界。
+msgid "WORLD_INFO_INTRO_DESC"
+msgstr "Ceci est un monde de culturation où de nombreux cultivateurs rivalisent et où les conflits font rage de tous côtés."
+
+msgid "WORLD_INFO_INTRO_NAME"
+msgstr "Introduction"
+
+msgid "WORLD_INFO_INTRO_TITLE"
+msgstr "Introduction"
+
+#. world_info.csv: 若当前年龄达到最大寿元，会立刻死亡。突破境界可以增加最大寿元，突破失败也可能折损寿元。
+msgid "WORLD_INFO_LIFESPAN_DESC"
+msgstr ""
+"Chaque personnage a une limite d'espérance de vie. Lorsque cette dernière "
+"s'épuise, la mort s'ensuit ; les percées de royaumes prolongent généralement "
+"l'espérance de vie, tandis que les percées échouées peuvent la raccourcir."
+
+msgid "WORLD_INFO_LIFESPAN_NAME"
+msgstr "Espérance de vie"
+
+msgid "WORLD_INFO_LIFESPAN_TITLE"
+msgstr "Espérance de vie"
+
+#. world_info.csv: 道、佛、儒等根本理念，决定门牌的根脚与修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr ""
+"Différentes orthodoxies possèdent différentes méthodes de culturation. Les "
+"taoïstes respirent, les Guerriers endurcissent le Corps, les Bouddhistes "
+"médisent, et les Confucéens éduquent le peuple."
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "Orthodoxie"
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "Orthodoxie"
+
+#. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。
+msgid "WORLD_INFO_REALM_DESC"
+msgstr ""
+"Les royaumes standards du monde, du plus faible au plus fort, sont la "
+"Purification du Qi, l'Établissement des Fondations, la Formation du Noyau et "
+"l'Âme Naissante. Chaque royaume possède des étapes Précoce, Médiane et Tardive."
+" Les traditions différentes peuvent utiliser d'autres noms, mais les règles "
+"sont calculées selon cette séquence standard."
+
+msgid "WORLD_INFO_REALM_NAME"
+msgstr "Royaume"
+
+msgid "WORLD_INFO_REALM_TITLE"
+msgstr "Royaume"
+
+#. world_info.csv: 不同区域有不同效果，在适当的区域做适当的事情事半功倍。
+msgid "WORLD_INFO_REGION_DESC"
+msgstr ""
+"Différentes régions ont des effets différents ; faire la bonne chose dans la "
+"bonne région donne deux fois le résultat avec la moitié de l'effort."
+
+msgid "WORLD_INFO_REGION_NAME"
+msgstr "Région"
+
+msgid "WORLD_INFO_REGION_TITLE"
+msgstr "Région"
+
+#. world_info.csv: 灵根由五行元素（金、木、水、火、土）组成，分为单灵根、双灵根和天灵根。五行相克：金克木，木克土...
+msgid "WORLD_INFO_ROOT_DESC"
+msgstr ""
+"Les racines spirituelles sont composées de cinq éléments (Métal, Bois, Eau, "
+"Feu, Terre), divisées en Racines Spirituelles Simples, Doubles et Célestes. "
+"L'interaction des cinq éléments : le Métal surpasse le Bois, le Bois surpasse "
+"la Terre, la Terre surpasse l'Eau, l'Eau surpasse le Feu, le Feu surpasse le "
+"Métal. La Racine Spirituelle Céleste contient les cinq éléments et bénéficie "
+"d'un bonus supplémentaire lors d'une percée. L'efficacité de culturation est "
+"maximale dans les régions correspondant à l'attribut de sa propre racine "
+"spirituelle."
+
+msgid "WORLD_INFO_ROOT_NAME"
+msgstr "Racine Spirituelle"
+
+msgid "WORLD_INFO_ROOT_TITLE"
+msgstr "Racine Spirituelle"
+
+#. world_info.csv: 每隔数年会有秘境开启。进入秘境可能遭遇凶险，也可能获得高阶法宝和功法。
+msgid "WORLD_INFO_SECRET_REALM_DESC"
+msgstr ""
+"Des royaumes secrets s'ouvrent tous les quelques années. Entrer dans un "
+"royaume secret peut rencontrer du danger, mais peut aussi obtenir des "
+"artefacts et techniques de haut niveau."
+
+msgid "WORLD_INFO_SECRET_REALM_NAME"
+msgstr "Royaume Secret"
+
+msgid "WORLD_INFO_SECRET_REALM_TITLE"
+msgstr "Royaume Secret"
+
+#. world_info.csv: 修士的庇护所。加入宗门可习得独门功法、获同门庇护；散修自由但资源匮乏。
+msgid "WORLD_INFO_SECT_DESC"
+msgstr ""
+"Un refuge pour les cultivateurs. Rejoindre une Secte permet d'apprendre des "
+"techniques uniques et de bénéficier de la protection des camarades de Secte ; "
+"les cultivateurs errants sont libres mais manquent de ressources."
+
+msgid "WORLD_INFO_SECT_NAME"
+msgstr "Secte"
+
+msgid "WORLD_INFO_SECT_TITLE"
+msgstr "Secte"
+
+#. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器...
+msgid "WORLD_INFO_SHOPPING_DESC"
+msgstr ""
+"Dans les régions urbaines, tu peux acheter des élixirs et des armes de niveau "
+"Purification du Qi. Les élixirs achetés sont consommés immédiatement pour "
+"renforcer le personnage ; les armes achetées permettent de passer à un type "
+"d'arme plus adapté."
+
+msgid "WORLD_INFO_SHOPPING_NAME"
+msgstr "Achat"
+
+msgid "WORLD_INFO_SHOPPING_TITLE"
+msgstr "Achat"
+
+#. world_info.csv: 修仙界的通用货币。可用于购买法宝丹药，通过采集、交易或掠夺获取。
+msgid "WORLD_INFO_SPIRIT_STONE_DESC"
+msgstr ""
+"La monnaie commune du monde de la culturation. Peut être utilisée pour acheter "
+"des artefacts et des élixirs, obtenue par la récolte, le commerce ou le "
+"pillage."
+
+msgid "WORLD_INFO_SPIRIT_STONE_NAME"
+msgstr "Pierre Spirituelle"
+
+msgid "WORLD_INFO_SPIRIT_STONE_TITLE"
+msgstr "Pierre Spirituelle"
+
+#. world_info.csv: 世界每隔数年会有一次天象变动（如灵气潮汐），影响角色能力。
+msgid "WORLD_INFO_WORLD_QI_DESC"
+msgstr ""
+"Le monde subit des changements célestes (comme des Marées de Qi) tous les "
+"quelques années, affectant les capacités des personnages."
+
+msgid "WORLD_INFO_WORLD_QI_NAME"
+msgstr "Qi du Monde"
+
+msgid "WORLD_INFO_WORLD_QI_TITLE"
+msgstr "Qi du Monde"
+
+#. world_info.csv: 修仙界设有天地人三榜及宗门榜。天榜收录元婴期强者，地榜收录金丹期强者，人榜收录筑基期强者，宗门榜按宗门总实力排名。
+msgid "WORLD_INFO_RANKING_DESC"
+msgstr "Le monde de la culturation dispose des classements Ciel, Terre et Humain, ainsi que du classement des Sectes. Les trois classements personnels sont groupés par royaume standard équivalent : le Ciel enregistre les experts de niveau Âme Naissante, la Terre enregistre les experts de niveau Formation du Noyau, et l'Humain enregistre les experts de niveau Établissement des Fondations. Le classement des Sectes range les Sectes par puissance totale."
+
+msgid "WORLD_INFO_RANKING_NAME"
+msgstr "Classement"
+
+msgid "WORLD_INFO_RANKING_TITLE"
+msgstr "Classement"
+
+#. world_info.csv: 凡人王朝统御天下，维持凡俗秩序与疆域。皇帝寿元与普通凡人无异，驾崩后会有新帝继位。
+msgid "WORLD_INFO_DYNASTY_DESC"
+msgstr "Les dynasties mortelles règnent sur le domaine, maintenant l'ordre mondain et les frontières. Les empereurs ne vivent pas plus longtemps que les mortels ordinaires, et à la mort de l'un, un nouvel empereur accède au trône."
+
+msgid "WORLD_INFO_DYNASTY_NAME"
+msgstr "Dynastie"
+
+msgid "WORLD_INFO_DYNASTY_TITLE"
+msgstr "Dynastie"
+
+#. world_info.csv: 修士可为朝廷理政，积累朝廷威望并领取俸禄。威望足够可升官，官职越高，俸禄与气运越多；久不理政，威望会逐渐下滑。
+msgid "WORLD_INFO_OFFICIAL_DESC"
+msgstr "Les cultivateurs peuvent gouverner pour la cour impériale, accumulant la réputation de la cour et recevant un salaire. Avec suffisamment de réputation, ils peuvent être promus ; plus le poste est élevé, plus le salaire et la chance sont grands. S'ils négligent la gouvernance trop longtemps, leur réputation déclinera graduellement."
+
+msgid "WORLD_INFO_OFFICIAL_NAME"
+msgstr "Rang Officiel"
+
+msgid "WORLD_INFO_OFFICIAL_TITLE"
+msgstr "Rang Officiel"
+
+#. world_info.csv: The same cultivation ranks have different names in each tradition.
+msgid "WORLD_INFO_CULTIVATION_ALIAS_DESC"
+msgstr "Les mêmes rangs de culturation ont des noms différents dans chaque tradition : les Taoïstes et les cultivateurs errants utilisent Purification du Qi, Établissement des Fondations, Formation du Noyau et Âme Naissante ; les cultivateurs martiaux utilisent Trempe du Corps, Trempe des Tendons, Maître Martial et Saint Martial ; les cultivateurs confucéens utilisent Culturation du Qi Vital, Illumination du Principe, Établissement du Mandat et Grand Érudit ; les cultivateurs bouddhistes utilisent Moine Novice, Moine, Arhat et Bodhisattva ; les cultivateurs yao utilisent Réveil Spirituel, Transformation de Forme, Noyau du Démon et Roi du Démon. Ces noms correspondent à la même séquence de royaumes sous-jacente ; ils changent les mots du récit et de l'interface, mais pas la percée, le pouvoir, l'espérance de vie, le grade d'objet ou d'autres règles."
+
+#. world_info.csv: Realm Aliases
+msgid "WORLD_INFO_CULTIVATION_ALIAS_NAME"
+msgstr "Alias de Royaumes"
+
+#. world_info.csv: Realm Aliases
+msgid "WORLD_INFO_CULTIVATION_ALIAS_TITLE"
+msgstr "Alias de Royaumes"
+
+#. world_info.csv: 蛊术需要修士持有蛊具并拥有下蛊能力，才能对可观测目标施加蛊。
+msgid "WORLD_INFO_GU_DESC"
+msgstr "Les arts Gu nécessitent qu'un cultivateur porte un outil Gu et possède l'aptitude à infliger le Gu avant de l'appliquer à une cible observable. Différents Gu agissent de différentes manières : le Gu qui Submerge l'Esprit décale subtilement les relations, le Gu Dévoreur de Sang endommage périodiquement la vie, tandis que le Gu qui Érode l'Essence et le Gu qui Désordonne le Cœur perturbent la culturation. Infliger le Gu a un taux de succès affecté par l'outil, les bonus du lanceur et la résistance au Gu de la cible ; l'échec peut être détecté et nuire à la relation."
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_NAME"
+msgstr "Gu"
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_TITLE"
+msgstr "Gu"
+
+#. world_info.csv: 阵法需要修士持有阵盘并拥有布阵能力，才能在当前区域布置限时区域效果。
+msgid "WORLD_INFO_FORMATION_DESC"
+msgstr "Les Formations nécessitent qu'un cultivateur porte un disque de formation et possède l'aptitude à établir une formation avant de placer un effet régional temporaire à l'emplacement actuel. Différentes formations conviennent à différentes régions : les zones de culturation et les régions de Secte peuvent tenir des réseaux de cueillette spirituelle, de garde de montagne, de clarté et similaires ; les villes peuvent tenir des réseaux de guérison ; les mines, champs d'herbes et domaines de bêtes peuvent tenir des réseaux de recherche de veine, de croissance du bois et de chasse aux bêtes. Les Formations consomment des Pierres Spirituelles et expirent après la fin de leur durée."
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_NAME"
+msgstr "Formations"
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_TITLE"
+msgstr "Formations"

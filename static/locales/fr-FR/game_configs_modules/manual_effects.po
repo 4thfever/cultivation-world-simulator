@@ -1,0 +1,44 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "condition_has_spirit_animal"
+msgstr "Lors de la possession d'un Animal Spirituel"
+
+msgid "condition_level_ge_30"
+msgstr "Quand Niveau >= 30"
+
+msgid "condition_realm_early"
+msgstr "Au stade de Purification du Qi ou d'Établissement des Fondations"
+
+# Celestial Phenomenon
+msgid "condition_realm_high"
+msgstr "Au stade de Transformation Divine ou supérieur"
+
+msgid "condition_realm_late"
+msgstr "Au stade de Formation du Noyau ou d'Âme Naissante"
+
+msgid "condition_realm_low"
+msgstr "Au-dessous du stade de Transformation Divine"
+
+# Personas
+msgid "condition_unarmed"
+msgstr "Quand désarmé"
+
+# Weapons
+msgid "effect_god_slaying_spear_desc"
+msgstr "Augmente la Force de Combat en fonction de la Maîtrise de la Lance"
+
+# Auxiliary
+msgid "effect_ten_thousand_souls_banner_desc"
+msgstr "Dévorer les mortels de la ville pour rassembler les âmes ; accorde une Force de Combat progressive jusqu'à +8"

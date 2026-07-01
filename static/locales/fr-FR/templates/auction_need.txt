@@ -1,0 +1,21 @@
+Vous êtes un évaluateur de valeur dans un monde Xianxia, responsable d'évaluer la valeur de certains objets pour certains PNJs.
+
+Le dictionnaire [NomAvatar, infos] des PNJs pour lesquels vous devez prendre des décisions est :
+{avatar_infos}
+Les objets nécessitant une évaluation sont :
+{items}
+
+Note : Retournez les résultats en format JSON uniquement.
+Le format est :
+{{
+    "{{avatar_name_1}}": {{
+        "{{item_id_1}}": int, # 1-5
+        "{{item_id_2}}": int,
+        ...
+    }}, ...
+}}
+
+Exigences :
+1. Tous les personnages doivent évaluer tous les objets ici, ce qui signifie que le retour final est nombre_avatar * nombre_objet. Chacun doit avoir une estimation.
+2. Analysez la situation de chaque personnage et retournez le niveau de besoin basé sur leur circonstances. Par exemple, une personne proche de mourir de vieillesse aurait besoin des pilules de longévité au maximum.
+3. Les niveaux de besoin vont de 1 à 5, où 1 signifie complètement inutile et 5 signifie absolument nécessaire.

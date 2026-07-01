@@ -1,0 +1,47 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Item exchange - general
+msgid "decided to equip it"
+msgstr "a décidé de l'équiper"
+
+msgid "decided to keep current equipment"
+msgstr "a décidé de conserver l'équipement actuel"
+
+msgid "decided to keep current technique"
+msgstr "a décidé de conserver la technique actuelle"
+
+msgid "decided to learn it"
+msgstr "a décidé de l'apprendre"
+
+msgid "item_verb_consume"
+msgstr "consommer"
+
+msgid "item_verb_consumed"
+msgstr "consommé"
+
+msgid "{name} discarded {item_name}."
+msgstr "{name} a jeté {item_name}."
+
+msgid "{name} equipped {grade}{label} '{item_name}'."
+msgstr "{name} a équipé {grade}{label} '{item_name}'."
+
+# Item exchange - detailed messages
+msgid "{name} obtained {grade}{label} '{item_name}' and equipped it."
+msgstr "{name} a obtenu {grade}{label} '{item_name}' et l'a équipé."
+
+msgid ""
+"{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+msgstr ""
+"{name} a vendu le {item_name} nouvellement obtenu, gagnant {price} pierres spirituelles."

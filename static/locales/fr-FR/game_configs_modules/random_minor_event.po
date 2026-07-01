@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. random_minor_event.csv: 心境偏移
+msgid "minor_event_cause_1"
+msgstr "Shift in state of mind"
+
+#. random_minor_event.csv: 莫名执念
+msgid "minor_event_cause_2"
+msgstr "Inexplicable obsession"
+
+#. random_minor_event.csv: 与修真装备、武器、功法的日常互动
+msgid "minor_event_cause_3"
+msgstr "Daily interaction with cultivation equipment, weapons, or techniques"
+
+#. random_minor_event.csv: 对所在环境的感叹
+msgid "minor_event_cause_4"
+msgstr "Sighing over the current environment"
+
+#. random_minor_event.csv: 宗门事务
+msgid "minor_event_cause_5"
+msgstr "Sect affairs"
+
+#. random_minor_event.csv: 修仙日常
+msgid "minor_event_cause_6"
+msgstr "Daily life of cultivation"
+
+#. random_minor_event.csv: 啼笑皆非的小插曲
+msgid "minor_event_cause_7"
+msgstr "A hilarious interlude"
+
+#. random_minor_event.csv: 微观社交摩擦(互相打量/戒备/嘲讽)
+msgid "minor_event_cause_8"
+msgstr "Micro-social friction (sizing up/guarding/mocking each other)"
+
+#. random_minor_event.csv: 非对称互动(听到八卦/被人背后议论)
+msgid "minor_event_cause_9"
+msgstr "Asymmetric interaction (hearing gossip/being talked about behind one's back)"
+
+#. random_minor_event.csv: 关系网的日常投影(道侣传音/师徒考校/死仇互瞪)
+msgid "minor_event_cause_10"
+msgstr "Daily projection of social network (voice transmission from Dao companion/testing by master/glaring at mortal enemy)"
+
+#. random_minor_event.csv: 日常对话
+msgid "minor_event_cause_11"
+msgstr "Daily conversation"
+
+#. random_minor_event.csv: 好感暗生
+msgid "minor_event_cause_12"
+msgstr "Secret affection growing"
+
+#. random_minor_event.csv: 修行时一念游移的内在波动
+msgid "minor_event_desc_inner_mood_shift"
+msgstr "An inner fluctuation as focus drifts during cultivation"
+
+#. random_minor_event.csv: 心底忽然浮起的一缕执念
+msgid "minor_event_desc_inner_obsession"
+msgstr "A sudden thread of obsession rising in the heart"
+
+#. random_minor_event.csv: 围绕功法法宝兵器的日常修炼片段
+msgid "minor_event_desc_daily_practice"
+msgstr "An everyday training moment centered on techniques, artifacts, or weapons"
+
+#. random_minor_event.csv: 对眼前山川气象的一瞬感触
+msgid "minor_event_desc_environment_response"
+msgstr "A fleeting feeling stirred by the mountains, rivers, and weather before one's eyes"
+
+#. random_minor_event.csv: 宗门生活中的寻常差事
+msgid "minor_event_desc_sect_errand"
+msgstr "An ordinary errand in sect life"
+
+#. random_minor_event.csv: 略显窘迫却无伤大雅的小插曲
+msgid "minor_event_desc_comic_incident"
+msgstr "A mildly awkward but harmless little incident"
+
+#. random_minor_event.csv: 路过时短暂发生的一次照面互动
+msgid "minor_event_desc_passing_interaction"
+msgstr "A brief face-to-face interaction while passing by"
+
+#. random_minor_event.csv: 一方留意另一方却未必说破的片刻
+msgid "minor_event_desc_asymmetric_attention"
+msgstr "A moment when one notices the other without necessarily saying it aloud"
+
+#. random_minor_event.csv: 不动声色却略带好感的一次接触
+msgid "minor_event_desc_subtle_goodwill"
+msgstr "A restrained encounter touched with a hint of goodwill"
+
+#. random_minor_event.csv: 语气眼神或态度上的轻微摩擦
+msgid "minor_event_desc_social_friction"
+msgstr "A slight friction in tone, gaze, or attitude"
+
+#. random_minor_event.csv: 围绕零碎资源与机会的短暂争抢
+msgid "minor_event_desc_resource_competition"
+msgstr "A brief scramble over minor resources or opportunities"
+
+#. random_minor_event.csv: 顺手帮衬彼此的一次小小照应
+msgid "minor_event_desc_small_mutual_help"
+msgstr "A small act of casually lending each other a hand"

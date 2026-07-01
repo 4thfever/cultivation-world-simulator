@@ -1,0 +1,76 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr-FR\n"
+
+msgid "rest_action_name"
+msgstr "Repos"
+
+msgid "rest_description"
+msgstr "S'arrêter pour réguler la respiration et récupérer les PV pendant 3 mois. Les yao tortue gagnent une expérience de cultivation supplémentaire en se reposant."
+
+msgid "rest_requirements"
+msgstr "Pas d'exigences particulières."
+
+msgid "eat_mortals_action_name"
+msgstr "Dévorer les mortels"
+
+msgid "eat_mortals_description"
+msgstr "Les cultivateurs yao se glissent dans les établissements de mortels pour dévorer des mortels, affiner la chair et la peur en cultivation."
+
+msgid "eat_mortals_requirements"
+msgstr "Nécessite un cultivateur yao dans une région urbaine ; les cultivateurs justes ne font généralement pas cela."
+
+msgid "Dead avatars cannot rest."
+msgstr "Les personnages morts ne peuvent pas se reposer."
+
+msgid "{avatar} begins resting."
+msgstr "{avatar} commence à se reposer."
+
+msgid "{avatar} finished resting, recovered {hp} HP and gained {exp} cultivation experience."
+msgstr "{avatar} a terminé son repos, a récupéré {hp} PV et a gagné {exp} points d'expérience de cultivation."
+
+msgid "{avatar} finished resting and recovered {hp} HP."
+msgstr "{avatar} a terminé son repos et a récupéré {hp} PV."
+
+msgid "Only yao cultivators can eat mortals."
+msgstr "Seuls les cultivateurs yao peuvent dévorer les mortels."
+
+msgid "Righteous cultivators will not eat mortals."
+msgstr "Les cultivateurs justes ne dévoreront pas les mortels."
+
+msgid "Can only eat mortals in city areas."
+msgstr "Ne peuvent dévorer les mortels que dans les zones urbaines."
+
+msgid "There are no mortals here to eat."
+msgstr "Il n'y a pas de mortels ici à dévorer."
+
+msgid "{avatar} stalks the mortal crowds of {city}."
+msgstr "{avatar} traque les foules mortelles de {city}."
+
+msgid "{avatar} ate {count} mortals in {city}, refining flesh and fear into {exp} cultivation experience."
+msgstr "{avatar} a dévoré {count} mortels à {city}, affiner la chair et la peur en {exp} points d'expérience de cultivation."
+
+msgid "{avatar} follows wild instincts to seek spiritual herbs at {location}"
+msgstr "{avatar} suit les instincts sauvages pour chercher des herbes spirituelles à {location}"
+
+msgid "{avatar} finished foraging through the wilds, obtained: {materials}"
+msgstr "{avatar} a terminé de fouiller les terres sauvages, a obtenu : {materials}"
+
+msgid "{avatar} begins tracking prey by scent and instinct at {location}"
+msgstr "{avatar} commence à tracer les proies par l'odorat et l'instinct à {location}"
+
+msgid "{avatar} finished a primal hunt, obtained: {materials}"
+msgstr "{avatar} a terminé une chasse primitive, a obtenu : {materials}"
+
+msgid "effect_extra_rest_exp"
+msgstr "Repos Expérience de cultivation"
+
+msgid "effect_extra_rest_hp_recovery_rate"
+msgstr "Taux de récupération des PV au repos"
+
+msgid "effect_extra_eat_mortals_exp_multiplier"
+msgstr "Multiplicateur d'expérience de dévorage des mortels"
+
+msgid "effect_extra_cross_race_friendliness"
+msgstr "Modificateur d'amabilité initiale entre races"

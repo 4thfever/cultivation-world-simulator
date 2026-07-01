@@ -1,0 +1,83 @@
+msgid "World is not initialized yet"
+msgstr "Le monde n'a pas encore été initialisé"
+
+msgid "Target avatar does not exist"
+msgstr "L'avatar cible n'existe pas"
+
+msgid "{avatar_name} needs a new command"
+msgstr "{avatar_name} a besoin d'une nouvelle commande"
+
+msgid "World paused and waiting for your roleplay command."
+msgstr "Le monde est en pause et attend votre commande de jeu de rôle."
+
+msgid "There is already a pending roleplay request"
+msgstr "Il y a déjà une demande de jeu de rôle en attente"
+
+msgid "{avatar_name} needs to make a choice"
+msgstr "{avatar_name} doit faire un choix"
+
+msgid "The other party falls silent for a moment and does not reply immediately."
+msgstr "L'autre partie se tait un moment et ne répond pas immédiatement."
+
+msgid "{target_avatar_name} pauses to think and responds to the topic."
+msgstr "{target_avatar_name} s'arrête pour réfléchir et répond au sujet."
+
+msgid "{avatar_name} and {target_avatar_name} talked for {turns} turns and both gained a new impression of the topic at hand."
+msgstr "{avatar_name} et {target_avatar_name} ont parlé pendant {turns} tours et ont tous deux obtenu une nouvelle impression sur le sujet en question."
+
+msgid "{avatar_name} is talking with {target_avatar_name}"
+msgstr "{avatar_name} parle avec {target_avatar_name}"
+
+msgid "World paused and waiting for you to continue speaking as {avatar_name} with {target_avatar_name}."
+msgstr "Le monde est en pause et attend que vous continuiez à parler en tant que {avatar_name} avec {target_avatar_name}."
+
+msgid "There is already another avatar under roleplay control"
+msgstr "Il y a déjà un autre avatar sous contrôle de jeu de rôle"
+
+msgid "Roleplay target does not match"
+msgstr "La cible du jeu de rôle ne correspond pas"
+
+msgid "The current request is not waiting for a roleplay command"
+msgstr "La demande actuelle n'attend pas une commande de jeu de rôle"
+
+msgid "Roleplay request does not exist or has expired"
+msgstr "La demande de jeu de rôle n'existe pas ou a expiré"
+
+msgid "Please enter a roleplay command"
+msgstr "Veuillez entrer une commande de jeu de rôle"
+
+msgid "Failed to generate a valid action plan from this command"
+msgstr "Impossible de générer un plan d'action valide à partir de cette commande"
+
+msgid "Roleplay command submitted"
+msgstr "Commande de jeu de rôle soumise"
+
+msgid "The current request is not waiting for a roleplay choice"
+msgstr "La demande actuelle n'attend pas un choix de jeu de rôle"
+
+msgid "Roleplay choice state is invalid, please trigger it again"
+msgstr "L'état du choix de jeu de rôle n'est pas valide, veuillez le déclencher à nouveau"
+
+msgid "This roleplay choice has already been handled"
+msgstr "Ce choix de jeu de rôle a déjà été traité"
+
+msgid "Roleplay choice submitted"
+msgstr "Choix de jeu de rôle soumis"
+
+msgid "The current request is not in a roleplay conversation"
+msgstr "La demande actuelle n'est pas dans une conversation de jeu de rôle"
+
+msgid "Roleplay conversation request does not exist or has expired"
+msgstr "La demande de conversation de jeu de rôle n'existe pas ou a expiré"
+
+msgid "Roleplay conversation session does not exist or has expired"
+msgstr "La session de conversation de jeu de rôle n'existe pas ou a expiré"
+
+msgid "Please enter dialogue content"
+msgstr "Veuillez entrer le contenu du dialogue"
+
+msgid "Conversation updated"
+msgstr "Conversation mise à jour"
+
+msgid "Conversation ended"
+msgstr "Conversation terminée"

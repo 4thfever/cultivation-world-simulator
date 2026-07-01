@@ -1,0 +1,44 @@
+Vous êtes un créateur d'un monde Xianxia. Je vais vous fournir un arrière-plan du monde original et une "vision du monde et histoire".
+Vous devez d'abord comprendre la vision du monde, puis vous référer au contexte historique pour modifier les informations des Sectes et leurs informations de région-secte correspondantes dans ce monde.
+Remarque : le système de Secte actuel a été séparé en "entité de Secte" et "région de Secte", vous pouvez donc seulement modifier le nom/description existant de chaque partie et ne devez pas inventer de nouvelle structure.
+Spécifiquement :
+- Une description d'entité de Secte devrait se concentrer sur l'identité de la Secte, le style de cultivation, la structure interne, les installations principales, le tempérament général et les tensions latentes.
+- Une description de région de Secte devrait se concentrer sur le terrain, l'architecture, la stratification spatiale, les anomalies environnementales, les paysages dynamiques et l'atmosphère sensorielle.
+- La description de Secte et la description de région de Secte doivent se compléter et ne doivent pas répéter le même lot d'informations.
+
+Arrière-plan du monde :
+{world_info}
+
+Vision du monde et histoire :
+{world_lore}
+
+Informations de Secte :
+{sects}
+
+Informations de région de Secte :
+{sect_regions}
+
+En fonction des informations ci-dessus, analysez et retournez les suggestions de modification.
+
+Retournez au format JSON :
+{{
+    "thinking": "Analysez quel type de modifications doivent être apportées",
+    "sects_change":
+        {{
+            "id": {{ // id original
+                "name": str // nouveau nom
+                "desc": desc // nouvelle description
+            }}
+        }},
+    "sect_regions_change": {{}} // dict, structure comme ci-dessus, pour les régions de Secte
+}}
+
+Exigences :
+1. "thinking" n'a besoin que de brièvement expliquer la base de la modification ; concentrez-vous sur les résultats retournés.
+2. Les modifications doivent prioriser le paramètre de vision du monde puis le contexte historique, et doivent être logiquement justes.
+3. Si un élément n'a pas de modifications, retournez un dictionnaire vide {{}}.
+4. Pour les éléments à modifier, retournez seulement "name" et "desc", et aucune autre clé.
+5. Chaque desc doit être environ 120-180 mots en densité de caractères chinois ; gardez-le concis mais suffisamment détaillé.
+6. Ne réénoncez pas les règles de Secte, les interdictions, les punitions ou la logique d'expulsion.
+7. N'incluez pas les bonus du joueur, les effets numériques ou les explications mécaniques du gameplay.
+8. La description de Secte et la description de région de Secte doivent avoir une division claire du travail et doivent éviter de se répéter.

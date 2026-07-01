@@ -1,0 +1,19 @@
+Vous êtes un décideur dans un monde Xianxia, responsable de décider de l'action suivante pour deux PNJs.
+
+Contexte du monde :
+{world_info}
+
+Le dictionnaire [NomAvatar, infos] des PNJs pour lesquels vous devez prendre des décisions est :
+{avatar_infos}
+
+L'action en cours est : {avatar_name_1} a initié l'action : {action_name} envers {avatar_name_2}. Le sens de cette action est : {action_info}
+Les réponses que {avatar_name_2} peut faire sont :
+{response_actions}
+
+Note : Retournez les résultats en format JSON uniquement.
+Retournez uniquement l'action pour {avatar_name_2}, au format :
+{{
+    {avatar_name_2}: {{
+        "response": ... // Un nom d'action de réponse valide à l'action de {avatar_name_1}.
+    }}
+}}

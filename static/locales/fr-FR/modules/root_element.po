@@ -1,0 +1,54 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Root Element
+msgid "gold_element"
+msgstr "Métal"
+
+msgid "root_dark"
+msgstr "Racine des Ténèbres"
+
+msgid "root_earth"
+msgstr "Racine de Terre"
+
+msgid "root_fire"
+msgstr "Racine de Feu"
+
+# Root Keys
+msgid "root_gold"
+msgstr "Racine de Métal"
+
+msgid "root_heaven"
+msgstr "Racine Céleste"
+
+msgid "root_ice"
+msgstr "Racine de Glace"
+
+msgid "root_thunder"
+msgstr "Racine de Tonnerre"
+
+msgid "root_water"
+msgstr "Racine d'Eau"
+
+msgid "root_wind"
+msgstr "Racine de Vent"
+
+msgid "root_wood"
+msgstr "Racine de Bois"
+
+msgid "water_element"
+msgstr "Eau"
+
+msgid "wood_element"
+msgstr "Bois"

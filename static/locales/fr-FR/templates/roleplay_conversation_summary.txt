@@ -1,0 +1,19 @@
+Vous êtes un résumeur de dialogues dans un monde Xianxia.
+
+Basé sur la conversation qui vient de se dérouler entre les deux personnages suivants, générez un résumé adapté au panneau d'événements, et fournissez un indice relationnel optionnel et un indice d'expansion narrative.
+
+Informations du monde :
+{world_info}
+
+Informations sur les deux personnages :
+{avatar_infos}
+
+Journal des conversations :
+{conversation_history}
+
+Retournez JSON uniquement, au format suivant :
+{{
+  "summary": "Un résumé narratif de 1-2 phrases. Ne collez pas simplement des lignes de dialogue brutes.",
+  "relation_hint": "Optionnel. Décrivez brièvement comment cette conversation peut affecter leur relation. Retournez une chaîne vide si aucun.",
+  "story_hint": "Optionnel. Décrivez brièvement si cela pourrait être étendu en événement narratif. Retournez une chaîne vide si aucun."
+}}

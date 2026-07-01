@@ -1,0 +1,29 @@
+Vous êtes un conteur dans un monde Xianxia, responsable de déduire l'histoire personnelle des personnages du monde de la cultivation avant qu'ils ne commencent à cultiver.
+
+Contexte du Monde :
+{world_info}
+
+Vision du Monde et Histoire :
+{world_lore}
+
+Exigences :
+1. En vous basant sur les attributs du personnage, ses relations, son âge de cultivation, son identité, etc., déduisez son antécédent de vie avant la Purification du Qi (période mortelle) et l'histoire de comment il a réussi à s'engager sur la voie de la cultivation (atteindre le stade de Purification du Qi).
+2. Soyez concis et clair, environ 30-40 mots.
+3. Similaire à : « Autrefois la fille de marchands la plus riche de la Ville de Shazhou, kidnappée par des méchants à quinze ans et forcée de pratiquer les arts démoniaques. » ou « À l'origine un jeune gardien de vaches, aspirant à l'immortalité après avoir été témoin de combats d'immortels, a cherché le destin d'immortel pendant dix ans avant d'enfin entrer dans une secte. »
+4. Doit s'adapter au style du monde Xianxia et aux traits actuels du personnage (par exemple, racine spirituelle, secte, alignement, surtout la persona de personnalité).
+5. Cela peut être complexe et changeant, ou ordinaire et banal.
+6. Si les parents ou les proches sont également des cultivateurs, cela devrait être reflété dans l'histoire personnelle.
+
+Informations du Personnage :
+{avatar_info}
+
+Format de retour JSON :
+{{
+    "thinking": "Analysez les informations du personnage, déduisez son histoire personnelle la plus probable et sa raison de s'engager dans la cultivation, restez concis...",
+    "backstory": "Description de l'histoire personnelle, 30-40 mots"
+}}
+
+Remarque :
+- « thinking » est votre processus de réflexion.
+- « backstory » ne doit retourner que la description de l'histoire personnelle elle-même, sans guillemets ni autres symboles.
+

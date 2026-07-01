@@ -1,0 +1,102 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Map & Region & Others (New)
+msgid "Cultivate Region (can respire to increase cultivation)"
+msgstr "Région de Cultivation (peut respirer pour augmenter la cultivation)"
+
+msgid ""
+"Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - "
+"{desc}"
+msgstr ""
+"Région de Cultivation : {name} (Essence {essence_type} : {essence_density}) - "
+"{desc}"
+
+msgid "No special resources"
+msgstr "Aucune ressource spéciale"
+
+msgid "Normal Region (can hunt, gather, mine)"
+msgstr "Région Normale (peut chasser, récolter, exploiter les mines)"
+
+msgid "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+msgstr ""
+"Région Normale : {name} - {desc} | Distribution des Ressources : {species_info}"
+
+msgid "Sect Headquarters (sect disciples heal faster here)"
+msgstr "Siège de la Secte (les disciples de la secte se soignent plus vite ici)"
+
+msgid "Sell: "
+msgstr "Vendre : "
+
+msgid "emotion_angry"
+msgstr "Furieux"
+
+msgid "emotion_anticipating"
+msgstr "Anticipant"
+
+msgid "emotion_calm"
+msgstr "Calme"
+
+msgid "emotion_confused"
+msgstr "Confus"
+
+msgid "emotion_disgusted"
+msgstr "Dégoûté"
+
+msgid "emotion_fearful"
+msgstr "Effrayé"
+
+msgid "emotion_happy"
+msgstr "Heureux"
+
+msgid "emotion_sad"
+msgstr "Triste"
+
+msgid "emotion_surprised"
+msgstr "Surpris"
+
+msgid "emotion_tired"
+msgstr "Fatigué"
+
+msgid "misfortune_dynamic_story_prompt"
+msgstr ""
+"Le royaume actuel du personnage est {realm}. Il était juste à {location} effectuant l'action : [{action_desc}]. Le résultat final est : [{result}].\n"
+"Tâche : En fonction du royaume, du passé et de l'[action qu'il effectuait], déduisez automatiquement une raison raisonnable, cohérente et créative du malheur comme pont pour expliquer pourquoi cette action a mené à ce résultat. Décrivez les détails riches de l'environnement et les activités psychologiques du personnage. Gardez le nombre de mots entre 100-200 mots."
+
+msgid "{names} ({price} Spirit Stones)"
+msgstr "{names} ({price} Pierres Spirituelles)"
+
+msgid "{value} Spirit Stones"
+msgstr "{value} Pierres Spirituelles"
+
+msgid "MAP_PRESET_CLASSIC_NAME"
+msgstr "Les Neuf Provinces Centrales"
+
+msgid "MAP_PRESET_CLASSIC_DESC"
+msgstr "Un paysage équilibré adapté à l'expérience par défaut."
+
+msgid "MAP_PRESET_ISLAND_SEAS_NAME"
+msgstr "Les Îles d'Azur"
+
+msgid "MAP_PRESET_ISLAND_SEAS_DESC"
+msgstr "Les mers ouvertes divisent les îles, donnant au monde un sentiment d'espace plus large."
+
+msgid "MAP_PRESET_MOUNTAIN_FRONTIER_NAME"
+msgstr "Les Dix Mille Montagnes"
+
+msgid "MAP_PRESET_MOUNTAIN_FRONTIER_DESC"
+msgstr "Les chaînes de montagnes denses rendent les grottes et les terres de sectes plus périlleuses."
+
+msgid "MAP_PRESET_SIZE_MEDIUM"
+msgstr "Moyen"

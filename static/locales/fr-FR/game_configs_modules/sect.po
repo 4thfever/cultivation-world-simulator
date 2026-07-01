@@ -1,0 +1,346 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. sect.csv: SECT_10_DESC
+msgid "SECT_10_DESC"
+msgstr ""
+"La Secte du Son Capteur d'Âmes occupe la Vallée de l'Écho, où les tours de "
+"qin, les estrades de tambours, les corridors d'essai et les champs d'arrays de "
+"moisson d'âmes s'étendent selon la pente de la montagne. Quand les vents "
+"vallonnés s'élèvent, même la plus faible note de corde peut enfler en une "
+"frappe léthale, déchirant l'esprit. La secte est divisée parmi le son "
+"d'illusion, le son meurtrier, et les branches apaisantes d'âmes, et ses "
+"disciples n'étudient pas seulement la théorie musicale et les techniques "
+"mais aussi le rythme, le souffle, la guidance émotionnelle et le contrôle "
+"spirituel. Elle apparaît élégante en surface, mais l'atmosphère est "
+"dangereusement tendue, et ce qui est le plus terrifiant ici n'est souvent "
+"pas la colère ouverte, mais une douce mélodie tombant au moment parfait."
+
+#. sect.csv: SECT_10_NAME
+msgid "SECT_10_NAME"
+msgstr "Secte du Son Capteur d'Âmes"
+
+#. sect.csv: SECT_10_RULE_DESC
+msgid "SECT_10_RULE_DESC"
+msgstr ""
+"Vous pouvez envoûter les ennemis, mais ne devez jamais perdre le contrôle et "
+"enchevêtrer les âmes des disciples de la secte, ni endommager les fondations "
+"de la secte ; ceux qui déshonorent la secte et refusent toujours la retenue "
+"seront expulsés."
+
+#. sect.csv: SECT_11_DESC
+msgid "SECT_11_DESC"
+msgstr "La Secte de la Déduction Céleste se dresse dans Mizhongtian, où un seul pic cache d'innombrables espaces pliés en strates avec la Plateforme de Déduction Céleste, la Galerie des Dix Mille Arrays, la vallée d'essai de formations et les puits géomantiques. Un disciple qui ne comprend pas les cartes d'arrays peut échouer même à trouver le chemin du retour. Ses branches incluent la déduction céleste, les arrays de veines terrestres, les arrays d'artefacts et les formations défensives. Ses membres sont adeptes à la déduction des diagrammes d'arrays et peuvent utiliser les disques de formations pour attirer temporairement le pouvoir des veines terrestres à travers les terres spirituelles, les terrains de la secte, les mines, les champs d'herbes et les domaines des bêtes, établissant les formations de rassemblement d'esprits, de garde de montagnes, de guérison, de clarté et autres. Qu'il s'agisse de poser une petite formation ou de remodeler un paysage entier, ils apprécient la précision et l'ordre. La secte attire les esprits obsédés par la structure et la loi, et elle produit souvent des maîtres d'arrays froids qui traitent les affaires humaines comme des variables à calculer."
+
+#. sect.csv: SECT_11_NAME
+msgid "SECT_11_NAME"
+msgstr "Secte de la Déduction Céleste"
+
+#. sect.csv: SECT_11_RULE_DESC
+msgid "SECT_11_RULE_DESC"
+msgstr ""
+"Vous ne devez pas utiliser les arrays pour apporter le désastre aux villes "
+"mortelles ou causer du contrecoup sur les disciples de la secte ; si vous "
+"tombez dans le mal et refusez toujours de vous repentir, vous serez expulsé "
+"de la secte."
+
+#. sect.csv: SECT_12_DESC
+msgid "SECT_12_DESC"
+msgstr ""
+"Le Palais de la Lumière Éternelle se trouve dans le Paradis de l'Aurore du "
+"nord lointain de la nuit éternelle, où la Salle de la Lumière Durable, les "
+"autels de flamme sacrée, les bassins de purification moelle et les champs "
+"d'entraînement radiant sont perpétuellement éclairés par l'aurore. La glace "
+"et le feu coexistent là, donnant à tout le palais-cité une dignité presque "
+"miraculeuse. Ses cultivateurs suivent largement les voies du tempérage du "
+"corps, de la protection de la vie et de la longévité, appréciant les armes "
+"et la discipline martiale aux côtés des bains médicinaux, des arts secrets et "
+"de l'aperçu de la source de la vie elle-même. Le palais vénère la lumière, "
+"l'endurance et la constance, et ses habitants portent souvent une discipline "
+"immense et une responsabilité, au point même de se brûler en silence."
+
+#. sect.csv: SECT_12_NAME
+msgid "SECT_12_NAME"
+msgstr "Palais de la Lumière Éternelle"
+
+#. sect.csv: SECT_12_RULE_DESC
+msgid "SECT_12_RULE_DESC"
+msgstr ""
+"Vous ne devez pas nuire aux mortels pour le Tempérage du Corps ou souiller "
+"la voie orthodoxe de la lumière ; si vous descendez dans la cultivation du "
+"mal et restez incorrigible, vous serez expulsé du palais."
+
+#. sect.csv: SECT_13_DESC
+msgid "SECT_13_DESC"
+msgstr ""
+"L'Académie Haoran se dresse dans la Forêt des Sages, où les salles de "
+"conférences, la Salle de la Loi Clarifiée, les bibliothèques de stèles et "
+"les sentiers de pierre d'interrogation du cœur s'étendent sous les arbres. "
+"Avant même que la cloche du matin ne sonne, le son de la lecture s'élève "
+"déjà dans les bois, et les disciples qui passent tendent à être vêtus "
+"proprement et mesurés dans la parole. Ses traditions incluent l'étude "
+"classique, le raisonnement juridique, la gouvernance et la cultivation "
+"littéraire ; les savants ici font plus que lire et nourrir le qi, car ils "
+"débattent aussi de politique, affinent la conduite et enseignent les "
+"générations futures. L'académie valorise l'intégrité, la réputation et la "
+"transmission de la lignée magistrale, produisant à la fois des gentilshommes "
+"de noble esprit et des figures têtues refusant de plier."
+
+#. sect.csv: SECT_13_NAME
+msgid "SECT_13_NAME"
+msgstr "Académie Haoran"
+
+#. sect.csv: SECT_13_RULE_DESC
+msgid "SECT_13_RULE_DESC"
+msgstr ""
+"Vous ne devez pas tromper les maîtres, opprimer le peuple ou vous jeter dans "
+"la voie démoniaque ; si la preuve est concluante et vous refusez toujours de "
+"vous repentir, vous serez expulsé de l'académie."
+
+#. sect.csv: SECT_14_DESC
+msgid "SECT_14_DESC"
+msgstr ""
+"La Secte du Sang Rakshasa règne sur le Bassin de Sang Shura, où les autels de "
+"rivière de sang, les halls de mérite, les cavernes de raffinage osseux et les "
+"plates-formes de captage d'essence fonctionnent jour et nuit sous un air "
+"épais de brume de sang, de fumée de médicament et de rouille. Ses voies "
+"internes incluent largement la bataille de sang, la cultivation sacrificielle, "
+"le pillage et le tempérage du corps, et les ressources sont distribuées "
+"directement par les résultats des batailles, les offrandes et la notoriété "
+"personnelle. Les forts peuvent monter avec une vitesse terrifiante, tandis "
+"que les faibles sont avalés tout aussi vite. C'est un lieu dédié à l'ordre le "
+"plus nu du pouvoir, où la cruauté est ordinaire et les paroles vides "
+"signifient moins que la force prouvée dans le sang."
+
+#. sect.csv: SECT_14_NAME
+msgid "SECT_14_NAME"
+msgstr "Secte du Sang Rakshasa"
+
+#. sect.csv: SECT_14_RULE_DESC
+msgid "SECT_14_RULE_DESC"
+msgstr ""
+"Vous pouvez vous battre et piller, mais ne devez jamais trahir la Secte du "
+"Sang, détourner le butin ou utiliser des arts vils contre votre propre secte "
+"; quiconque viole cette grave prohibition sera expulsé."
+#. sect.csv: SECT_1_DESC
+msgid "SECT_1_DESC"
+msgstr ""
+"La Secte de l'Épée Céleste Suprême se dresse parmi les pics de Jueyun, où les "
+"portes de montagne, les pavillons d'épée et les plates-formes d'essai s'élèvent "
+"étage par étage sous les tempêtes astrales toute l'année. Au sein de la secte, "
+"les voies du contrôle d'épée, de l'épée tonnerre et de l'épée nourricière "
+"se dressent côte à côte, et les disciples grimpent les falaises à l'aube et "
+"au crépuscule pour chercher l'aperçu avant les stèles d'épée. C'est un lieu "
+"qui adore l'acuité et la pureté, apprécie la réputation et l'illumination "
+"personnelle de même, et produit à la fois des prodiges météoriques et des "
+"talents solitaires pris au piège par l'obsession."
+
+#. sect.csv: SECT_1_NAME
+msgid "SECT_1_NAME"
+msgstr "Secte de l'Épée Céleste Suprême"
+
+#. sect.csv: SECT_1_RULE_DESC
+msgid "SECT_1_RULE_DESC"
+msgstr ""
+"Vous ne devez pas conspirer avec le mal ou massacrer les innocents ; si vous "
+"tombez dans la voie démoniaque et refusez toujours la correction après "
+"plusieurs admonestations, vous serez expulsé de la porte de montagne."
+
+#. sect.csv: SECT_2_DESC
+msgid "SECT_2_DESC"
+msgstr ""
+"La Montagne des Dix Mille Bêtes se trouve profondément dans les Montagnes des "
+"Cent Mille, où quatre-vingt-dix-neuf grottes-paradis en strates enferment une "
+"vaste ménagerie allant des bêtes spirituelles de bas grade aux rois démons "
+"meurtriers. Les parcs à bêtes, les champs d'alimentation au sang et les autels "
+"de liaison spirituelle ne se taisent jamais véritablement. Ses disciples "
+"suivent habituellement les voies de la conduite de bêtes, de l'élevage de "
+"bêtes ou de l'affinage du sang ; certains traitent leurs bêtes comme des "
+"compagnons, tandis que d'autres les voient comme une force jetable. "
+"L'atmosphère de la montagne est primale et dominatrice, enseignant aux "
+"disciples à soumettre les bêtes par la force et à tremper leurs propres "
+"instincts de survie à travers la loi du sauvage."
+
+#. sect.csv: SECT_2_NAME
+msgid "SECT_2_NAME"
+msgstr "Montagne des Dix Mille Bêtes"
+
+#. sect.csv: SECT_2_RULE_DESC
+msgid "SECT_2_RULE_DESC"
+msgstr ""
+"Vous pouvez vous battre et tuer, mais ne devez jamais trahir la porte de la "
+"montagne, conspirer avec les ennemis extérieurs ou laisser vos bêtes se "
+"tourner contre les disciples de la secte ; ceux qui commettent ce tabou grave "
+"seront expulsés."
+
+#. sect.csv: SECT_3_DESC
+msgid "SECT_3_DESC"
+msgstr ""
+"Le Pavillon de l'Écoute des Marées se dresse au-dessus des falaises de "
+"Jinghaiya, où les halls de jade d'esprit de givre reflètent les marées "
+"éclairées par la lune et la lumière des étoiles. Ses véritables trésors ne "
+"sont pas les armes mais le Mur de Jade de Surveillance des Mers, les "
+"observatoires de marées et les cartes stellaires utilisées pour la déduction "
+"céleste. Les disciples s'entraînent à l'observation des étoiles, à "
+"l'écoute des marées et à la divination, parlant peu tout en apprenant à lire "
+"le changement du vent, de la ressac et des tournants les plus subtils du "
+"cœur humain. Le pavillon entier se sent froid et distant, comme si tout le "
+"monde voyait le monde à travers le brouillard, produisant à la fois des sages "
+"détachés et des âmes recluses attirées trop profondément dans les secrets "
+"célestes."
+
+#. sect.csv: SECT_3_NAME
+msgid "SECT_3_NAME"
+msgstr "Pavillon de l'Écoute des Marées"
+
+#. sect.csv: SECT_3_RULE_DESC
+msgid "SECT_3_RULE_DESC"
+msgstr ""
+"Vous ne devez pas déranger les divinations du pavillon pour un désir personnel "
+"ou vendre les secrets célestes de la secte ; si l'infraction est particulièrement "
+"grave, vous serez expulsé."
+
+#. sect.csv: SECT_4_DESC
+msgid "SECT_4_DESC"
+msgstr ""
+"Le Dao des Neuf Enfers règne sur les îles de la Mer des Morts, où les halls "
+"de guidance d'âme, les ponts de traversier, les voûtes de cadavre et les "
+"corridors de lanterne-fantôme se dressent au milieu du brouillard marin "
+"perpétuel. Venir et aller ici se sent comme marcher dans la couture entre la "
+"vie et la mort. Ses branches incluent l'affinage d'âme, le ferroutage de la "
+"mort et les arts yin, et les disciples cultivent à côté des esprits morts, "
+"des marionnettes de cadavres et des courants de qi du monde souterrain, "
+"formant une vision de la mortalité contrairement à celle des cultivateurs "
+"ordinaires. L'ordre à l'intérieur est sévère et l'atmosphère amèrement froide, "
+"favorisant des disciples qui sont tranquilles, réservés et terriblement "
+"disposés à traiter toutes choses comme un prix à payer."
+
+#. sect.csv: SECT_4_NAME
+msgid "SECT_4_NAME"
+msgstr "Dao des Neuf Enfers"
+
+#. sect.csv: SECT_4_RULE_DESC
+msgid "SECT_4_RULE_DESC"
+msgstr ""
+"Vous pouvez cultiver les arts Yin, mais ne devez jamais défier les ordres du "
+"maître ou saisir les âmes pour nuire aux disciples de la secte sans "
+"autorisation ; ceux qui violent cette grave règle seront expulsés."
+
+#. sect.csv: SECT_5_DESC
+msgid "SECT_5_DESC"
+msgstr "La Secte des Mille Mécanismes se cache dans les profondeurs de la Vallée de Qianji. De loin, ses terrasses et halls apparaissent intriqués et élégants, mais en leur sein se trouvent les corridors de mécanismes, les ateliers de marionnettes, les arsenaux de poison et les passages secrets où chaque brique peut dissimuler un piège meurtrier. Ses disciples se divisent largement en maîtres de mécanismes, créateurs de marionnettes, spécialistes du poison, maîtres de Gu et agents de furtivité. Ils doivent comprendre à la fois la construction et l'embuscade et apprendre à se préserver par les insectes, les dispositifs de poison et les passages cachés. La lignée de Gu excelle à l'utilisation de navires de Gu pour lancer des arts subtils, s'appuyant sur l'Enfoncement d'Esprit, la Dévoration de Sang, l'Usure d'Essence et la Gu de Perturbation du Cœur pour influencer les ennemis de l'obscurité. Le succès laisse l'effet persister ; l'échec peut exposer leur trace. La secte apprécie l'efficacité, le secret et les résultats, donc la coopération repose généralement sur l'avantage partagé, ce qui en fait un berceau pour les conspirateurs brillants et les rivalités interminablement tendues."
+
+#. sect.csv: SECT_5_NAME
+msgid "SECT_5_NAME"
+msgstr "Secte des Mille Mécanismes"
+
+#. sect.csv: SECT_5_RULE_DESC
+msgid "SECT_5_RULE_DESC"
+msgstr ""
+"Vous ne devez pas divulguer les plans secrets des mécanismes ou assassiner "
+"les membres de votre propre secte ; si vous conspiriez avec la voie juste et "
+"vous tourniez contre la secte, vous serez expulsé."
+
+#. sect.csv: SECT_6_DESC
+msgid "SECT_6_DESC"
+msgstr ""
+"Le Pavillon des Rêves Enivrants s'élève dans un paradis caché à l'intérieur "
+"d'une ville animée, où les chambres d'encens, les terrasses au bord de l'eau, "
+"les halls de musique et les bassins de rêves se connectent sous une chanson "
+"interminable de jour et une lueur de lanterne de nuit. La cultivation ici "
+"repose sur bien plus que la simple cultivation duelle ; les disciples étudient "
+"aussi les arts d'encens, la musique, la danse, la négociation et la lecture "
+"des humeurs humaines, fusionnant souvent les arts de charme avec la "
+"performance et le travail de renseignement. Le pavillon excelle à transformer "
+"le désir mortel en combustible de cultivation et à lire la chaleur ou le "
+"froid dans chaque relation, donc ses habitants peuvent devenir "
+"extraordinairement perspicaces ou se perdre dans le labyrinthe entre l'affection "
+"véritablement et l'affection fausse."
+
+#. sect.csv: SECT_6_NAME
+msgid "SECT_6_NAME"
+msgstr "Pavillon des Rêves Enivrants"
+
+#. sect.csv: SECT_6_RULE_DESC
+msgid "SECT_6_RULE_DESC"
+msgstr ""
+"Vous pouvez vous indulger dans le monde mortel, mais ne devez jamais récolter "
+"d'autres jusqu'à la mort ou trahir vos maîtres et ancêtres ; ceux qui violent "
+"ce grave précepte seront expulsés."
+
+#. sect.csv: SECT_7_DESC
+msgid "SECT_7_DESC"
+msgstr ""
+"Le Temple Zen de Sumérû se dresse sur l'Île Pudu au milieu de la Mer des "
+"Tempêtes, avec la Pagode Vajra à son cœur et les halls de suppression des "
+"démons, les plates-formes de cloches, les falaises d'austérité et les bains "
+"médicinaux établis autour. Une fois que les cloches commencent à sonner, "
+"toute l'île semble maintenue fixe par une lumière bouddhiste invisible. Ses "
+"disciples suivent les voies de la méditation, du cultivation martial ou de la "
+"pratique protectrice, étudiant les écritures et trempant le corps tout en "
+"étant souvent envoyés pour garder la mer contre les fiends et recevoir ceux "
+"en détresse. Bien que extérieurement solennel et austère, le temple n'est pas "
+"sans vie, et nombreux moines portent une compassion profondément mondaine "
+"sous leur résolution de fer."
+
+#. sect.csv: SECT_7_NAME
+msgid "SECT_7_NAME"
+msgstr "Temple Zen de Sumérû"
+
+#. sect.csv: SECT_7_RULE_DESC
+msgid "SECT_7_RULE_DESC"
+msgstr ""
+"Tuer les mortels avec désinvolture, conspirer avec les esprits malveillants "
+"ou nuire aux disciples de la secte est strictement interdit ; ceux coupables "
+"d'infractions graves qui refusent toujours la repentance seront expulsés."
+#. sect.csv: SECT_8_DESC
+msgid "SECT_8_DESC"
+msgstr ""
+"Le Hall de l'Esprit Ombrageux s'enfonce profondément dans le Marais de l'Ombre, "
+"où les tours cachées perchent au-dessus de la canopée et les passages secrets "
+"serpentent sous le marais. Les cellules d'ombre, les champs de furtivité, les "
+"bassins de miasme de poison et les avant-postes de renseignement se chevauchent "
+"tellement complètement que les étrangers saisissent rarement sa véritable forme. "
+"Ses disciples se divisent parmi l'assassinat, le mouvement d'évasion, la "
+"poursuite et le travail de manipulation de cadavres, apprenant dès le premier "
+"jour à effacer les traces, cacher l'intention et survivre aux situations "
+"désespérées. La chaleur est rare ici ; chacun observe et doute de tout le "
+"monde, pourtant cette même rudesse forge une sorte de compréhension tacite qui "
+"ne se montre qu'au bord de la mort."
+
+#. sect.csv: SECT_8_NAME
+msgid "SECT_8_NAME"
+msgstr "Hall de l'Esprit Ombrageux"
+
+#. sect.csv: SECT_8_RULE_DESC
+msgid "SECT_8_RULE_DESC"
+msgstr ""
+"L'assassinat est permis, mais le poignardage dans le dos de votre propre hall "
+"ou la divulgation de strongholds cachés ne l'est pas ; si vous désertez vers "
+"la voie juste et vendez des disciples, vous serez expulsé."
+
+#. sect.csv: SECT_9_DESC
+msgid "SECT_9_DESC"
+msgstr "L'Alliance des Trésors Infinis est construite à travers les îles de Duobao dans le ciel, où les halls d'enchères, la Tour des Mille Fours, les docks de navires nuageux, les grands coffres et les maisons commerciales se connectent tous dans une secte qui ressemble plus à une ville immortelle qui ne ferme jamais. Ses cultivateurs pratiquent le commerce aussi sérieusement que la cultivation, se divisant en forge, estimation, expédition, comptes et commerce étrangers. De nombreux disciples apprennent dès l'enfance comment fixer les prix des marchandises, négocier, rédiger des contrats et garder les routes commerciales vivantes. L'alliance apprécie la circulation et l'efficacité au-dessus de tout, et chacun comprend comment les ressources se transforment en influence, ce qui la rend plus pratique, ordonnée et consciente de la réputation que la plupart des sectes."
+
+#. sect.csv: SECT_9_NAME
+msgid "SECT_9_NAME"
+msgstr "Alliance des Trésors Infinis"
+
+#. sect.csv: SECT_9_RULE_DESC
+msgid "SECT_9_RULE_DESC"
+msgstr ""
+"Vous pouvez poursuivre le profit, mais ne devez jamais détourner le trésor "
+"de la secte ou vendre l'alliance à l'ennemi ; si l'infraction est "
+"particulièrement vile, vous serez expulsé."

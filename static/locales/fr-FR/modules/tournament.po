@@ -1,0 +1,65 @@
+msgid "World Martial Arts Tournament is in progress..."
+msgstr "Le Tournoi Mondial d'Arts Martiaux est en cours..."
+
+msgid "tournament_start_heaven"
+msgstr "Le tournoi de la Liste Céleste commence ! Participants : {participants}."
+
+msgid "tournament_start_earth"
+msgstr "Le tournoi de la Liste Terrestre commence ! Participants : {participants}."
+
+msgid "tournament_start_human"
+msgstr "Le tournoi de la Liste Humaine commence ! Participants : {participants}."
+
+msgid "tournament_battle_result"
+msgstr "Lors du match du tournoi, {winner} a vaincu {loser}."
+
+msgid "tournament_end_heaven"
+msgstr "Le tournoi de la Liste Céleste a pris fin. La 1ère place revient à : {winner}."
+
+msgid "tournament_end_earth"
+msgstr "Le tournoi de la Liste Terrestre a pris fin. La 1ère place revient à : {winner}."
+
+msgid "tournament_end_human"
+msgstr "Le tournoi de la Liste Humaine a pris fin. La 1ère place revient à : {winner}."
+
+msgid "effect_tournament_heaven_first"
+msgstr "Liste Céleste 1ère (Cultivation/Trempe du Corps +50%, Épiphanie +10%)"
+
+msgid "effect_tournament_earth_first"
+msgstr "Liste Terrestre 1ère (Cultivation/Trempe du Corps +50%, Épiphanie +10%)"
+
+msgid "effect_tournament_human_first"
+msgstr "Liste Humaine 1ère (Cultivation/Trempe du Corps +50%, Épiphanie +10%)"
+
+msgid "Event Type: World Martial Arts Tournament\nScene Setting: The tournament is held to determine the strongest cultivators of the realm."
+msgstr "Type d'événement : Tournoi Mondial d'Arts Martiaux\nDécor : Le tournoi est tenu pour déterminer les plus puissants cultivateurs du royaume."
+
+msgid "\n【Tournament Information】\n"
+msgstr "\n【Informations du Tournoi】\n"
+
+msgid "List: {list_name}\n"
+msgstr "Liste : {list_name}\n"
+
+msgid "Winner: {winner}\n"
+msgstr "Gagnant : {winner}\n"
+
+msgid "\n【Finalists Information】\n"
+msgstr "\n【Informations des Finalistes】\n"
+
+msgid "tournament_story_prompt"
+msgstr "Veuillez écrire une histoire vivante (environ 400-500 mots) basée sur les résultats du tournoi ci-dessus. Décrivez le choc martial intense entre les deux finalistes, les détails de leurs collisions d'artefacts, la présence majestueuse du gagnant final, et les réactions de la foule. Le ton doit correspondre à un cadre de monde de cultivation. Sortie texte brut uniquement sans syntaxe markdown."
+
+msgid "Final Match: {winner} vs {loser}\n"
+msgstr "Match Final : {winner} vs {loser}\n"
+
+msgid "tournament_cancelled_due_to_insufficient_participants"
+msgstr "Le Tournoi Mondial d'Arts Martiaux est annulé faute de participants suffisants."
+
+msgid "tournament_heaven"
+msgstr "1ère Place de la Liste Céleste"
+
+msgid "tournament_earth"
+msgstr "1ère Place de la Liste Terrestre"
+
+msgid "tournament_human"
+msgstr "1ère Place de la Liste Humaine"

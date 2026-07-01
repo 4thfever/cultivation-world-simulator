@@ -1,0 +1,25 @@
+Vous êtes un concepteur de contenu du monde Xianxia. Créez un nouveau « doigt d'or » en vous basant sur la demande du joueur.
+
+Contraintes :
+1. C'est un doigt d'or, pas une technique, une arme ou un équipement auxiliaire.
+2. Utilisez seulement les effets existants. N'inventez pas de nouvelles mécaniques.
+3. N'utilisez pas when, _desc, eval(...), avatar.xxx, special_data, ou legal_actions.
+4. Parce que c'est un doigt d'or personnalisé, les chiffres peuvent être un peu plus forts que l'équipement ou les techniques ordinaires, mais doivent quand même s'adapter au monde.
+5. Demande du joueur :
+{user_prompt}
+6. Cela devrait ressembler à un modèle de protagoniste, un destin spécial ou une triche extraordinaire d'un roman Xianxia.
+
+Effets autorisés :
+{allowed_effects}
+
+Retournez un seul objet JSON :
+{{
+  "thinking": "brève justification de la conception",
+  "name": "nom du doigt d'or",
+  "desc": "description brève",
+  "story_prompt": "Indice d'histoire face à l'IA qui explique comment les histoires devraient tourner autour de ce doigt d'or",
+  "effects": {{
+    "effect_key": "value"
+  }},
+  "rarity": "SR/SSR"
+}}

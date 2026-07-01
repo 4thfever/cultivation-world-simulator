@@ -1,0 +1,471 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"Evil alignment follows the principles of survival of the fittest, "
+"prioritizing self-interest above all, disdaining rules, and venerating power"
+" and fear. Acts ruthlessly, often resorting to murder and plunder."
+msgstr ""
+"L'alignement maléfique suit les principes de la survie du plus fort, "
+"privilégiant l'intérêt personnel avant tout, dédaignant les règles et vénérant la puissance"
+" et la peur. Agit sans pitié, ayant souvent recours au meurtre et au pillage."
+
+msgid ""
+"Neutral alignment follows the principles of going with the flow, seeking "
+"benefit and avoiding harm, valuing self-cultivation and balance, and not "
+"easily taking sides."
+msgstr ""
+"L'alignement neutre suit les principes du courant naturel, cherchant "
+"le bénéfice et évitant les préjudices, valorisant l'auto-cultivation et l'équilibre, et "
+"ne prenant pas facilement parti."
+
+msgid ""
+"Righteous alignment follows the principles of helping the weak, maintaining "
+"order, and vanquishing evil."
+msgstr ""
+"L'alignement vertueux suit les principes d'aide aux faibles, de maintien de "
+"l'ordre et d'élimination du mal."
+
+# Action Short Names (for legal_actions)
+msgid "action_dualcultivation_short_name"
+msgstr "Cultivation Conjointe"
+
+msgid "action_educate_short_name"
+msgstr "Enseigner"
+
+msgid "action_meditate_short_name"
+msgstr "Méditer"
+
+# Action: Play Extended
+msgid "action_reading"
+msgstr "Lecture"
+
+msgid "action_reading_desc"
+msgstr "Lire des livres anciens pour acquérir des connaissances."
+
+msgid "action_respire_short_name"
+msgstr "Respirer"
+
+msgid "action_tea_party"
+msgstr "Cérémonie du Thé"
+
+msgid "action_tea_party_desc"
+msgstr "Partager le thé avec des amis."
+
+msgid "action_tea_party_story_prompt"
+msgstr "Deux personnes tiennent une élégante cérémonie du thé."
+
+msgid "action_tea_tasting"
+msgstr "Dégustation de Thé"
+
+msgid "action_tea_tasting_desc"
+msgstr "Déguster un thé raffiné et cultiver un esprit paisible."
+
+msgid "action_temper_short_name"
+msgstr "Trempe du Corps"
+
+msgid "sect_mission_action_name"
+msgstr "Mission de Secte"
+
+msgid "sect_mission_description"
+msgstr ""
+"Demeurer au siège de votre secte pour accomplir des patrouilles, des gardes et des devoirs "
+"internes, puis en régler l'issue et les récompenses après plusieurs mois."
+
+msgid "sect_mission_requirements"
+msgstr ""
+"Vous devez être un disciple de la secte et actuellement au siège "
+"de votre propre secte."
+
+msgid "sect_mission_hq_only"
+msgstr "Les missions de secte ne peuvent être acceptées qu'au siège de votre propre secte."
+
+msgid "sect_mission_members_only"
+msgstr "Seuls les disciples de la secte peuvent accepter les missions de secte."
+
+msgid "sect_mission_no_task_available"
+msgstr "Il n'y a actuellement aucune mission de secte adaptée à votre royaume."
+
+msgid "sect_mission_start_headquarter"
+msgstr ""
+"{avatar} a accepté la mission de secte « {title} » au siège de la "
+"secte {sect_name}. Elle devrait prendre {duration} mois."
+
+msgid "sect_mission_start_member_request"
+msgstr ""
+"{avatar} a accepté la mission de secte « {title} » à la demande du fellow "
+"disciple {issuer}. Elle devrait prendre {duration} mois."
+
+msgid "sect_mission_result_success"
+msgstr ""
+"{avatar} a complété avec succès « {title} » et a reçu {stones} Pierres "
+"Spirituelles et {contribution} contributions de secte."
+
+msgid "sect_mission_result_fail"
+msgstr ""
+"{avatar} a été blessé en accomplissant « {title} », perdant {damage} PV. "
+"PV actuels : {current}/{max}."
+
+msgid "sect_mission_result_fail_death_append"
+msgstr " Les blessures furent mortelles, et il/elle décéda sur place."
+
+msgid "sect_mission_story_prompt_success"
+msgstr ""
+"Développez l'histoire autour de ce titre de mission de secte spécifique, décrivant les "
+"détails de la tâche, les revers et l'atmosphère de la secte, et terminez par l'accomplissement "
+"réussi de la mission. La tâche se déroule toujours au sein du siège de la "
+"secte et de ses zones annexes."
+
+msgid "sect_mission_story_prompt_fail"
+msgstr ""
+"Développez l'histoire autour de ce titre de mission de secte spécifique, décrivant les "
+"détails de la tâche, les revers et les développements inattendus, et terminez par l'échec "
+"de la mission, des blessures graves ou même une approche de la mort. La tâche se déroule "
+"toujours au sein du siège de la secte et de ses zones annexes."
+
+msgid "action_traveling"
+msgstr "Voyage"
+
+msgid "action_traveling_desc"
+msgstr "Voyager pour faire l'expérience du monde."
+
+msgid "action_zither_playing"
+msgstr "Jeu du Guzheng"
+
+msgid "action_zither_playing_desc"
+msgstr "Jouer du guzheng et cultiver votre tempérament."
+
+msgid "evil"
+msgstr "Maléfique"
+
+msgid "failed"
+msgstr "échoué"
+
+msgid "neutral"
+msgstr "Neutre"
+
+# Action: Play
+msgid "play_action_name"
+msgstr "Loisirs"
+
+msgid "play_description"
+msgstr "Activités de loisirs pour détendre le corps et l'esprit"
+
+msgid "play_requirements"
+msgstr "Cible à portée d'interaction"
+
+msgid "succeeded"
+msgstr "réussi"
+
+msgid ""
+"{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
+"vs {target} {def_power})"
+msgstr ""
+"{attacker} initie un combat contre {target} (Puissance : {attacker} {att_power} "
+"vs {target} {def_power})"
+
+msgid "{avatar} begins leisure activities"
+msgstr "{avatar} commence des activités de loisirs"
+
+msgid ""
+"{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
+msgstr ""
+"{avatar} a échoué à créer un trésor de niveau {realm}, tous les matériaux se sont transformés en cendres"
+
+msgid ""
+"{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
+msgstr ""
+"{avatar} a échoué à raffiner un élixir de niveau {realm}, tous les matériaux se sont transformés en cendres"
+
+msgid ""
+"{avatar} finished nurturing {weapon}, proficiency increased to "
+"{proficiency}%"
+msgstr ""
+"{avatar} a terminé la culture de {weapon}, la maîtrise augmentée à "
+"{proficiency}%"
+
+msgid "{avatar} finished {action}."
+msgstr "{avatar} a terminé {action}."
+
+msgid ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+msgstr ""
+"{avatar} a eu une épiphanie lors de la méditation ! La cultivation a augmenté "
+"significativement (+{exp})."
+
+msgid ""
+"{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
+"increased, evolved into {new_weapon}!"
+msgstr ""
+"{avatar} cultive {old_weapon}, la spiritualité de l'arme a grandement "
+"augmenté, évoluée en {new_weapon}!"
+
+msgid ""
+"{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
+" spirit beast"
+msgstr ""
+"{avatar} a apprivoisé avec succès une bête spirituelle, {beast} du royaume {realm} est devenue leur"
+" bête spirituelle"
+
+msgid "{root_name} ({elements})"
+msgstr "{root_name} ({elements})"
+
+msgid "An anonymous passerby (extra)"
+msgstr "Un passant anonyme"
+
+msgid "Current world celestial phenomenon: {name}"
+msgstr "Phénomène céleste du monde actuel : {name}"
+
+msgid "sect_task_title_sect_task_patrol_gate"
+msgstr "Patrouiller la Porte de la Montagne"
+
+msgid "sect_task_title_sect_task_watch_storehouse"
+msgstr "Garder l'Entrepôt"
+
+msgid "sect_task_title_sect_task_tend_herb_garden"
+msgstr "Entretenir le Jardin d'Herbes"
+
+msgid "sect_task_title_sect_task_assist_deacon"
+msgstr "Assister le Diacre"
+
+msgid "sect_task_title_sect_task_calm_spirit_beast"
+msgstr "Calmer le Trouble des Bêtes Spirituelles"
+
+msgid "sect_task_title_sect_task_escort_supplies"
+msgstr "Escorter les Approvisionnements Internes"
+
+msgid "sect_task_title_sect_task_receive_returnees"
+msgstr "Recevoir les Disciples de Retour"
+
+msgid "sect_task_title_sect_task_maintain_array_node"
+msgstr "Maintain the Array Node"
+
+msgid "sect_task_title_sect_task_inspect_restrictions"
+msgstr "Inspect the Restrictions"
+
+msgid "sect_task_title_sect_task_guard_scripture_pavilion"
+msgstr "Guard the Scripture Pavilion"
+
+msgid "sect_task_title_sect_task_investigate_night_anomaly"
+msgstr "Investigate the Night Anomaly"
+
+msgid "sect_task_title_sect_task_host_law_hall"
+msgstr "Preside Over the Law Hall"
+
+msgid "sect_task_title_sect_task_clean_training_grounds"
+msgstr "Clear Restriction Residue from the Training Grounds"
+
+msgid "sect_task_title_sect_task_watch_reception_platform"
+msgstr "Guard the Reception Platform"
+
+msgid "sect_task_title_sect_task_sort_low_tier_scrolls"
+msgstr "Sort Low-Tier Scriptures"
+
+msgid "sect_task_title_sect_task_count_outer_supplies"
+msgstr "Inventory Outer Sect Supplies"
+
+msgid "sect_task_title_sect_task_maintain_irrigation_channels"
+msgstr "Maintain Spirit Field Irrigation Channels"
+
+msgid "sect_task_title_sect_task_feed_spirit_beasts"
+msgstr "Feed Low-Tier Spirit Beasts"
+
+msgid "sect_task_title_sect_task_register_new_disciples"
+msgstr "Register New Disciples"
+
+msgid "sect_task_title_sect_task_search_lost_tokens"
+msgstr "Search for Lost Tokens"
+
+msgid "sect_task_title_sect_task_patrol_restriction_barrier"
+msgstr "Patrol the Mountain Gate Restrictions"
+
+msgid "sect_task_title_sect_task_guard_pill_hall"
+msgstr "Guard the Pill Hall"
+
+msgid "sect_task_title_sect_task_escort_message_jade"
+msgstr "Escort Message Jade Slips"
+
+msgid "sect_task_title_sect_task_mediate_disciple_dispute"
+msgstr "Mediate a Dispute Between Disciples"
+
+msgid "sect_task_title_sect_task_inspect_market_order"
+msgstr "Inspect the Order of the Attached Bazaar"
+
+msgid "sect_task_title_sect_task_search_missing_outer_disciple"
+msgstr "Search for Missing Outer Disciples"
+
+msgid "sect_task_title_sect_task_repair_field_barrier"
+msgstr "Repair the Spirit Field Barrier"
+
+msgid "sect_task_title_sect_task_assist_apprentice_trial"
+msgstr "Assist in an Apprentice Selection Trial"
+
+msgid "sect_task_title_sect_task_inspect_grand_array_nodes"
+msgstr "Inspect the Grand Protective Array Nodes"
+
+msgid "sect_task_title_sect_task_guard_seclusion_cave"
+msgstr "Guard the Seclusion Cave Perimeter"
+
+msgid "sect_task_title_sect_task_track_infiltrator"
+msgstr "Track Down an Infiltrating Spy"
+
+msgid "sect_task_title_sect_task_investigate_leyline_fluctuation"
+msgstr "Investigate Leyline Fluctuations"
+
+msgid "sect_task_title_sect_task_escort_secret_treasury"
+msgstr "Escort Secret Treasury Materials"
+
+msgid "sect_task_title_sect_task_suppress_earthfire"
+msgstr "Suppress an Earthfire Leak"
+
+msgid "sect_task_title_sect_task_investigate_forbidden_art"
+msgstr "Investigate Hidden Forbidden Arts"
+
+msgid "sect_task_title_sect_task_guard_forbidden_area"
+msgstr "Guard the Forbidden Area Entrance"
+
+msgid "sect_task_title_sect_task_oversee_grand_array_core"
+msgstr "Oversee the Grand Protective Array Core"
+
+msgid "sect_task_title_sect_task_review_treasury_irregularities"
+msgstr "Audit Treasury Allocations"
+
+msgid "sect_task_title_sect_task_secure_sect_ceremony"
+msgstr "Secure the Sect Ceremony"
+
+msgid "sect_task_title_sect_task_trial_major_rule_case"
+msgstr "Try a Major Rule Violation Case"
+
+msgid "sect_task_title_sect_task_screen_core_promotion"
+msgstr "Review Core Disciple Promotion Trials"
+
+msgid "sect_task_title_sect_task_coordinate_border_defense"
+msgstr "Coordinate Border Defense"
+
+msgid "sect_task_title_sect_task_investigate_internal_traitor"
+msgstr "Investigate a Suspected Internal Traitor"
+
+msgid "action_setformation_short_name"
+msgstr "Set Formation"
+
+msgid "set_formation_action_name"
+msgstr "Set Formation"
+
+msgid "set_formation_description"
+msgstr "Set a formation in the current region. Requires an equipped formation disk and consumes spirit stones. Each region can have only one active formation at a time; a new formation replaces the existing one. The Spirit-Gathering Formation increases breathing cultivation gains and suits cultivation regions and sect headquarters. The Mountain-Guard Formation improves combat capability within the formation and suits sect headquarters and cultivation regions. The Healing Formation improves healing recovery and suits sect headquarters, cultivation regions, and cities. The Clarity Formation improves seclusion and breakthrough stability and suits cultivation regions and sect headquarters. The Vein-Seeking Formation increases mining gains and suits normal regions with mineral lodes. The Wood-Growth Formation increases gathering gains and suits normal regions with plants. The Beast-Driving Formation increases hunting gains and suits normal regions with animals."
+
+msgid "set_formation_requirements"
+msgstr "Requires an equipped formation disk, a valid location for the selected formation, and enough spirit stones."
+
+msgid "formation_spirit_gathering_name"
+msgstr "Spirit-Gathering Formation"
+
+msgid "formation_mountain_guard_name"
+msgstr "Mountain-Guard Formation"
+
+msgid "formation_healing_name"
+msgstr "Healing Formation"
+
+msgid "formation_clarity_name"
+msgstr "Clarity Formation"
+
+msgid "formation_vein_seeking_name"
+msgstr "Vein-Seeking Formation"
+
+msgid "formation_wood_growth_name"
+msgstr "Wood-Growth Formation"
+
+msgid "formation_beast_driving_name"
+msgstr "Beast-Driving Formation"
+
+msgid "Missing formation disk"
+msgstr "Missing formation disk"
+
+msgid "Invalid formation type"
+msgstr "Invalid formation type"
+
+msgid "Current location cannot set formation"
+msgstr "Current location cannot set formation"
+
+msgid "Formation cannot be set in current region"
+msgstr "Formation cannot be set in current region"
+
+msgid "Not enough spirit stones"
+msgstr "Not enough spirit stones"
+
+msgid "Current region"
+msgstr "Current region"
+
+msgid "{avatar} begins setting {formation} in {region}."
+msgstr "{avatar} begins setting {formation} in {region}."
+
+msgid "{avatar} set {formation} in {region}."
+msgstr "{avatar} set {formation} in {region}."
+
+msgid "{avatar} set {formation} in {region}; the original formation in this region was replaced."
+msgstr "{avatar} set {formation} in {region}; the original formation in this region was replaced."
+
+msgid "action_inflictgu_short_name"
+msgstr "Inflict Gu"
+
+msgid "inflict_gu_action_name"
+msgstr "Inflict Gu"
+
+msgid "inflict_gu_description"
+msgstr "Inflict a Gu on the target. If successful, its effect is settled monthly."
+
+msgid "inflict_gu_requirements"
+msgstr "Requires an equipped Gu tool."
+
+msgid "gu_qianxin_name"
+msgstr "Heartlink Gu"
+
+msgid "gu_shixue_name"
+msgstr "Bloodgnaw Gu"
+
+msgid "gu_shiyuan_name"
+msgstr "Essence-Eroding Gu"
+
+msgid "gu_luanxin_name"
+msgstr "Mind-Disorder Gu"
+
+msgid "Missing Gu tool"
+msgstr "Missing Gu tool"
+
+msgid "Invalid Gu type"
+msgstr "Invalid Gu type"
+
+msgid "Cannot inflict Gu on self"
+msgstr "Cannot inflict Gu on self"
+
+msgid "{caster} attempts to inflict {gu_name} on {target}."
+msgstr "{caster} attempts to inflict {gu_name} on {target}."
+
+msgid "{caster} successfully inflicted {gu_name} on {target}."
+msgstr "{caster} successfully inflicted {gu_name} on {target}."
+
+msgid "{caster} failed to inflict {gu_name} on {target}."
+msgstr "{caster} failed to inflict {gu_name} on {target}."
+
+msgid ""
+"{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
+msgstr "{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
+
+msgid "{target}'s {gu_name} took effect, losing {amount} HP."
+msgstr "{target}'s {gu_name} took effect, losing {amount} HP."
+
+msgid ""
+"{target}'s {gu_name} took effect, losing {amount} cultivation experience."
+msgstr "{target}'s {gu_name} took effect, losing {amount} cultivation experience."

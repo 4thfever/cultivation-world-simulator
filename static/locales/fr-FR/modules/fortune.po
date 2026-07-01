@@ -1,0 +1,97 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Fortune Event Text - Technique
+msgid ""
+"You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr ""
+"Vous avez saisi une technique de grade supérieur『{technique_name}』lors de "
+"votre fortune."
+
+msgid "You comprehended superior technique '{technique}' during the fortune."
+msgstr "Vous avez saisi la technique supérieure '{technique}' lors de la fortune."
+
+msgid ""
+"You discovered a {realm} auxiliary equipment '{auxiliary}' during the "
+"fortune."
+msgstr ""
+"Vous avez découvert un équipement auxiliaire {realm} '{auxiliary}' lors de "
+"la fortune."
+
+# Fortune Event Text - Auxiliary
+msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+msgstr "Vous avez découvert un auxiliaire {realm}『{auxiliary_name}』lors de votre fortune."
+
+# Fortune - discovery intro messages
+msgid "You discovered a {realm} weapon '{weapon}' during the fortune."
+msgstr "Vous avez découvert une arme {realm} '{weapon}' lors de la fortune."
+
+# Fortune Event Text - Weapon
+msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+msgstr "Vous avez découvert une arme {realm}『{weapon_name}』lors de votre fortune."
+
+msgid "fortune_dynamic_story_prompt"
+msgstr ""
+"Le royaume actuel du personnage est {realm}. Il se trouvait à {location}, en train d'accomplir l'action : [{action_desc}]. Le résultat final est : [{result}].\n"
+"Tâche : en vous appuyant sur le royaume, l'histoire personnelle et l'[action accomplie] du personnage, déduisez automatiquement une raison plausible, cohérente et créative pour cette fortune, servant de lien afin d'expliquer pourquoi cette action a mené à ce résultat. Décrivez de riches détails environnementaux ainsi que les pensées du personnage. Gardez un nombre de mots compris entre 100 et 200."
+
+# Fortune messages
+msgid "fortune_event_base"
+msgstr "A rencontré une fortune ({title}), {result}"
+
+msgid "fortune_title_auxiliary"
+msgstr "Un trésor rare apparaît"
+
+msgid "fortune_title_cultivation"
+msgstr "Progrès de cultivation"
+
+msgid "fortune_title_find_master"
+msgstr "Guidé par un maître"
+
+msgid "fortune_title_mystery"
+msgstr "Fortune mystérieuse"
+
+msgid "fortune_title_spirit_stone"
+msgstr "Richesse inattendue"
+
+msgid "fortune_title_technique"
+msgstr "Illumination technique"
+
+msgid "fortune_title_weapon"
+msgstr "Une arme divine descend"
+
+msgid "unknown location"
+msgstr "lieu inconnu"
+
+msgid "wandering aimlessly"
+msgstr "errant sans but"
+
+msgid "{apprentice} became disciple of {master}"
+msgstr "{apprentice} est devenu disciple de {master}"
+
+# Fortune Event Text - Other Types
+msgid "{avatar_name} became disciple of {master_name}"
+msgstr "{avatar_name} est devenu disciple de {master_name}"
+
+msgid "{avatar_name} gained {exp_gain} cultivation experience"
+msgstr "{avatar_name} a gagné {exp_gain} d'expérience de cultivation"
+
+msgid "{avatar_name} obtained {amount} spirit stones"
+msgstr "{avatar_name} a obtenu {amount} pierres spirituelles"
+
+msgid "{name} cultivation increased by {exp} points"
+msgstr "La cultivation de {name} a augmenté de {exp} points"
+
+msgid "{name} obtained {amount} spirit stones"
+msgstr "{name} a obtenu {amount} pierres spirituelles"

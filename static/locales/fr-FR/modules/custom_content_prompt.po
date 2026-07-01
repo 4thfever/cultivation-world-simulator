@@ -1,0 +1,118 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "custom_content.category.technique"
+msgstr "technique"
+
+msgid "custom_content.category.weapon"
+msgstr "arme"
+
+msgid "custom_content.category.auxiliary_equipment"
+msgstr "équipement auxiliaire"
+
+msgid "custom_content.label.name"
+msgstr "Nom"
+
+msgid "custom_content.label.description"
+msgstr "Description"
+
+msgid "custom_content.label.attribute"
+msgstr "Attribut"
+
+msgid "custom_content.label.grade"
+msgstr "Degré"
+
+msgid "custom_content.label.weapon_type"
+msgstr "Type d'Arme"
+
+msgid "custom_content.label.realm"
+msgstr "Royaume"
+
+msgid "custom_content.label.effect_summary"
+msgstr "Résumé des Effets"
+
+msgid "custom_content.label.effects"
+msgstr "effets"
+
+msgid "custom_content.label.value_type"
+msgstr "type de valeur"
+
+msgid "custom_content.label.example"
+msgstr "exemple"
+
+msgid "custom_content.label.magnitude_guidance"
+msgstr "guidance sur la magnitude"
+
+msgid "custom_content.reference.same_category"
+msgstr "Éléments de référence de la même catégorie :"
+
+msgid "custom_content.reference.same_category_realm"
+msgstr "Éléments de référence de la même catégorie et du même royaume :"
+
+msgid "custom_content.scope.without_realm"
+msgstr "Ceci est un nouveau {category_label} ; aucun royaume n'a besoin d'être spécifié."
+
+msgid "custom_content.scope.with_realm"
+msgstr "Ceci est un {category_label} au niveau du royaume « {realm} »."
+
+msgid "small"
+msgstr "petit"
+
+msgid "medium"
+msgstr "moyen"
+
+msgid "large"
+msgstr "grand"
+
+msgid "cap"
+msgstr "limite"
+
+msgid "very high"
+msgstr "très élevé"
+
+msgid "base chance"
+msgstr "probabilité de base"
+
+msgid "base value"
+msgstr "valeur de base"
+
+msgid "ordinary"
+msgstr "ordinaire"
+
+msgid "fortunate"
+msgstr "fortuné"
+
+msgid "protagonist-tier"
+msgstr "niveau-protagoniste"
+
+msgid "unlucky"
+msgstr "malchanceux"
+
+msgid "tanky"
+msgstr "robuste"
+
+msgid "profit-focused"
+msgstr "axé-profit"
+
+msgid "safer"
+msgstr "plus sûr"
+
+msgid "riskier"
+msgstr "plus risqué"
+
+msgid "talent-tier"
+msgstr "niveau-talent"
+
+msgid "final multiplier >= 1.0"
+msgstr "multiplicateur final >= 1.0"

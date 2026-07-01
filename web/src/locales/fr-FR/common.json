@@ -1,0 +1,12 @@
+{
+  "year": "A",
+  "month": "M",
+  "none": "Aucun",
+  "loading": "Chargement...",
+  "detail": "Détail",
+  "version": "Version",
+  "confirm": "Confirmer",
+  "cancel": "Annuler",
+  "error": "Erreur",
+  "success": "Succès"
+}

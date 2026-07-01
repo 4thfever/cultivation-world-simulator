@@ -1,0 +1,285 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. auxiliary.csv: 以灵木纤维编织，生机盎然，防御尚可....
+msgid "AUXILIARY_2001_DESC"
+msgstr "Tissée de fibres de bois spirituel"
+
+#. auxiliary.csv: 木灵甲
+msgid "AUXILIARY_2001_NAME"
+msgstr "Armure de l'Esprit du Bois"
+
+#. auxiliary.csv: 生于火麒麟滴血之处，重伤必治，无伤增功....
+msgid "AUXILIARY_2002_DESC"
+msgstr ""
+"Née du sang du Qilin de feu, sa couleur brille comme le sang. Elle guérit "
+"les blessures graves et renforce la cultivation."
+
+#. auxiliary.csv: 血菩提
+msgid "AUXILIARY_2002_NAME"
+msgstr "Fruit d'Essence de Sang"
+
+#. auxiliary.csv: 虽不及真品，闻一闻也能活三百六十岁....
+msgid "AUXILIARY_2003_DESC"
+msgstr "Bien qu'inférieure à la véritable, son simple parfum prolonge la vie"
+
+#. auxiliary.csv: 人参果(伪)
+msgid "AUXILIARY_2003_NAME"
+msgstr "Fruit de Ginseng (Contrefait)"
+
+#. auxiliary.csv: 千帆城通用的高级商令。...
+msgid "AUXILIARY_2004_DESC"
+msgstr "Jeton commercial de haut niveau utilisé couramment à la Cité des Mille Voiles."
+
+#. auxiliary.csv: 万宝令
+msgid "AUXILIARY_2004_NAME"
+msgstr "Jeton des Dix Mille Trésors"
+
+#. auxiliary.csv: 提炼百斤凡铁才得一两，提升法器品质的基础...
+msgid "AUXILIARY_2005_DESC"
+msgstr "Raffiné à partir de cent jin de fer vulgaire pour obtenir un liang"
+
+#. auxiliary.csv: 铁精
+msgid "AUXILIARY_2005_NAME"
+msgstr "Essence de Fer"
+
+#. auxiliary.csv: 可勘破虚妄，直视本源，寻龙定穴....
+msgid "AUXILIARY_2006_DESC"
+msgstr ""
+"Elle peut percer les illusions, contempler l'essence primordiale, chercher "
+"les opprtunités célestes et fixer directement le Grand Dao."
+
+#. auxiliary.csv: 源天神眼
+msgid "AUXILIARY_2006_NAME"
+msgstr "Œil Divin du Ciel Primordial"
+
+#. auxiliary.csv: 步履生云，身轻如燕，赶路必备....
+msgid "AUXILIARY_2007_DESC"
+msgstr "Les pas suscitent des nuages"
+
+#. auxiliary.csv: 踏云靴
+msgid "AUXILIARY_2007_NAME"
+msgstr "Bottes du Nuage Foulé"
+
+#. auxiliary.csv: 佛门至宝，持之可灵台清明，悟性大增....
+msgid "AUXILIARY_2008_DESC"
+msgstr "Un trésor suprême du Dharma bouddhiste"
+
+#. auxiliary.csv: 菩提子
+msgid "AUXILIARY_2008_NAME"
+msgstr "Graine de Bodhi"
+
+#. auxiliary.csv: 刀枪不入，水火不侵，贴身软甲....
+msgid "AUXILIARY_2009_DESC"
+msgstr "Invulnérable aux sabres et aux lances"
+
+#. auxiliary.csv: 金丝软甲
+msgid "AUXILIARY_2009_NAME"
+msgstr "Armure Souple aux Fils d'Or"
+
+#. auxiliary.csv: 古墓派至宝，在此床上修炼，事半功倍，且无...
+msgid "AUXILIARY_2010_DESC"
+msgstr ""
+"Fabriquée de glace de jade noir du pôle nord. Cultiver sur elle apaise la "
+"fournaise du cœur et double l'efficacité."
+
+#. auxiliary.csv: 寒玉床
+msgid "AUXILIARY_2010_NAME"
+msgstr "Couche de Jade Glacée"
+
+#. auxiliary.csv: 千人千面，不仅掩盖容貌，更能掩盖气息....
+msgid "AUXILIARY_2011_DESC"
+msgstr "Mille visages pour mille personnes"
+
+#. auxiliary.csv: 无相面具
+msgid "AUXILIARY_2011_NAME"
+msgstr "Masque de la Forme Vide"
+
+#. auxiliary.csv: 飞行法器，速度极快，居家旅行杀人越货必备...
+msgid "AUXILIARY_2051_DESC"
+msgstr "Un artefact volant"
+
+#. auxiliary.csv: 神风舟
+msgid "AUXILIARY_2051_NAME"
+msgstr "Bateau du Vent Divin"
+
+#. auxiliary.csv: 上古神器，拥有穿梭时空之力，此为仿品，仅...
+msgid "AUXILIARY_2052_DESC"
+msgstr ""
+"Un artefact divin antique possédant le pouvoir de traverser l'espace-temps ; "
+"ceci est une imitation"
+
+#. auxiliary.csv: 昆仑镜
+msgid "AUXILIARY_2052_NAME"
+msgstr "Miroir de Kunlun"
+
+#. auxiliary.csv: 夺天地之造化，聚日月之精华，催熟万物....
+msgid "AUXILIARY_2053_DESC"
+msgstr ""
+"Saisissant la création du ciel et de la terre, concentrant l'essence du soleil "
+"et de la lune. Le liquide spirituel dans la bouteille peut accélérer la "
+"maturation de toutes choses."
+
+#. auxiliary.csv: 掌天瓶
+msgid "AUXILIARY_2053_NAME"
+msgstr "Flacon de Création Céleste"
+
+#. auxiliary.csv: 龙凤和鸣，心意相通，双修进境一日千里....
+msgid "AUXILIARY_2054_DESC"
+msgstr "Le dragon et le phénix en harmonie"
+
+#. auxiliary.csv: 龙凤呈祥戒
+msgid "AUXILIARY_2054_NAME"
+msgstr "Anneau de Bon Augure du Dragon et du Phénix"
+
+#. auxiliary.csv: 披上后身形尽隐，连神识也难以察觉....
+msgid "AUXILIARY_2055_DESC"
+msgstr "Une fois revêtue"
+
+#. auxiliary.csv: 隐形披风
+msgid "AUXILIARY_2055_NAME"
+msgstr "Cape d'Invisibilité"
+
+#. auxiliary.csv: 套在妖兽颈上，任其凶焰滔天，也要乖乖听命...
+msgid "AUXILIARY_2056_DESC"
+msgstr "Placée au cou d'une bête démoniaque"
+
+#. auxiliary.csv: 御兽环
+msgid "AUXILIARY_2056_NAME"
+msgstr "Anneau de Dressage des Bêtes"
+
+#. auxiliary.csv: 太虚幻境所化，万法不沾，防御力惊人....
+msgid "AUXILIARY_2057_DESC"
+msgstr "Transformée du Royaume des Illusions du Grand Vide"
+
+#. auxiliary.csv: 太虚甲
+msgid "AUXILIARY_2057_NAME"
+msgstr "Armure du Grand Vide"
+
+#. auxiliary.csv: 仿太上老君炼丹炉，丹成九转，药效倍增....
+msgid "AUXILIARY_2058_DESC"
+msgstr "Imitation du creuset alchimique du Grand Seigneur Suprême"
+
+#. auxiliary.csv: 八卦炉
+msgid "AUXILIARY_2058_NAME"
+msgstr "Creuset des Huit Trigrammes"
+
+#. auxiliary.csv: 放入一文，取出万贯，财源滚滚....
+msgid "AUXILIARY_2059_DESC"
+msgstr "Dépôt d'une pièce"
+
+#. auxiliary.csv: 聚宝盆
+msgid "AUXILIARY_2059_NAME"
+msgstr "Bassin d'Accumulation des Trésors"
+
+#. auxiliary.csv: 以天地为炉，造化为工，炼制万物....
+msgid "AUXILIARY_2060_DESC"
+msgstr "Utilisant le ciel et la terre comme creuset et la création comme forge"
+
+#. auxiliary.csv: 天地烘炉
+msgid "AUXILIARY_2060_NAME"
+msgstr "Creuset de Cuisson du Ciel et de la Terre"
+
+#. auxiliary.csv: 背负六道，剑出轮回，悟剑良伴....
+msgid "AUXILIARY_2061_DESC"
+msgstr "Portant les six chemins sur les épaules"
+
+#. auxiliary.csv: 六道剑匣
+msgid "AUXILIARY_2061_NAME"
+msgstr "Coffre de l'Épée des Six Chemins"
+
+#. auxiliary.csv: 受命于天，既寿永昌。皇威浩荡，震慑宵小....
+msgid "AUXILIARY_2062_DESC"
+msgstr "Mandaté par le Ciel"
+
+#. auxiliary.csv: 传国玉玺
+msgid "AUXILIARY_2062_NAME"
+msgstr "Sceau Impérial de Jade"
+
+#. auxiliary.csv: 可移动的灵气之源，随身携带的洞天福地....
+msgid "AUXILIARY_2063_DESC"
+msgstr ""
+"Source mobile d'énergie spirituelle, terre bénite de cultivation qu'on "
+"porte avec soi."
+
+#. auxiliary.csv: 灵眼之泉
+msgid "AUXILIARY_2063_NAME"
+msgstr "Source de l'Œil Spirituel"
+
+#. auxiliary.csv: 血海不枯，冥河不死。极度邪恶的掠夺法宝....
+msgid "AUXILIARY_2064_DESC"
+msgstr "La mer de sang ne s'assèche jamais"
+
+#. auxiliary.csv: 万魂幡
+msgid "AUXILIARY_2064_NAME"
+msgstr "Étendard des Dix Mille Âmes"
+
+#. auxiliary.csv: 木系至宝，不仅可炼制神丹，鼎中更自成一界...
+msgid "AUXILIARY_2065_DESC"
+msgstr ""
+"Sculptée dans le bois divin ancien. Elle peut non seulement raffiner des "
+"pilules divines mais aussi former son propre royaume pour faire mûrir les "
+"herbes spirituelles."
+
+#. auxiliary.csv: 神木王鼎
+msgid "AUXILIARY_2065_NAME"
+msgstr "Chaudron Souverain du Bois Divin"
+
+msgid "AUXILIARY_2081_DESC"
+msgstr "Un disque de formation gravé de motifs d'appel d'esprits basiques, capable d'exploiter l'énergie spirituelle locale pour établir une formation temporaire."
+
+msgid "AUXILIARY_2081_NAME"
+msgstr "Disque de Formation d'Appel d'Esprits"
+
+msgid "AUXILIARY_2082_DESC"
+msgstr "Ses motifs se connectent aux lignes telluriques peu profondes, rendant les formations plus stables et améliorant légèrement leur puissance et durée."
+
+msgid "AUXILIARY_2082_NAME"
+msgstr "Disque de Formation de Convergence des Lignes Telluriques"
+
+msgid "AUXILIARY_2083_DESC"
+msgstr "Les motifs du pivot mystique coordonnent plusieurs circuits spirituels, renforçant les formations et réduisant une partie de leur consommation de pierres spirituelles."
+
+msgid "AUXILIARY_2083_NAME"
+msgstr "Disque de Formation du Pivot Mystique"
+
+msgid "AUXILIARY_2084_DESC"
+msgstr "Ses motifs spirituels forment un cycle auto-contenu, attirant l'énergie spirituelle du vide pour améliorer grandement la puissance, la durée et l'efficacité des formations."
+
+msgid "AUXILIARY_2084_NAME"
+msgstr "Disque de Formation du Grand Vide"
+
+msgid "AUXILIARY_2071_DESC"
+msgstr "Une bourse à Gu fabriquée en tissu grossier et cuir de bête, utilisée pour contenir des insectes spirituels courants."
+
+msgid "AUXILIARY_2071_NAME"
+msgstr "Bourse aux Cent Insectes"
+
+msgid "AUXILIARY_2072_DESC"
+msgstr "Un récipient à Gu raffiné par la méthode de génération mutuelle des cinq venins. Sa nature Gu est relativement stable."
+
+msgid "AUXILIARY_2072_NAME"
+msgstr "Récipient à Gu aux Cinq Venins"
+
+msgid "AUXILIARY_2073_DESC"
+msgstr "Une boîte à Gu combinant mécanismes et arts Gu, adaptée pour l'infliction occulte de Gu."
+
+msgid "AUXILIARY_2073_NAME"
+msgstr "Boîte à Gu aux Mille Mécanismes"
+
+msgid "AUXILIARY_2074_DESC"
+msgstr "Un nid de reproduction occupé par les Gu-mères, capable de commander de nombreux Gu."
+
+msgid "AUXILIARY_2074_NAME"
+msgstr "Nid de Reproduction des Myriades de Gu"

@@ -1,0 +1,56 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " But you already have '{current_auxiliary}'."
+msgstr " Mais vous possédez déjà '{current_auxiliary}'."
+
+msgid " But you already have '{current_weapon}'."
+msgstr " Mais vous possédez déjà '{current_weapon}'."
+
+msgid " But you already have『{auxiliary_name}』."
+msgstr " Mais vous possédez déjà『{auxiliary_name}』."
+
+msgid " But you already have『{weapon_name}』."
+msgstr " Mais vous possédez déjà『{weapon_name}』."
+
+msgid " This conflicts with your current technique '{current_technique}'."
+msgstr " Ceci entre en conflit avec votre technique actuelle '{current_technique}'."
+
+msgid " This conflicts with your current technique『{technique_name}』."
+msgstr " Ceci entre en conflit avec votre technique actuelle『{technique_name}』."
+
+msgid "Comprehended technique '{technique}', {exchange_result}"
+msgstr "Technique '{technique}' saisie, {exchange_result}"
+
+msgid "Comprehended technique『{technique_name}』, {exchange_text}"
+msgstr "Technique『{technique_name}』saisie, {exchange_text}"
+
+msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+msgstr "Auxiliaire『{auxiliary_name}』découvert, {exchange_text}"
+
+msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
+msgstr "Arme『{weapon_name}』découverte, {exchange_text}"
+
+msgid "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+msgstr "Équipement auxiliaire '{auxiliary}' trouvé, {exchange_result}"
+
+msgid "Found weapon '{weapon}', {exchange_result}"
+msgstr "Arme '{weapon}' trouvée, {exchange_result}"
+
+# Formatted Strings
+msgid "{weapon_name}, Proficiency: {proficiency}%"
+msgstr "{weapon_name}, Maîtrise : {proficiency}%"
+
+msgid "【{name}】 {gender} {age} years old"
+msgstr "【{name}】 {gender} {age} ans"

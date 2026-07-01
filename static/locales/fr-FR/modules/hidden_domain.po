@@ -1,0 +1,38 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Hidden Domain
+msgid "hidden_domain_story_prompt"
+msgstr ""
+"Décrivez l'exploration du domaine caché. Concentrez-vous sur les expériences "
+"individuelles ou les interactions entre plusieurs personnes (comme des "
+"rencontres, une coopération, une compétition, voire des attaques). Abordez "
+"les dangers rencontrés, les opportunités obtenues ou la déception d'un "
+"retour bredouille, en créant une atmosphère mystérieuse, tendue ou "
+"imprévisible."
+
+msgid "perished"
+msgstr "a péri"
+
+msgid "{names} returned from {domain} empty-handed."
+msgstr "{names} sont revenus de {domain} les mains vides."
+
+msgid "{name} found a treasure {loot} in {domain}!"
+msgstr "{name} a trouvé un trésor {loot} dans {domain} !"
+
+msgid "{name} perished in the hidden domain {domain}."
+msgstr "{name} a péri dans le domaine caché {domain}."
+
+msgid "{}: {}"
+msgstr "{} : {}"

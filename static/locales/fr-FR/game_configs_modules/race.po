@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr-FR\n"
+
+msgid "RACE_HUMAN_NAME"
+msgstr "Humain"
+
+msgid "RACE_HUMAN_DESC"
+msgstr "Vous êtes un humain ordinaire."
+
+msgid "RACE_HUMAN_BEHAVIOR_DESC"
+msgstr "Les humains n'ont aucune contrainte d'instinct Yao ; leurs actions sont principalement façonnées par la personnalité, les objectifs, la secte, l'alignement et les circonstances actuelles."
+
+msgid "RACE_FOX_NAME"
+msgstr "Yao Renard"
+
+msgid "RACE_FOX_DESC"
+msgstr "Les Yao Renards sont naturellement rusés, doués pour lire les expressions et les humeurs, souvent frappants d'apparence, et communément vus comme ayant une affinité innée pour l'opportunité et les liens sociaux."
+
+msgid "RACE_FOX_BEHAVIOR_DESC"
+msgstr "Les actions des Yao Renards doivent d'abord montrer la lecture des humeurs, le sondage social, les échanges avantageux, et un flair pour l'opportunité. La personnalité ordinaire peut seulement façonner la méthode ; elle ne doit pas transformer les Yao Renards en cultivateurs directs qui ne cultivent pas les relations."
+
+msgid "RACE_WOLF_NAME"
+msgstr "Yao Loup"
+
+msgid "RACE_WOLF_DESC"
+msgstr "Les Yao Loups ont des lignées fortes, valorisent la survie, la chasse et le combat, possèdent des instincts aigus et un mouvement rapide, et tempèrent souvent leur cultivation par le combat."
+
+msgid "RACE_WOLF_BEHAVIOR_DESC"
+msgstr "Les actions des Yao Loups doivent d'abord montrer la survie, la chasse, le combat, le territoire, et les jugements de force. La personnalité ordinaire peut seulement changer comment ils attaquent ; elle ne doit pas faire que les Yao Loups restent dans un discours oisif longtemps ou évitent tout conflit."
+
+msgid "RACE_BIRD_NAME"
+msgstr "Yao Oiseau"
+
+msgid "RACE_BIRD_DESC"
+msgstr "Les Yao Oiseaux ont une perception large et un mouvement agile, sont nés pour aspirer à des lieux lointains, et excellent dans l'exploration, l'évasion et l'exploration de l'inconnu."
+
+msgid "RACE_BIRD_BEHAVIOR_DESC"
+msgstr "Les actions des Yao Oiseaux doivent d'abord montrer la migration, l'exploration, les voyages, l'observation et l'évasion. La personnalité ordinaire peut seulement affecter l'itinéraire et le rythme ; elle ne doit pas laisser les Yao Oiseaux piégés dans un endroit sans raison ou abandonnant leur besoin de perspective plus large."
+
+msgid "RACE_SNAKE_NAME"
+msgstr "Yao Serpent"
+
+msgid "RACE_SNAKE_DESC"
+msgstr "Les Yao Serpents ont des auras subtiles et des manières patientes, excellent dans la dissimulation et l'embuscade, sont souvent craints par les cultivateurs humains, et s'adaptent bien aux lieux sombres et dangereux."
+
+msgid "RACE_SNAKE_BEHAVIOR_DESC"
+msgstr "Les actions des Yao Serpents doivent d'abord montrer la dissimulation, la patience, le sondage, les routes indirectes, et l'embuscade soudaine. La personnalité ordinaire peut seulement changer à quel point ils sont impitoyables ; elle ne doit pas transformer les Yao Serpents en cultivateurs bruyants, de front, ouvertement affairés."
+
+msgid "RACE_TURTLE_NAME"
+msgstr "Yao Tortue"
+
+msgid "RACE_TURTLE_DESC"
+msgstr "Les Yao Tortues sont longévives et d'un corps stable, lentes et prudentes dans leur conduite, et les plus doués pour la défense, la récupération et la longue cultivation en réclusion."
+
+msgid "RACE_TURTLE_BEHAVIOR_DESC"
+msgstr "Les actions des Yao Tortues doivent d'abord montrer la lenteur, la défense, la récupération, le repos et la réclusion. À moins d'éviter le danger, de faire une percée, de remplir les devoirs de la secte, de poursuivre une cible claire, ou de répondre aux besoins de ressources, ils ne doivent pas se déplacer fréquemment ou initier un conflit ; la personnalité ordinaire ne doit pas dominer cet instinct de garde."

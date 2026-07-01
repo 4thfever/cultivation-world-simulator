@@ -1,0 +1,180 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. elixir.csv: 凝聚灵气，辅助练气期修士突破瓶颈的丹药（...
+msgid "ELIXIR_3001_DESC"
+msgstr ""
+"Un élixir qui condense le qi spirituel pour aider les cultivateurs au stade de"
+" Purification du Qi à surmonter les goulots d'étranglement (l'effet dure 5 "
+"ans)."
+
+#. elixir.csv: 练气破境丹
+msgid "ELIXIR_3001_NAME"
+msgstr "Élixir de Percée de Purification du Qi"
+
+#. elixir.csv: 蕴含筑基真意，辅助筑基期修士突破瓶颈的灵...
+msgid "ELIXIR_3002_DESC"
+msgstr ""
+"Un élixir spirituel contenant la véritable essence de l'Établissement des "
+"Fondations pour aider les cultivateurs au stade d'Établissement des Fondations"
+" à surmonter les goulots d'étranglement (l'effet dure 5 ans)."
+
+#. elixir.csv: 筑基破境丹
+msgid "ELIXIR_3002_NAME"
+msgstr "Élixir de Percée d'Établissement des Fondations"
+
+#. elixir.csv: 凝结金丹之气，辅助金丹期修士碎丹成婴（药...
+msgid "ELIXIR_3003_DESC"
+msgstr ""
+"Condense le qi de la Formation du Noyau pour aider les cultivateurs au stade "
+"de Formation du Noyau à briser le noyau et former l'âme (l'effet dure 5 ans)."
+
+#. elixir.csv: 金丹破境丹
+msgid "ELIXIR_3003_NAME"
+msgstr "Élixir de Percée de Formation du Noyau"
+
+#. elixir.csv: 采用凡间珍草炼制，略微延缓衰老（限服一颗...
+msgid "ELIXIR_3005_DESC"
+msgstr "Raffiné à partir d'herbes précieuses mondaines"
+
+#. elixir.csv: 练气长生丹
+msgid "ELIXIR_3005_NAME"
+msgstr "Élixir de Longévité de Purification du Qi"
+
+#. elixir.csv: 取天地灵草炼制，可延寿十载（限服一颗）。...
+msgid "ELIXIR_3006_DESC"
+msgstr "Raffiné à partir d'herbes spirituelles célestes et terrestres"
+
+#. elixir.csv: 筑基长生丹
+msgid "ELIXIR_3006_NAME"
+msgstr "Élixir de Longévité d'Établissement des Fondations"
+
+#. elixir.csv: 夺天地造化，凡人服之立毙，金丹修士服之延...
+msgid "ELIXIR_3007_DESC"
+msgstr ""
+"Vole la création du ciel et de la terre ; les mortels meurent instantanément "
+"à la consommation"
+
+#. elixir.csv: 金丹长生丹
+msgid "ELIXIR_3007_NAME"
+msgstr "Élixir de Longévité de Formation du Noyau"
+
+#. elixir.csv: 蕴含一丝长生之气，元婴老怪以此续命（限服...
+msgid "ELIXIR_3008_DESC"
+msgstr "Contient une trace de qi de longévité"
+
+#. elixir.csv: 元婴长生丹
+msgid "ELIXIR_3008_NAME"
+msgstr "Élixir de Longévité d'Âme Naissante"
+
+#. elixir.csv: 燃烧精血换取短暂爆发。3年内战力提升，但...
+msgid "ELIXIR_3009_DESC"
+msgstr ""
+"Brûle le sang essence en échange d'une brève explosion de pouvoir. La "
+"puissance de combat augmente dans les 3 ans, mais les méridiens sont endommagés"
+" et la puissance de combat diminue dans les 10 ans."
+
+#. elixir.csv: 练气燃血丹
+msgid "ELIXIR_3009_NAME"
+msgstr "Élixir d'Embrasement Sanguin de Purification du Qi"
+
+#. elixir.csv: 激发潜能的猛药。3年内战力大增，但10年...
+msgid "ELIXIR_3010_DESC"
+msgstr ""
+"Un élixir puissant pour stimuler le potentiel. La puissance de combat augmente "
+"fortement dans les 3 ans, mais s'affaiblit dans les 10 ans."
+
+#. elixir.csv: 筑基燃血丹
+msgid "ELIXIR_3010_NAME"
+msgstr "Élixir d'Embrasement Sanguin d'Établissement des Fondations"
+
+#. elixir.csv: 金丹修士拼命时的选择。3年内战力暴涨，但...
+msgid "ELIXIR_3011_DESC"
+msgstr ""
+"Le choix pour les cultivateurs de Formation du Noyau en combat désespéré. La "
+"puissance de combat explose dans les 3 ans, mais blessure grave dans les 10 "
+"ans."
+
+#. elixir.csv: 金丹燃血丹
+msgid "ELIXIR_3011_NAME"
+msgstr "Élixir d'Embrasement Sanguin de Formation du Noyau"
+
+#. elixir.csv: 燃烧元婴本源。3年内获得毁天灭地的力量，...
+msgid "ELIXIR_3012_DESC"
+msgstr ""
+"Brûle l'essence de l'Âme Naissante. Acquiert le pouvoir de détruire le ciel et"
+" l'earth dans les 3 ans, mais devient presque un infirme dans les 10 ans."
+
+#. elixir.csv: 元婴燃血丹
+msgid "ELIXIR_3012_NAME"
+msgstr "Élixir d'Embrasement Sanguin d'Âme Naissante"
+
+#. elixir.csv: 普通的疗伤丹药，可恢复练气期修士的伤势（...
+msgid "ELIXIR_3013_DESC"
+msgstr ""
+"Un élixir de guérison ordinaire qui peut restaurer les blessures des "
+"cultivateurs au stade de Purification du Qi (dure 5 ans)."
+
+#. elixir.csv: 练气回春丹
+msgid "ELIXIR_3013_NAME"
+msgstr "Élixir de Renaissance de Purification du Qi"
+
+#. elixir.csv: 药力温和醇厚，能快速愈合筑基期修士的肉身...
+msgid "ELIXIR_3014_DESC"
+msgstr "La puissance médicinale est douce et riche"
+
+#. elixir.csv: 筑基回春丹
+msgid "ELIXIR_3014_NAME"
+msgstr "Élixir de Renaissance d'Établissement des Fondations"
+
+#. elixir.csv: 蕴含生机之力，疗伤圣药（持续5年）。...
+msgid "ELIXIR_3015_DESC"
+msgstr ""
+"Un élixir sacré de guérison contenant le pouvoir de la vitalité (dure 5 ans)."
+
+#. elixir.csv: 金丹回春丹
+msgid "ELIXIR_3015_NAME"
+msgstr "Élixir de Renaissance de Formation du Noyau"
+
+#. elixir.csv: 蕴含造化生机，肉身修复极快（持续5年）。...
+msgid "ELIXIR_3016_DESC"
+msgstr "Contient la création de la vitalité"
+
+#. elixir.csv: 元婴回春丹
+msgid "ELIXIR_3016_NAME"
+msgstr "Élixir de Renaissance d'Âme Naissante"
+
+msgid "ELIXIR_3017_DESC"
+msgstr "Raffiné à partir de rosée florale et d'herbes spirituelles, il peut légèrement améliorer le teint et l'apparence (limité à un élixir)."
+
+msgid "ELIXIR_3017_NAME"
+msgstr "Élixir de Préservation de Beauté de Purification du Qi"
+
+msgid "ELIXIR_3018_DESC"
+msgstr "Sa nature médicinale est plus stable et peut nourrir la chair, les os et la vitalité au fil du temps, faisant ressortir l'apparence davantage (limité à un élixir)."
+
+msgid "ELIXIR_3018_NAME"
+msgstr "Élixir de Préservation de Beauté d'Établissement des Fondations"
+
+msgid "ELIXIR_3019_DESC"
+msgstr "Infusé d'essence spirituelle de Formation du Noyau, il peut préserver l'apparence au pic longtemps et empêcher les années d'y laisser des marques facilement (limité à un élixir)."
+
+msgid "ELIXIR_3019_NAME"
+msgstr "Élixir de Préservation de Beauté de Formation du Noyau"
+
+msgid "ELIXIR_3020_DESC"
+msgstr "Contient une trace de qi de création ; le prendre peut maintenir l'apparence comme fixée au moment le plus radieux (limité à un élixir)."
+
+msgid "ELIXIR_3020_NAME"
+msgstr "Élixir de Préservation de Beauté d'Âme Naissante"
