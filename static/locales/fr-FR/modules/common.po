@@ -1,0 +1,263 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " (and sold old {item} at reduced price)"
+msgstr " (et vendu l'ancien {item} à prix réduit)"
+
+msgid "Animal realms in current area exceed character realm"
+msgstr "Les royaumes d'animaux dans la zone actuelle dépassent le royaume du personnage"
+
+msgid "Assassination failed! Both sides engaged in fierce battle."
+msgstr "Assassinat échoué ! Les deux côtés se sont engagés dans un combat féroce."
+
+msgid "Breakthrough failed"
+msgstr "Percée échouée"
+
+msgid "Breakthrough succeeded"
+msgstr "Percée réussie"
+
+msgid "Can only execute in city areas"
+msgstr "Peut seulement être exécuté dans les zones urbaines"
+
+msgid "Cannot resolve region: {region}"
+msgstr "Impossible de résoudre la région : {region}"
+
+msgid "Cannot sell this type: {name}"
+msgstr "Impossible de vendre ce type : {name}"
+
+msgid "Casting succeeded! Obtained {realm} {label} '{item}'"
+msgstr "Fonte réussie ! Obtenu {label} de rang {realm} '{item}'"
+
+msgid "Cultivation has reached bottleneck, cannot continue cultivating"
+msgstr "La culture a atteint un goulot d'étranglement, impossible de continuer"
+
+msgid "Current HP is full"
+msgstr "PV actuels sont pleins"
+
+msgid "Current area {region} has no animals"
+msgstr "La zone actuelle {region} n'a pas d'animaux"
+
+msgid "Do not possess equipment: {name}"
+msgstr "Ne possède pas d'équipement : {name}"
+
+msgid "Do not possess item/equipment: {name}"
+msgstr "Ne possède pas d'article/équipement : {name}"
+
+msgid "Do not possess material: {name}"
+msgstr "Ne possède pas de matériau : {name}"
+
+msgid ""
+"Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"
+msgstr ""
+"Action illégale interdite (Bannière des Dix Mille Âmes manquante ou "
+"permission)"
+
+msgid ""
+"Insufficient materials, need {cost} {realm}-tier materials, currently have "
+"{count}"
+msgstr ""
+"Matériaux insuffisants, besoin de {cost} matériaux de rang {realm}, "
+"actuellement {count}"
+
+msgid "Insufficient spirit stones"
+msgstr "Pierres spirituelles insuffisantes"
+
+msgid "Invalid direction: {direction}"
+msgstr "Direction invalide : {direction}"
+
+msgid "Invalid realm: {realm}"
+msgstr "Royaume invalide : {realm}"
+
+msgid "Missing HP information"
+msgstr "Information de PV manquante"
+
+msgid "Missing target parameter"
+msgstr "Paramètre de cible manquant"
+
+msgid "Must be in a City to educate people."
+msgstr "Doit être dans une Ville pour enseigner aux gens."
+
+msgid "Not at bottleneck, cannot breakthrough"
+msgstr "Pas au goulot d'étranglement, ne peut pas percer"
+
+msgid "Not currently in normal area"
+msgstr "Pas actuellement dans une zone normale"
+
+msgid "Only evil alignment can execute"
+msgstr "Seul l'alignement maléfique peut exécuter"
+
+msgid "Only righteous alignment can execute"
+msgstr "Seul l'alignement vertueux peut exécuter"
+
+msgid "Refining succeeded! Obtained {realm} elixir '{item}'"
+msgstr "Raffinage réussi ! Obtenu élixir de rang {realm} '{item}'"
+
+msgid "Syncing language setting: {lang}..."
+msgstr "Synchronisation du paramètre de langue : {lang}..."
+
+msgid "Target does not exist"
+msgstr "La cible n'existe pas"
+
+msgid "Target is already dead"
+msgstr "La cible est déjà morte"
+
+msgid "Target realm not specified"
+msgstr "Royaume de la cible non spécifié"
+
+msgid "The population of {city} has increased due to {avatar}'s teachings."
+msgstr "La population de {city} a augmenté grâce aux enseignements de {avatar}."
+
+msgid "This area has no shop"
+msgstr "Cette zone n'a pas de boutique"
+
+msgid "This cave dwelling has been occupied by {name}, cannot respire"
+msgstr "Cette caverne a été occupée par {name}, ne peut pas respirer"
+
+msgid "Unknown item: {name}"
+msgstr "Article inconnu : {name}"
+
+msgid "Your orthodoxy does not support Body Tempering."
+msgstr "Votre orthodoxie ne supporte pas la Trempe du Corps."
+
+msgid "Your orthodoxy does not support Confucian Education."
+msgstr "Votre orthodoxie ne supporte pas l'Éducation Confucéenne."
+
+msgid "Your orthodoxy does not support Qi Respiration."
+msgstr "Votre orthodoxie ne supporte pas la Respiration du Qi."
+
+msgid "Your orthodoxy does not support Zen Meditation."
+msgstr "Votre orthodoxie ne supporte pas la Méditation Zen."
+
+msgid ""
+"[{region}] is another sect's territory, you are not a disciple of that sect"
+msgstr ""
+"[{region}] est le territoire d'une autre secte, vous n'êtes pas un disciple "
+"de cette secte"
+
+msgid "action_chess"
+msgstr "Échecs"
+
+msgid "action_chess_desc"
+msgstr "Jouer aux échecs pour affûter votre esprit."
+
+msgid "action_chess_story_prompt"
+msgstr "Deux personnes jouent aux échecs."
+
+msgid "action_devourpeople_short_name"
+msgstr "Dévorer les Gens"
+
+msgid "Prefers male cultivators"
+msgstr "Préfère les cultivateurs masculins"
+
+msgid "Prefers female cultivators"
+msgstr "Préfère les cultivatrices féminines"
+
+msgid "Prefers righteous cultivators"
+msgstr "Préfère les cultivateurs vertueux"
+
+msgid "Prefers evil cultivators"
+msgstr "Préfère les cultivateurs maléfiques"
+
+msgid "Prefers neutral cultivators"
+msgstr "Préfère les cultivateurs neutres"
+
+msgid "Prefers Confucian cultivators"
+msgstr "Préfère les cultivateurs confucéens"
+
+msgid "Prefers Daoist cultivators"
+msgstr "Préfère les cultivateurs daoïstes"
+
+msgid "Prefers Buddhist cultivators"
+msgstr "Préfère les cultivateurs bouddhistes"
+
+msgid "Prefers martial cultivators"
+msgstr "Préfère les cultivateurs martiaux"
+
+msgid "Prefers worldly cultivators"
+msgstr "Préfère les cultivateurs mondains"
+
+msgid "Prefers orthodox gentlemen"
+msgstr "Préfère les gentlemen orthodoxes"
+
+msgid "Prefers secluded cultivators"
+msgstr "Préfère les cultivateurs isolés"
+
+msgid "Prefers solitary mountain cultivators"
+msgstr "Préfère les cultivateurs de montagne solitaires"
+
+msgid "Prefers {value}"
+msgstr "Préfère {value}"
+
+msgid "official_rank_none"
+msgstr "Sans rang"
+
+msgid "official_rank_county_magistrate"
+msgstr "Magistrat du Comté"
+
+msgid "official_rank_commandery_governor"
+msgstr "Gouverneur de Commanderie"
+
+msgid "official_rank_provincial_governor"
+msgstr "Gouverneur Provincial"
+
+msgid "official_rank_grand_chancellor"
+msgstr "Grand Chancelier"
+
+msgid "dynasty_style_law_and_arms"
+msgstr "Loi et Armes"
+
+msgid "dynasty_style_pure_discourse_and_orthodoxy"
+msgstr "Discours Pur et Orthodoxie"
+
+msgid "dynasty_style_civil_governance"
+msgstr "Gouvernance Civile"
+
+msgid "dynasty_style_elegant_courtly_rule"
+msgstr "Règne Courtisan Élégant"
+
+msgid "dynasty_style_wild_marches"
+msgstr "Marches Sauvages"
+
+msgid "dynasty_style_pragmatic_commerce"
+msgstr "Commerce Pragmatique"
+
+msgid "dynasty_style_stoic_frontier_guard"
+msgstr "Garde Frontière Stoïque"
+
+msgid "dynasty_style_horsemanship_and_arms"
+msgstr "Équitation et Armes"
+
+msgid "dynasty_style_strict_law_and_central_power"
+msgstr "Loi Stricte et Pouvoir Central"
+
+msgid "dynasty_style_pragmatic_conservatism"
+msgstr "Conservatisme Pragmatique"
+
+msgid "dynasty_style_flexible_statecraft"
+msgstr "Art de l'État Flexible"
+
+msgid "dynasty_style_endure_and_strike_late"
+msgstr "Endurer et Frapper Tard"
+
+msgid "dynasty_title_format"
+msgstr "Dynastie {name}"
+
+msgid "dynasty_royal_house_format"
+msgstr "Maison {surname}"
+
+msgid "Action on cooldown, {remain} month(s) remaining"
+msgstr "Action en refroidissement, {remain} mois restants"
+
+msgid "Focus on governance affairs, malevolent incidents, local strongmen, and political rivals creating obstacles."
+msgstr "Concentrez-vous sur les affaires de gouvernement, les incidents maléfiques, les seigneurs locaux et les rivaux politiques créant des obstacles."

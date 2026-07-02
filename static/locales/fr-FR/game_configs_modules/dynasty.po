@@ -1,0 +1,109 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 00:00+0000\n"
+"PO-Revision-Date: 2026-03-21 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. dynasty.csv: DYNASTY_QIN_NAME
+msgid "DYNASTY_QIN_NAME"
+msgstr "Qin"
+
+#. dynasty.csv: DYNASTY_QIN_DESC
+msgid "DYNASTY_QIN_DESC"
+msgstr "Honore la loi et la force militaire ; la cour est rigoureusement ordonnée, et le règne mortel est de fer."
+
+#. dynasty.csv: DYNASTY_JIN_NAME
+msgid "DYNASTY_JIN_NAME"
+msgstr "Jin"
+
+#. dynasty.csv: DYNASTY_JIN_DESC
+msgid "DYNASTY_JIN_DESC"
+msgstr "Les grands clans se dressent en rangs solennels ; la gentry dédaigne les discours élevés, et cours et campagne prisent le rite et la réputation."
+
+#. dynasty.csv: DYNASTY_SONG_NAME
+msgid "DYNASTY_SONG_NAME"
+msgstr "Song"
+
+#. dynasty.csv: DYNASTY_SONG_DESC
+msgid "DYNASTY_SONG_DESC"
+msgstr "Valorise les lettres sur les armes ; ses institutions sont denses et raffinées, et les académies privées fleurissent parmi le peuple."
+
+#. dynasty.csv: DYNASTY_LIANG_NAME
+msgid "DYNASTY_LIANG_NAME"
+msgstr "Liang"
+
+#. dynasty.csv: DYNASTY_LIANG_DESC
+msgid "DYNASTY_LIANG_DESC"
+msgstr "La cour est élégante et soignée, l'atmosphère érudite ornée, et sa gouvernance inclusive mais pleine de calculs subtils."
+
+#. dynasty.csv: DYNASTY_CHU_NAME
+msgid "DYNASTY_CHU_NAME"
+msgstr "Chu"
+
+#. dynasty.csv: DYNASTY_CHU_DESC
+msgid "DYNASTY_CHU_DESC"
+msgstr "Ses terres sont vastes et les coutumes variées ; des parfums chamantiques subsistent encore, et de puissantes maisons locales se lèvent le long des frontières."
+
+#. dynasty.csv: DYNASTY_QI_NAME
+msgid "DYNASTY_QI_NAME"
+msgstr "Qi"
+
+#. dynasty.csv: DYNASTY_QI_DESC
+msgid "DYNASTY_QI_DESC"
+msgstr "Riche en commerce et artisanat, ouverte à la mer, avec une cour adepte à collecter les revenus et diriger les ressources."
+
+#. dynasty.csv: DYNASTY_YAN_NAME
+msgid "DYNASTY_YAN_NAME"
+msgstr "Yan"
+
+#. dynasty.csv: DYNASTY_YAN_DESC
+msgid "DYNASTY_YAN_DESC"
+msgstr "La terre du nord est amèrement froide ; elle honore la défense martiale, et la cour porte un caractère posé et austère."
+
+#. dynasty.csv: DYNASTY_ZHAO_NAME
+msgid "DYNASTY_ZHAO_NAME"
+msgstr "Zhao"
+
+#. dynasty.csv: DYNASTY_ZHAO_DESC
+msgid "DYNASTY_ZHAO_DESC"
+msgstr "L'équitation et le tir à l'arc sont coutume commune ; le règne militaire et civil marchent côte à côte, et l'esprit des frontières court profond."
+
+#. dynasty.csv: DYNASTY_WEI_NAME
+msgid "DYNASTY_WEI_NAME"
+msgstr "Wei"
+
+#. dynasty.csv: DYNASTY_WEI_DESC
+msgid "DYNASTY_WEI_DESC"
+msgstr "Ses lois sont claires et exigeantes, l'autorité souveraine est forte, et les cent bureaux se meuvent avec rare efficacité."
+
+#. dynasty.csv: DYNASTY_HAN_NAME
+msgid "DYNASTY_HAN_NAME"
+msgstr "Han"
+
+#. dynasty.csv: DYNASTY_HAN_DESC
+msgid "DYNASTY_HAN_DESC"
+msgstr "Bien que n'étant pas ostensiblement dominatrice, la dynastie valorise les affaires pratiques et la gouvernance attentive au niveau local."
+
+#. dynasty.csv: DYNASTY_WU_NAME
+msgid "DYNASTY_WU_NAME"
+msgstr "Wu"
+
+#. dynasty.csv: DYNASTY_WU_DESC
+msgid "DYNASTY_WU_DESC"
+msgstr "Fleuves et voies navigables sillonnent le royaume, les marchands voyagent souvent, et la cour excelle à exploiter l'avantage des bateaux et du transport."
+
+#. dynasty.csv: DYNASTY_YUE_NAME
+msgid "DYNASTY_YUE_NAME"
+msgstr "Yue"
+
+#. dynasty.csv: DYNASTY_YUE_DESC
+msgid "DYNASTY_YUE_DESC"
+msgstr "Ses montagnes et marais courent profonds, le peuple est tenace, et la cour excelle à tenir ferme avant de frapper."

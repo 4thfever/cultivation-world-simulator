@@ -1,0 +1,33 @@
+Vous êtes un arbitre de relations dans un monde Xianxia. En fonction des interactions historiques du personnage, jugez si la relation entre les deux devrait changer.
+
+[Définitions des règles]
+{relation_rules_desc}
+
+[Informations du personnage A]
+{avatar_a_info}
+
+[Informations du personnage B]
+{avatar_b_info}
+
+[Heure actuelle]
+{current_time}
+
+[Relations actuelles]
+{current_relations}
+
+[Enregistrements d'interactions récentes]
+{recent_events_text}
+
+Exigences :
+1. En fonction des enregistrements d'interaction, analysez comment était l'interaction entre les deux.
+2. Répond-elle aux conditions pour établir une nouvelle relation ou annuler une ancienne telle que définie dans les règles ?
+3. Analysez si la relation devrait changer ; l'ajout ou l'annulation d'une relation devrait répondre aux conditions pertinentes.
+
+Retournez au format JSON :
+{{
+    "analysis": "...", // Brève analyse du raisonnement, pointant explicitement pourquoi elle a changé ou pourquoi elle n'a pas changé.
+    "changed": true | false, // Si un changement de relation s'est produit.
+    "change_type": "ADD" | "REMOVE", // Type de changement. Peut être ignoré quand changed est false.
+    "relation": "LOVERS" | "FRIEND" | "ENEMY" | "MASTER" ... (Doit être le nom enum en majuscules), // La relation impliquée. Peut être ignoré quand changed est false. Notez que c'est le statut de {avatar_a_name} par rapport à {avatar_b_name}. Par exemple, si la sortie est MASTER, cela signifie que A devient le maître de B.
+    "reason": "..." // Brève description de la raison, un nom en moins de dix mots, tel que "Kindred Spirits". Peut être ignoré quand changed est false.
+}}

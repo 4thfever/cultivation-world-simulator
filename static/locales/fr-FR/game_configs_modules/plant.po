@@ -1,0 +1,130 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
+msgid "PLANT_10_DESC"
+msgstr ""
+"Plante étrange poussant avec ténacité dans les fissures rocheuses du Gobi, "
+"aux feuilles dures comme l'acier, capable d'attirer et de dévorer la lumière "
+"stellaire la nuit"
+
+#. plant.csv: 聚星草
+msgid "PLANT_10_NAME"
+msgstr "Herbe d'Assemblage Stellaire"
+
+#. plant.csv: 生长在蓬莱岛灵泉之眼的伴生神树上，三百年...
+msgid "PLANT_11_DESC"
+msgstr ""
+"Pousse sur l'arbre divin compagnon à l'Œil de la Source Spirituelle de l'Île "
+"de Penglai, fleurissant tous les trois cents ans et fructifiant tous les trois "
+"cents ans, renfermant une force vitale immense"
+
+#. plant.csv: 涅盘赤果
+msgid "PLANT_11_NAME"
+msgstr "Fruit Rouge du Nirvana"
+
+#. plant.csv: 生长在灵气充沛之地的奇异草药，叶片呈淡蓝...
+msgid "PLANT_1_DESC"
+msgstr ""
+"Herbe médicinale étrange poussant dans les lieux abondant en qi spirituel, "
+"aux feuilles d'un bleu pâle et aux effets de guérison magiques"
+
+#. plant.csv: 奇草
+msgid "PLANT_1_NAME"
+msgstr "Herbe Étrange"
+
+#. plant.csv: 千年古树吸收天地灵气而成，木质坚硬且蕴含...
+msgid "PLANT_2_DESC"
+msgstr ""
+"Formée par d'anciens arbres millénaires absorbant le qi spirituel du ciel et "
+"de la terre, avec du bois dur et une puissance spirituelle dense"
+
+#. plant.csv: 灵木
+msgid "PLANT_2_NAME"
+msgstr "Bois Spirituel"
+
+#. plant.csv: 生长于西域流沙的神奇植物，能储存大量灵气...
+msgid "PLANT_3_DESC"
+msgstr ""
+"Plante magique poussant dans les Sables Mouvants de l'Ouest, capable de "
+"stocker de grandes quantités de qi spirituel et d'eau, avec de la médecine "
+"spirituelle dans ses épines"
+
+#. plant.csv: 沙漠仙人掌
+msgid "PLANT_3_NAME"
+msgstr "Cactus Magique du Désert"
+
+#. plant.csv: 极北冰原的珍贵灵药，花瓣洁白如雪，蕴含极...
+msgid "PLANT_4_DESC"
+msgstr ""
+"Précieuse médecine spirituelle du Champ de Glace du Très-Nord, aux pétales "
+"blancs comme neige, renfermant un qi froid extrême, capable de clarifier la "
+"chaleur et de détoxifier"
+
+#. plant.csv: 寒霜雪莲
+msgid "PLANT_4_NAME"
+msgstr "Lotus de Neige Gelée"
+
+#. plant.csv: 生长于天河河底的水系灵药，呈半透明蓝色，...
+msgid "PLANT_5_DESC"
+msgstr ""
+"Médecine spirituelle du système aquatique poussant au fond du Fleuve Céleste, "
+"d'un bleu semi-transparent, capable d'améliorer la puissance spirituelle "
+"d'élément eau du pratiquant"
+
+#. plant.csv: 水灵芝
+msgid "PLANT_5_NAME"
+msgstr "Lingzhi Aquatique"
+
+#. plant.csv: 万丈雪峰的高山植物，花瓣细小洁白，能抗严...
+msgid "PLANT_6_DESC"
+msgstr ""
+"Plante alpine du Pic de Neige aux Dix Mille Brasses, aux pétales petits et "
+"blancs, capable de résister au froid sévère et possédant des effets calmants "
+"et sédatifs"
+
+#. plant.csv: 雪绒花
+msgid "PLANT_6_NAME"
+msgstr "Fleur de Duvet de Neige"
+
+#. plant.csv: 青云林海中的古老巨树，树龄超过千年，树脂...
+msgid "PLANT_7_DESC"
+msgstr ""
+"Ancien arbre géant dans la Mer de Forêt de Qingyun, âgé de plus de mille ans, "
+"avec une résine contenant une riche puissance spirituelle"
+
+#. plant.csv: 千年古松
+msgid "PLANT_7_NAME"
+msgstr "Pin Ancien Millénaire"
+
+#. plant.csv: 沃土良田中培育的灵性稻谷，粒粒饱满灵气，...
+msgid "PLANT_8_DESC"
+msgstr ""
+"Riz spirituel cultivé dans des terres fertiles, chaque grain rempli de qi "
+"spirituel, capable d'améliorer la constitution du pratiquant"
+
+#. plant.csv: 五谷灵稻
+msgid "PLANT_8_NAME"
+msgstr "Riz Spirituel des Cinq Grains"
+
+#. plant.csv: 紫竹林中的变异异种，竹身九曲，内空外坚。...
+msgid "PLANT_9_DESC"
+msgstr ""
+"Espèce mutante dans la Forêt de Bambou Pourpre, au corps aux neuf courbes, "
+"creux dedans et dur dehors. Il émet neuf sons distincts et clairs quand le "
+"vent souffle, pénétrant directement l'âme et purifiant les démons du cœur"
+
+#. plant.csv: 九曲清音竹
+msgid "PLANT_9_NAME"
+msgstr "Bambou aux Neuf Courbes du Son Pur"

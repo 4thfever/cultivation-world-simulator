@@ -1,0 +1,92 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. cultivate_region.csv: 青峰山脉深处的金行洞府，金精气凝，刀剑鸣...
+msgid "CULTIVATE_REGION_201_DESC"
+msgstr ""
+"Demeure souterraine de l'élément Métal au cœur de la Chaîne du Pic Azuré, où "
+"l'essence du Métal se condense et le son des épées ne cesse jamais ; terre "
+"sainte suprême pour les cultivateurs d'attribut Métal."
+
+#. cultivate_region.csv: 太白金府
+msgid "CULTIVATE_REGION_201_NAME"
+msgstr "Manoir de l'Or Taibai"
+
+#. cultivate_region.csv: 青云林海中的木行洞府，生机盎然，灵药遍地...
+msgid "CULTIVATE_REGION_202_DESC"
+msgstr ""
+"Demeure souterraine de l'élément Bois dans la Forêt Profonde des Nuages "
+"Clairs, pleine de vitalité et parsemée d'herbes spirituelles ; terre sainte "
+"suprême pour les cultivateurs d'attribut Bois."
+
+#. cultivate_region.csv: 青木洞天
+msgid "CULTIVATE_REGION_202_NAME"
+msgstr "Paradis Souterrain du Bois Clair"
+
+#. cultivate_region.csv: 无边碧海深处的水行洞府，碧波万里，水精凝...
+msgid "CULTIVATE_REGION_203_DESC"
+msgstr ""
+"Demeure souterraine de l'élément Eau au cœur de la Mer Azurée sans bornes, "
+"avec dix mille lieues d'ondes bleues et essence Aquatique pour la "
+"condensation de l'âme ; terre sainte suprême pour les cultivateurs d'attribut "
+"Eau."
+
+#. cultivate_region.csv: 玄水秘境
+msgid "CULTIVATE_REGION_203_NAME"
+msgstr "Royaume Secret des Eaux Mystérieuses"
+
+#. cultivate_region.csv: 炎狱火山旁的火行洞府，烈焰冲天，真火精纯...
+msgid "CULTIVATE_REGION_204_DESC"
+msgstr ""
+"Demeure souterraine de l'élément Feu à côté du Volcan de l'Enfer des Flammes, "
+"avec des flammes perçant le ciel et du vrai feu pur ; terre sainte suprême "
+"pour les cultivateurs d'attribut Feu."
+
+#. cultivate_region.csv: 离火洞府
+msgid "CULTIVATE_REGION_204_NAME"
+msgstr "Demeure Souterraine du Feu Séparé"
+
+#. cultivate_region.csv: 青峰山脉的土行洞府，厚德载物，山岳共鸣，...
+msgid "CULTIVATE_REGION_205_DESC"
+msgstr ""
+"Demeure souterraine de l'élément Terre dans la Chaîne du Pic Azuré, où la "
+"terre épaisse porte toutes choses et les montagnes résonnent ; terre sainte "
+"suprême pour les cultivateurs d'attribut Terre."
+
+#. cultivate_region.csv: 厚土玄宫
+msgid "CULTIVATE_REGION_205_NAME"
+msgstr "Palais Mystique de la Terre Épaisse"
+
+#. cultivate_region.csv: 雨林深处的上古遗迹，古藤缠绕，木行灵气与...
+msgid "CULTIVATE_REGION_206_DESC"
+msgstr ""
+"Ruines antiques au cœur de la forêt tropicale, avec des lianes anciennes "
+"entrecroisées, où le Qi spirituel de l'élément Bois et celui de l'élément "
+"Métal se mélangent. Contient des techniques de cultivation anciennes et des "
+"formules d'herbes spirituelles."
+
+#. cultivate_region.csv: 古越遗迹
+msgid "CULTIVATE_REGION_206_NAME"
+msgstr "Ruines de l'Ancien Yue"
+
+#. cultivate_region.csv: 沉没在海中的远古文明遗迹，水行灵气浓郁，...
+msgid "CULTIVATE_REGION_207_DESC"
+msgstr ""
+"Ruines de civilisation antique submergées dans la mer, avec un Qi spirituel "
+"d'élément Eau dense ; les trésors apparaissent occasionnellement lors des "
+"marées."
+
+#. cultivate_region.csv: 沧海遗迹
+msgid "CULTIVATE_REGION_207_NAME"
+msgstr "Ruines de la Mer Ancienne"

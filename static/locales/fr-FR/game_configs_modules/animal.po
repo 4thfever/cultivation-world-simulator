@@ -1,0 +1,129 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. animal.csv: 拥有上古血脉的巨型妖兽，皮毛如铁，行走间...
+msgid "ANIMAL_10_DESC"
+msgstr ""
+"Une gigantesque bête spirituelle possédant un ancien lignage, la fourrure "
+"dure comme le fer, causant le tremblement de la terre à chaque pas, avec "
+"une force immense"
+
+#. animal.csv: 撼地神牛
+msgid "ANIMAL_10_NAME"
+msgstr "Taureau Divin qui Ébranle la Terre"
+
+#. animal.csv: 生存于冻土深处的冷血妖兽，身躯由半透明的...
+msgid "ANIMAL_11_DESC"
+msgstr ""
+"Une bête spirituelle à sang froid vivant au cœur du sol gelé, son corps "
+"composé d'os semi-transparents et de givre, silencieux, capable de geler "
+"instantanément les proies"
+
+#. animal.csv: 冰魄骨蛇
+msgid "ANIMAL_11_NAME"
+msgstr "Serpent aux Os de Spectre Glacé"
+
+#. animal.csv: 天性机敏的灵性兔子，毛色雪白，蕴含微弱灵...
+msgid "ANIMAL_1_DESC"
+msgstr ""
+"Un lapin spirituel au tempérament naturellement ingénieux, fourrure blanc "
+"neige, contenant une faible puissance spirituelle, doux et facile à apprivoiser"
+
+#. animal.csv: 灵兔
+msgid "ANIMAL_1_NAME"
+msgstr "Lapin Spirituel"
+
+#. animal.csv: 凶猛的魔性狼族，体型巨大，拥有强大的魔力...
+msgid "ANIMAL_2_DESC"
+msgstr ""
+"Une tribu de loup démoniaque féroce, énorme en taille, possédant une "
+"puissance démoniaque puissante et des griffes et des dents acérées"
+
+#. animal.csv: 魔狼
+msgid "ANIMAL_2_NAME"
+msgstr "Loup Démoniaque"
+
+#. animal.csv: 栖息于平原地带的温和灵兽，通体青色，角如...
+msgid "ANIMAL_3_DESC"
+msgstr ""
+"Une bête spirituelle douce habitant les plaines, au corps entièrement bleu "
+"et aux bois semblables à du jade, doué pour sentir les changements du Qi "
+"spirituel"
+
+#. animal.csv: 青云鹿
+msgid "ANIMAL_3_NAME"
+msgstr "Cerf Nuage Azur"
+
+#. animal.csv: 南疆蛮荒中的敏捷猎手，身形如影，爪牙锋利...
+msgid "ANIMAL_4_DESC"
+msgstr ""
+"Un chasseur agile dans la Frontière du Sud sauvage, avec un corps comme une "
+"ombre et des griffes et des dents acérées, habile à la chasse furtive"
+
+#. animal.csv: 暗影豹
+msgid "ANIMAL_4_NAME"
+msgstr "Léopard d'Ombre"
+
+#. animal.csv: 无边碧海的古老灵兽，龟甲如碧玉，能操控海...
+msgid "ANIMAL_5_DESC"
+msgstr ""
+"Une antique bête spirituelle de la mer azurée sans bornes, avec une carapace "
+"semblable à du jade vert, capable de contrôler l'eau de mer, ayant une "
+"durée de vie extrêmement longue"
+
+#. animal.csv: 碧海龙龟
+msgid "ANIMAL_5_NAME"
+msgstr "Tortue-Dragon de la Mer Azurée"
+
+#. animal.csv: 青峰山脉的强壮守护者，皮毛坚如磐石，力大...
+msgid "ANIMAL_6_DESC"
+msgstr ""
+"Un robuste gardien de la Chaîne des Monts Qingfeng, avec une fourrure aussi "
+"dure qu'un roc, une force immense, et une nature simple et honnête"
+
+#. animal.csv: 石甲山熊
+msgid "ANIMAL_6_NAME"
+msgstr "Ours Blindé de Roche"
+
+#. animal.csv: 驰骋于碧野千里的神骏灵兽，四蹄生风，速度...
+msgid "ANIMAL_7_DESC"
+msgstr ""
+"Une bête spirituelle majestueuse galopant à travers des milliers de li de "
+"champs verdoyants, avec des sabots engendrés par le vent, une vitesse "
+"foudroyante, et une crinière ondoyante"
+
+#. animal.csv: 风速马
+msgid "ANIMAL_7_NAME"
+msgstr "Cheval Vitesse du Vent"
+
+#. animal.csv: 炎狱火山中的火系灵兽，鳞片赤红如火，能在...
+msgid "ANIMAL_8_DESC"
+msgstr ""
+"Une bête spirituelle de l'attribut feu du Volcan de l'Enfer de Feu, avec "
+"des écailles rouges comme le feu, capable de nager dans la lave et de cracher "
+"des flammes"
+
+#. animal.csv: 熔岩蜥蜴
+msgid "ANIMAL_8_NAME"
+msgstr "Lézard de Lave"
+
+#. animal.csv: 迷雾沼泽的剧毒生物，体色斑斓，能释放致命...
+msgid "ANIMAL_9_DESC"
+msgstr ""
+"Une créature hautement venimeuse du Marais Brumeux, avec des motifs corporels "
+"colorés, capable de libérer un gaz toxique mortel, habile à se cacher"
+
+#. animal.csv: 毒瘴蛙
+msgid "ANIMAL_9_NAME"
+msgstr "Crapaud des Miasmes Toxiques"

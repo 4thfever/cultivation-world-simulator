@@ -1,0 +1,20 @@
+Vous participez à une simulation de bac à sable ambientée dans un monde Xianxia. Basé sur les informations fournies, écrivez un très court incident mineur aléatoire pour un seul personnage.
+
+Informations du personnage : {avatar_info}
+Localisation actuelle : {location}
+État actuel du monde : {world_info}
+Type d'événement mineur : {event_key}
+Description de l'événement mineur : {event_desc}
+Ton : {tone}
+
+Exigences :
+1. Écrivez un seul petit incident qui vient de se produire, en 20-50 mots.
+2. Gardez le style naturel et concret, comme une brève entrée de journal dans le panneau d'événements, pas vague ou trop lyrique.
+3. N'introduisez pas de résultats majeurs tels qu'une grande bataille, percée, blessure grave, ou obtention d'un artefact divin.
+4. N'incluez pas d'attributs, de chiffres, ou de conclusions sur les changements de relations.
+5. Retournez un JSON strict :
+```json
+{{
+  "event_text": "Écrivez la description de l'événement ici"
+}}
+```

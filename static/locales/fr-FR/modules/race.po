@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr-FR\n"
+
+msgid "Race"
+msgstr "Race"
+
+msgid "Race [{name}]"
+msgstr "Race [{name}]"
+
+msgid "Race: {race}"
+msgstr "Race : {race}"
+
+msgid "Race Behavior Priority"
+msgstr "Priorité comportementale de la race"
+
+msgid "Race Behavior Priority: {behavior}"
+msgstr "Priorité comportementale de la race : {behavior}"
+
+msgid "Yao cultivators cannot cultivate Confucian education."
+msgstr "Les cultivateurs yao ne peuvent pas pratiquer l'éducation confucéenne."
+
+msgid "Yao cultivators cannot serve as mortal officials."
+msgstr "Les cultivateurs yao ne peuvent pas servir comme officiels mortels."
+
+msgid "yao_backstory_constraint"
+msgstr "Contrainte d'histoire yao : ce personnage est un(e) {race}. Son origine doit provenir d'environnements sauvages tels que forêts, montagnes, terres sauvages, marécages, cavernes ou îles. Il a pu grandir naturellement, être élevé par les anciens de son espèce, s'échapper après avoir été chassé par des cultivateurs humains, ou rencontrer une opportunité spirituelle dans la nature. Ne le décrivez pas comme ayant une famille humaine ordinaire en ville, une académie mortelle ou une enfance dans un clan humain."
+
+msgid "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
+msgstr "{name}, Surnom : {nickname}, Race : {race}, Royaume : {realm}, Relation : {relation}, Secte : {sect}, Alignement : {alignment}, Apparence : {appearance}, Doigt d'or : {goldfinger}, Technique : {technique}, Arme : {weapon}, Auxiliaire : {aux}, PV : {hp}"

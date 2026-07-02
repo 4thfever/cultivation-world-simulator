@@ -1,0 +1,4913 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. animal.csv: 拥有上古血脉的巨型妖兽，皮毛如铁，行走间...
+msgid "ANIMAL_10_DESC"
+msgstr ""
+"Une gigantesque bête spirituelle possédant un ancien lignage, la fourrure "
+"dure comme le fer, causant le tremblement de la terre à chaque pas, avec une"
+" force immense"
+
+#. animal.csv: 撼地神牛
+msgid "ANIMAL_10_NAME"
+msgstr "Taureau Divin qui Ébranle la Terre"
+
+#. animal.csv: 生存于冻土深处的冷血妖兽，身躯由半透明的...
+msgid "ANIMAL_11_DESC"
+msgstr ""
+"Une bête spirituelle à sang froid vivant au cœur du sol gelé, son corps "
+"composé d'os semi-transparents et de givre, silencieux, capable de geler "
+"instantanément les proies"
+
+#. animal.csv: 冰魄骨蛇
+msgid "ANIMAL_11_NAME"
+msgstr "Serpent aux Os de Spectre Glacé"
+
+#. animal.csv: 天性机敏的灵性兔子，毛色雪白，蕴含微弱灵...
+msgid "ANIMAL_1_DESC"
+msgstr ""
+"Un lapin spirituel au tempérament naturellement ingénieux, fourrure blanc "
+"neige, contenant une faible puissance spirituelle, doux et facile à "
+"apprivoiser"
+
+#. animal.csv: 灵兔
+msgid "ANIMAL_1_NAME"
+msgstr "Lapin Spirituel"
+
+#. animal.csv: 凶猛的魔性狼族，体型巨大，拥有强大的魔力...
+msgid "ANIMAL_2_DESC"
+msgstr ""
+"Une tribu de loup démoniaque féroce, énorme en taille, possédant une "
+"puissance démoniaque puissante et des griffes et des dents acérées"
+
+#. animal.csv: 魔狼
+msgid "ANIMAL_2_NAME"
+msgstr "Loup Démoniaque"
+
+#. animal.csv: 栖息于平原地带的温和灵兽，通体青色，角如...
+msgid "ANIMAL_3_DESC"
+msgstr ""
+"Une bête spirituelle douce habitant les plaines, au corps entièrement bleu "
+"et aux bois semblables à du jade, doué pour sentir les changements du Qi "
+"spirituel"
+
+#. animal.csv: 青云鹿
+msgid "ANIMAL_3_NAME"
+msgstr "Cerf Nuage Azur"
+
+#. animal.csv: 南疆蛮荒中的敏捷猎手，身形如影，爪牙锋利...
+msgid "ANIMAL_4_DESC"
+msgstr ""
+"Un chasseur agile dans la Frontière du Sud sauvage, avec un corps comme une "
+"ombre et des griffes et des dents acérées, habile à la chasse furtive"
+
+#. animal.csv: 暗影豹
+msgid "ANIMAL_4_NAME"
+msgstr "Léopard d'Ombre"
+
+#. animal.csv: 无边碧海的古老灵兽，龟甲如碧玉，能操控海...
+msgid "ANIMAL_5_DESC"
+msgstr ""
+"Une antique bête spirituelle de la mer azurée sans bornes, avec une carapace"
+" semblable à du jade vert, capable de contrôler l'eau de mer, ayant une "
+"durée de vie extrêmement longue"
+
+#. animal.csv: 碧海龙龟
+msgid "ANIMAL_5_NAME"
+msgstr "Tortue-Dragon de la Mer Azurée"
+
+#. animal.csv: 青峰山脉的强壮守护者，皮毛坚如磐石，力大...
+msgid "ANIMAL_6_DESC"
+msgstr ""
+"Un robuste gardien de la Chaîne des Monts Qingfeng, avec une fourrure aussi "
+"dure qu'un roc, une force immense, et une nature simple et honnête"
+
+#. animal.csv: 石甲山熊
+msgid "ANIMAL_6_NAME"
+msgstr "Ours Blindé de Roche"
+
+#. animal.csv: 驰骋于碧野千里的神骏灵兽，四蹄生风，速度...
+msgid "ANIMAL_7_DESC"
+msgstr ""
+"Une bête spirituelle majestueuse galopant à travers des milliers de li de "
+"champs verdoyants, avec des sabots engendrés par le vent, une vitesse "
+"foudroyante, et une crinière ondoyante"
+
+#. animal.csv: 风速马
+msgid "ANIMAL_7_NAME"
+msgstr "Cheval Vitesse du Vent"
+
+#. animal.csv: 炎狱火山中的火系灵兽，鳞片赤红如火，能在...
+msgid "ANIMAL_8_DESC"
+msgstr ""
+"Une bête spirituelle de l'attribut feu du Volcan de l'Enfer de Feu, avec des"
+" écailles rouges comme le feu, capable de nager dans la lave et de cracher "
+"des flammes"
+
+#. animal.csv: 熔岩蜥蜴
+msgid "ANIMAL_8_NAME"
+msgstr "Lézard de Lave"
+
+#. animal.csv: 迷雾沼泽的剧毒生物，体色斑斓，能释放致命...
+msgid "ANIMAL_9_DESC"
+msgstr ""
+"Une créature hautement venimeuse du Marais Brumeux, avec des motifs "
+"corporels colorés, capable de libérer un gaz toxique mortel, habile à se "
+"cacher"
+
+#. animal.csv: 毒瘴蛙
+msgid "ANIMAL_9_NAME"
+msgstr "Crapaud des Miasmes Toxiques"
+
+#. auxiliary.csv: 以灵木纤维编织，生机盎然，防御尚可....
+msgid "AUXILIARY_2001_DESC"
+msgstr "Tissée de fibres de bois spirituel"
+
+#. auxiliary.csv: 木灵甲
+msgid "AUXILIARY_2001_NAME"
+msgstr "Armure de l'Esprit du Bois"
+
+#. auxiliary.csv: 生于火麒麟滴血之处，重伤必治，无伤增功....
+msgid "AUXILIARY_2002_DESC"
+msgstr ""
+"Née du sang du Qilin de feu, sa couleur brille comme le sang. Elle guérit "
+"les blessures graves et renforce la cultivation."
+
+#. auxiliary.csv: 血菩提
+msgid "AUXILIARY_2002_NAME"
+msgstr "Fruit d'Essence de Sang"
+
+#. auxiliary.csv: 虽不及真品，闻一闻也能活三百六十岁....
+msgid "AUXILIARY_2003_DESC"
+msgstr "Bien qu'inférieure à la véritable, son simple parfum prolonge la vie"
+
+#. auxiliary.csv: 人参果(伪)
+msgid "AUXILIARY_2003_NAME"
+msgstr "Fruit de Ginseng (Contrefait)"
+
+#. auxiliary.csv: 千帆城通用的高级商令。...
+msgid "AUXILIARY_2004_DESC"
+msgstr ""
+"Jeton commercial de haut niveau utilisé couramment à la Cité des Mille "
+"Voiles."
+
+#. auxiliary.csv: 万宝令
+msgid "AUXILIARY_2004_NAME"
+msgstr "Jeton des Dix Mille Trésors"
+
+#. auxiliary.csv: 提炼百斤凡铁才得一两，提升法器品质的基础...
+msgid "AUXILIARY_2005_DESC"
+msgstr "Raffiné à partir de cent jin de fer vulgaire pour obtenir un liang"
+
+#. auxiliary.csv: 铁精
+msgid "AUXILIARY_2005_NAME"
+msgstr "Essence de Fer"
+
+#. auxiliary.csv: 可勘破虚妄，直视本源，寻龙定穴....
+msgid "AUXILIARY_2006_DESC"
+msgstr ""
+"Elle peut percer les illusions, contempler l'essence primordiale, chercher "
+"les opprtunités célestes et fixer directement le Grand Dao."
+
+#. auxiliary.csv: 源天神眼
+msgid "AUXILIARY_2006_NAME"
+msgstr "Œil Divin du Ciel Primordial"
+
+#. auxiliary.csv: 步履生云，身轻如燕，赶路必备....
+msgid "AUXILIARY_2007_DESC"
+msgstr "Les pas suscitent des nuages"
+
+#. auxiliary.csv: 踏云靴
+msgid "AUXILIARY_2007_NAME"
+msgstr "Bottes du Nuage Foulé"
+
+#. auxiliary.csv: 佛门至宝，持之可灵台清明，悟性大增....
+msgid "AUXILIARY_2008_DESC"
+msgstr "Un trésor suprême du Dharma bouddhiste"
+
+#. auxiliary.csv: 菩提子
+msgid "AUXILIARY_2008_NAME"
+msgstr "Graine de Bodhi"
+
+#. auxiliary.csv: 刀枪不入，水火不侵，贴身软甲....
+msgid "AUXILIARY_2009_DESC"
+msgstr "Invulnérable aux sabres et aux lances"
+
+#. auxiliary.csv: 金丝软甲
+msgid "AUXILIARY_2009_NAME"
+msgstr "Armure Souple aux Fils d'Or"
+
+#. auxiliary.csv: 古墓派至宝，在此床上修炼，事半功倍，且无...
+msgid "AUXILIARY_2010_DESC"
+msgstr ""
+"Fabriquée de glace de jade noir du pôle nord. Cultiver sur elle apaise la "
+"fournaise du cœur et double l'efficacité."
+
+#. auxiliary.csv: 寒玉床
+msgid "AUXILIARY_2010_NAME"
+msgstr "Couche de Jade Glacée"
+
+#. auxiliary.csv: 千人千面，不仅掩盖容貌，更能掩盖气息....
+msgid "AUXILIARY_2011_DESC"
+msgstr "Mille visages pour mille personnes"
+
+#. auxiliary.csv: 无相面具
+msgid "AUXILIARY_2011_NAME"
+msgstr "Masque de la Forme Vide"
+
+#. auxiliary.csv: 飞行法器，速度极快，居家旅行杀人越货必备...
+msgid "AUXILIARY_2051_DESC"
+msgstr "Un artefact volant"
+
+#. auxiliary.csv: 神风舟
+msgid "AUXILIARY_2051_NAME"
+msgstr "Bateau du Vent Divin"
+
+#. auxiliary.csv: 上古神器，拥有穿梭时空之力，此为仿品，仅...
+msgid "AUXILIARY_2052_DESC"
+msgstr ""
+"Un artefact divin antique possédant le pouvoir de traverser l'espace-temps ;"
+" ceci est une imitation"
+
+#. auxiliary.csv: 昆仑镜
+msgid "AUXILIARY_2052_NAME"
+msgstr "Miroir de Kunlun"
+
+#. auxiliary.csv: 夺天地之造化，聚日月之精华，催熟万物....
+msgid "AUXILIARY_2053_DESC"
+msgstr ""
+"Saisissant la création du ciel et de la terre, concentrant l'essence du "
+"soleil et de la lune. Le liquide spirituel dans la bouteille peut accélérer "
+"la maturation de toutes choses."
+
+#. auxiliary.csv: 掌天瓶
+msgid "AUXILIARY_2053_NAME"
+msgstr "Flacon de Création Céleste"
+
+#. auxiliary.csv: 龙凤和鸣，心意相通，双修进境一日千里....
+msgid "AUXILIARY_2054_DESC"
+msgstr "Le dragon et le phénix en harmonie"
+
+#. auxiliary.csv: 龙凤呈祥戒
+msgid "AUXILIARY_2054_NAME"
+msgstr "Anneau de Bon Augure du Dragon et du Phénix"
+
+#. auxiliary.csv: 披上后身形尽隐，连神识也难以察觉....
+msgid "AUXILIARY_2055_DESC"
+msgstr "Une fois revêtue"
+
+#. auxiliary.csv: 隐形披风
+msgid "AUXILIARY_2055_NAME"
+msgstr "Cape d'Invisibilité"
+
+#. auxiliary.csv: 套在妖兽颈上，任其凶焰滔天，也要乖乖听命...
+msgid "AUXILIARY_2056_DESC"
+msgstr "Placée au cou d'une bête démoniaque"
+
+#. auxiliary.csv: 御兽环
+msgid "AUXILIARY_2056_NAME"
+msgstr "Anneau de Dressage des Bêtes"
+
+#. auxiliary.csv: 太虚幻境所化，万法不沾，防御力惊人....
+msgid "AUXILIARY_2057_DESC"
+msgstr "Transformée du Royaume des Illusions du Grand Vide"
+
+#. auxiliary.csv: 太虚甲
+msgid "AUXILIARY_2057_NAME"
+msgstr "Armure du Grand Vide"
+
+#. auxiliary.csv: 仿太上老君炼丹炉，丹成九转，药效倍增....
+msgid "AUXILIARY_2058_DESC"
+msgstr "Imitation du creuset alchimique du Grand Seigneur Suprême"
+
+#. auxiliary.csv: 八卦炉
+msgid "AUXILIARY_2058_NAME"
+msgstr "Creuset des Huit Trigrammes"
+
+#. auxiliary.csv: 放入一文，取出万贯，财源滚滚....
+msgid "AUXILIARY_2059_DESC"
+msgstr "Dépôt d'une pièce"
+
+#. auxiliary.csv: 聚宝盆
+msgid "AUXILIARY_2059_NAME"
+msgstr "Bassin d'Accumulation des Trésors"
+
+#. auxiliary.csv: 以天地为炉，造化为工，炼制万物....
+msgid "AUXILIARY_2060_DESC"
+msgstr ""
+"Utilisant le ciel et la terre comme creuset et la création comme forge"
+
+#. auxiliary.csv: 天地烘炉
+msgid "AUXILIARY_2060_NAME"
+msgstr "Creuset de Cuisson du Ciel et de la Terre"
+
+#. auxiliary.csv: 背负六道，剑出轮回，悟剑良伴....
+msgid "AUXILIARY_2061_DESC"
+msgstr "Portant les six chemins sur les épaules"
+
+#. auxiliary.csv: 六道剑匣
+msgid "AUXILIARY_2061_NAME"
+msgstr "Coffre de l'Épée des Six Chemins"
+
+#. auxiliary.csv: 受命于天，既寿永昌。皇威浩荡，震慑宵小....
+msgid "AUXILIARY_2062_DESC"
+msgstr "Mandaté par le Ciel"
+
+#. auxiliary.csv: 传国玉玺
+msgid "AUXILIARY_2062_NAME"
+msgstr "Sceau Impérial de Jade"
+
+#. auxiliary.csv: 可移动的灵气之源，随身携带的洞天福地....
+msgid "AUXILIARY_2063_DESC"
+msgstr ""
+"Source mobile d'énergie spirituelle, terre bénite de cultivation qu'on porte"
+" avec soi."
+
+#. auxiliary.csv: 灵眼之泉
+msgid "AUXILIARY_2063_NAME"
+msgstr "Source de l'Œil Spirituel"
+
+#. auxiliary.csv: 血海不枯，冥河不死。极度邪恶的掠夺法宝....
+msgid "AUXILIARY_2064_DESC"
+msgstr "La mer de sang ne s'assèche jamais"
+
+#. auxiliary.csv: 万魂幡
+msgid "AUXILIARY_2064_NAME"
+msgstr "Étendard des Dix Mille Âmes"
+
+#. auxiliary.csv: 木系至宝，不仅可炼制神丹，鼎中更自成一界...
+msgid "AUXILIARY_2065_DESC"
+msgstr ""
+"Sculptée dans le bois divin ancien. Elle peut non seulement raffiner des "
+"pilules divines mais aussi former son propre royaume pour faire mûrir les "
+"herbes spirituelles."
+
+#. auxiliary.csv: 神木王鼎
+msgid "AUXILIARY_2065_NAME"
+msgstr "Chaudron Souverain du Bois Divin"
+
+msgid "AUXILIARY_2081_DESC"
+msgstr ""
+"Un disque de formation gravé de motifs d'appel d'esprits basiques, capable "
+"d'exploiter l'énergie spirituelle locale pour établir une formation "
+"temporaire."
+
+msgid "AUXILIARY_2081_NAME"
+msgstr "Disque de Formation d'Appel d'Esprits"
+
+msgid "AUXILIARY_2082_DESC"
+msgstr ""
+"Ses motifs se connectent aux lignes telluriques peu profondes, rendant les "
+"formations plus stables et améliorant légèrement leur puissance et durée."
+
+msgid "AUXILIARY_2082_NAME"
+msgstr "Disque de Formation de Convergence des Lignes Telluriques"
+
+msgid "AUXILIARY_2083_DESC"
+msgstr ""
+"Les motifs du pivot mystique coordonnent plusieurs circuits spirituels, "
+"renforçant les formations et réduisant une partie de leur consommation de "
+"pierres spirituelles."
+
+msgid "AUXILIARY_2083_NAME"
+msgstr "Disque de Formation du Pivot Mystique"
+
+msgid "AUXILIARY_2084_DESC"
+msgstr ""
+"Ses motifs spirituels forment un cycle auto-contenu, attirant l'énergie "
+"spirituelle du vide pour améliorer grandement la puissance, la durée et "
+"l'efficacité des formations."
+
+msgid "AUXILIARY_2084_NAME"
+msgstr "Disque de Formation du Grand Vide"
+
+msgid "AUXILIARY_2071_DESC"
+msgstr ""
+"Une bourse à Gu fabriquée en tissu grossier et cuir de bête, utilisée pour "
+"contenir des insectes spirituels courants."
+
+msgid "AUXILIARY_2071_NAME"
+msgstr "Bourse aux Cent Insectes"
+
+msgid "AUXILIARY_2072_DESC"
+msgstr ""
+"Un récipient à Gu raffiné par la méthode de génération mutuelle des cinq "
+"venins. Sa nature Gu est relativement stable."
+
+msgid "AUXILIARY_2072_NAME"
+msgstr "Récipient à Gu aux Cinq Venins"
+
+msgid "AUXILIARY_2073_DESC"
+msgstr ""
+"Une boîte à Gu combinant mécanismes et arts Gu, adaptée pour l'infliction "
+"occulte de Gu."
+
+msgid "AUXILIARY_2073_NAME"
+msgstr "Boîte à Gu aux Mille Mécanismes"
+
+msgid "AUXILIARY_2074_DESC"
+msgstr ""
+"Un nid de reproduction occupé par les Gu-mères, capable de commander de "
+"nombreux Gu."
+
+msgid "AUXILIARY_2074_NAME"
+msgstr "Nid de Reproduction des Myriades de Gu"
+
+#. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
+msgid "CELESTIAL_PHENOMENON_10_DESC"
+msgstr ""
+"Le Qi spirituel du ciel et de la terre fait éruption et se régénère, la "
+"progression de la cultivation progresse à pas de géant, tous les êtres se "
+"disputent la croissance, approprié pour un effort total en progression"
+
+#. celestial_phenomenon.csv: 灵气复苏
+msgid "CELESTIAL_PHENOMENON_10_NAME"
+msgstr "Résurrection du Qi"
+
+#. celestial_phenomenon.csv: 灵气枯竭末法将至，修炼如逆水行舟，宜节约...
+msgid "CELESTIAL_PHENOMENON_11_DESC"
+msgstr ""
+"Le Qi spirituel est épuisé et l'ère du Dharma-déclin approche, la "
+"cultivation est comme ramer à contre-courant, approprié pour économiser les "
+"ressources et stabiliser le cœur du Dao"
+
+#. celestial_phenomenon.csv: 灵气枯竭
+msgid "CELESTIAL_PHENOMENON_11_NAME"
+msgstr "Épuisement du Qi"
+
+#. celestial_phenomenon.csv: 魔气滔天邪道大昌，魔修如鱼得水，正道修士...
+msgid "CELESTIAL_PHENOMENON_12_DESC"
+msgstr ""
+"Le Qi démoniaque s'élève et la voie maléfique prospère, les cultivateurs "
+"démoniaques sont comme des poissons dans l'eau, les cultivateurs de la voie "
+"juste devraient éviter leur tranchant et se concentrer sur l'accumulation"
+
+#. celestial_phenomenon.csv: 魔道兴盛
+msgid "CELESTIAL_PHENOMENON_12_NAME"
+msgstr "Ascension de la Voie Démoniaque"
+
+#. celestial_phenomenon.csv: 浩然正气镇压邪祟，正道修士如有神助，魔修...
+msgid "CELESTIAL_PHENOMENON_13_DESC"
+msgstr ""
+"L'Esprit droit et magnifique réprime le mal, les cultivateurs de la voie "
+"juste sont aidés comme par des dieux, les cultivateurs démoniaques devraient"
+" rester discrets pour éviter la malchance"
+
+#. celestial_phenomenon.csv: 正气浩然
+msgid "CELESTIAL_PHENOMENON_13_NAME"
+msgstr "Esprit Droit"
+
+#. celestial_phenomenon.csv: 神兵有灵百兵齐鸣，兵器熟练度提升极快，宜...
+msgid "CELESTIAL_PHENOMENON_14_DESC"
+msgstr ""
+"Les armes divines ont des esprits et toutes les armes chantent, la maîtrise "
+"des armes s'améliore extrêmement vite, approprié pour pratiquer l'art "
+"martial et affûter le tranchant"
+
+#. celestial_phenomenon.csv: 神兵出世
+msgid "CELESTIAL_PHENOMENON_14_NAME"
+msgstr "Naissance des Armes Divines"
+
+#. celestial_phenomenon.csv: 阴阳交泰天地和合，彼此互补进境神速，最宜...
+msgid "CELESTIAL_PHENOMENON_15_DESC"
+msgstr ""
+"Le Yin et le Yang s'harmonisent et le ciel et la terre s'unissent, la "
+"complémentarité mutuelle mène à une progression rapide, le plus approprié "
+"pour trouver un compagnon du Dao et partager la joie de la double "
+"cultivation"
+
+#. celestial_phenomenon.csv: 阴阳交泰
+msgid "CELESTIAL_PHENOMENON_15_NAME"
+msgstr "Harmonie Yin-Yang"
+
+#. celestial_phenomenon.csv: 血光冲天杀意难抑，虽杀伐之力大增但机缘断...
+msgid "CELESTIAL_PHENOMENON_16_DESC"
+msgstr ""
+"La lumière de sang jaillit au ciel et l'intention de tuer est difficile à "
+"réprimer, bien que le pouvoir de meurtre augmente considérablement, les "
+"opportunités sont coupées, approprié pour prendre l'initiative de prouver le"
+" Dao à travers le meurtre"
+
+#. celestial_phenomenon.csv: 杀劫降临
+msgid "CELESTIAL_PHENOMENON_16_NAME"
+msgstr "Descente du Calamité du Meurtre"
+
+#. celestial_phenomenon.csv: 天下太平万物安宁，虽苦修进境缓慢但机缘频...
+msgid "CELESTIAL_PHENOMENON_17_DESC"
+msgstr ""
+"Le monde est en paix et tous les êtres sont tranquilles, bien que la "
+"cultivation acharnée soit lente, les opportunités surgissent fréquemment, "
+"approprié pour voyager dans le monde pour trouver des rencontres"
+
+#. celestial_phenomenon.csv: 太平盛世
+msgid "CELESTIAL_PHENOMENON_17_NAME"
+msgstr "Ère de Paix"
+
+#. celestial_phenomenon.csv: 天命眷顾气运所钟，天选之人万事皆顺，常人...
+msgid "CELESTIAL_PHENOMENON_18_DESC"
+msgstr ""
+"Favorisé par la destinée et centré par la chance, tout va bien pour l'élu, "
+"les gens ordinaires ne peuvent que regarder de haut et ne peuvent pas forcer"
+
+#. celestial_phenomenon.csv: 气运加身
+msgid "CELESTIAL_PHENOMENON_18_NAME"
+msgstr "Béni par la Chance"
+
+#. celestial_phenomenon.csv: 血月高悬人心躁动，战力虽强但静修困难，宜...
+msgid "CELESTIAL_PHENOMENON_19_DESC"
+msgstr ""
+"La lune de sang plane haut et les cœurs sont agités, la puissance de combat "
+"est forte mais la cultivation silencieuse est difficile, approprié pour "
+"piller les ressources à travers la bataille"
+
+#. celestial_phenomenon.csv: 血月当空
+msgid "CELESTIAL_PHENOMENON_19_NAME"
+msgstr "Lune de Sang dans le Ciel"
+
+#. celestial_phenomenon.csv: 天地灵气充沛，修士修行速度大增，修行欲望...
+msgid "CELESTIAL_PHENOMENON_1_DESC"
+msgstr ""
+"Le Qi spirituel céleste est abondant, la vitesse de cultivation des "
+"cultivateurs augmente considérablement, et le désir de cultiver s'améliore"
+
+#. celestial_phenomenon.csv: 紫气东来
+msgid "CELESTIAL_PHENOMENON_1_NAME"
+msgstr "Qi Pourpre venant de l'Est"
+
+#. celestial_phenomenon.csv: 天门大开大道显现，感悟修行皆如有神助，正...
+msgid "CELESTIAL_PHENOMENON_20_DESC"
+msgstr ""
+"La porte céleste s'ouvre grand et le Grand Dao se manifeste, la "
+"compréhension et la cultivation sont aidées comme par des dieux, c'est le "
+"moment de frapper les royaumes et d'ascensionner à l'immortalité"
+
+#. celestial_phenomenon.csv: 飞升之门
+msgid "CELESTIAL_PHENOMENON_20_NAME"
+msgstr "Porte de l'Ascension"
+
+#. celestial_phenomenon.csv: 天地法则清晰可触，瓶颈如纸一捅即破，万勿...
+msgid "CELESTIAL_PHENOMENON_21_DESC"
+msgstr ""
+"Les lois du ciel et de la terre sont clairement tangibles, les goulots "
+"d'étranglement sont comme du papier qu'une touche peut percer, ne manquez "
+"pas cette opportunité céleste pour la percée"
+
+#. celestial_phenomenon.csv: 法则显化
+msgid "CELESTIAL_PHENOMENON_21_NAME"
+msgstr "Manifestation de la Loi"
+
+#. celestial_phenomenon.csv: 时空错乱异象频生，险地亦藏无上机缘，宜富...
+msgid "CELESTIAL_PHENOMENON_22_DESC"
+msgstr ""
+"L'espace-temps est en désordre et les phénomènes étranges se produisent "
+"fréquemment, les endroits dangereux cachent aussi des opportunités suprêmes,"
+" approprié pour chercher la richesse dans le danger et explorer l'inconnu"
+
+#. celestial_phenomenon.csv: 时空乱流
+msgid "CELESTIAL_PHENOMENON_22_NAME"
+msgstr "Turbulence Espace-Temps"
+
+#. celestial_phenomenon.csv: 金煞充盈天地肃杀，修士更大可能嗜血而相互...
+msgid "CELESTIAL_PHENOMENON_2_DESC"
+msgstr ""
+"La malveillance dorée remplit le monde de solennité, les cultivateurs sont "
+"plus susceptibles d'être assoiffés de sang et de s'attaquer mutuellement"
+
+#. celestial_phenomenon.csv: 金煞之年
+msgid "CELESTIAL_PHENOMENON_2_NAME"
+msgstr "Année de la Malveillance Dorée"
+
+#. celestial_phenomenon.csv: 木德滋养生机盎然，采集收获倍增且伤势恢复...
+msgid "CELESTIAL_PHENOMENON_3_DESC"
+msgstr ""
+"La vertu du bois nourrit avec vitalité, la moisson des récoltes double et "
+"les blessures guérissent extrêmement vite, idéal pour chercher des matériaux"
+" célestes et des trésors terrestres partout"
+
+#. celestial_phenomenon.csv: 木灵盛世
+msgid "CELESTIAL_PHENOMENON_3_NAME"
+msgstr "Ère de l'Esprit du Bois"
+
+#. celestial_phenomenon.csv: 水行流转通达无碍，修炼效率与速度双重提升...
+msgid "CELESTIAL_PHENOMENON_4_DESC"
+msgstr ""
+"L'élément eau s'écoule sans entrave, l'efficacité et la vitesse de "
+"cultivation s'améliorent toutes les deux, ce qui en fait un excellent moment"
+" pour la cultivation en réclusion"
+
+#. celestial_phenomenon.csv: 水德之纪
+msgid "CELESTIAL_PHENOMENON_4_NAME"
+msgstr "Ère de la Vertu de l'Eau"
+
+#. celestial_phenomenon.csv: 天火燃烧劫数降临，战力暴涨但寿元流逝，当...
+msgid "CELESTIAL_PHENOMENON_5_DESC"
+msgstr ""
+"Le feu céleste brûle et la calamité arrive, la puissance de combat bondit "
+"mais la durée de vie s'écoule, on devrait décider rapidement des batailles "
+"pour lutter contre le ciel pour la vie"
+
+#. celestial_phenomenon.csv: 火劫时代
+msgid "CELESTIAL_PHENOMENON_5_NAME"
+msgstr "Ère de la Calamité du Feu"
+
+#. celestial_phenomenon.csv: 土德厚重载物无疆，身躯坚韧血气充盈，可无...
+msgid "CELESTIAL_PHENOMENON_6_DESC"
+msgstr ""
+"La vertu de la terre est épaisse et porte toutes choses, le corps est "
+"résilient et le Qi sanguin est plein, permettant de faire face aux ennemis "
+"puissants sans crainte"
+
+#. celestial_phenomenon.csv: 土厚之世
+msgid "CELESTIAL_PHENOMENON_6_NAME"
+msgstr "Monde de la Terre Épaisse"
+
+#. celestial_phenomenon.csv: 五行失序天地大乱，常规修炼事倍功半，然瓶...
+msgid "CELESTIAL_PHENOMENON_7_DESC"
+msgstr ""
+"Les cinq éléments sont en désordre et le ciel et la terre sont en chaos, la "
+"cultivation conventionnelle produit la moitié du résultat avec le double "
+"d'effort, mais les goulots d'étranglement se desserrent et c'est approprié "
+"de tenter des percées"
+
+#. celestial_phenomenon.csv: 五行逆乱
+msgid "CELESTIAL_PHENOMENON_7_NAME"
+msgstr "Chaos des Cinq Éléments"
+
+#. celestial_phenomenon.csv: 天道显化损有余而补不足，高阶修士进境受阻...
+msgid "CELESTIAL_PHENOMENON_8_DESC"
+msgstr ""
+"Le Dao Céleste se manifeste pour prendre à ceux qui ont trop et donner à "
+"ceux qui n'ont pas assez, la progression des cultivateurs de haut niveau est"
+" entravée, les cultivateurs de bas niveau devraient saisir l'opportunité de "
+"rattraper"
+
+#. celestial_phenomenon.csv: 天道均衡
+msgid "CELESTIAL_PHENOMENON_8_NAME"
+msgstr "Équilibre du Dao Céleste"
+
+#. celestial_phenomenon.csv: 劫数降临戾气弥漫，虽战力激增但福缘浅薄，...
+msgid "CELESTIAL_PHENOMENON_9_DESC"
+msgstr ""
+"La calamité arrive et l'hostilité se propage, bien que la puissance de "
+"combat bondit, la fortune est superficielle, on devrait agir avec prudence "
+"comme si on marchait sur une glace mince"
+
+#. celestial_phenomenon.csv: 劫数将至
+msgid "CELESTIAL_PHENOMENON_9_NAME"
+msgstr "Calamité qui Approche"
+
+msgid "CITY_REGION_301_DESC"
+msgstr ""
+"Une grande ville prospère avec une population dense et des marchands "
+"affairés, un lieu important pour le commerce des matériaux célestes et des "
+"trésors terrestres et pour chercher des opportunités."
+
+msgid "CITY_REGION_301_NAME"
+msgstr "Cité de Qingyun"
+
+msgid "CITY_REGION_302_DESC"
+msgstr ""
+"Une petite ville commerciale dans une oasis du désert, où les caravanes "
+"passent sans fin et les cultivateurs se rassemblent pour se ravitailler et "
+"échanger."
+
+msgid "CITY_REGION_302_NAME"
+msgstr "Cité de Shazhou"
+
+msgid "CITY_REGION_303_DESC"
+msgstr ""
+"Une ville de cultivation au cœur de la forêt ; bien que moins animée que les"
+" capitales célèbres, elle accueille toujours de nombreux cultivateurs et est"
+" idéale pour la cultivation et l'affinage d'artefacts."
+
+msgid "CITY_REGION_303_NAME"
+msgstr "Cité de Cuilin"
+
+msgid "CITY_REGION_304_DESC"
+msgstr ""
+"Une grande ville florissante à l'embouchure du fleuve, où les voies d'eau "
+"prospèrent et les cultivateurs d'aspect aquatique se rassemblent en grand "
+"nombre."
+
+msgid "CITY_REGION_304_NAME"
+msgstr "Cité de Canglan"
+
+msgid "CITY_REGION_305_DESC"
+msgstr ""
+"Une petite ville de montagne perchée au sommet de pics sans fin, enveloppée "
+"de brume toute l'année et riche en qi spirituel pur, un excellent lieu pour "
+"les ascètes de comprendre la Voie Céleste."
+
+msgid "CITY_REGION_305_NAME"
+msgstr "Cité de Lanyue"
+
+#. cultivate_region.csv: 青峰山脉深处的金行洞府，金精气凝，刀剑鸣...
+msgid "CULTIVATE_REGION_201_DESC"
+msgstr ""
+"Demeure souterraine de l'élément Métal au cœur de la Chaîne du Pic Azuré, où"
+" l'essence du Métal se condense et le son des épées ne cesse jamais ; terre "
+"sainte suprême pour les cultivateurs d'attribut Métal."
+
+#. cultivate_region.csv: 太白金府
+msgid "CULTIVATE_REGION_201_NAME"
+msgstr "Manoir de l'Or Taibai"
+
+#. cultivate_region.csv: 青云林海中的木行洞府，生机盎然，灵药遍地...
+msgid "CULTIVATE_REGION_202_DESC"
+msgstr ""
+"Demeure souterraine de l'élément Bois dans la Forêt Profonde des Nuages "
+"Clairs, pleine de vitalité et parsemée d'herbes spirituelles ; terre sainte "
+"suprême pour les cultivateurs d'attribut Bois."
+
+#. cultivate_region.csv: 青木洞天
+msgid "CULTIVATE_REGION_202_NAME"
+msgstr "Paradis Souterrain du Bois Clair"
+
+#. cultivate_region.csv: 无边碧海深处的水行洞府，碧波万里，水精凝...
+msgid "CULTIVATE_REGION_203_DESC"
+msgstr ""
+"Demeure souterraine de l'élément Eau au cœur de la Mer Azurée sans bornes, "
+"avec dix mille lieues d'ondes bleues et essence Aquatique pour la "
+"condensation de l'âme ; terre sainte suprême pour les cultivateurs "
+"d'attribut Eau."
+
+#. cultivate_region.csv: 玄水秘境
+msgid "CULTIVATE_REGION_203_NAME"
+msgstr "Royaume Secret des Eaux Mystérieuses"
+
+#. cultivate_region.csv: 炎狱火山旁的火行洞府，烈焰冲天，真火精纯...
+msgid "CULTIVATE_REGION_204_DESC"
+msgstr ""
+"Demeure souterraine de l'élément Feu à côté du Volcan de l'Enfer des "
+"Flammes, avec des flammes perçant le ciel et du vrai feu pur ; terre sainte "
+"suprême pour les cultivateurs d'attribut Feu."
+
+#. cultivate_region.csv: 离火洞府
+msgid "CULTIVATE_REGION_204_NAME"
+msgstr "Demeure Souterraine du Feu Séparé"
+
+#. cultivate_region.csv: 青峰山脉的土行洞府，厚德载物，山岳共鸣，...
+msgid "CULTIVATE_REGION_205_DESC"
+msgstr ""
+"Demeure souterraine de l'élément Terre dans la Chaîne du Pic Azuré, où la "
+"terre épaisse porte toutes choses et les montagnes résonnent ; terre sainte "
+"suprême pour les cultivateurs d'attribut Terre."
+
+#. cultivate_region.csv: 厚土玄宫
+msgid "CULTIVATE_REGION_205_NAME"
+msgstr "Palais Mystique de la Terre Épaisse"
+
+#. cultivate_region.csv: 雨林深处的上古遗迹，古藤缠绕，木行灵气与...
+msgid "CULTIVATE_REGION_206_DESC"
+msgstr ""
+"Ruines antiques au cœur de la forêt tropicale, avec des lianes anciennes "
+"entrecroisées, où le Qi spirituel de l'élément Bois et celui de l'élément "
+"Métal se mélangent. Contient des techniques de cultivation anciennes et des "
+"formules d'herbes spirituelles."
+
+#. cultivate_region.csv: 古越遗迹
+msgid "CULTIVATE_REGION_206_NAME"
+msgstr "Ruines de l'Ancien Yue"
+
+#. cultivate_region.csv: 沉没在海中的远古文明遗迹，水行灵气浓郁，...
+msgid "CULTIVATE_REGION_207_DESC"
+msgstr ""
+"Ruines de civilisation antique submergées dans la mer, avec un Qi spirituel "
+"d'élément Eau dense ; les trésors apparaissent occasionnellement lors des "
+"marées."
+
+#. cultivate_region.csv: 沧海遗迹
+msgid "CULTIVATE_REGION_207_NAME"
+msgstr "Ruines de la Mer Ancienne"
+
+#. dynasty.csv: DYNASTY_QIN_NAME
+msgid "DYNASTY_QIN_NAME"
+msgstr "Qin"
+
+#. dynasty.csv: DYNASTY_QIN_DESC
+msgid "DYNASTY_QIN_DESC"
+msgstr ""
+"Honore la loi et la force militaire ; la cour est rigoureusement ordonnée, "
+"et le règne mortel est de fer."
+
+#. dynasty.csv: DYNASTY_JIN_NAME
+msgid "DYNASTY_JIN_NAME"
+msgstr "Jin"
+
+#. dynasty.csv: DYNASTY_JIN_DESC
+msgid "DYNASTY_JIN_DESC"
+msgstr ""
+"Les grands clans se dressent en rangs solennels ; la gentry dédaigne les "
+"discours élevés, et cours et campagne prisent le rite et la réputation."
+
+#. dynasty.csv: DYNASTY_SONG_NAME
+msgid "DYNASTY_SONG_NAME"
+msgstr "Song"
+
+#. dynasty.csv: DYNASTY_SONG_DESC
+msgid "DYNASTY_SONG_DESC"
+msgstr ""
+"Valorise les lettres sur les armes ; ses institutions sont denses et "
+"raffinées, et les académies privées fleurissent parmi le peuple."
+
+#. dynasty.csv: DYNASTY_LIANG_NAME
+msgid "DYNASTY_LIANG_NAME"
+msgstr "Liang"
+
+#. dynasty.csv: DYNASTY_LIANG_DESC
+msgid "DYNASTY_LIANG_DESC"
+msgstr ""
+"La cour est élégante et soignée, l'atmosphère érudite ornée, et sa "
+"gouvernance inclusive mais pleine de calculs subtils."
+
+#. dynasty.csv: DYNASTY_CHU_NAME
+msgid "DYNASTY_CHU_NAME"
+msgstr "Chu"
+
+#. dynasty.csv: DYNASTY_CHU_DESC
+msgid "DYNASTY_CHU_DESC"
+msgstr ""
+"Ses terres sont vastes et les coutumes variées ; des parfums chamantiques "
+"subsistent encore, et de puissantes maisons locales se lèvent le long des "
+"frontières."
+
+#. dynasty.csv: DYNASTY_QI_NAME
+msgid "DYNASTY_QI_NAME"
+msgstr "Qi"
+
+#. dynasty.csv: DYNASTY_QI_DESC
+msgid "DYNASTY_QI_DESC"
+msgstr ""
+"Riche en commerce et artisanat, ouverte à la mer, avec une cour adepte à "
+"collecter les revenus et diriger les ressources."
+
+#. dynasty.csv: DYNASTY_YAN_NAME
+msgid "DYNASTY_YAN_NAME"
+msgstr "Yan"
+
+#. dynasty.csv: DYNASTY_YAN_DESC
+msgid "DYNASTY_YAN_DESC"
+msgstr ""
+"La terre du nord est amèrement froide ; elle honore la défense martiale, et "
+"la cour porte un caractère posé et austère."
+
+#. dynasty.csv: DYNASTY_ZHAO_NAME
+msgid "DYNASTY_ZHAO_NAME"
+msgstr "Zhao"
+
+#. dynasty.csv: DYNASTY_ZHAO_DESC
+msgid "DYNASTY_ZHAO_DESC"
+msgstr ""
+"L'équitation et le tir à l'arc sont coutume commune ; le règne militaire et "
+"civil marchent côte à côte, et l'esprit des frontières court profond."
+
+#. dynasty.csv: DYNASTY_WEI_NAME
+msgid "DYNASTY_WEI_NAME"
+msgstr "Wei"
+
+#. dynasty.csv: DYNASTY_WEI_DESC
+msgid "DYNASTY_WEI_DESC"
+msgstr ""
+"Ses lois sont claires et exigeantes, l'autorité souveraine est forte, et les"
+" cent bureaux se meuvent avec rare efficacité."
+
+#. dynasty.csv: DYNASTY_HAN_NAME
+msgid "DYNASTY_HAN_NAME"
+msgstr "Han"
+
+#. dynasty.csv: DYNASTY_HAN_DESC
+msgid "DYNASTY_HAN_DESC"
+msgstr ""
+"Bien que n'étant pas ostensiblement dominatrice, la dynastie valorise les "
+"affaires pratiques et la gouvernance attentive au niveau local."
+
+#. dynasty.csv: DYNASTY_WU_NAME
+msgid "DYNASTY_WU_NAME"
+msgstr "Wu"
+
+#. dynasty.csv: DYNASTY_WU_DESC
+msgid "DYNASTY_WU_DESC"
+msgstr ""
+"Fleuves et voies navigables sillonnent le royaume, les marchands voyagent "
+"souvent, et la cour excelle à exploiter l'avantage des bateaux et du "
+"transport."
+
+#. dynasty.csv: DYNASTY_YUE_NAME
+msgid "DYNASTY_YUE_NAME"
+msgstr "Yue"
+
+#. dynasty.csv: DYNASTY_YUE_DESC
+msgid "DYNASTY_YUE_DESC"
+msgstr ""
+"Ses montagnes et marais courent profonds, le peuple est tenace, et la cour "
+"excelle à tenir ferme avant de frapper."
+
+#. elixir.csv: 凝聚灵气，辅助练气期修士突破瓶颈的丹药（...
+msgid "ELIXIR_3001_DESC"
+msgstr ""
+"Un élixir qui condense le qi spirituel pour aider les cultivateurs au stade "
+"de Purification du Qi à surmonter les goulots d'étranglement (l'effet dure 5"
+" ans)."
+
+#. elixir.csv: 练气破境丹
+msgid "ELIXIR_3001_NAME"
+msgstr "Élixir de Percée de Purification du Qi"
+
+#. elixir.csv: 蕴含筑基真意，辅助筑基期修士突破瓶颈的灵...
+msgid "ELIXIR_3002_DESC"
+msgstr ""
+"Un élixir spirituel contenant la véritable essence de l'Établissement des "
+"Fondations pour aider les cultivateurs au stade d'Établissement des "
+"Fondations à surmonter les goulots d'étranglement (l'effet dure 5 ans)."
+
+#. elixir.csv: 筑基破境丹
+msgid "ELIXIR_3002_NAME"
+msgstr "Élixir de Percée d'Établissement des Fondations"
+
+#. elixir.csv: 凝结金丹之气，辅助金丹期修士碎丹成婴（药...
+msgid "ELIXIR_3003_DESC"
+msgstr ""
+"Condense le qi de la Formation du Noyau pour aider les cultivateurs au stade"
+" de Formation du Noyau à briser le noyau et former l'âme (l'effet dure 5 "
+"ans)."
+
+#. elixir.csv: 金丹破境丹
+msgid "ELIXIR_3003_NAME"
+msgstr "Élixir de Percée de Formation du Noyau"
+
+#. elixir.csv: 采用凡间珍草炼制，略微延缓衰老（限服一颗...
+msgid "ELIXIR_3005_DESC"
+msgstr "Raffiné à partir d'herbes précieuses mondaines"
+
+#. elixir.csv: 练气长生丹
+msgid "ELIXIR_3005_NAME"
+msgstr "Élixir de Longévité de Purification du Qi"
+
+#. elixir.csv: 取天地灵草炼制，可延寿十载（限服一颗）。...
+msgid "ELIXIR_3006_DESC"
+msgstr "Raffiné à partir d'herbes spirituelles célestes et terrestres"
+
+#. elixir.csv: 筑基长生丹
+msgid "ELIXIR_3006_NAME"
+msgstr "Élixir de Longévité d'Établissement des Fondations"
+
+#. elixir.csv: 夺天地造化，凡人服之立毙，金丹修士服之延...
+msgid "ELIXIR_3007_DESC"
+msgstr ""
+"Vole la création du ciel et de la terre ; les mortels meurent instantanément"
+" à la consommation"
+
+#. elixir.csv: 金丹长生丹
+msgid "ELIXIR_3007_NAME"
+msgstr "Élixir de Longévité de Formation du Noyau"
+
+#. elixir.csv: 蕴含一丝长生之气，元婴老怪以此续命（限服...
+msgid "ELIXIR_3008_DESC"
+msgstr "Contient une trace de qi de longévité"
+
+#. elixir.csv: 元婴长生丹
+msgid "ELIXIR_3008_NAME"
+msgstr "Élixir de Longévité d'Âme Naissante"
+
+#. elixir.csv: 燃烧精血换取短暂爆发。3年内战力提升，但...
+msgid "ELIXIR_3009_DESC"
+msgstr ""
+"Brûle le sang essence en échange d'une brève explosion de pouvoir. La "
+"puissance de combat augmente dans les 3 ans, mais les méridiens sont "
+"endommagés et la puissance de combat diminue dans les 10 ans."
+
+#. elixir.csv: 练气燃血丹
+msgid "ELIXIR_3009_NAME"
+msgstr "Élixir d'Embrasement Sanguin de Purification du Qi"
+
+#. elixir.csv: 激发潜能的猛药。3年内战力大增，但10年...
+msgid "ELIXIR_3010_DESC"
+msgstr ""
+"Un élixir puissant pour stimuler le potentiel. La puissance de combat "
+"augmente fortement dans les 3 ans, mais s'affaiblit dans les 10 ans."
+
+#. elixir.csv: 筑基燃血丹
+msgid "ELIXIR_3010_NAME"
+msgstr "Élixir d'Embrasement Sanguin d'Établissement des Fondations"
+
+#. elixir.csv: 金丹修士拼命时的选择。3年内战力暴涨，但...
+msgid "ELIXIR_3011_DESC"
+msgstr ""
+"Le choix pour les cultivateurs de Formation du Noyau en combat désespéré. La"
+" puissance de combat explose dans les 3 ans, mais blessure grave dans les 10"
+" ans."
+
+#. elixir.csv: 金丹燃血丹
+msgid "ELIXIR_3011_NAME"
+msgstr "Élixir d'Embrasement Sanguin de Formation du Noyau"
+
+#. elixir.csv: 燃烧元婴本源。3年内获得毁天灭地的力量，...
+msgid "ELIXIR_3012_DESC"
+msgstr ""
+"Brûle l'essence de l'Âme Naissante. Acquiert le pouvoir de détruire le ciel "
+"et l'earth dans les 3 ans, mais devient presque un infirme dans les 10 ans."
+
+#. elixir.csv: 元婴燃血丹
+msgid "ELIXIR_3012_NAME"
+msgstr "Élixir d'Embrasement Sanguin d'Âme Naissante"
+
+#. elixir.csv: 普通的疗伤丹药，可恢复练气期修士的伤势（...
+msgid "ELIXIR_3013_DESC"
+msgstr ""
+"Un élixir de guérison ordinaire qui peut restaurer les blessures des "
+"cultivateurs au stade de Purification du Qi (dure 5 ans)."
+
+#. elixir.csv: 练气回春丹
+msgid "ELIXIR_3013_NAME"
+msgstr "Élixir de Renaissance de Purification du Qi"
+
+#. elixir.csv: 药力温和醇厚，能快速愈合筑基期修士的肉身...
+msgid "ELIXIR_3014_DESC"
+msgstr "La puissance médicinale est douce et riche"
+
+#. elixir.csv: 筑基回春丹
+msgid "ELIXIR_3014_NAME"
+msgstr "Élixir de Renaissance d'Établissement des Fondations"
+
+#. elixir.csv: 蕴含生机之力，疗伤圣药（持续5年）。...
+msgid "ELIXIR_3015_DESC"
+msgstr ""
+"Un élixir sacré de guérison contenant le pouvoir de la vitalité (dure 5 "
+"ans)."
+
+#. elixir.csv: 金丹回春丹
+msgid "ELIXIR_3015_NAME"
+msgstr "Élixir de Renaissance de Formation du Noyau"
+
+#. elixir.csv: 蕴含造化生机，肉身修复极快（持续5年）。...
+msgid "ELIXIR_3016_DESC"
+msgstr "Contient la création de la vitalité"
+
+#. elixir.csv: 元婴回春丹
+msgid "ELIXIR_3016_NAME"
+msgstr "Élixir de Renaissance d'Âme Naissante"
+
+msgid "ELIXIR_3017_DESC"
+msgstr ""
+"Raffiné à partir de rosée florale et d'herbes spirituelles, il peut "
+"légèrement améliorer le teint et l'apparence (limité à un élixir)."
+
+msgid "ELIXIR_3017_NAME"
+msgstr "Élixir de Préservation de Beauté de Purification du Qi"
+
+msgid "ELIXIR_3018_DESC"
+msgstr ""
+"Sa nature médicinale est plus stable et peut nourrir la chair, les os et la "
+"vitalité au fil du temps, faisant ressortir l'apparence davantage (limité à "
+"un élixir)."
+
+msgid "ELIXIR_3018_NAME"
+msgstr "Élixir de Préservation de Beauté d'Établissement des Fondations"
+
+msgid "ELIXIR_3019_DESC"
+msgstr ""
+"Infusé d'essence spirituelle de Formation du Noyau, il peut préserver "
+"l'apparence au pic longtemps et empêcher les années d'y laisser des marques "
+"facilement (limité à un élixir)."
+
+msgid "ELIXIR_3019_NAME"
+msgstr "Élixir de Préservation de Beauté de Formation du Noyau"
+
+msgid "ELIXIR_3020_DESC"
+msgstr ""
+"Contient une trace de qi de création ; le prendre peut maintenir l'apparence"
+" comme fixée au moment le plus radieux (limité à un élixir)."
+
+msgid "ELIXIR_3020_NAME"
+msgstr "Élixir de Préservation de Beauté d'Âme Naissante"
+
+#. hidden_domain.csv: 万年前人族大能与炎魔皇同归于尽之地，至今...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
+msgstr ""
+"Lieu où un expert humain et l'Empereur Démon des Flammes ont péri ensemble "
+"il y a dix mille ans. Jusqu'à présent, les veines terrestres crachent encore"
+" le Feu Maléfique Chtonien inextinguible, teintant le ciel de rouge sang. "
+"Enfouis sous la terre calcinée gisent d'innombrables épées et hallebardes "
+"brisées, et à minuit, les âmes de bataille rugissent, rejouant le carnage "
+"tragique du passé. S'entraîner ici exige de supporter la douleur constante "
+"du poison de feu érodant le cœur, mais c'est excellent pour saisir "
+"l'intention de combat antique. Ceux de grand destin pourraient même cueillir"
+" des artefacts fragmentaires laissés par les anciens cultivateurs dans les "
+"profondeurs de la lave ou entrevoir une trace du Grand Tao."
+
+#. hidden_domain.csv: 陨仙焚谷
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_NAME"
+msgstr "Vallée des Immortels Déchus"
+
+#. hidden_domain.csv: 漂浮于九天罡风层之上的宏伟宫殿群，非有大...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_DESC"
+msgstr ""
+"Un magnifique complexe de palais flottant au-dessus de la Couche des Vents "
+"Supérieurs des Neuf Cieux. Seuls ceux d'une grande persévérance peuvent "
+"traverser les fissures spatiales périphériques qui déchirent la chair. "
+"L'intérieur fourmille de restrictions anciennes et de matrices d'illusion "
+"superposées ; un mauvais pas signifie l'annihilation du corps et de l'âme, "
+"perdu à jamais dans le vide. Bien que le Pavillon des Écritures s'soit "
+"effondré au fil du temps, chaque page des livres d'or et des rouleaux de "
+"jade dispersés dans la turbulence du vide enregistre des pouvoirs "
+"surnaturels suprêmes capables de causer un bain de sang dans le monde de la "
+"cultivation. Seuls les cultivateurs de la Cohésion de Noyau d'élite peuvent "
+"à peine résister à la pression des temps anciens pour entrevoir une lueur "
+"d'opportunité d'immortalité."
+
+#. hidden_domain.csv: 九天虚空殿
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_NAME"
+msgstr "Palais du Vide des Neuf Cieux"
+
+#. hidden_domain.csv: 此乃上古丹宗"青帝苑"崩碎后遗落的一角碎...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_DESC"
+msgstr ""
+"Un fragment du Jardin de l'Empereur Azur antique qui s'est brisé il y a des "
+"éons, maintenant perpétuellement enveloppé d'une miasme toxique multicolore."
+" Les lois brisées à l'intérieur causent la croissance effrénée des plantes "
+"spirituelles, avec des vignes démoniaques métamorphes et des fleurs "
+"anthropophages lurking in the shadows. La rumeur veut que si l'on peut "
+"traverser la « Forêt du Silence Morte » extérieure et trouver la « Source "
+"d'Esprit du Bois Azur » au cœur, même l'herbe mortelle peut devenir médecine"
+" immortelle. Cependant, il faut se méfier des bêtes gardiens, perverties par"
+" des millénaires de consommation de résidus de médecine, qui ont soif de "
+"sang frais."
+
+#. hidden_domain.csv: 万木残界
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_NAME"
+msgstr "Reste des Dix Mille Bois"
+
+#. lode.csv: 蕴含玄铁的普通矿脉，常见于浅层地表...
+msgid "LODE_1_DESC"
+msgstr ""
+"Un filon commun contenant du fer noir, souvent trouvé dans les couches de "
+"surface peu profondes"
+
+#. lode.csv: 玄铁矿脉
+msgid "LODE_1_NAME"
+msgstr "Filon de Fer Noir"
+
+#. lode.csv: 深埋地下的赤铜矿脉，周围往往伴生火热之气...
+msgid "LODE_2_DESC"
+msgstr ""
+"Un filon de cuivre rouge enfoui profondément sous terre, souvent accompagné "
+"d'un qi de chaleur ardente"
+
+#. lode.csv: 赤铜矿脉
+msgid "LODE_2_NAME"
+msgstr "Filon de Cuivre Rouge"
+
+#. lode.csv: 极其罕见的秘银富集地，银光闪烁，灵气逼人...
+msgid "LODE_3_DESC"
+msgstr ""
+"Une accumulation d'argent secret extrêmement rare, scintillant de lumière "
+"argentée et débordant de qi spirituel"
+
+#. lode.csv: 秘银矿床
+msgid "LODE_3_NAME"
+msgstr "Gisement d'Argent Secret"
+
+#. lode.csv: 位于绝壁深处的庚金矿脉，开采极为困难，但...
+msgid "LODE_4_DESC"
+msgstr ""
+"Un filon Gengjin situé profondément dans des falaises absolues, extrêmement "
+"difficile à exploiter mais qui vaut une fortune"
+
+#. lode.csv: 庚金矿洞
+msgid "LODE_4_NAME"
+msgstr "Mine Gengjin"
+
+msgid "condition_has_spirit_animal"
+msgstr "Lors de la possession d'un Animal Spirituel"
+
+msgid "condition_level_ge_30"
+msgstr "Quand Niveau >= 30"
+
+msgid "condition_realm_early"
+msgstr "Au stade de Purification du Qi ou d'Établissement des Fondations"
+
+# Celestial Phenomenon
+msgid "condition_realm_high"
+msgstr "Au stade de Transformation Divine ou supérieur"
+
+msgid "condition_realm_late"
+msgstr "Au stade de Formation du Noyau ou d'Âme Naissante"
+
+msgid "condition_realm_low"
+msgstr "Au-dessous du stade de Transformation Divine"
+
+# Personas
+msgid "condition_unarmed"
+msgstr "Quand désarmé"
+
+# Weapons
+msgid "effect_god_slaying_spear_desc"
+msgstr "Augmente la Force de Combat en fonction de la Maîtrise de la Lance"
+
+# Auxiliary
+msgid "effect_ten_thousand_souls_banner_desc"
+msgstr ""
+"Dévorer les mortels de la ville pour rassembler les âmes ; accorde une Force"
+" de Combat progressive jusqu'à +8"
+
+#. material.csv: 普通的黑色铁矿，质地坚硬，适合打造练气期...
+msgid "MATERIAL_101_DESC"
+msgstr ""
+"Minerai de fer noir commun, texture dure, adapté à la confection d'artefacts"
+" de stade Affinage du Qi"
+
+#. material.csv: 玄铁
+msgid "MATERIAL_101_NAME"
+msgstr "Fer Noir Mystique"
+
+#. material.csv: 通体赤红的铜矿，蕴含火灵之力，是筑基期炼...
+msgid "MATERIAL_102_DESC"
+msgstr ""
+"Minerai de cuivre rouge écarlate, contenant la puissance de l'Esprit de Feu,"
+" matériau courant pour l'affinage d'artefacts du stade Établissement de Base"
+
+#. material.csv: 赤精铜
+msgid "MATERIAL_102_NAME"
+msgstr "Cuivre Essence Écarlate"
+
+#. material.csv: 银白色的稀有金属，延展性极佳且能传导灵力...
+msgid "MATERIAL_103_DESC"
+msgstr ""
+"Métal rare argent-blanc, ductilité excellente et peut conduire la puissance "
+"spirituelle, adapté aux artefacts du stade Formation du Cœur"
+
+#. material.csv: 秘银
+msgid "MATERIAL_103_NAME"
+msgstr "Mithril"
+
+#. material.csv: 锐气逼人的金色矿石，坚不可摧，乃是元婴期...
+msgid "MATERIAL_104_DESC"
+msgstr ""
+"Minerai doré à l'énergie tranchante, indestructible, matériau suprême pour "
+"l'affinage d'artefacts du stade Âme Naissante"
+
+#. material.csv: 庚金
+msgid "MATERIAL_104_NAME"
+msgstr "Or Cosmique"
+
+#. material.csv: 奇草提炼的精华，具有神奇的治愈效果...
+msgid "MATERIAL_10_DESC"
+msgstr ""
+"Essence extraite d'herbes étranges, possédant des effets curatifs magiques"
+
+#. material.csv: 奇草精华
+msgid "MATERIAL_10_NAME"
+msgstr "Essence d'Herbe Étrange"
+
+#. material.csv: 灵木的珍贵木心，蕴含浓郁灵力，是制作法器...
+msgid "MATERIAL_11_DESC"
+msgstr ""
+"Cœur précieux du bois spirituel, contenant une puissance spirituelle dense, "
+"matériau principal pour la confection d'artefacts"
+
+#. material.csv: 灵木心
+msgid "MATERIAL_11_NAME"
+msgstr "Cœur du Bois Spirituel"
+
+#. material.csv: 沙漠仙人掌的灵药刻刺，能解百毒，制成针剂...
+msgid "MATERIAL_12_DESC"
+msgstr ""
+"Épine médicinale spirituelle du cactus du désert, peut neutraliser cent "
+"poisons, effets remarquables quand préparé en injection"
+
+#. material.csv: 仙人掌刺
+msgid "MATERIAL_12_NAME"
+msgstr "Épine de Cactus"
+
+#. material.csv: 寒霜雪莲的洁白花瓣，蕴含极寒之气，是寒性...
+msgid "MATERIAL_13_DESC"
+msgstr ""
+"Pétale blanc pur du Lotus des Neiges Givrées, contenant le Qi du froid "
+"extrême, meilleur choix pour les matériaux de médecine à attribut froid"
+
+#. material.csv: 雪莲花瓣
+msgid "MATERIAL_13_NAME"
+msgstr "Pétale du Lotus des Neiges"
+
+#. material.csv: 水灵芝的蓝色孢子，能增强水行修炼者的灵力...
+msgid "MATERIAL_14_DESC"
+msgstr ""
+"Spore bleue du Lingzhi Aquatique, peut renforcer la circulation de la "
+"puissance spirituelle chez les praticiens de l'élément Eau"
+
+#. material.csv: 灵芝孢子
+msgid "MATERIAL_14_NAME"
+msgstr "Spore de Lingzhi"
+
+#. material.csv: 雪绒花的纯白花蕊，具有安神镇静功效，是冥...
+msgid "MATERIAL_15_DESC"
+msgstr ""
+"Étamine blanc pur de la Fleur Floconneuse, avec des effets de calme et "
+"sédation, matériau médicinal idéal pour l'assistance à la méditation"
+
+#. material.csv: 雪绒花蕊
+msgid "MATERIAL_15_NAME"
+msgstr "Étamine de Fleur Floconneuse"
+
+#. material.csv: 千年古松的珍贵松脂，晶莹如琥珀，蕴含浓郁...
+msgid "MATERIAL_16_DESC"
+msgstr ""
+"Résine précieuse du pin ancien millénaire, cristalline comme l'ambre, "
+"contenant une puissance spirituelle dense, matériau rare pour l'affinage "
+"d'artefacts de haut niveau"
+
+#. material.csv: 古松松脂
+msgid "MATERIAL_16_NAME"
+msgstr "Résine du Pin Ancien"
+
+#. material.csv: 五谷灵稻提炼的精华，能快速强化体质，是体...
+msgid "MATERIAL_17_DESC"
+msgstr ""
+"Essence extraite du riz spirituel des cinq grains, peut rapidement fortifier"
+" la constitution, ingrédient principal pour les pilules de culture du corps"
+
+#. material.csv: 灵稻精华
+msgid "MATERIAL_17_NAME"
+msgstr "Essence du Riz Spirituel"
+
+#. material.csv: 撼地神牛的独角，蕴含厚重的大地之力，是炼...
+msgid "MATERIAL_18_DESC"
+msgstr ""
+"Corne unique du Bœuf Divin qui Secoue la Terre, contenant la puissance "
+"épaisse de la Terre, matériau suprême pour l'affinage d'artefacts lourds et "
+"de matrices de défense"
+
+#. material.csv: 神牛角
+msgid "MATERIAL_18_NAME"
+msgstr "Corne du Bœuf Divin"
+
+#. material.csv: 九曲清音竹中最精华的一节，敲击时能发出安...
+msgid "MATERIAL_19_DESC"
+msgstr ""
+"Nœud le plus essentiel du Bambou Qingyin aux Neuf Courbes, émettant un son "
+"clair apaisant lorsqu'on le frappe, excellent matériau pour la confection "
+"d'artefacts à onde sonore"
+
+#. material.csv: 清音竹节
+msgid "MATERIAL_19_NAME"
+msgstr "Nœud de Bambou Qingyin"
+
+#. material.csv: 灵性充沛的兔子细毛，质地柔软温暖，适合编...
+msgid "MATERIAL_1_DESC"
+msgstr ""
+"Fin pelage du lapin débordant de spiritualité, texture douce et chaude, "
+"adapté à la confection de vêtements isolants au froid"
+
+#. material.csv: 灵兔毛
+msgid "MATERIAL_1_NAME"
+msgstr "Pelage du Lapin Spirituel"
+
+#. material.csv: 冰魄骨蛇的内丹所在，虽为极寒之物，但吞服...
+msgid "MATERIAL_20_DESC"
+msgstr ""
+"Siège de la perle intérieure du Serpent aux Os Glacés, bien qu'objet d'un "
+"froid extrême, l'avaler renforce grandement l'affinité d'un cultivateur pour"
+" le Qi froid, trésor pour la pratique des techniques de système froid"
+
+#. material.csv: 冰魄蛇胆
+msgid "MATERIAL_20_NAME"
+msgstr "Fiel du Serpent aux Os Glacés"
+
+#. material.csv: 叶面上天生带有星辰纹路的草叶，蕴含纯净的...
+msgid "MATERIAL_21_DESC"
+msgstr ""
+"Feuille d'herbe portant naturellement des motifs d'astres à sa surface, "
+"contenant la puissance stellaire pure, matériau principal pour l'affinage de"
+" pilules à attribut étoile"
+
+#. material.csv: 星纹叶
+msgid "MATERIAL_21_NAME"
+msgstr "Feuille aux Motifs Stellaires"
+
+#. material.csv: 涅盘赤果的果核，即便果肉枯萎，核心仍锁有...
+msgid "MATERIAL_22_DESC"
+msgstr ""
+"Noyau du Fruit Rouge Nirvana ; même si la chair se fane, le cœur verrouille "
+"toujours une trace de force vitale indestructible, clé pour l'affinage de "
+"pilules de longévité et de médecine curative suprême"
+
+#. material.csv: 赤果核
+msgid "MATERIAL_22_NAME"
+msgstr "Noyau du Fruit Rouge"
+
+#. material.csv: 凶猛魔狼的锋利狼牙，蕴含魔力，是锻造利器...
+msgid "MATERIAL_2_DESC"
+msgstr ""
+"Croc tranchant du Loup Démoniaque féroce, contenant la puissance démoniaque,"
+" matériau précieux pour forger des armes aiguisées"
+
+#. material.csv: 魔狼牙
+msgid "MATERIAL_2_NAME"
+msgstr "Croc du Loup Démoniaque"
+
+#. material.csv: 青云鹿的羼玉之角，蕴含清灵之气，是炼丹的...
+msgid "MATERIAL_3_DESC"
+msgstr ""
+"Andouille ressemblant à du jade du Cerf des Nuages Clairs, contenant le Qi "
+"spirituel clair, matériau médicinal supérieur pour l'alchimie"
+
+#. material.csv: 青云鹿角
+msgid "MATERIAL_3_NAME"
+msgstr "Andouille du Cerf des Nuages Clairs"
+
+#. material.csv: 暗影豹的锋利爪子，轻盈而德，能增强武器的...
+msgid "MATERIAL_4_DESC"
+msgstr ""
+"Griffe tranchante du Léopard d'Ombre, légère et agile, peut renforcer "
+"l'agilité de l'arme"
+
+#. material.csv: 暗影豹爪
+msgid "MATERIAL_4_NAME"
+msgstr "Griffe du Léopard d'Ombre"
+
+#. material.csv: 碧海龙龟的古老甲片，坚不可摧，蕴含海洋灵...
+msgid "MATERIAL_5_DESC"
+msgstr ""
+"Plaque d'écaille ancienne de la Tortue Dragon de l'Azur Marin, "
+"indestructible, contenant la puissance spirituelle océanique, matériau "
+"suprême pour l'armure"
+
+#. material.csv: 龙龟甲片
+msgid "MATERIAL_5_NAME"
+msgstr "Plaque d'Écaille de Tortue Dragon"
+
+#. material.csv: 石甲山熊的珍贵熊胆，能增强体质和力量，是...
+msgid "MATERIAL_6_DESC"
+msgstr ""
+"Fiel précieux de l'Ours des Montagnes au Blindage Pierreux, peut renforcer "
+"la constitution et la force, matériau médicinal précieux pour les praticiens"
+" de culture du corps"
+
+#. material.csv: 山熊胆
+msgid "MATERIAL_6_NAME"
+msgstr "Fiel de l'Ours des Montagnes"
+
+#. material.csv: 风速马的飘逸鬃毛，轻如风羽，能用于炼制速...
+msgid "MATERIAL_7_DESC"
+msgstr ""
+"Crinière flottante du Cheval Vitesse du Vent, légère comme une plume de "
+"vent, peut être utilisée pour l'affinage d'artefacts de type rapidité"
+
+#. material.csv: 风速马鬃
+msgid "MATERIAL_7_NAME"
+msgstr "Crinière du Cheval Vitesse du Vent"
+
+#. material.csv: 熔岩蜥蜴的赤红鳞片，耐高温且蕴含火系灵力...
+msgid "MATERIAL_8_DESC"
+msgstr ""
+"Écaille rouge du Lézard de Lave, résistant aux hautes températures et "
+"contenant la puissance spirituelle d'élément Feu, matériau principal pour "
+"les artefacts à attribut feu"
+
+#. material.csv: 熔岩鳞片
+msgid "MATERIAL_8_NAME"
+msgstr "Écaille de Lave"
+
+#. material.csv: 毒瘴蛙的毒素囊袋，内含剧毒，是炼制毒类丹...
+msgid "MATERIAL_9_DESC"
+msgstr ""
+"Sac à toxines de la Grenouille Miasme Toxique, contenant du poison mortel, "
+"matériau rare pour l'affinage de pilules toxiques"
+
+#. material.csv: 毒瘴囊
+msgid "MATERIAL_9_NAME"
+msgstr "Sac du Miasme Toxique"
+
+#. normal_region.csv: 位于大陆中部，地势平坦，灵气平和。是初学...
+msgid "NORMAL_REGION_101_DESC"
+msgstr ""
+"Situé au centre du continent, avec un terrain plat et un qi spirituel "
+"paisible. Un lieu idéal pour que les débutants établissent des fondations et"
+" fondent des sectes."
+
+#. normal_region.csv: 平原地带
+msgid "NORMAL_REGION_101_NAME"
+msgstr "Région des Plaines"
+
+#. normal_region.csv: 位于大陆极西，茫茫大漠，黄沙漫天。此地气...
+msgid "NORMAL_REGION_102_DESC"
+msgstr ""
+"Situé à l'extrême ouest du continent, un vaste désert avec le sable jaune "
+"remplissant le ciel. Le climat est aride avec une énorme différence de "
+"température entre le jour et la nuit, une route obligatoire pour les "
+"caravanes du désert."
+
+#. normal_region.csv: 西域流沙
+msgid "NORMAL_REGION_102_NAME"
+msgstr "Sables Mouvants de l'Ouest"
+
+#. normal_region.csv: 位于大陆西南，古木参天，藤蔓缠绕。此地森...
+msgid "NORMAL_REGION_103_DESC"
+msgstr ""
+"Situé au sud-ouest du continent, avec des arbres anciens atteignant le ciel "
+"et des vignes s'entrelaçant. La forêt est dense avec de nombreuses bêtes "
+"sauvages, un lieu dangereux pour la cueillette d'herbes médicinales et la "
+"chasse."
+
+#. normal_region.csv: 南疆蛮荒
+msgid "NORMAL_REGION_103_NAME"
+msgstr "Terres Sauvages du Sud"
+
+#. normal_region.csv: 位于大陆极北，千里冰封，万年不化。此地严...
+msgid "NORMAL_REGION_104_DESC"
+msgstr ""
+"Situé à l'extrême nord du continent, gelé sur des milliers de li et immuable"
+" depuis dix mille ans. Il fait un froid glacial avec vent et neige ; seuls "
+"les aventuriers les plus résilients peuvent survivre ici."
+
+#. normal_region.csv: 极北冰原
+msgid "NORMAL_REGION_104_NAME"
+msgstr "Plaine Glacière du Far Nord"
+
+#. normal_region.csv: 位于大陆极东，浩瀚无垠，波涛汹涌。此地风...
+msgid "NORMAL_REGION_105_DESC"
+msgstr ""
+"Situé à l'extrême est du continent, vaste et sans limites avec des vagues "
+"déferlantes. Le vent et les vagues sont traîtres avec des récifs cachés ; "
+"c'est une mer de défis pour les marchands et pêcheurs maritimes."
+
+#. normal_region.csv: 无边碧海
+msgid "NORMAL_REGION_105_NAME"
+msgstr "Mer d'Azur sans Limites"
+
+#. normal_region.csv: 横贯大陆东西，一江春水向东流，奔腾不息入...
+msgid "NORMAL_REGION_106_DESC"
+msgstr ""
+"Traverse le continent d'est en ouest, un fleuve d'eau de printemps coulant "
+"vers l'est, se précipitant sans fin vers la Mer de l'Est. Ce fleuve traverse"
+" l'est et l'ouest avec un flux rapide, servant de route de transport "
+"importante."
+
+#. normal_region.csv: 天河奔流
+msgid "NORMAL_REGION_106_NAME"
+msgstr "Fleuve Céleste Tumultueux"
+
+#. normal_region.csv: 位于大陆东部，连绵起伏，直插云霄。此地山...
+msgid "NORMAL_REGION_107_DESC"
+msgstr ""
+"Situé à l'est du continent, ondulant et perçant les nuages. Les montagnes "
+"sont escarpées avec de nombreuses pierres étranges et grottes, un lieu "
+"populaire pour que les aventuriers trouvent des trésors."
+
+#. normal_region.csv: 青峰山脉
+msgid "NORMAL_REGION_107_NAME"
+msgstr "Chaîne Montagneuse Qingfeng"
+
+#. normal_region.csv: 位于大陆西北，雪峰皑皑，寒风刺骨。此地终...
+msgid "NORMAL_REGION_108_DESC"
+msgstr ""
+"Situé au nord-ouest du continent, avec des pics enneigés et des vents "
+"glaciaux. Recouvert de neige toute l'année avec des sentiers montagneux "
+"accidentés, le défi ultime pour les grimpeurs."
+
+#. normal_region.csv: 万丈雪峰
+msgid "NORMAL_REGION_108_NAME"
+msgstr "Pic de Neige des Dix Mille Zhangs"
+
+#. normal_region.csv: 位于大陆西部，芳草萋萋，一望无际。此地水...
+msgid "NORMAL_REGION_109_DESC"
+msgstr ""
+"Situé à l'ouest du continent, avec de l'herbe luxuriante s'étendant aussi "
+"loin que l'œil peut voir. L'eau et l'herbe abondent avec des troupeaux de "
+"bétail et de moutons, un pâturage naturel pour les peuples nomades."
+
+#. normal_region.csv: 碧野千里
+msgid "NORMAL_REGION_109_NAME"
+msgstr "Mille Li de Champs Verts"
+
+#. normal_region.csv: 位于大陆中部，古树参天，绿意盎然。此地森...
+msgid "NORMAL_REGION_110_DESC"
+msgstr ""
+"Situé au centre du continent, avec des arbres anciens atteignant le ciel et "
+"une verdure vibrante. La forêt est vaste et riche en ressources, une zone "
+"d'activité principale pour les bûcherons et chasseurs."
+
+#. normal_region.csv: 青云林海
+msgid "NORMAL_REGION_110_NAME"
+msgstr "Mer Forestière de Qingyun"
+
+#. normal_region.csv: 位于大陆东北，烈焰冲天，岩浆奔流。此地火...
+msgid "NORMAL_REGION_111_DESC"
+msgstr ""
+"Situé au nord-est du continent, avec des flammes atteignant le ciel et de la"
+" lave coulant. Le volcan est actif avec une énergie géothermique abondante, "
+"un lieu idéal pour les forgerons, mais aussi extrêmement dangereux."
+
+#. normal_region.csv: 炎狱火山
+msgid "NORMAL_REGION_111_NAME"
+msgstr "Volcan de l'Enfer Flamboyant"
+
+#. normal_region.csv: 位于大陆东部，土地肥沃，五谷丰登。此地土...
+msgid "NORMAL_REGION_112_DESC"
+msgstr ""
+"Situé à l'est du continent, avec une terre fertile et des récoltes "
+"abondantes. Le sol est profond et la pluie abondante, une terre de trésor "
+"doré pour que les agriculteurs cultivent."
+
+#. normal_region.csv: 沃土良田
+msgid "NORMAL_REGION_112_NAME"
+msgstr "Terres Cultivables Fertiles"
+
+#. normal_region.csv: 位于大陆正南，终年被五色瘴气笼罩，毒虫遍...
+msgid "NORMAL_REGION_113_DESC"
+msgstr ""
+"Situé au sud du continent, enveloppé dans un miasme de cinq couleurs toute "
+"l'année avec des insectes venimeux partout. Les mortels se dissolvent en os "
+"à l'entrée ; seuls ceux pratiquant des techniques venimeuses considèrent "
+"cela comme une grotte-ciel suprême."
+
+#. normal_region.csv: 幽冥毒泽
+msgid "NORMAL_REGION_113_NAME"
+msgstr "Marais Vénéneux de l'Ombre"
+
+#. normal_region.csv: 位于大陆南部，苍茫群山连绵不绝，乃是妖族...
+msgid "NORMAL_REGION_114_DESC"
+msgstr ""
+"Situé au sud du continent, de vastes montagnes s'étendant sans fin, la terre"
+" ancestrale de la tribu Yao. Les montagnes sont escarpées et les routes sont"
+" difficiles à traverser."
+
+#. normal_region.csv: 十万大山
+msgid "NORMAL_REGION_114_NAME"
+msgstr "Cent Mille Grandes Montagnes"
+
+#. normal_region.csv: 位于大陆中北，紫竹成林，灵气清冽。风过林...
+msgid "NORMAL_REGION_115_DESC"
+msgstr ""
+"Situé au centre-nord du continent, avec du bambou violet formant des forêts "
+"et un qi spirituel limpide. Le vent à travers la forêt sonne comme de la "
+"musique immortelle ; la cultivation silencieuse ici peut purifier les démons"
+" du cœur et comprendre le Dao du ciel et de la terre."
+
+#. normal_region.csv: 紫竹幽境
+msgid "NORMAL_REGION_115_NAME"
+msgstr "Royaume Reculé du Bambou Violet"
+
+#. normal_region.csv: 位于大陆东北，寸草不生，冻土千尺。此地生...
+msgid "NORMAL_REGION_116_DESC"
+msgstr ""
+"Situé au nord-est du continent, où aucune herbe ne pousse et le permafrost "
+"est mille pieds de profondeur. La vie est éteinte ici, mais il contient le "
+"qi spirituel du froid ultime, avec de la glace profonde de dix mille ans "
+"apparaissant occasionnellement."
+
+#. normal_region.csv: 凛霜荒原
+msgid "NORMAL_REGION_116_NAME"
+msgstr "Steppe Aride du Givre Glacial"
+
+#. normal_region.csv: 位于大陆西南，飞沙走石，狂风如刀。传说曾...
+msgid "NORMAL_REGION_117_DESC"
+msgstr ""
+"Situé au sud-ouest du continent, avec du sable volant et des pierres et du "
+"vent aussi tranchant qu'un couteau. La légende dit que les étoiles sont "
+"tombées ici autrefois, et la puissance des étoiles violente et le fer "
+"météoritique extraterrestre restent."
+
+#. normal_region.csv: 碎星戈壁
+msgid "NORMAL_REGION_117_NAME"
+msgstr "Désert des Étoiles Brisées"
+
+#. normal_region.csv: 位于极东海外，孤悬海外，云雾缭绕。岛上灵...
+msgid "NORMAL_REGION_118_DESC"
+msgstr ""
+"Situé à l'est extrême des mers, suspendu seul en mer et enveloppé dans les "
+"nuages. Les sources spirituelles jaillissent sur l'île, avec des fleurs "
+"étranges et des herbes partout, et la densité du qi spirituel dépassant de "
+"loin le continent, un lieu désiré par les cultivateurs errants d'outre-mer."
+
+#. normal_region.csv: 蓬莱遗岛
+msgid "NORMAL_REGION_118_NAME"
+msgstr "Île Perdue de Penglai"
+
+msgid "ORTHODOXY_BUDDHISM_DESC"
+msgstr ""
+"Sauver tous les êtres sensibles et améliorer le domaine de cultivation par "
+"la méditation et l'illumination soudaine."
+
+# Buddhism
+msgid "ORTHODOXY_BUDDHISM_NAME"
+msgstr "Bouddhisme"
+
+msgid "ORTHODOXY_CONFUCIANISM_DESC"
+msgstr ""
+"Éduquer le peuple commun, cultiver l'Esprit Noble (Haoran Qi) et le domaine "
+"augmentera en conséquence."
+
+# Confucianism
+msgid "ORTHODOXY_CONFUCIANISM_NAME"
+msgstr "Confucianisme"
+
+msgid "ORTHODOXY_DAO_DESC"
+msgstr ""
+"Conformer à la Voie Céleste, respirer l'énergie spirituelle (Qi) et "
+"améliorer le domaine de cultivation par la pratique."
+
+# Dao (Daoism)
+msgid "ORTHODOXY_DAO_NAME"
+msgstr "Dao"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr ""
+"Prendre le Ciel et la Terre comme maître, suivre la Voie de la Nature."
+
+# Nature (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "Nature"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr ""
+"Entrer dans la Dao par les arts martiaux et le Tempérage du Corps. Bien que "
+"les progrès soient lents, la fondation est solide, et briser les goulets "
+"d'étranglement se fait aussi naturellement que manger et boire."
+
+# Martial (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "Martial"
+
+msgid "Orthodoxy [{name}]"
+msgstr "Orthodoxie [{name}]"
+
+#. persona.csv: 沉迷玩乐，不思进取。...
+msgid "PERSONA_1001_DESC"
+msgstr "Se livrer aux plaisirs, sans ambition d'avancer."
+
+#. persona.csv: 贪玩
+msgid "PERSONA_1001_NAME"
+msgstr "Ludique"
+
+#. persona.csv: 嗜书如命。...
+msgid "PERSONA_1002_DESC"
+msgstr "Attaché aux livres comme à la vie elle-même."
+
+#. persona.csv: 书痴
+msgid "PERSONA_1002_NAME"
+msgstr "Féru de Littérature"
+
+#. persona.csv: 宁可三日无食，不可一日无茶。...
+msgid "PERSONA_1003_DESC"
+msgstr "Préfère trois jours sans manger plutôt qu'un jour sans thé."
+
+#. persona.csv: 茶痴
+msgid "PERSONA_1003_NAME"
+msgstr "Aficionado du Thé"
+
+#. persona.csv: 善抚琴。...
+msgid "PERSONA_1004_DESC"
+msgstr "Maître dans l'art de jouer du cithare."
+
+#. persona.csv: 琴师
+msgid "PERSONA_1004_NAME"
+msgstr "Musicien du Cithare"
+
+#. persona.csv: 读万卷书不如行万里路。...
+msgid "PERSONA_1005_DESC"
+msgstr "Voyager dix mille lieues vaut mieux que lire dix mille livres."
+
+#. persona.csv: 游历者
+msgid "PERSONA_1005_NAME"
+msgstr "Voyageur"
+
+#. persona.csv: 善弈者长生。...
+msgid "PERSONA_1006_DESC"
+msgstr "Les grands joueurs d'échecs vivent longtemps."
+
+#. persona.csv: 棋痴
+msgid "PERSONA_1006_NAME"
+msgstr "Passionné d'Échecs"
+
+#. persona.csv: 你总是会珍惜自己的生命，不会轻易冒险。...
+msgid "PERSONA_10_DESC"
+msgstr "Tu chéris toujours ta vie et n'acceptes pas les risques inutiles."
+
+#. persona.csv: 惜命
+msgid "PERSONA_10_NAME"
+msgstr "Qui Chérit la Vie"
+
+#. persona.csv: 你重视同伴与和谐，乐于助人。...
+msgid "PERSONA_11_DESC"
+msgstr "Tu valorises tes compagnons et l'harmonie, toujours prêt à aider."
+
+#. persona.csv: 友爱
+msgid "PERSONA_11_NAME"
+msgstr "Affectueux"
+
+#. persona.csv: 你绝不轻易放下仇怨，为了复仇愿意付出代价...
+msgid "PERSONA_12_DESC"
+msgstr ""
+"Tu ne laisses jamais tomber une rancune et serais prêt à payer le prix et le"
+" temps pour la vengeance."
+
+#. persona.csv: 复仇
+msgid "PERSONA_12_NAME"
+msgstr "Vengeur"
+
+#. persona.csv: 你喜欢独处，避免与人深交。...
+msgid "PERSONA_13_DESC"
+msgstr "Tu préfères la solitude et évites les liens profonds avec autrui."
+
+#. persona.csv: 孤僻
+msgid "PERSONA_13_NAME"
+msgstr "Solitaire"
+
+#. persona.csv: 你情感克制，对外界冷静疏离。...
+msgid "PERSONA_14_DESC"
+msgstr "Tes émotions sont réservées, tu restes calme et distant du monde."
+
+#. persona.csv: 淡漠
+msgid "PERSONA_14_NAME"
+msgstr "Indifférent"
+
+#. persona.csv: 你直面冲突，偏好以力量与对抗解决问题。...
+msgid "PERSONA_15_DESC"
+msgstr ""
+"Tu affrontes les conflits de front, préférant la force et la confrontation "
+"pour résoudre les problèmes."
+
+#. persona.csv: 好斗
+msgid "PERSONA_15_NAME"
+msgstr "Belliqueux"
+
+#. persona.csv: 你行事冲动、少考虑后果，常凭直觉立刻行动...
+msgid "PERSONA_16_DESC"
+msgstr "Tu agis impulsivement sans réfléchir aux conséquences."
+
+#. persona.csv: 鲁莽
+msgid "PERSONA_16_NAME"
+msgstr "Audacieux"
+
+#. persona.csv: 你谨小慎微，容易畏惧风险。...
+msgid "PERSONA_17_DESC"
+msgstr "Tu es prudent et minutieux, effrayer facilement par les risques."
+
+#. persona.csv: 胆小
+msgid "PERSONA_17_NAME"
+msgstr "Pusillanime"
+
+#. persona.csv: 你行事强势，不讲道理，习惯以自己的利益为...
+msgid "PERSONA_18_DESC"
+msgstr ""
+"Tu agis de manière despotique et déraisonnable, privilégiant tes intérêts "
+"personnels."
+
+#. persona.csv: 霸道
+msgid "PERSONA_18_NAME"
+msgstr "Tyrannique"
+
+#. persona.csv: 你将绝大多数时间用于修炼，厌恶享乐。...
+msgid "PERSONA_19_DESC"
+msgstr ""
+"Tu consacres la majorité de ton temps à la cultivation, rejetant les "
+"plaisirs."
+
+#. persona.csv: 修行痴迷
+msgid "PERSONA_19_NAME"
+msgstr "Obsédé par la Cultivation"
+
+#. persona.csv: 你总是会用逻辑来思考问题，做事会谋定而后...
+msgid "PERSONA_1_DESC"
+msgstr ""
+"Tu penses toujours avec logique et n'agis qu'après une réflexion minutieuse."
+
+#. persona.csv: 理性
+msgid "PERSONA_1_NAME"
+msgstr "Rationnel"
+
+#. persona.csv: 目标飘忽不定，不会长期坚持一个目标。...
+msgid "PERSONA_2_DESC"
+msgstr ""
+"Tes objectifs sont instables ; tu n'adhères pas longtemps à un même but."
+
+#. persona.csv: 无常
+msgid "PERSONA_2_NAME"
+msgstr "Inconstant"
+
+#. persona.csv: 你更享受独处与自我思考，倾向回避不必要的...
+msgid "PERSONA_20_DESC"
+msgstr "Tu aimes davantage la solitude et l'introspection."
+
+#. persona.csv: 内向
+msgid "PERSONA_20_NAME"
+msgstr "Introverti"
+
+#. persona.csv: 你乐于与人交流，主动结识伙伴。...
+msgid "PERSONA_21_DESC"
+msgstr ""
+"Tu aimes communiquer avec autrui et tisses proactivement des liens amicaux."
+
+#. persona.csv: 外向
+msgid "PERSONA_21_NAME"
+msgstr "Extraverti"
+
+#. persona.csv: 你在对话中倾向以讽刺、嘲弄、挖苦的方式表...
+msgid "PERSONA_22_DESC"
+msgstr ""
+"En conversation, tu t'exprimes par l'ironie, la moquerie et le sarcasme."
+
+#. persona.csv: 刻薄
+msgid "PERSONA_22_NAME"
+msgstr "Acide"
+
+#. persona.csv: 你待人友好、积极回应，倾向用鼓励与赞美拉...
+msgid "PERSONA_23_DESC"
+msgstr "Tu es bienveillant envers autrui et y réponds positivement."
+
+#. persona.csv: 热情
+msgid "PERSONA_23_NAME"
+msgstr "Enthousiaste"
+
+#. persona.csv: 你对邪恶深恶痛绝，对正义的理想抱有近乎偏...
+msgid "PERSONA_24_DESC"
+msgstr "Tu abhorres le mal profondément."
+
+#. persona.csv: 极端正义
+msgid "PERSONA_24_NAME"
+msgstr "Vertueusement Extrême"
+
+#. persona.csv: 你推崇权力与恐惧，为达目的不择手段。...
+msgid "PERSONA_25_DESC"
+msgstr ""
+"Tu fais l'apologie du pouvoir et de la peur, prêt à tout pour atteindre tes "
+"buts."
+
+#. persona.csv: 极端邪恶
+msgid "PERSONA_25_NAME"
+msgstr "Maléfiquement Extrême"
+
+#. persona.csv: 你对待和他人结为道侣或者双修比较随意...
+msgid "PERSONA_26_DESC"
+msgstr ""
+"Tu es relativement désinvolte concernant la formation de liens de "
+"cultivation avec autrui."
+
+#. persona.csv: 开放
+msgid "PERSONA_26_NAME"
+msgstr "Ouvert"
+
+#. persona.csv: 你对待和他人结为道侣或者双修比较谨慎...
+msgid "PERSONA_27_DESC"
+msgstr ""
+"Tu es relativement prudent concernant la formation de liens de cultivation "
+"avec autrui."
+
+#. persona.csv: 腼腆
+msgid "PERSONA_27_NAME"
+msgstr "Timide"
+
+#. persona.csv: 你对异性中外貌出众者格外友善。...
+msgid "PERSONA_28_DESC"
+msgstr ""
+"Tu es exceptionnellement bienveillant envers ceux du sexe opposé d'apparence"
+" remarquable."
+
+#. persona.csv: 舔狗
+msgid "PERSONA_28_NAME"
+msgstr "Courtisan"
+
+#. persona.csv: 你对远超于你的人容易产生敌意。...
+msgid "PERSONA_29_DESC"
+msgstr ""
+"Tu développes facilement de l'hostilité envers ceux qui te surpassent."
+
+#. persona.csv: 嫉妒
+msgid "PERSONA_29_NAME"
+msgstr "Jaloux"
+
+#. persona.csv: 你来自现代社会，怀念现代社会的一切。...
+msgid "PERSONA_30_DESC"
+msgstr "Tu viens de la société moderne et tu la regrettes."
+
+#. persona.csv: 穿越者
+msgid "PERSONA_30_NAME"
+msgstr "Voyageur Transdimensionnel"
+
+#. persona.csv: 天生气运加身，更易遇到奇遇。...
+msgid "PERSONA_31_DESC"
+msgstr ""
+"Naturellement béni par la fortune, tu rencontres plus facilement de "
+"heureuses surprises."
+
+#. persona.csv: 气运之子
+msgid "PERSONA_31_NAME"
+msgstr "Enfant de la Fortune"
+
+#. persona.csv: 以剑入道，剑即是命。你认为剑道至上。...
+msgid "PERSONA_32_DESC"
+msgstr "Entre dans le Dao par l'épée, l'épée est ta vie."
+
+#. persona.csv: 剑痴
+msgid "PERSONA_32_NAME"
+msgstr "Fanatique de l'Épée"
+
+#. persona.csv: 深藏不露，行事谨慎，善于算计。...
+msgid "PERSONA_33_DESC"
+msgstr "Tu caches ton vrai moi, agis prudemment et es doué pour la stratégie."
+
+#. persona.csv: 心机深沉
+msgid "PERSONA_33_NAME"
+msgstr "Manipulateur"
+
+#. persona.csv: 重承诺守信义，对认定的人绝不背叛。...
+msgid "PERSONA_34_DESC"
+msgstr ""
+"Tu valorises les promesses et l'intégrité, ne trahissant jamais ceux que tu "
+"as acceptés."
+
+#. persona.csv: 忠诚
+msgid "PERSONA_34_NAME"
+msgstr "Loyal"
+
+#. persona.csv: 行事果决狠辣，不留后患，斩草必除根。...
+msgid "PERSONA_35_DESC"
+msgstr "Tu agis avec détermination et sans pitié, éradiquant toute menace."
+
+#. persona.csv: 狠辣
+msgid "PERSONA_35_NAME"
+msgstr "Impitoyable"
+
+#. persona.csv: 经历过一世，对未来有模糊预知。...
+msgid "PERSONA_36_DESC"
+msgstr ""
+"Ayant connu une vie antérieure, tu as une prescience vague de l'avenir."
+
+#. persona.csv: 重生者
+msgid "PERSONA_36_NAME"
+msgstr "Réincarné"
+
+#. persona.csv: 对任何人都保持怀疑，不轻易信任。...
+msgid "PERSONA_37_DESC"
+msgstr ""
+"Tu maintiens une suspicion envers tous, ne faisant pas facilement confiance."
+
+#. persona.csv: 疑心重
+msgid "PERSONA_37_NAME"
+msgstr "Méfiant"
+
+#. persona.csv: 专注肉身淬炼，体魄强健，近战无敌。...
+msgid "PERSONA_38_DESC"
+msgstr ""
+"Tu te concentres sur la trempe du corps, affichant une physique puissante et"
+" un combat rapproché invincible."
+
+#. persona.csv: 体修
+msgid "PERSONA_38_NAME"
+msgstr "Cultivateur du Corps"
+
+#. persona.csv: 精通丹道，对灵药敏感。...
+msgid "PERSONA_39_DESC"
+msgstr ""
+"Tu maîtrises la Voie de l'Alchimie et es sensible aux herbes spirituelles."
+
+#. persona.csv: 炼丹师
+msgid "PERSONA_39_NAME"
+msgstr "Alchimiste"
+
+#. persona.csv: 你总是会拖延，不想努力，更热衷于享受人生...
+msgid "PERSONA_3_DESC"
+msgstr ""
+"Tu procrastines toujours, refusant l'effort et préférant savourer la vie."
+
+#. persona.csv: 怠惰
+msgid "PERSONA_3_NAME"
+msgstr "Paresseux"
+
+#. persona.csv: 天生福运，逢凶化吉。...
+msgid "PERSONA_40_DESC"
+msgstr "Naturellement favorisé, tu transformes le malheur en bonheur."
+
+#. persona.csv: 福缘深厚
+msgid "PERSONA_40_NAME"
+msgstr "Béni des Faveurs Célestes"
+
+#. persona.csv: 对剑道有着深厚的兴趣和独特的天赋。...
+msgid "PERSONA_41_DESC"
+msgstr ""
+"Tu possèdes un intérêt profond et un talent unique pour la Voie de l'Épée."
+
+#. persona.csv: 剑修
+msgid "PERSONA_41_NAME"
+msgstr "Cultivateur de l'Épée"
+
+#. persona.csv: 专精刀法，对刀道有着独特的理解。...
+msgid "PERSONA_42_DESC"
+msgstr ""
+"Tu maîtrises les techniques du sabre, avec une compréhension unique de la "
+"Voie du Sabre."
+
+#. persona.csv: 刀修
+msgid "PERSONA_42_NAME"
+msgstr "Cultivateur du Sabre"
+
+#. persona.csv: 精通枪法，百兵之王在手。...
+msgid "PERSONA_43_DESC"
+msgstr ""
+"Tu maîtrises les techniques de la lance ; le roi de toutes les armes est "
+"entre tes mains."
+
+#. persona.csv: 枪修
+msgid "PERSONA_43_NAME"
+msgstr "Cultivateur de la Lance"
+
+#. persona.csv: 棍棒在手，天下我有。...
+msgid "PERSONA_44_DESC"
+msgstr "Avec un bâton en main, le monde t'appartient."
+
+#. persona.csv: 棍修
+msgid "PERSONA_44_NAME"
+msgstr "Cultivateur du Bâton"
+
+#. persona.csv: 精通音律之道，琴笛在手，可攻可守。...
+msgid "PERSONA_45_DESC"
+msgstr ""
+"Tu maîtrises la Voie de la Musique ; avec un cithare ou une flûte en main."
+
+#. persona.csv: 音律大师
+msgid "PERSONA_45_NAME"
+msgstr "Maître de la Musique"
+
+#. persona.csv: 擅长使用暗器，出手诡秘莫测。...
+msgid "PERSONA_46_DESC"
+msgstr ""
+"Tu es doué pour les armes cachées, avec des mouvements mystérieux et "
+"imprévisibles."
+
+#. persona.csv: 暗器高手
+msgid "PERSONA_46_NAME"
+msgstr "Expert en Armes Cachées"
+
+#. persona.csv: 精通扇法，举手投足间尽显风流。...
+msgid "PERSONA_47_DESC"
+msgstr ""
+"Tu maîtrises les techniques de l'éventail, montrant de l'élégance à chaque "
+"mouvement."
+
+#. persona.csv: 扇修
+msgid "PERSONA_47_NAME"
+msgstr "Cultivateur de l'Éventail"
+
+#. persona.csv: 精通鞭法，软兵器在手，刚柔并济。...
+msgid "PERSONA_48_DESC"
+msgstr "Tu maîtrises les techniques du fouet ; avec une arme souple en main."
+
+#. persona.csv: 鞭修
+msgid "PERSONA_48_NAME"
+msgstr "Cultivateur du Fouet"
+
+#. persona.csv: 以刀入道，刀即是命。你认为刀法至上。...
+msgid "PERSONA_49_DESC"
+msgstr "Entre dans le Dao par le sabre, le sabre est ta vie."
+
+#. persona.csv: 刀痴
+msgid "PERSONA_49_NAME"
+msgstr "Fanatique du Sabre"
+
+#. persona.csv: 你总是会冒险，喜欢刺激，总想放手一搏。...
+msgid "PERSONA_4_DESC"
+msgstr ""
+"Tu prends toujours des risques, aimes l'adrénaline et veux toujours tenter "
+"le coup."
+
+#. persona.csv: 冒险
+msgid "PERSONA_4_NAME"
+msgstr "Aventurier"
+
+#. persona.csv: 以枪入道，枪即是命。你认为枪法至上。...
+msgid "PERSONA_50_DESC"
+msgstr "Entre dans le Dao par la lance, la lance est ta vie."
+
+#. persona.csv: 枪痴
+msgid "PERSONA_50_NAME"
+msgstr "Fanatique de la Lance"
+
+#. persona.csv: 以棍入道，棍即是命。棍法通神。...
+msgid "PERSONA_51_DESC"
+msgstr "Entre dans le Dao par le bâton, le bâton est ta vie."
+
+#. persona.csv: 棍圣
+msgid "PERSONA_51_NAME"
+msgstr "Saint du Bâton"
+
+#. persona.csv: 以扇入道，扇即是命。你认为扇法至上。...
+msgid "PERSONA_52_DESC"
+msgstr "Entre dans le Dao par l'éventail, l'éventail est ta vie."
+
+#. persona.csv: 扇痴
+msgid "PERSONA_52_NAME"
+msgstr "Fanatique de l'Éventail"
+
+#. persona.csv: 以鞭入道，鞭即是命。你认为鞭法至上。...
+msgid "PERSONA_53_DESC"
+msgstr "Entre dans le Dao par le fouet, le fouet est ta vie."
+
+#. persona.csv: 鞭痴
+msgid "PERSONA_53_NAME"
+msgstr "Fanatique du Fouet"
+
+#. persona.csv: 暗器之道登峰造极，杀人于无形。...
+msgid "PERSONA_54_DESC"
+msgstr "La Voie des Armes Cachées a atteint son apothéose, tuant sans forme."
+
+#. persona.csv: 刺客宗师
+msgid "PERSONA_54_NAME"
+msgstr "Grand Maître Assassin"
+
+#. persona.csv: 你对美色有着强烈的渴求。...
+msgid "PERSONA_55_DESC"
+msgstr "Tu as une forte soif de beauté."
+
+#. persona.csv: 好色
+msgid "PERSONA_55_NAME"
+msgstr "Libertin"
+
+#. persona.csv: 你清心寡欲，对男女之事毫无兴趣。...
+msgid "PERSONA_56_DESC"
+msgstr "Tu es pur de cœur et sans intérêt pour les affaires amoureuses."
+
+#. persona.csv: 无欲
+msgid "PERSONA_56_NAME"
+msgstr "Sans Désir"
+
+#. persona.csv: 你对未知的世界充满好奇。...
+msgid "PERSONA_57_DESC"
+msgstr "Tu es rempli de curiosité envers le monde inconnu."
+
+#. persona.csv: 探险家
+msgid "PERSONA_57_NAME"
+msgstr "Explorateur"
+
+#. persona.csv: 你极度排斥长途跋涉，更喜欢待在熟悉的区域...
+msgid "PERSONA_58_DESC"
+msgstr "Tu répugnes extrêmement aux longs voyages."
+
+#. persona.csv: 死宅
+msgid "PERSONA_58_NAME"
+msgstr "Casanier"
+
+#. persona.csv: 天生霉运缠身。...
+msgid "PERSONA_59_DESC"
+msgstr "Né avec la malchance, tout va de travers."
+
+#. persona.csv: 扫把星
+msgid "PERSONA_59_NAME"
+msgstr "Mauvaise Augure"
+
+#. persona.csv: 你总是会随机应变，性子到哪里了就是哪里，...
+msgid "PERSONA_5_DESC"
+msgstr ""
+"Tu t'adaptes toujours aux circonstances ; tu suis ton humeur sans règles "
+"fixes."
+
+#. persona.csv: 随性
+msgid "PERSONA_5_NAME"
+msgstr "Insouciant"
+
+#. persona.csv: 早年修行多舛；但若能坚持至金丹元婴，便可...
+msgid "PERSONA_60_DESC"
+msgstr "Les premières années de cultivation étaient pleines d'épreuves."
+
+#. persona.csv: 大器晚成
+msgid "PERSONA_60_NAME"
+msgstr "Épanoui Tard"
+
+#. persona.csv: 精通炼器之道，对材料敏锐。...
+msgid "PERSONA_61_DESC"
+msgstr "Tu maîtrises la Voie de la Forge des Artefacts."
+
+#. persona.csv: 炼器师
+msgid "PERSONA_61_NAME"
+msgstr "Forgeron d'Artefacts"
+
+#. persona.csv: 你的情绪波动很大。...
+msgid "PERSONA_62_DESC"
+msgstr "Tes émotions fluctuent énormément."
+
+#. persona.csv: 情绪化
+msgid "PERSONA_62_NAME"
+msgstr "Émotif"
+
+#. persona.csv: 擅长勘探挖掘，对矿脉有着独特的直觉。...
+msgid "PERSONA_63_DESC"
+msgstr ""
+"Tu es doué pour l'exploration minière, avec une intuition unique pour les "
+"gisements."
+
+#. persona.csv: 矿工
+msgid "PERSONA_63_NAME"
+msgstr "Mineur"
+
+#. persona.csv: 你躲避风险和风头，尽力不担上任何风险。...
+msgid "PERSONA_64_DESC"
+msgstr "Tu évites les risques et l'attention."
+
+#. persona.csv: 苟
+msgid "PERSONA_64_NAME"
+msgstr "Prudent"
+
+#. persona.csv: 心胸狭窄，见不得别人比自己好。...
+msgid "PERSONA_65_DESC"
+msgstr "L'esprit étroit, tu ne supportes pas de voir les autres te surpasser."
+
+#. persona.csv: 妒忌
+msgid "PERSONA_65_NAME"
+msgstr "Jaloux"
+
+#. persona.csv: 你重视家庭和血缘关系，以家族利益为重。...
+msgid "PERSONA_66_DESC"
+msgstr ""
+"Tu valorises la famille et les liens du sang, mettant les intérêts familiaux"
+" en avant."
+
+#. persona.csv: 重亲情
+msgid "PERSONA_66_NAME"
+msgstr "Familial"
+
+#. persona.csv: 你重视朋友义气，为朋友可以两肋插刀。...
+msgid "PERSONA_67_DESC"
+msgstr ""
+"Tu valorises l'honneur et la loyauté entre amis, prêt à tout sacrifier pour "
+"eux."
+
+#. persona.csv: 重义气
+msgid "PERSONA_67_NAME"
+msgstr "Chevaleresque"
+
+#. persona.csv: 你习惯独来独往，不轻易与人深交。...
+msgid "PERSONA_68_DESC"
+msgstr ""
+"Tu as l'habitude d'être seul, ne formant pas facilement des liens profonds."
+
+#. persona.csv: 孤身一人
+msgid "PERSONA_68_NAME"
+msgstr "Solitaire Absolu"
+
+#. persona.csv: 你对爱情专一，一旦认定便不会改变。...
+msgid "PERSONA_69_DESC"
+msgstr "Tu es monogame, et une fois engagé, tu ne changes pas."
+
+#. persona.csv: 专情
+msgid "PERSONA_69_NAME"
+msgstr "Fidèle en Amour"
+
+#. persona.csv: 你对灵石和财富有着强烈的渴望。...
+msgid "PERSONA_6_DESC"
+msgstr "Tu as une forte soif de pierres spirituelles et de richesses."
+
+#. persona.csv: 贪财
+msgid "PERSONA_6_NAME"
+msgstr "Avide"
+
+#. persona.csv: 你容易动情，对美好的感情充满向往。...
+msgid "PERSONA_70_DESC"
+msgstr "Tu es émotif et pleins de nostalgie pour de beaux sentiments."
+
+#. persona.csv: 多情
+msgid "PERSONA_70_NAME"
+msgstr "Romanesque"
+
+#. persona.csv: 你对感情淡漠，不会轻易动心。...
+msgid "PERSONA_71_DESC"
+msgstr "Tu es indifférent aux affaires du cœur, peu enclin à t'émouvoir."
+
+#. persona.csv: 薄情
+msgid "PERSONA_71_NAME"
+msgstr "Insensible"
+
+#. persona.csv: 喜欢在山林中寻找各种奇花异草和灵药，对植...
+msgid "PERSONA_7_DESC"
+msgstr ""
+"Tu aimes chercher dans les montagnes et forêts diverses fleurs étranges, "
+"herbes et médicaments spirituels."
+
+#. persona.csv: 采集者
+msgid "PERSONA_7_NAME"
+msgstr "Cueilleur"
+
+#. persona.csv: 享受在野外追踪猎物的刺激感，对各种动物的...
+msgid "PERSONA_8_DESC"
+msgstr ""
+"Tu aimes la frisson de traquer le gibier à l'état sauvage, bien versé dans "
+"les mœurs des bêtes."
+
+#. persona.csv: 猎人
+msgid "PERSONA_8_NAME"
+msgstr "Chasseur"
+
+#. persona.csv: 你总是会深思熟虑，思考问题比较有哲理。...
+msgid "PERSONA_9_DESC"
+msgstr ""
+"Tu réfléchis toujours profondément, ton approche des problèmes est plus "
+"philosophique."
+
+#. persona.csv: 沉思
+msgid "PERSONA_9_NAME"
+msgstr "Penseur"
+
+msgid "PERSONA_1007_DESC"
+msgstr ""
+"Issu du bas de la société, tu as un don pour la culture des plantes "
+"spirituelles et peux gagner plus de pierres spirituelles en cultivant."
+
+msgid "PERSONA_1007_NAME"
+msgstr "Fermier"
+
+msgid "PERSONA_1008_DESC"
+msgstr ""
+"Tu te tiens à l'écart des affaires mondaines et détestes être entraîné dans "
+"les intrigues de cour."
+
+msgid "PERSONA_1008_NAME"
+msgstr "Détaché"
+
+msgid "PERSONA_1009_DESC"
+msgstr ""
+"Tu es habitué à cultiver seul dans les montagnes et les marais, rien ne "
+"t'irrite plus que les intrigues de cour."
+
+msgid "PERSONA_1009_NAME"
+msgstr "Cultivateur Reclus"
+
+msgid "PERSONA_1010_DESC"
+msgstr ""
+"Tu es prêt à entrer dans le monde mortel et à tremper ta réputation à "
+"travers les affaires mondaines."
+
+msgid "PERSONA_1010_NAME"
+msgstr "Mondain"
+
+msgid "PERSONA_1011_DESC"
+msgstr ""
+"Tu révères l'ordre orthodoxe et utilises volontiers l'érudition et le "
+"service public pour ramener l'ordre dans le monde."
+
+msgid "PERSONA_1011_NAME"
+msgstr "Gentleman Orthodoxe"
+
+msgid "PERSONA_1012_DESC"
+msgstr ""
+"Tu soignes ton apparence et passes du temps à te toiletter pour paraître "
+"présentable."
+
+msgid "PERSONA_1012_NAME"
+msgstr "Soucieux de l'Apparence"
+
+msgid "PERSONA_1013_DESC"
+msgstr ""
+"Tu te soucies intensément de ton apparence et traites presque l'amélioration"
+" de son apparence comme une obsession."
+
+msgid "PERSONA_1013_NAME"
+msgstr "Narcissique"
+
+msgid "PERSONA_1014_DESC"
+msgstr ""
+"Tu as l'habitude de cacher ta force et de feindre la faiblesse, si bien que "
+"les autres te jugent souvent mal sur ta puissance et ton danger réel. "
+"Certains te terrorisent même, avant d'être spectaculairement remis à leur "
+"place."
+
+msgid "PERSONA_1014_NAME"
+msgstr "Faiblesse Feinte, Force Cachée"
+
+msgid "PERSONA_1015_DESC"
+msgstr ""
+"Tu as une curiosité naturelle et une affinité envers les cultivateurs "
+"d'autres races, et tu es prêt à nouer des relations par-delà les différences"
+" d'origine."
+
+msgid "PERSONA_1015_NAME"
+msgstr "Ami des Étrangers"
+
+msgid "PERSONA_1016_DESC"
+msgstr ""
+"Tu rejettes instinctivement les cultivateurs d'une race différente de la "
+"tienne, et tu trouves difficile de vraiment faire confiance aux étrangers."
+
+msgid "PERSONA_1016_NAME"
+msgstr "Haine des Étrangers"
+
+msgid "PERSONA_1019_DESC"
+msgstr ""
+"Tu comprends les structures des formations et peux utiliser les disques de "
+"formation pour guider les mécanismes spirituels régionaux."
+
+msgid "PERSONA_1019_NAME"
+msgstr "Maître des Formations"
+
+msgid "PERSONA_1020_DESC"
+msgstr ""
+"Né avec la maîtrise des arts de formation, capable de tracer les lignes de "
+"ley et les mécanismes spirituels plus efficacement lors de la mise en place "
+"de formations."
+
+msgid "PERSONA_1020_NAME"
+msgstr "Immortel des Formations"
+
+msgid "PERSONA_1017_DESC"
+msgstr ""
+"Doué dans les arts des insectes et du poison, et adepte de la cultivation "
+"par les Gu."
+
+msgid "PERSONA_1017_NAME"
+msgstr "Maître des Gu"
+
+msgid "PERSONA_1018_DESC"
+msgstr ""
+"Naturellement accordé avec les innombrables Gu, capable de commander les "
+"insectes d'une pensée."
+
+msgid "PERSONA_1018_NAME"
+msgstr "Immortel des Gu"
+
+#. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
+msgid "PLANT_10_DESC"
+msgstr ""
+"Plante étrange poussant avec ténacité dans les fissures rocheuses du Gobi, "
+"aux feuilles dures comme l'acier, capable d'attirer et de dévorer la lumière"
+" stellaire la nuit"
+
+#. plant.csv: 聚星草
+msgid "PLANT_10_NAME"
+msgstr "Herbe d'Assemblage Stellaire"
+
+#. plant.csv: 生长在蓬莱岛灵泉之眼的伴生神树上，三百年...
+msgid "PLANT_11_DESC"
+msgstr ""
+"Pousse sur l'arbre divin compagnon à l'Œil de la Source Spirituelle de l'Île"
+" de Penglai, fleurissant tous les trois cents ans et fructifiant tous les "
+"trois cents ans, renfermant une force vitale immense"
+
+#. plant.csv: 涅盘赤果
+msgid "PLANT_11_NAME"
+msgstr "Fruit Rouge du Nirvana"
+
+#. plant.csv: 生长在灵气充沛之地的奇异草药，叶片呈淡蓝...
+msgid "PLANT_1_DESC"
+msgstr ""
+"Herbe médicinale étrange poussant dans les lieux abondant en qi spirituel, "
+"aux feuilles d'un bleu pâle et aux effets de guérison magiques"
+
+#. plant.csv: 奇草
+msgid "PLANT_1_NAME"
+msgstr "Herbe Étrange"
+
+#. plant.csv: 千年古树吸收天地灵气而成，木质坚硬且蕴含...
+msgid "PLANT_2_DESC"
+msgstr ""
+"Formée par d'anciens arbres millénaires absorbant le qi spirituel du ciel et"
+" de la terre, avec du bois dur et une puissance spirituelle dense"
+
+#. plant.csv: 灵木
+msgid "PLANT_2_NAME"
+msgstr "Bois Spirituel"
+
+#. plant.csv: 生长于西域流沙的神奇植物，能储存大量灵气...
+msgid "PLANT_3_DESC"
+msgstr ""
+"Plante magique poussant dans les Sables Mouvants de l'Ouest, capable de "
+"stocker de grandes quantités de qi spirituel et d'eau, avec de la médecine "
+"spirituelle dans ses épines"
+
+#. plant.csv: 沙漠仙人掌
+msgid "PLANT_3_NAME"
+msgstr "Cactus Magique du Désert"
+
+#. plant.csv: 极北冰原的珍贵灵药，花瓣洁白如雪，蕴含极...
+msgid "PLANT_4_DESC"
+msgstr ""
+"Précieuse médecine spirituelle du Champ de Glace du Très-Nord, aux pétales "
+"blancs comme neige, renfermant un qi froid extrême, capable de clarifier la "
+"chaleur et de détoxifier"
+
+#. plant.csv: 寒霜雪莲
+msgid "PLANT_4_NAME"
+msgstr "Lotus de Neige Gelée"
+
+#. plant.csv: 生长于天河河底的水系灵药，呈半透明蓝色，...
+msgid "PLANT_5_DESC"
+msgstr ""
+"Médecine spirituelle du système aquatique poussant au fond du Fleuve "
+"Céleste, d'un bleu semi-transparent, capable d'améliorer la puissance "
+"spirituelle d'élément eau du pratiquant"
+
+#. plant.csv: 水灵芝
+msgid "PLANT_5_NAME"
+msgstr "Lingzhi Aquatique"
+
+#. plant.csv: 万丈雪峰的高山植物，花瓣细小洁白，能抗严...
+msgid "PLANT_6_DESC"
+msgstr ""
+"Plante alpine du Pic de Neige aux Dix Mille Brasses, aux pétales petits et "
+"blancs, capable de résister au froid sévère et possédant des effets calmants"
+" et sédatifs"
+
+#. plant.csv: 雪绒花
+msgid "PLANT_6_NAME"
+msgstr "Fleur de Duvet de Neige"
+
+#. plant.csv: 青云林海中的古老巨树，树龄超过千年，树脂...
+msgid "PLANT_7_DESC"
+msgstr ""
+"Ancien arbre géant dans la Mer de Forêt de Qingyun, âgé de plus de mille "
+"ans, avec une résine contenant une riche puissance spirituelle"
+
+#. plant.csv: 千年古松
+msgid "PLANT_7_NAME"
+msgstr "Pin Ancien Millénaire"
+
+#. plant.csv: 沃土良田中培育的灵性稻谷，粒粒饱满灵气，...
+msgid "PLANT_8_DESC"
+msgstr ""
+"Riz spirituel cultivé dans des terres fertiles, chaque grain rempli de qi "
+"spirituel, capable d'améliorer la constitution du pratiquant"
+
+#. plant.csv: 五谷灵稻
+msgid "PLANT_8_NAME"
+msgstr "Riz Spirituel des Cinq Grains"
+
+#. plant.csv: 紫竹林中的变异异种，竹身九曲，内空外坚。...
+msgid "PLANT_9_DESC"
+msgstr ""
+"Espèce mutante dans la Forêt de Bambou Pourpre, au corps aux neuf courbes, "
+"creux dedans et dur dehors. Il émet neuf sons distincts et clairs quand le "
+"vent souffle, pénétrant directement l'âme et purifiant les démons du cœur"
+
+#. plant.csv: 九曲清音竹
+msgid "PLANT_9_NAME"
+msgstr "Bambou aux Neuf Courbes du Son Pur"
+
+msgid "RACE_HUMAN_NAME"
+msgstr "Humain"
+
+msgid "RACE_HUMAN_DESC"
+msgstr "Vous êtes un humain ordinaire."
+
+msgid "RACE_HUMAN_BEHAVIOR_DESC"
+msgstr ""
+"Les humains n'ont aucune contrainte d'instinct Yao ; leurs actions sont "
+"principalement façonnées par la personnalité, les objectifs, la secte, "
+"l'alignement et les circonstances actuelles."
+
+msgid "RACE_FOX_NAME"
+msgstr "Yao Renard"
+
+msgid "RACE_FOX_DESC"
+msgstr ""
+"Les Yao Renards sont naturellement rusés, doués pour lire les expressions et"
+" les humeurs, souvent frappants d'apparence, et communément vus comme ayant "
+"une affinité innée pour l'opportunité et les liens sociaux."
+
+msgid "RACE_FOX_BEHAVIOR_DESC"
+msgstr ""
+"Les actions des Yao Renards doivent d'abord montrer la lecture des humeurs, "
+"le sondage social, les échanges avantageux, et un flair pour l'opportunité. "
+"La personnalité ordinaire peut seulement façonner la méthode ; elle ne doit "
+"pas transformer les Yao Renards en cultivateurs directs qui ne cultivent pas"
+" les relations."
+
+msgid "RACE_WOLF_NAME"
+msgstr "Yao Loup"
+
+msgid "RACE_WOLF_DESC"
+msgstr ""
+"Les Yao Loups ont des lignées fortes, valorisent la survie, la chasse et le "
+"combat, possèdent des instincts aigus et un mouvement rapide, et tempèrent "
+"souvent leur cultivation par le combat."
+
+msgid "RACE_WOLF_BEHAVIOR_DESC"
+msgstr ""
+"Les actions des Yao Loups doivent d'abord montrer la survie, la chasse, le "
+"combat, le territoire, et les jugements de force. La personnalité ordinaire "
+"peut seulement changer comment ils attaquent ; elle ne doit pas faire que "
+"les Yao Loups restent dans un discours oisif longtemps ou évitent tout "
+"conflit."
+
+msgid "RACE_BIRD_NAME"
+msgstr "Yao Oiseau"
+
+msgid "RACE_BIRD_DESC"
+msgstr ""
+"Les Yao Oiseaux ont une perception large et un mouvement agile, sont nés "
+"pour aspirer à des lieux lointains, et excellent dans l'exploration, "
+"l'évasion et l'exploration de l'inconnu."
+
+msgid "RACE_BIRD_BEHAVIOR_DESC"
+msgstr ""
+"Les actions des Yao Oiseaux doivent d'abord montrer la migration, "
+"l'exploration, les voyages, l'observation et l'évasion. La personnalité "
+"ordinaire peut seulement affecter l'itinéraire et le rythme ; elle ne doit "
+"pas laisser les Yao Oiseaux piégés dans un endroit sans raison ou "
+"abandonnant leur besoin de perspective plus large."
+
+msgid "RACE_SNAKE_NAME"
+msgstr "Yao Serpent"
+
+msgid "RACE_SNAKE_DESC"
+msgstr ""
+"Les Yao Serpents ont des auras subtiles et des manières patientes, excellent"
+" dans la dissimulation et l'embuscade, sont souvent craints par les "
+"cultivateurs humains, et s'adaptent bien aux lieux sombres et dangereux."
+
+msgid "RACE_SNAKE_BEHAVIOR_DESC"
+msgstr ""
+"Les actions des Yao Serpents doivent d'abord montrer la dissimulation, la "
+"patience, le sondage, les routes indirectes, et l'embuscade soudaine. La "
+"personnalité ordinaire peut seulement changer à quel point ils sont "
+"impitoyables ; elle ne doit pas transformer les Yao Serpents en cultivateurs"
+" bruyants, de front, ouvertement affairés."
+
+msgid "RACE_TURTLE_NAME"
+msgstr "Yao Tortue"
+
+msgid "RACE_TURTLE_DESC"
+msgstr ""
+"Les Yao Tortues sont longévives et d'un corps stable, lentes et prudentes "
+"dans leur conduite, et les plus doués pour la défense, la récupération et la"
+" longue cultivation en réclusion."
+
+msgid "RACE_TURTLE_BEHAVIOR_DESC"
+msgstr ""
+"Les actions des Yao Tortues doivent d'abord montrer la lenteur, la défense, "
+"la récupération, le repos et la réclusion. À moins d'éviter le danger, de "
+"faire une percée, de remplir les devoirs de la secte, de poursuivre une "
+"cible claire, ou de répondre aux besoins de ressources, ils ne doivent pas "
+"se déplacer fréquemment ou initier un conflit ; la personnalité ordinaire ne"
+" doit pas dominer cet instinct de garde."
+
+#. random_minor_event.csv: 心境偏移
+msgid "minor_event_cause_1"
+msgstr "Shift in state of mind"
+
+#. random_minor_event.csv: 莫名执念
+msgid "minor_event_cause_2"
+msgstr "Inexplicable obsession"
+
+#. random_minor_event.csv: 与修真装备、武器、功法的日常互动
+msgid "minor_event_cause_3"
+msgstr "Daily interaction with cultivation equipment, weapons, or techniques"
+
+#. random_minor_event.csv: 对所在环境的感叹
+msgid "minor_event_cause_4"
+msgstr "Sighing over the current environment"
+
+#. random_minor_event.csv: 宗门事务
+msgid "minor_event_cause_5"
+msgstr "Sect affairs"
+
+#. random_minor_event.csv: 修仙日常
+msgid "minor_event_cause_6"
+msgstr "Daily life of cultivation"
+
+#. random_minor_event.csv: 啼笑皆非的小插曲
+msgid "minor_event_cause_7"
+msgstr "A hilarious interlude"
+
+#. random_minor_event.csv: 微观社交摩擦(互相打量/戒备/嘲讽)
+msgid "minor_event_cause_8"
+msgstr "Micro-social friction (sizing up/guarding/mocking each other)"
+
+#. random_minor_event.csv: 非对称互动(听到八卦/被人背后议论)
+msgid "minor_event_cause_9"
+msgstr ""
+"Asymmetric interaction (hearing gossip/being talked about behind one's back)"
+
+#. random_minor_event.csv: 关系网的日常投影(道侣传音/师徒考校/死仇互瞪)
+msgid "minor_event_cause_10"
+msgstr ""
+"Daily projection of social network (voice transmission from Dao "
+"companion/testing by master/glaring at mortal enemy)"
+
+#. random_minor_event.csv: 日常对话
+msgid "minor_event_cause_11"
+msgstr "Daily conversation"
+
+#. random_minor_event.csv: 好感暗生
+msgid "minor_event_cause_12"
+msgstr "Secret affection growing"
+
+#. random_minor_event.csv: 修行时一念游移的内在波动
+msgid "minor_event_desc_inner_mood_shift"
+msgstr "An inner fluctuation as focus drifts during cultivation"
+
+#. random_minor_event.csv: 心底忽然浮起的一缕执念
+msgid "minor_event_desc_inner_obsession"
+msgstr "A sudden thread of obsession rising in the heart"
+
+#. random_minor_event.csv: 围绕功法法宝兵器的日常修炼片段
+msgid "minor_event_desc_daily_practice"
+msgstr ""
+"An everyday training moment centered on techniques, artifacts, or weapons"
+
+#. random_minor_event.csv: 对眼前山川气象的一瞬感触
+msgid "minor_event_desc_environment_response"
+msgstr ""
+"A fleeting feeling stirred by the mountains, rivers, and weather before "
+"one's eyes"
+
+#. random_minor_event.csv: 宗门生活中的寻常差事
+msgid "minor_event_desc_sect_errand"
+msgstr "An ordinary errand in sect life"
+
+#. random_minor_event.csv: 略显窘迫却无伤大雅的小插曲
+msgid "minor_event_desc_comic_incident"
+msgstr "A mildly awkward but harmless little incident"
+
+#. random_minor_event.csv: 路过时短暂发生的一次照面互动
+msgid "minor_event_desc_passing_interaction"
+msgstr "A brief face-to-face interaction while passing by"
+
+#. random_minor_event.csv: 一方留意另一方却未必说破的片刻
+msgid "minor_event_desc_asymmetric_attention"
+msgstr ""
+"A moment when one notices the other without necessarily saying it aloud"
+
+#. random_minor_event.csv: 不动声色却略带好感的一次接触
+msgid "minor_event_desc_subtle_goodwill"
+msgstr "A restrained encounter touched with a hint of goodwill"
+
+#. random_minor_event.csv: 语气眼神或态度上的轻微摩擦
+msgid "minor_event_desc_social_friction"
+msgstr "A slight friction in tone, gaze, or attitude"
+
+#. random_minor_event.csv: 围绕零碎资源与机会的短暂争抢
+msgid "minor_event_desc_resource_competition"
+msgstr "A brief scramble over minor resources or opportunities"
+
+#. random_minor_event.csv: 顺手帮衬彼此的一次小小照应
+msgid "minor_event_desc_small_mutual_help"
+msgstr "A small act of casually lending each other a hand"
+
+#. root.csv: 资质通天；五行皆通，修行全面...
+msgid "ROOT_10_DESC"
+msgstr "Aptitude hors-pair ; maîtrise complète des cinq éléments"
+
+#. root.csv: 天灵根
+msgid "ROOT_10_NAME"
+msgstr "Racine Spirituelle Céleste"
+
+#. root.csv: 刚强果断；攻击力强，适合剑修...
+msgid "ROOT_1_DESC"
+msgstr "Fort et décisif ; puissance d'attaque élevée"
+
+#. root.csv: 金灵根
+msgid "ROOT_1_NAME"
+msgstr "Racine Spirituelle de Métal"
+
+#. root.csv: 仁厚坚韧；擅恢复、毒术与木属性法术...
+msgid "ROOT_2_DESC"
+msgstr "Bienveillant et résilient ; excellent en récupération"
+
+#. root.csv: 木灵根
+msgid "ROOT_2_NAME"
+msgstr "Racine Spirituelle de Bois"
+
+#. root.csv: 智慧圆融；身法轻盈，善辅助与隐匿...
+msgid "ROOT_3_DESC"
+msgstr "Sage et fluide ; mouvements légers du corps"
+
+#. root.csv: 水灵根
+msgid "ROOT_3_NAME"
+msgstr "Racine Spirituelle d'Eau"
+
+#. root.csv: 激情暴烈；高爆发攻术，火系功法...
+msgid "ROOT_4_DESC"
+msgstr "Passionné et violent ; techniques d'attaque à haut débit"
+
+#. root.csv: 火灵根
+msgid "ROOT_4_NAME"
+msgstr "Racine Spirituelle de Feu"
+
+#. root.csv: 稳重踏实；防御高，体修或傀儡术...
+msgid "ROOT_5_DESC"
+msgstr "Stable et pratique ; défense élevée"
+
+#. root.csv: 土灵根
+msgid "ROOT_5_NAME"
+msgstr "Racine Spirituelle de Terre"
+
+#. root.csv: 爆发性极强；战斗系顶尖...
+msgid "ROOT_6_DESC"
+msgstr "Explosif extrêmement ; meilleur en combat"
+
+#. root.csv: 雷灵根
+msgid "ROOT_6_NAME"
+msgstr "Racine Spirituelle de Tonnerre"
+
+#. root.csv: 控制力强；持久性好...
+msgid "ROOT_7_DESC"
+msgstr "Contrôle puissant ; bonne persistance"
+
+#. root.csv: 冰灵根
+msgid "ROOT_7_NAME"
+msgstr "Racine Spirituelle de Glace"
+
+#. root.csv: 身法卓绝；难以捉摸...
+msgid "ROOT_8_DESC"
+msgstr "Mouvements exceptionnels ; insaisissable"
+
+#. root.csv: 风灵根
+msgid "ROOT_8_NAME"
+msgstr "Racine Spirituelle de Vent"
+
+#. root.csv: 隐匿系；擅幻术与诡道...
+msgid "ROOT_9_DESC"
+msgstr "Orienté vers la dissimulation ; excellent en illusions et subterfuge"
+
+#. root.csv: 暗灵根
+msgid "ROOT_9_NAME"
+msgstr "Racine Spirituelle de Ténèbres"
+
+#. sect.csv: SECT_10_DESC
+msgid "SECT_10_DESC"
+msgstr ""
+"La Secte du Son Capteur d'Âmes occupe la Vallée de l'Écho, où les tours de "
+"qin, les estrades de tambours, les corridors d'essai et les champs d'arrays "
+"de moisson d'âmes s'étendent selon la pente de la montagne. Quand les vents "
+"vallonnés s'élèvent, même la plus faible note de corde peut enfler en une "
+"frappe léthale, déchirant l'esprit. La secte est divisée parmi le son "
+"d'illusion, le son meurtrier, et les branches apaisantes d'âmes, et ses "
+"disciples n'étudient pas seulement la théorie musicale et les techniques "
+"mais aussi le rythme, le souffle, la guidance émotionnelle et le contrôle "
+"spirituel. Elle apparaît élégante en surface, mais l'atmosphère est "
+"dangereusement tendue, et ce qui est le plus terrifiant ici n'est souvent "
+"pas la colère ouverte, mais une douce mélodie tombant au moment parfait."
+
+#. sect.csv: SECT_10_NAME
+msgid "SECT_10_NAME"
+msgstr "Secte du Son Capteur d'Âmes"
+
+#. sect.csv: SECT_10_RULE_DESC
+msgid "SECT_10_RULE_DESC"
+msgstr ""
+"Vous pouvez envoûter les ennemis, mais ne devez jamais perdre le contrôle et"
+" enchevêtrer les âmes des disciples de la secte, ni endommager les "
+"fondations de la secte ; ceux qui déshonorent la secte et refusent toujours "
+"la retenue seront expulsés."
+
+#. sect.csv: SECT_11_DESC
+msgid "SECT_11_DESC"
+msgstr ""
+"La Secte de la Déduction Céleste se dresse dans Mizhongtian, où un seul pic "
+"cache d'innombrables espaces pliés en strates avec la Plateforme de "
+"Déduction Céleste, la Galerie des Dix Mille Arrays, la vallée d'essai de "
+"formations et les puits géomantiques. Un disciple qui ne comprend pas les "
+"cartes d'arrays peut échouer même à trouver le chemin du retour. Ses "
+"branches incluent la déduction céleste, les arrays de veines terrestres, les"
+" arrays d'artefacts et les formations défensives. Ses membres sont adeptes à"
+" la déduction des diagrammes d'arrays et peuvent utiliser les disques de "
+"formations pour attirer temporairement le pouvoir des veines terrestres à "
+"travers les terres spirituelles, les terrains de la secte, les mines, les "
+"champs d'herbes et les domaines des bêtes, établissant les formations de "
+"rassemblement d'esprits, de garde de montagnes, de guérison, de clarté et "
+"autres. Qu'il s'agisse de poser une petite formation ou de remodeler un "
+"paysage entier, ils apprécient la précision et l'ordre. La secte attire les "
+"esprits obsédés par la structure et la loi, et elle produit souvent des "
+"maîtres d'arrays froids qui traitent les affaires humaines comme des "
+"variables à calculer."
+
+#. sect.csv: SECT_11_NAME
+msgid "SECT_11_NAME"
+msgstr "Secte de la Déduction Céleste"
+
+#. sect.csv: SECT_11_RULE_DESC
+msgid "SECT_11_RULE_DESC"
+msgstr ""
+"Vous ne devez pas utiliser les arrays pour apporter le désastre aux villes "
+"mortelles ou causer du contrecoup sur les disciples de la secte ; si vous "
+"tombez dans le mal et refusez toujours de vous repentir, vous serez expulsé "
+"de la secte."
+
+#. sect.csv: SECT_12_DESC
+msgid "SECT_12_DESC"
+msgstr ""
+"Le Palais de la Lumière Éternelle se trouve dans le Paradis de l'Aurore du "
+"nord lointain de la nuit éternelle, où la Salle de la Lumière Durable, les "
+"autels de flamme sacrée, les bassins de purification moelle et les champs "
+"d'entraînement radiant sont perpétuellement éclairés par l'aurore. La glace "
+"et le feu coexistent là, donnant à tout le palais-cité une dignité presque "
+"miraculeuse. Ses cultivateurs suivent largement les voies du tempérage du "
+"corps, de la protection de la vie et de la longévité, appréciant les armes "
+"et la discipline martiale aux côtés des bains médicinaux, des arts secrets "
+"et de l'aperçu de la source de la vie elle-même. Le palais vénère la "
+"lumière, l'endurance et la constance, et ses habitants portent souvent une "
+"discipline immense et une responsabilité, au point même de se brûler en "
+"silence."
+
+#. sect.csv: SECT_12_NAME
+msgid "SECT_12_NAME"
+msgstr "Palais de la Lumière Éternelle"
+
+#. sect.csv: SECT_12_RULE_DESC
+msgid "SECT_12_RULE_DESC"
+msgstr ""
+"Vous ne devez pas nuire aux mortels pour le Tempérage du Corps ou souiller "
+"la voie orthodoxe de la lumière ; si vous descendez dans la cultivation du "
+"mal et restez incorrigible, vous serez expulsé du palais."
+
+#. sect.csv: SECT_13_DESC
+msgid "SECT_13_DESC"
+msgstr ""
+"L'Académie Haoran se dresse dans la Forêt des Sages, où les salles de "
+"conférences, la Salle de la Loi Clarifiée, les bibliothèques de stèles et "
+"les sentiers de pierre d'interrogation du cœur s'étendent sous les arbres. "
+"Avant même que la cloche du matin ne sonne, le son de la lecture s'élève "
+"déjà dans les bois, et les disciples qui passent tendent à être vêtus "
+"proprement et mesurés dans la parole. Ses traditions incluent l'étude "
+"classique, le raisonnement juridique, la gouvernance et la cultivation "
+"littéraire ; les savants ici font plus que lire et nourrir le qi, car ils "
+"débattent aussi de politique, affinent la conduite et enseignent les "
+"générations futures. L'académie valorise l'intégrité, la réputation et la "
+"transmission de la lignée magistrale, produisant à la fois des gentilshommes"
+" de noble esprit et des figures têtues refusant de plier."
+
+#. sect.csv: SECT_13_NAME
+msgid "SECT_13_NAME"
+msgstr "Académie Haoran"
+
+#. sect.csv: SECT_13_RULE_DESC
+msgid "SECT_13_RULE_DESC"
+msgstr ""
+"Vous ne devez pas tromper les maîtres, opprimer le peuple ou vous jeter dans"
+" la voie démoniaque ; si la preuve est concluante et vous refusez toujours "
+"de vous repentir, vous serez expulsé de l'académie."
+
+#. sect.csv: SECT_14_DESC
+msgid "SECT_14_DESC"
+msgstr ""
+"La Secte du Sang Rakshasa règne sur le Bassin de Sang Shura, où les autels "
+"de rivière de sang, les halls de mérite, les cavernes de raffinage osseux et"
+" les plates-formes de captage d'essence fonctionnent jour et nuit sous un "
+"air épais de brume de sang, de fumée de médicament et de rouille. Ses voies "
+"internes incluent largement la bataille de sang, la cultivation "
+"sacrificielle, le pillage et le tempérage du corps, et les ressources sont "
+"distribuées directement par les résultats des batailles, les offrandes et la"
+" notoriété personnelle. Les forts peuvent monter avec une vitesse "
+"terrifiante, tandis que les faibles sont avalés tout aussi vite. C'est un "
+"lieu dédié à l'ordre le plus nu du pouvoir, où la cruauté est ordinaire et "
+"les paroles vides signifient moins que la force prouvée dans le sang."
+
+#. sect.csv: SECT_14_NAME
+msgid "SECT_14_NAME"
+msgstr "Secte du Sang Rakshasa"
+
+#. sect.csv: SECT_14_RULE_DESC
+msgid "SECT_14_RULE_DESC"
+msgstr ""
+"Vous pouvez vous battre et piller, mais ne devez jamais trahir la Secte du "
+"Sang, détourner le butin ou utiliser des arts vils contre votre propre secte"
+" ; quiconque viole cette grave prohibition sera expulsé."
+
+#. sect.csv: SECT_1_DESC
+msgid "SECT_1_DESC"
+msgstr ""
+"La Secte de l'Épée Céleste Suprême se dresse parmi les pics de Jueyun, où "
+"les portes de montagne, les pavillons d'épée et les plates-formes d'essai "
+"s'élèvent étage par étage sous les tempêtes astrales toute l'année. Au sein "
+"de la secte, les voies du contrôle d'épée, de l'épée tonnerre et de l'épée "
+"nourricière se dressent côte à côte, et les disciples grimpent les falaises "
+"à l'aube et au crépuscule pour chercher l'aperçu avant les stèles d'épée. "
+"C'est un lieu qui adore l'acuité et la pureté, apprécie la réputation et "
+"l'illumination personnelle de même, et produit à la fois des prodiges "
+"météoriques et des talents solitaires pris au piège par l'obsession."
+
+#. sect.csv: SECT_1_NAME
+msgid "SECT_1_NAME"
+msgstr "Secte de l'Épée Céleste Suprême"
+
+#. sect.csv: SECT_1_RULE_DESC
+msgid "SECT_1_RULE_DESC"
+msgstr ""
+"Vous ne devez pas conspirer avec le mal ou massacrer les innocents ; si vous"
+" tombez dans la voie démoniaque et refusez toujours la correction après "
+"plusieurs admonestations, vous serez expulsé de la porte de montagne."
+
+#. sect.csv: SECT_2_DESC
+msgid "SECT_2_DESC"
+msgstr ""
+"La Montagne des Dix Mille Bêtes se trouve profondément dans les Montagnes "
+"des Cent Mille, où quatre-vingt-dix-neuf grottes-paradis en strates "
+"enferment une vaste ménagerie allant des bêtes spirituelles de bas grade aux"
+" rois démons meurtriers. Les parcs à bêtes, les champs d'alimentation au "
+"sang et les autels de liaison spirituelle ne se taisent jamais "
+"véritablement. Ses disciples suivent habituellement les voies de la conduite"
+" de bêtes, de l'élevage de bêtes ou de l'affinage du sang ; certains "
+"traitent leurs bêtes comme des compagnons, tandis que d'autres les voient "
+"comme une force jetable. L'atmosphère de la montagne est primale et "
+"dominatrice, enseignant aux disciples à soumettre les bêtes par la force et "
+"à tremper leurs propres instincts de survie à travers la loi du sauvage."
+
+#. sect.csv: SECT_2_NAME
+msgid "SECT_2_NAME"
+msgstr "Montagne des Dix Mille Bêtes"
+
+#. sect.csv: SECT_2_RULE_DESC
+msgid "SECT_2_RULE_DESC"
+msgstr ""
+"Vous pouvez vous battre et tuer, mais ne devez jamais trahir la porte de la "
+"montagne, conspirer avec les ennemis extérieurs ou laisser vos bêtes se "
+"tourner contre les disciples de la secte ; ceux qui commettent ce tabou "
+"grave seront expulsés."
+
+#. sect.csv: SECT_3_DESC
+msgid "SECT_3_DESC"
+msgstr ""
+"Le Pavillon de l'Écoute des Marées se dresse au-dessus des falaises de "
+"Jinghaiya, où les halls de jade d'esprit de givre reflètent les marées "
+"éclairées par la lune et la lumière des étoiles. Ses véritables trésors ne "
+"sont pas les armes mais le Mur de Jade de Surveillance des Mers, les "
+"observatoires de marées et les cartes stellaires utilisées pour la déduction"
+" céleste. Les disciples s'entraînent à l'observation des étoiles, à l'écoute"
+" des marées et à la divination, parlant peu tout en apprenant à lire le "
+"changement du vent, de la ressac et des tournants les plus subtils du cœur "
+"humain. Le pavillon entier se sent froid et distant, comme si tout le monde "
+"voyait le monde à travers le brouillard, produisant à la fois des sages "
+"détachés et des âmes recluses attirées trop profondément dans les secrets "
+"célestes."
+
+#. sect.csv: SECT_3_NAME
+msgid "SECT_3_NAME"
+msgstr "Pavillon de l'Écoute des Marées"
+
+#. sect.csv: SECT_3_RULE_DESC
+msgid "SECT_3_RULE_DESC"
+msgstr ""
+"Vous ne devez pas déranger les divinations du pavillon pour un désir "
+"personnel ou vendre les secrets célestes de la secte ; si l'infraction est "
+"particulièrement grave, vous serez expulsé."
+
+#. sect.csv: SECT_4_DESC
+msgid "SECT_4_DESC"
+msgstr ""
+"Le Dao des Neuf Enfers règne sur les îles de la Mer des Morts, où les halls "
+"de guidance d'âme, les ponts de traversier, les voûtes de cadavre et les "
+"corridors de lanterne-fantôme se dressent au milieu du brouillard marin "
+"perpétuel. Venir et aller ici se sent comme marcher dans la couture entre la"
+" vie et la mort. Ses branches incluent l'affinage d'âme, le ferroutage de la"
+" mort et les arts yin, et les disciples cultivent à côté des esprits morts, "
+"des marionnettes de cadavres et des courants de qi du monde souterrain, "
+"formant une vision de la mortalité contrairement à celle des cultivateurs "
+"ordinaires. L'ordre à l'intérieur est sévère et l'atmosphère amèrement "
+"froide, favorisant des disciples qui sont tranquilles, réservés et "
+"terriblement disposés à traiter toutes choses comme un prix à payer."
+
+#. sect.csv: SECT_4_NAME
+msgid "SECT_4_NAME"
+msgstr "Dao des Neuf Enfers"
+
+#. sect.csv: SECT_4_RULE_DESC
+msgid "SECT_4_RULE_DESC"
+msgstr ""
+"Vous pouvez cultiver les arts Yin, mais ne devez jamais défier les ordres du"
+" maître ou saisir les âmes pour nuire aux disciples de la secte sans "
+"autorisation ; ceux qui violent cette grave règle seront expulsés."
+
+#. sect.csv: SECT_5_DESC
+msgid "SECT_5_DESC"
+msgstr ""
+"La Secte des Mille Mécanismes se cache dans les profondeurs de la Vallée de "
+"Qianji. De loin, ses terrasses et halls apparaissent intriqués et élégants, "
+"mais en leur sein se trouvent les corridors de mécanismes, les ateliers de "
+"marionnettes, les arsenaux de poison et les passages secrets où chaque "
+"brique peut dissimuler un piège meurtrier. Ses disciples se divisent "
+"largement en maîtres de mécanismes, créateurs de marionnettes, spécialistes "
+"du poison, maîtres de Gu et agents de furtivité. Ils doivent comprendre à la"
+" fois la construction et l'embuscade et apprendre à se préserver par les "
+"insectes, les dispositifs de poison et les passages cachés. La lignée de Gu "
+"excelle à l'utilisation de navires de Gu pour lancer des arts subtils, "
+"s'appuyant sur l'Enfoncement d'Esprit, la Dévoration de Sang, l'Usure "
+"d'Essence et la Gu de Perturbation du Cœur pour influencer les ennemis de "
+"l'obscurité. Le succès laisse l'effet persister ; l'échec peut exposer leur "
+"trace. La secte apprécie l'efficacité, le secret et les résultats, donc la "
+"coopération repose généralement sur l'avantage partagé, ce qui en fait un "
+"berceau pour les conspirateurs brillants et les rivalités interminablement "
+"tendues."
+
+#. sect.csv: SECT_5_NAME
+msgid "SECT_5_NAME"
+msgstr "Secte des Mille Mécanismes"
+
+#. sect.csv: SECT_5_RULE_DESC
+msgid "SECT_5_RULE_DESC"
+msgstr ""
+"Vous ne devez pas divulguer les plans secrets des mécanismes ou assassiner "
+"les membres de votre propre secte ; si vous conspiriez avec la voie juste et"
+" vous tourniez contre la secte, vous serez expulsé."
+
+#. sect.csv: SECT_6_DESC
+msgid "SECT_6_DESC"
+msgstr ""
+"Le Pavillon des Rêves Enivrants s'élève dans un paradis caché à l'intérieur "
+"d'une ville animée, où les chambres d'encens, les terrasses au bord de "
+"l'eau, les halls de musique et les bassins de rêves se connectent sous une "
+"chanson interminable de jour et une lueur de lanterne de nuit. La "
+"cultivation ici repose sur bien plus que la simple cultivation duelle ; les "
+"disciples étudient aussi les arts d'encens, la musique, la danse, la "
+"négociation et la lecture des humeurs humaines, fusionnant souvent les arts "
+"de charme avec la performance et le travail de renseignement. Le pavillon "
+"excelle à transformer le désir mortel en combustible de cultivation et à "
+"lire la chaleur ou le froid dans chaque relation, donc ses habitants peuvent"
+" devenir extraordinairement perspicaces ou se perdre dans le labyrinthe "
+"entre l'affection véritablement et l'affection fausse."
+
+#. sect.csv: SECT_6_NAME
+msgid "SECT_6_NAME"
+msgstr "Pavillon des Rêves Enivrants"
+
+#. sect.csv: SECT_6_RULE_DESC
+msgid "SECT_6_RULE_DESC"
+msgstr ""
+"Vous pouvez vous indulger dans le monde mortel, mais ne devez jamais "
+"récolter d'autres jusqu'à la mort ou trahir vos maîtres et ancêtres ; ceux "
+"qui violent ce grave précepte seront expulsés."
+
+#. sect.csv: SECT_7_DESC
+msgid "SECT_7_DESC"
+msgstr ""
+"Le Temple Zen de Sumérû se dresse sur l'Île Pudu au milieu de la Mer des "
+"Tempêtes, avec la Pagode Vajra à son cœur et les halls de suppression des "
+"démons, les plates-formes de cloches, les falaises d'austérité et les bains "
+"médicinaux établis autour. Une fois que les cloches commencent à sonner, "
+"toute l'île semble maintenue fixe par une lumière bouddhiste invisible. Ses "
+"disciples suivent les voies de la méditation, du cultivation martial ou de "
+"la pratique protectrice, étudiant les écritures et trempant le corps tout en"
+" étant souvent envoyés pour garder la mer contre les fiends et recevoir ceux"
+" en détresse. Bien que extérieurement solennel et austère, le temple n'est "
+"pas sans vie, et nombreux moines portent une compassion profondément "
+"mondaine sous leur résolution de fer."
+
+#. sect.csv: SECT_7_NAME
+msgid "SECT_7_NAME"
+msgstr "Temple Zen de Sumérû"
+
+#. sect.csv: SECT_7_RULE_DESC
+msgid "SECT_7_RULE_DESC"
+msgstr ""
+"Tuer les mortels avec désinvolture, conspirer avec les esprits malveillants "
+"ou nuire aux disciples de la secte est strictement interdit ; ceux coupables"
+" d'infractions graves qui refusent toujours la repentance seront expulsés."
+
+#. sect.csv: SECT_8_DESC
+msgid "SECT_8_DESC"
+msgstr ""
+"Le Hall de l'Esprit Ombrageux s'enfonce profondément dans le Marais de "
+"l'Ombre, où les tours cachées perchent au-dessus de la canopée et les "
+"passages secrets serpentent sous le marais. Les cellules d'ombre, les champs"
+" de furtivité, les bassins de miasme de poison et les avant-postes de "
+"renseignement se chevauchent tellement complètement que les étrangers "
+"saisissent rarement sa véritable forme. Ses disciples se divisent parmi "
+"l'assassinat, le mouvement d'évasion, la poursuite et le travail de "
+"manipulation de cadavres, apprenant dès le premier jour à effacer les "
+"traces, cacher l'intention et survivre aux situations désespérées. La "
+"chaleur est rare ici ; chacun observe et doute de tout le monde, pourtant "
+"cette même rudesse forge une sorte de compréhension tacite qui ne se montre "
+"qu'au bord de la mort."
+
+#. sect.csv: SECT_8_NAME
+msgid "SECT_8_NAME"
+msgstr "Hall de l'Esprit Ombrageux"
+
+#. sect.csv: SECT_8_RULE_DESC
+msgid "SECT_8_RULE_DESC"
+msgstr ""
+"L'assassinat est permis, mais le poignardage dans le dos de votre propre "
+"hall ou la divulgation de strongholds cachés ne l'est pas ; si vous désertez"
+" vers la voie juste et vendez des disciples, vous serez expulsé."
+
+#. sect.csv: SECT_9_DESC
+msgid "SECT_9_DESC"
+msgstr ""
+"L'Alliance des Trésors Infinis est construite à travers les îles de Duobao "
+"dans le ciel, où les halls d'enchères, la Tour des Mille Fours, les docks de"
+" navires nuageux, les grands coffres et les maisons commerciales se "
+"connectent tous dans une secte qui ressemble plus à une ville immortelle qui"
+" ne ferme jamais. Ses cultivateurs pratiquent le commerce aussi sérieusement"
+" que la cultivation, se divisant en forge, estimation, expédition, comptes "
+"et commerce étrangers. De nombreux disciples apprennent dès l'enfance "
+"comment fixer les prix des marchandises, négocier, rédiger des contrats et "
+"garder les routes commerciales vivantes. L'alliance apprécie la circulation "
+"et l'efficacité au-dessus de tout, et chacun comprend comment les ressources"
+" se transforment en influence, ce qui la rend plus pratique, ordonnée et "
+"consciente de la réputation que la plupart des sectes."
+
+#. sect.csv: SECT_9_NAME
+msgid "SECT_9_NAME"
+msgstr "Alliance des Trésors Infinis"
+
+#. sect.csv: SECT_9_RULE_DESC
+msgid "SECT_9_RULE_DESC"
+msgstr ""
+"Vous pouvez poursuivre le profit, mais ne devez jamais détourner le trésor "
+"de la secte ou vendre l'alliance à l'ennemi ; si l'infraction est "
+"particulièrement vile, vous serez expulsé."
+
+#. sect_region.csv: SECT_REGION_401_DESC
+msgid "SECT_REGION_401_DESC"
+msgstr ""
+"Les Pics de Jueyu s'élancent dans l'océan de nuages, reliés par des chaînes "
+"de fer et des ponts de nuages surplombant des sentiers montagneux périleux. "
+"Seuls ceux dont l'intention de sabre est véritablement stable peuvent "
+"atteindre les plus hauts sommets. À mi-hauteur se dressent des plateformes "
+"de test du sabre, des bassins de purification du sabre et des falaises "
+"escarpées gravées d'innombrables marques de lame ; plus haut encore, le vent"
+" devient plus tranchant et l'éclair traverse parfois les précipices. La "
+"porte de la secte entière semble être un ancien sabre tiré mais jamais remis"
+" au fourreau, austère, majestueux et chargé d'une menace glaciale."
+
+#. sect_region.csv: SECT_REGION_401_NAME
+msgid "SECT_REGION_401_NAME"
+msgstr "Pic de Jueyu"
+
+#. sect_region.csv: SECT_REGION_402_DESC
+msgid "SECT_REGION_402_DESC"
+msgstr ""
+"La Caverne des Myriade de Bêtes se cache au cœur des chaînes montagneuses, "
+"ses couches extérieures scellées par un brouillard toxique et des vignes "
+"enchevêtrées formant une barrière naturelle. C'est en s'enfonçant que l'on "
+"atteint les domaines des bêtes qui s'étendent plus bas. Des ponts de pierre,"
+" des portes de fer et des plateformes de dressage de bêtes divisent les "
+"niveaux, tandis que des rugissements sourds et des cliquetis de chaînes "
+"résonnent sans fin dans l'air épais de qi démoniaque persistant. Des os et "
+"des marques de griffes jonchent le sol. C'est moins une porte de secte "
+"ordinaire qu'une cité-nid vivante de bêtes colossales, et chaque niveau "
+"inférieur semble plus oppressant que le précédent."
+
+#. sect_region.csv: SECT_REGION_402_NAME
+msgid "SECT_REGION_402_NAME"
+msgstr "Grotte des Dix Mille Bêtes"
+
+#. sect_region.csv: SECT_REGION_403_DESC
+msgid "SECT_REGION_403_DESC"
+msgstr ""
+"Jinghaiya se suspend au-dessus d'une falaise côtière à pic, où des salles, "
+"des corridors et des terrasses panoramiques de jade d'esprit de givre "
+"s'élèvent à demi voilés dans la brume océane. De loin, la porte entière de "
+"la secte semble flotter dans la lumière lunaire et les embruns. Au pied de "
+"la falaise, le mur de jade reflète la mer et les étoiles, et avec la montée "
+"et la baisse des marées, des lueurs aqueuses ondulent sur les murs et les "
+"sols jusqu'à ce que les chemins semblent à moitié réels et à moitié "
+"illusoires. Il est si calme ici que seuls les vagues, le vent et "
+"l'occasionnel tintement d'une cloche frôlant un avant-toit rappellent aux "
+"visiteurs qu'ils n'ont pas encore quitté le monde mortel."
+
+#. sect_region.csv: SECT_REGION_403_NAME
+msgid "SECT_REGION_403_NAME"
+msgstr "Falaise de la Mer Silencieuse"
+
+#. sect_region.csv: SECT_REGION_404_DESC
+msgid "SECT_REGION_404_DESC"
+msgstr ""
+"La Mer Morte est constituée d'îles noires et de baies ombragées reliées par "
+"des ponts de planches étroites, des marqueurs de ferry en ruine et des "
+"phares à feu spectral, si bien que de loin elle ressemble à une cité de "
+"spectres dérivant sur des eaux noir encre. La mer monte sans vent, et chaque"
+" vague qui s'élève porte un cri semblable à des pleurs lointains. Les salles"
+" et les marches de pierre sur les îles sont teintées de gris-blanc et de "
+"vert malade par la brume moite. À la nuit tombée, la lumière lunaire compte "
+"moins que les lampes à âmes vacillant dans le brouillard, transformant toute"
+" la région en quelque chose ressemblant à l'au-delà vu en rêve."
+
+#. sect_region.csv: SECT_REGION_404_NAME
+msgid "SECT_REGION_404_NAME"
+msgstr "Mer du Silence Absolu"
+
+#. sect_region.csv: SECT_REGION_405_DESC
+msgid "SECT_REGION_405_DESC"
+msgstr ""
+"À première vue, la Vallée de Qianji ressemble à une vallée montagneuse "
+"ordinaire, avec des routes de pierre bleue, des avant-toits élégants et des "
+"courettes et des fleurs soigneusement arrangées. Ce n'est qu'en s'approchant"
+" que l'on réalise que les ponts peuvent tourner, les murs peuvent s'ouvrir "
+"et se fermer, et même la hauteur des escaliers dissimule des mécanismes de "
+"déclenchement. Des tours de guet et des ponts suspendus se dressent au-"
+"dessus, tandis que des tunnels secrets, des ateliers et des chambres "
+"scellées s'étendent au-dessous. De temps à autre, on entend le grincement "
+"des dents d'engrenage, le doux bourdonnement du métal ou les pas de "
+"marionnette approcher de nulle part. La chose la plus terrifiante ici n'est "
+"pas un seul piège, mais que la vallée entière est elle-même une machine "
+"géante."
+
+#. sect_region.csv: SECT_REGION_405_NAME
+msgid "SECT_REGION_405_NAME"
+msgstr "Vallée des Mille Mécanismes"
+
+#. sect_region.csv: SECT_REGION_406_DESC
+msgid "SECT_REGION_406_DESC"
+msgstr ""
+"Le Terrier Doré se situe dans un ciel privé caché derrière une cité de "
+"marché prospère. À l'entrée s'étendent des mers de lanternes, une encens "
+"dérivante, des ponts courbés et des pavillons étagés au-dessus de l'eau. "
+"Plus on s'enfonce, plus le tumulte s'efface et plus les sons de l'eau et de "
+"la musique deviennent persistants. Les terrasses extérieures scintillent "
+"d'or et de jade et débordent de clients, tandis que plus loin se trouvent "
+"des salles tranquilles, des sources chaudes et des bassins de rêve cachés "
+"derrière de la gaze, des murs de fleurs et du brouillard. Tout ici est beau "
+"et luxueux, pourtant il est impossible de dire si l'on vient pour festoyer, "
+"pour rêver ou pour entrer dans une forme plus subtile de culture."
+
+#. sect_region.csv: SECT_REGION_406_NAME
+msgid "SECT_REGION_406_NAME"
+msgstr "Terrier de Dissipation de l'Or"
+
+#. sect_region.csv: SECT_REGION_407_DESC
+msgid "SECT_REGION_407_DESC"
+msgstr ""
+"L'Île de Pudu se suspend seule au centre de la Mer de Tempête. Au-delà de "
+"ses côtes, des vagues colossales s'élèvent et l'éclair tourbillonne, mais à "
+"l'intérieur, les cloches et la lumière bouddhiste maintiennent l'île dans un"
+" calme presque figé. La Pagode Vajra se dresse au centre, entourée de halls "
+"de temple, de marches de pierre, de plateformes d'austérité au bord de la "
+"falaise et d'un port faisant face à l'eau. Les cloches dorées au sommet "
+"tintent avec le vent de mer et semblent lisser l'orage peu à peu. Quand la "
+"brume du matin se lève, la lumière dorée s'écoule sur les récifs noirs et "
+"les salles pâles, et l'île ressemble à un sceau sacré soulevé d'une mer en "
+"colère."
+
+#. sect_region.csv: SECT_REGION_407_NAME
+msgid "SECT_REGION_407_NAME"
+msgstr "Île de Pudu"
+
+#. sect_region.csv: SECT_REGION_408_DESC
+msgid "SECT_REGION_408_DESC"
+msgstr ""
+"Le Marais de l'Ombre ne connaît jamais la véritable lumière du jour. Un "
+"brouillard toxique, l'eau fétide et les anciens arbres enchevêtrés scellent "
+"toute la région, et les intrus sont souvent observés par des yeux invisibles"
+" avant même de remarquer la porte de la secte. Le vrai bastion n'est pas "
+"concentré en surface : des tours cachées et des ponts de corde gisent dans "
+"la canopée, tandis que des tunnels, des cellules et des entrées couvertes de"
+" miasmes s'étendent sous le marécage. Il y a presque pas de ligne de vue "
+"ouverte ici, seulement des lampes froides vacillant à travers le brouillard "
+"qui dérive et les eaux noires prêtes à engloutir le son des pas à tout "
+"moment."
+
+#. sect_region.csv: SECT_REGION_408_NAME
+msgid "SECT_REGION_408_NAME"
+msgstr "Marais de l'Ombre"
+
+#. sect_region.csv: SECT_REGION_409_DESC
+msgid "SECT_REGION_409_DESC"
+msgstr ""
+"Les Îles Flottantes de Duobao ne sont pas une seule île mais une chaîne "
+"d'îles célestes de différentes tailles reliées par d'énormes chaînes, des "
+"ponts de nuages et des routes de navires nuages formant une cité immortelle "
+"suspendue dans les cieux. L'anneau extérieur est rempli de quais affairés et"
+" de cours de fret, les niveaux intermédiaires avec des rues commerciales, "
+"des maisons d'enchères et des marchés, et les hauteurs avec des tours de "
+"forgeage ventilant les feux des fournaises jour et nuit. Après la tombée de "
+"la nuit, les lampes courent le long des chaînes et des voies célestes dans "
+"les nuages, donnant à toute la région l'aspect d'une toile marchande dorée "
+"étendue à travers le ciel, éternellement bruyante et éternellement en "
+"mouvement."
+
+#. sect_region.csv: SECT_REGION_409_NAME
+msgid "SECT_REGION_409_NAME"
+msgstr "Île Flottante des Myriade de Trésors"
+
+#. sect_region.csv: SECT_REGION_410_DESC
+msgid "SECT_REGION_410_DESC"
+msgstr ""
+"La Vallée de l'Écho se rétrécit entre des falaises vertigineuses, formant "
+"naturellement d'innombrables trous de résonance et fissures sonores. Même "
+"une seule note pincée peut tourbillonner dans la vallée longtemps sans "
+"s'estomper. Les pavillons, les terrasses au bord de l'eau, les tours de qin "
+"et les corridors suivent les contours de la montagne tandis que les "
+"ruisseaux coulent droit à travers les bâtiments. En surface, c'est aussi "
+"gracieux qu'une retraite immortelle, mais une écoute attentive révèle que le"
+" vent passant aux avant-toits et les gouttes frappant l'eau semblent "
+"réarrangés par une main invisible. La vallée est souvent plus dangereuse non"
+" quand la musique la remplit, mais quand tout tombe soudainement silencieux."
+
+#. sect_region.csv: SECT_REGION_410_NAME
+msgid "SECT_REGION_410_NAME"
+msgstr "Vallée de l'Écho"
+
+#. sect_region.csv: SECT_REGION_411_DESC
+msgid "SECT_REGION_411_DESC"
+msgstr ""
+"Mizhongtian semble à première vue être seulement un pic solitaire, mais une "
+"fois franchie la porte de la secte, les terrasses, les marches, les ponts et"
+" les routes se révèlent tous être imbriqués dans des couches d'espace "
+"replié. Le même chemin peut sembler complètement différent quand on le "
+"regarde d'avant et d'après. Sur les pentes se dressent des places gravées de"
+" motifs de formations, des corridors suspendus en l'air et des salles qui "
+"s'évanouissent et réapparaissent, tandis que des lignes de lumière "
+"s'écoulent parfois à travers le sol comme si la montagne elle-même "
+"réfléchissait lentement. Il n'y a pas de sens stable de direction ici ; "
+"chaque pas se sent comme entrer dans un autre monde."
+
+#. sect_region.csv: SECT_REGION_411_NAME
+msgid "SECT_REGION_411_NAME"
+msgstr "Ciel du Labyrinthe"
+
+#. sect_region.csv: SECT_REGION_412_DESC
+msgid "SECT_REGION_412_DESC"
+msgstr ""
+"Le Ciel de l'Aurore gît dans les profondeurs de la nuit éternelle du nord "
+"lointain. Au-delà s'étendent des plaines de glace silencieuses, mais ce seul"
+" palais-cité baigne toute l'année dans l'aurore mouvante aussi brillante que"
+" le jour. Des murs de glace altiers, des portes de fer noir, des ponts gelés"
+" et des champs d'entraînement scintillent sous la lumière mouvante, tandis "
+"que au cœur de la cité l'autel de la flamme sacrée projette une douce lueur "
+"rouge-chaleur à travers le froid. Sa beauté n'est pas simplement grandeur, "
+"mais la coexistence ordonnée de glace et de feu, immobilité et rayonnement, "
+"comme si toute la cité était une flamme endurante au cœur de l'hiver le plus"
+" profond."
+
+#. sect_region.csv: SECT_REGION_412_NAME
+msgid "SECT_REGION_412_NAME"
+msgstr "Royaume de l'Aurore Céleste"
+
+#. sect_region.csv: SECT_REGION_413_DESC
+msgid "SECT_REGION_413_DESC"
+msgstr ""
+"La Forêt des Sages se dresse là où convergent les veines spirituelles "
+"centrales, remplie d'anciens arbres vertigineux et de stèles de pierre "
+"éparses. Des halls de conférences, des bibliothèques et des courettes au "
+"bord de l'eau sont nichés dans l'ombre, et quiconque y marche doit souvent "
+"suivre des chemins couverts de feuilles mortes et des corridors gravés "
+"d'inscriptions classiques. Le jour, le son de la lecture voyage loin avec le"
+" vent forestier ; la nuit, les stèles émettent une faible lueur sous la "
+"lune, laissant les arbres et les avant-toits enveloppés d'une dignité "
+"tranquille. L'endroit ressemble moins à une secte fermée qu'à une académie "
+"vivante grandissant encore avec le temps."
+
+#. sect_region.csv: SECT_REGION_413_NAME
+msgid "SECT_REGION_413_NAME"
+msgstr "Forêt des Sages"
+
+#. sect_region.csv: SECT_REGION_414_DESC
+msgid "SECT_REGION_414_DESC"
+msgstr ""
+"La montagne au-dessus du Bassin de Sang d'Asura est rouge foncé de part en "
+"part, avec du brouillard de couleur sang et de la chaleur s'élevant "
+"constamment de ses fissures. Au cœur de la montagne, d'immenses bassins de "
+"sang souterrain et des halls sacrificiels étagés ont été creusés dans la "
+"terre. Des ponts de chaîne de fer enjambent les rivières de sang, et des "
+"escaliers de pierre descendent vers des plateformes de bataille, des "
+"cavernes d'os et des autels illuminés par une lumière écarlate. Plus on "
+"descend, plus l'odeur de rouille, de médicament et de sang moite devient "
+"lourde. Le bastion entier semble être une bête monstrueuse respirant "
+"lentement sous terre."
+
+#. sect_region.csv: SECT_REGION_414_NAME
+msgid "SECT_REGION_414_NAME"
+msgstr "Bassin de Sang d'Asura"
+
+#. technique.csv: 最基础的法术，凝聚火炎伤敌，简单实用。...
+msgid "TECHNIQUE_10_DESC"
+msgstr ""
+"La technique la plus basique, concentrant les flammes pour blesser les "
+"ennemis, simple et pratique."
+
+#. technique.csv: 火灵诀
+msgid "TECHNIQUE_10_NAME"
+msgstr "Formule de l'Esprit de Feu"
+
+#. technique.csv: 纯阳之气，刚猛无铸，克制阴邪。...
+msgid "TECHNIQUE_11_DESC"
+msgstr ""
+"Le Qi du Yang pur, féroce et inébranlable, contrant le froid et le mal."
+
+#. technique.csv: 纯阳真功
+msgid "TECHNIQUE_11_NAME"
+msgstr "Véritable Art du Yang Pur"
+
+#. technique.csv: 力能扛鼎，气力悠长，如下山猛虎。...
+msgid "TECHNIQUE_13_DESC"
+msgstr ""
+"Capable de soulever un trépied par la force, avec une puissance physique "
+"durable, comme un tigre dévalant la montagne."
+
+#. technique.csv: 搬山诀
+msgid "TECHNIQUE_13_NAME"
+msgstr "Formule de Déplacement de Montagne"
+
+#. technique.csv: 不动如山，动如雷震，佛门护法神功。...
+msgid "TECHNIQUE_14_DESC"
+msgstr ""
+"Immobile comme une montagne, se mouvant comme la foudre, une compétence "
+"divine de gardien bouddhiste."
+
+#. technique.csv: 不动明王诀
+msgid "TECHNIQUE_14_NAME"
+msgstr "Formule du Roi Immuable de Sagesse"
+
+#. technique.csv: 心若冰清，天塌不惊，凝神静气。...
+msgid "TECHNIQUE_16_DESC"
+msgstr ""
+"Le cœur pur comme la glace, l'effondrement du ciel n'effraye pas, "
+"concentrant l'esprit et calmant l'énergie."
+
+#. technique.csv: 凝神冰心诀
+msgid "TECHNIQUE_16_NAME"
+msgstr "Formule du Cœur de Glace Concentré"
+
+#. technique.csv: 寒气透骨，冻结经脉，阴狠霸道。...
+msgid "TECHNIQUE_17_DESC"
+msgstr "Le froid traverse les os, gèle les méridiens, sinistre et tyrannique."
+
+#. technique.csv: 玄冰劲
+msgid "TECHNIQUE_17_NAME"
+msgstr "Puissance de Glace Mystérieuse"
+
+#. technique.csv: 身法灵动，变幻莫测，逃跑一流。...
+msgid "TECHNIQUE_19_DESC"
+msgstr "Mouvements vifs et insaisissables, impeccables pour s'échapper."
+
+#. technique.csv: 流云百变身
+msgid "TECHNIQUE_19_NAME"
+msgstr "Corps aux Cent Transformations du Nuage Fluide"
+
+#. technique.csv: 佛门护教神功，浑身坚若金石，寻常兵刃难伤。
+msgid "TECHNIQUE_1_DESC"
+msgstr ""
+"Une compétence divine de gardien bouddhiste, le corps dur comme le métal et "
+"la pierre, invulnérable aux armes ordinaires."
+
+#. technique.csv: 混元金身
+msgid "TECHNIQUE_1_NAME"
+msgstr "Corps d'Or Primordial"
+
+#. technique.csv: 借力腾空，左脚踩右脚，直上青云九霄。
+msgid "TECHNIQUE_20_DESC"
+msgstr ""
+"Emprunter la force pour s'élancer, le pied gauche sur le pied droit, montant"
+" droit vers les neuf cieux."
+
+#. technique.csv: 踏云步
+msgid "TECHNIQUE_20_NAME"
+msgstr "Pas de Foulée des Nuages"
+
+#. technique.csv: 收敛气息，如枯木死灰，令人难以察觉。...
+msgid "TECHNIQUE_22_DESC"
+msgstr ""
+"Masquer le souffle, comme du bois mort et des cendres froides, difficile à "
+"détecter pour les autres."
+
+#. technique.csv: 敛息术
+msgid "TECHNIQUE_22_NAME"
+msgstr "Technique de Dissimulation du Souffle"
+
+#. technique.csv: 如鬼魅般难以捉摸，步法诡异，令人眼花缭乱。
+msgid "TECHNIQUE_23_DESC"
+msgstr ""
+"Insaisissable comme un fantôme, aux pas mystérieux, étourdissant pour les "
+"yeux."
+
+#. technique.csv: 幻影迷踪步
+msgid "TECHNIQUE_23_NAME"
+msgstr "Pas de Trace du Spectre"
+
+#. technique.csv: 道家正宗法术，掌心发雷，震慑妖邪。...
+msgid "TECHNIQUE_25_DESC"
+msgstr ""
+"Un sort taoïste orthodoxe, émettant la foudre de la paume, intimidant les "
+"esprits mauvais."
+
+#. technique.csv: 掌心雷
+msgid "TECHNIQUE_25_NAME"
+msgstr "Foudre de la Paume"
+
+#. technique.csv: 役使五行之雷，刚猛霸道，无坚不摧。...
+msgid "TECHNIQUE_26_DESC"
+msgstr ""
+"Employant la foudre des cinq éléments, féroce et tyrannique, indestructible."
+
+#. technique.csv: 五雷正法
+msgid "TECHNIQUE_26_NAME"
+msgstr "Orthodoxie des Cinq Tonnerres"
+
+#. technique.csv: 燃烧精血，短暂爆发实力，事后虚弱。...
+msgid "TECHNIQUE_28_DESC"
+msgstr ""
+"Brûler le sang d'essence pour une explosion momentanée de puissance, suivie "
+"d'une faiblesse."
+
+#. technique.csv: 燃血爆元术
+msgid "TECHNIQUE_28_NAME"
+msgstr "Art d'Explosion d'Essence par Brûlure de Sang"
+
+#. technique.csv: 强行吸取他人灵力为己用，霸道异常，常有反噬风险。
+msgid "TECHNIQUE_29_DESC"
+msgstr ""
+"Absorber par force la puissance spirituelle d'autrui, extraordinairement "
+"tyrannique, avec risques de contrecoup fréquents."
+
+#. technique.csv: 吞灵归元功
+msgid "TECHNIQUE_29_NAME"
+msgstr "Art de Retour à l'Origine par Déglutition d'Esprit"
+
+#. technique.csv: 运气成钟，护持周身，反震外力。...
+msgid "TECHNIQUE_2_DESC"
+msgstr ""
+"Rassembler le Qi en une cloche pour protéger le corps et réfléchir les "
+"forces externes."
+
+#. technique.csv: 金钟罩
+msgid "TECHNIQUE_2_NAME"
+msgstr "Bouclier de Cloche d'Or"
+
+#. technique.csv: 一剑枯荣，斩尽日月星辰，乃剑道至高境界。
+msgid "TECHNIQUE_30_DESC"
+msgstr ""
+"Une épée apportant le flétrissement et la gloire, tranchant le soleil, la "
+"lune et les étoiles, le plus haut domaine du chemin de l'épée."
+
+#. technique.csv: 斩星枯荣剑
+msgid "TECHNIQUE_30_NAME"
+msgstr "Épée Gloire Fléchie de Tranchement d'Étoile"
+
+#. technique.csv: 引九天雷霆入剑，煌煌天威，荡尽群魔。...
+msgid "TECHNIQUE_31_DESC"
+msgstr ""
+"Guider la foudre des neuf cieux dans l'épée, avec la majesté céleste "
+"grandiose, balayant tous les démons."
+
+#. technique.csv: 九霄御雷术
+msgid "TECHNIQUE_31_NAME"
+msgstr "Art de Contrôle de la Foudre des Neuf Cieux"
+
+#. technique.csv: 君不见沧浪之水天上来，奔流到海不复回。...
+msgid "TECHNIQUE_32_DESC"
+msgstr ""
+"Ne voyez-vous pas l'eau des vagues déferlantes venant du ciel, se ruant vers"
+" la mer sans retour."
+
+#. technique.csv: 沧浪剑意
+msgid "TECHNIQUE_32_NAME"
+msgstr "Intention d'Épée des Vagues Déferlantes"
+
+#. technique.csv: 上古木系至高功法，生生不息，枯木逢春。
+msgid "TECHNIQUE_33_DESC"
+msgstr ""
+"Méthode de cultivation suprême du système Bois ancien, vie sans fin, bois "
+"mort rencontrant le printemps."
+
+#. technique.csv: 乙木长生诀
+msgid "TECHNIQUE_33_NAME"
+msgstr "Formule de Longévité du Bois Yi"
+
+#. technique.csv: 以气引神，力若龙象，举手投足，镇压诸邪。
+msgid "TECHNIQUE_34_DESC"
+msgstr ""
+"Guider l'esprit avec le Qi, puissance comme un dragon et un éléphant, chaque"
+" mouvement supprime tous les maux."
+
+#. technique.csv: 龙象镇魔功
+msgid "TECHNIQUE_34_NAME"
+msgstr "Art de Suppression des Démons du Dragon Éléphant"
+
+#. technique.csv: 入海为鱼，扶摇为鸟。阴阳变化，极速与吞噬并存。
+msgid "TECHNIQUE_35_DESC"
+msgstr ""
+"Entrer la mer comme poisson, s'élancer comme oiseau. Changements Yin-Yang, "
+"coexistant vitesse extrême et déglutition."
+
+#. technique.csv: 垂天阴阳翼
+msgid "TECHNIQUE_35_NAME"
+msgstr "Ailes Yin Yang du Ciel Pendant"
+
+#. technique.csv: 以无限空间证道，掌控虚空，先天立于不败之地。
+msgid "TECHNIQUE_36_DESC"
+msgstr ""
+"Prouver la Voie par l'espace infini, contrôler le vide, intrinsèquement "
+"invincible."
+
+#. technique.csv: 太虚行者录
+msgid "TECHNIQUE_36_NAME"
+msgstr "Registre du Voyageur du Vide Suprême"
+
+#. technique.csv: 太上忘情，非无情，乃忘情。至公至正，威力...
+msgid "TECHNIQUE_37_DESC"
+msgstr ""
+"L'amourosité suprême n'est pas insensibilité, mais oubli de l'émotion. "
+"Justice et impartialité ultimes, avec puissance infinie."
+
+#. technique.csv: 太上忘情篇
+msgid "TECHNIQUE_37_NAME"
+msgstr "Chapitre de l'Oubli Suprême"
+
+#. technique.csv: 乘天地之正，而御六气之辩，以游无穷。...
+msgid "TECHNIQUE_38_DESC"
+msgstr ""
+"Chevaucher la rectitude du ciel et de la terre, et contrôler les changements"
+" des six Qi pour voyager infiniment."
+
+#. technique.csv: 逍遥游
+msgid "TECHNIQUE_38_NAME"
+msgstr "Voyage Insouciant"
+
+#. technique.csv: 吞噬万千体质本源，以后天返先天，铸就混沌之躯。
+msgid "TECHNIQUE_39_DESC"
+msgstr ""
+"Dévorer l'origine de dix mille constitutions, revenir à l'inné du acquis, "
+"forger le Corps du Chaos."
+
+#. technique.csv: 混沌噬灵诀
+msgid "TECHNIQUE_39_NAME"
+msgstr "Art de Déglutition d'Esprit du Chaos"
+
+#. technique.csv: 魔门至高宝典，包罗万象，直指破碎虚空之境。
+msgid "TECHNIQUE_40_DESC"
+msgstr ""
+"Le plus haut grimoire de la porte démoniaque, tout-englobant, pointant "
+"directement vers le royaume de brisure du vide."
+
+#. technique.csv: 罗刹魔典
+msgid "TECHNIQUE_40_NAME"
+msgstr "Canon Démon Rakshasa"
+
+#. technique.csv: 血海不枯，真身不死。演化亿万血神子...
+msgid "TECHNIQUE_41_DESC"
+msgstr ""
+"La mer de sang ne s'assèche jamais, le vrai corps ne meurt pas. Évoluant en "
+"centaines de millions de fils dieu du sang."
+
+#. technique.csv: 血海不灭经
+msgid "TECHNIQUE_41_NAME"
+msgstr "Écriture Indestructible de la Mer de Sang"
+
+#. technique.csv: 通过吞噬天地异火进化功法，潜力无限，号令万火...
+msgid "TECHNIQUE_42_DESC"
+msgstr ""
+"Évoluer la technique en dévorant les flammes exotiques du ciel et de la "
+"terre, potentiel infini, commandant tous les feux."
+
+#. technique.csv: 九转火源经
+msgid "TECHNIQUE_42_NAME"
+msgstr "Écriture de Source de Feu aux Neuf Tours"
+
+#. technique.csv: 以天地为炉鼎，种魔种，夺天地造化，死中求生。
+msgid "TECHNIQUE_43_DESC"
+msgstr ""
+"Utiliser le ciel et la terre comme fourneau, planter des graines "
+"démoniaques, saisir la création du ciel et de la terre, chercher la vie dans"
+" la mort."
+
+#. technique.csv: 种魔夺天诀
+msgid "TECHNIQUE_43_NAME"
+msgstr "Art de Saisie du Ciel par Ensemencement Démoniaque"
+
+#. technique.csv: 专修神识，能分心多用，操控万千法器傀儡。...
+msgid "TECHNIQUE_44_DESC"
+msgstr ""
+"Se spécialiser dans le sens divin, capable de multitâche et contrôler des "
+"milliers d'artefacts magiques et de poupées."
+
+#. technique.csv: 千念分神术
+msgid "TECHNIQUE_44_NAME"
+msgstr "Art de Distraction aux Mille Pensées"
+
+#. technique.csv: 阴阳大道，极乐飞升。双修之至高法门。...
+msgid "TECHNIQUE_45_DESC"
+msgstr ""
+"La Grande Voie du Yin et du Yang, ascension en félicité extrême. La méthode "
+"suprême de la double cultivation."
+
+#. technique.csv: 大乐赋
+msgid "TECHNIQUE_45_NAME"
+msgstr "Ode de la Grande Félicité"
+
+#. technique.csv: 域外天魔之舞，勾魂摄魄，乱人心智。...
+msgid "TECHNIQUE_46_DESC"
+msgstr ""
+"La danse du démon céleste extradimensionnel, accrochant l'âme et troublant "
+"l'esprit."
+
+#. technique.csv: 天魔舞
+msgid "TECHNIQUE_46_NAME"
+msgstr "Danse du Démon Céleste"
+
+#. technique.csv: 体迅飞凫，飘忽若神，动无常则，若危若安。
+msgid "TECHNIQUE_47_DESC"
+msgstr ""
+"Se déplaçant aussi vite qu'un canard volant, insaisissable comme un dieu, se"
+" mouvant sans règle, semblant dangereux mais sûr."
+
+#. technique.csv: 烟波渺步
+msgid "TECHNIQUE_47_NAME"
+msgstr "Pas de Vague Brumeuse"
+
+#. technique.csv: 神魂不灭，超脱彼岸。修成无量法身，万劫不磨。
+msgid "TECHNIQUE_48_DESC"
+msgstr ""
+"L'âme divine est indestructible, se transcendant vers l'autre rive. "
+"Cultivant le corps dharma immense, éternel par dix mille calamités."
+
+#. technique.csv: 无量寂灭经
+msgid "TECHNIQUE_48_NAME"
+msgstr "Écriture du Nirvana Immense"
+
+#. technique.csv: 佛门护法金刚之怒，如雷霆万钧，震慑一切邪魔，荡涤世间污秽。
+msgid "TECHNIQUE_49_DESC"
+msgstr ""
+"La colère du Vajra Protecteur Bouddhiste, comme la foudre de dix mille jun, "
+"intimidant tous les démons et purifiant la souillure du monde."
+
+#. technique.csv: 大威德金刚雷
+msgid "TECHNIQUE_49_NAME"
+msgstr "Foudre Vajra Yamantaka"
+
+#. technique.csv: 木系基础功法，气息绵长，有驻颜延寿之效。
+msgid "TECHNIQUE_4_DESC"
+msgstr ""
+"Méthode de cultivation basique du système Bois, au souffle durable et aux "
+"effets de maintien de la jeunesse et prolongement de la vie."
+
+#. technique.csv: 青元长生功
+msgid "TECHNIQUE_4_NAME"
+msgstr "Art de Longévité de l'Origine Azure"
+
+#. technique.csv: 唵嘛呢叭咪吽。佛门至高咒语，蕴含无尽愿力，能净化世间一切罪业与灾厄。
+msgid "TECHNIQUE_50_DESC"
+msgstr ""
+"Om Mani Padme Hum. Le mantra suprême du bouddhisme, contenant le pouvoir "
+"infini des vœux, capable de purifier tous les péchés et calamités du monde."
+
+#. technique.csv: 六字大明咒
+msgid "TECHNIQUE_50_NAME"
+msgstr "Mantra des Six Syllabes"
+
+#. technique.csv: 阴损毒辣，专破内家真气，触之即死。...
+msgid "TECHNIQUE_51_DESC"
+msgstr ""
+"Sinistre et cruel, cassant spécifiquement le vrai Qi interne, mort au "
+"contact."
+
+#. technique.csv: 幽冥玄阴爪
+msgid "TECHNIQUE_51_NAME"
+msgstr "Griffe Yin Mystérieuse de l'Au-delà"
+
+#. technique.csv: 身化雷霆，瞬息千里，原地只留残影重重。
+msgid "TECHNIQUE_52_DESC"
+msgstr ""
+"Le corps se transformant en foudre, des milliers de miles en un instant, ne "
+"laissant que des afterimages lourds sur place."
+
+#. technique.csv: 雷影瞬遁
+msgid "TECHNIQUE_52_NAME"
+msgstr "Foudre Ombre Flash"
+
+#. technique.csv: 以自身为皮，鲜血为墨。修炼者必先历经剥皮噬血之苦。
+msgid "TECHNIQUE_53_DESC"
+msgstr ""
+"Utilisant sa propre peau comme papier, le sang frais comme encre. Les "
+"cultivateurs doivent d'abord subir la souffrance du dépouillage et de la "
+"déglutition de sang."
+
+#. technique.csv: 修罗血煞功
+msgid "TECHNIQUE_53_NAME"
+msgstr "Art de Férocité de Sang Asura"
+
+#. technique.csv: 炼器极致，化腐朽为神奇，万物皆可随心炼化。
+msgid "TECHNIQUE_54_DESC"
+msgstr ""
+"L'apogée du raffinement d'artefact, transformant la décadence en magie, tout"
+" peut être raffiné à volonté."
+
+#. technique.csv: 天工造物诀
+msgid "TECHNIQUE_54_NAME"
+msgstr "Art de Création Céleste"
+
+#. technique.csv: 引周天星力，演化宇宙洪荒，攻防一体。...
+msgid "TECHNIQUE_55_DESC"
+msgstr ""
+"Attirant la puissance stellaire du ciel, évoluant l'univers et le chaos, "
+"combinant attaque et défense."
+
+#. technique.csv: 万星飞仙阵
+msgid "TECHNIQUE_55_NAME"
+msgstr "Tableau des Dix Mille Étoiles Immortel Volant"
+
+#. technique.csv: 化作一道流金遁光，瞬息万里，乃逃生赶路之绝学。
+msgid "TECHNIQUE_56_DESC"
+msgstr ""
+"Se transformant en un flux de lumière dorée, des milliers de miles en un "
+"instant, la compétence suprême pour s'échapper et voyager."
+
+#. technique.csv: 金光遁法
+msgid "TECHNIQUE_56_NAME"
+msgstr "Méthode d'Échappement de Lumière Dorée"
+
+#. technique.csv: 天地有正气，杂然赋流形。养胸中浩然之气，诸邪不侵，万法不破。
+msgid "TECHNIQUE_57_DESC"
+msgstr ""
+"Le ciel et la terre possèdent la rectitude, manifestée sous diverses formes."
+" Cultivant l'esprit noble en dedans, le mal ne peut pas envahir, et toutes "
+"les lois ne peuvent pas le briser."
+
+#. technique.csv: 浩然正气歌
+msgid "TECHNIQUE_57_NAME"
+msgstr "Chanson de la Rectitude"
+
+#. technique.csv: 笔落惊风雨，诗成泣鬼神。以圣人之言判春秋功过，一字千金。
+msgid "TECHNIQUE_58_DESC"
+msgstr ""
+"Avec un coup de pinceau, le vent et la pluie sont surpris, les poèmes font "
+"pleurer les fantômes et les dieux. Utilisant les paroles des sages pour "
+"juger les mérites et les fautes de l'histoire, un mot vaut mille or."
+
+#. technique.csv: 春秋笔法
+msgid "TECHNIQUE_58_NAME"
+msgstr "Technique de Pinceau du Printemps et de l'Automne"
+
+#. technique.csv: 口含天宪，言出法随。以圣贤之语调动天地规则，令行禁止，莫敢不从。
+msgid "TECHNIQUE_59_DESC"
+msgstr ""
+"Parler la loi. Mobilisant les règles du ciel et de la terre avec les paroles"
+" des sages, les ordres sont interdits, et personne ne ose désobéir."
+
+#. technique.csv: 言出法随
+msgid "TECHNIQUE_59_NAME"
+msgstr "La Loi Suit la Parole"
+
+#. technique.csv: 汲取天地草木精气，生机浩荡，万木臣服。
+msgid "TECHNIQUE_5_DESC"
+msgstr ""
+"Absorbant l'essence du ciel et de la terre des plantes, avec vitalité vaste,"
+" faisant soumettre tous les bois."
+
+#. technique.csv: 太乙青木气
+msgid "TECHNIQUE_5_NAME"
+msgstr "Qi Bois Azure Taiyi"
+
+#. technique.csv: Draws the purple qi of the rising sun to temper the skin...
+msgid "TECHNIQUE_60_DESC"
+msgstr ""
+"Dessiner le Qi violet du soleil levant pour tempérer la peau, réchauffant le"
+" corps et le remplissant de vitalité."
+
+#. technique.csv: Sun Tempering Art
+msgid "TECHNIQUE_60_NAME"
+msgstr "Art de Trempe du Soleil"
+
+#. technique.csv: Body like glazed glass...
+msgid "TECHNIQUE_61_DESC"
+msgstr ""
+"Le corps comme du verre glacé, clair dedans et dehors, invulnérable au mal "
+"et indestructible."
+
+#. technique.csv: Radiant Glass Body
+msgid "TECHNIQUE_61_NAME"
+msgstr "Corps de Verre Rayonnant"
+
+#. technique.csv: The supreme technique of the Eternal Bright Palace...
+msgid "TECHNIQUE_62_DESC"
+msgstr ""
+"La technique suprême du Palais Éternellement Brillant. Sanctification de la "
+"chair, un corps d'or impérissable qui brille à travers les âges."
+
+#. technique.csv: Great Bright Golden Body
+msgid "TECHNIQUE_62_NAME"
+msgstr "Corps d'Or Brillant Grandiose"
+
+#. technique.csv: 上善若水，水利万物而不争，绵柔醇厚。...
+msgid "TECHNIQUE_7_DESC"
+msgstr ""
+"Le plus haut bien est comme l'eau, l'eau profite à toutes choses sans "
+"contester, doux et riche."
+
+#. technique.csv: 若水诀
+msgid "TECHNIQUE_7_NAME"
+msgstr "Formule Ruoshui"
+
+#. technique.csv: 驾驭滔滔黑水，重若千钧，拳意如深海暗流。
+msgid "TECHNIQUE_8_DESC"
+msgstr ""
+"Conduire l'eau noire déferlante, lourd comme mille jun, avec intention de "
+"poing comme les courants sombres de la mer profonde."
+
+#. technique.csv: 北冥玄水拳
+msgid "TECHNIQUE_8_NAME"
+msgstr "Poing de l'Eau Mystérieuse du Nord"
+
+#. weapon.csv: 市井铁匠铺打造的铁剑，勉强能用。...
+msgid "WEAPON_1001_DESC"
+msgstr "Une épée en fer forgée par un forgerons local, à peine utilisable."
+
+#. weapon.csv: 练气剑
+msgid "WEAPON_1001_NAME"
+msgstr "Épée de Raffinage du Qi"
+
+#. weapon.csv: 厚背砍刀，寻常武夫的最爱。...
+msgid "WEAPON_1002_DESC"
+msgstr "Un sabre à dos épais, le favori des guerriers ordinaires."
+
+#. weapon.csv: 练气刀
+msgid "WEAPON_1002_NAME"
+msgstr "Sabre de Raffinage du Qi"
+
+#. weapon.csv: 白蜡杆制成，枪头挂着红缨。...
+msgid "WEAPON_1003_DESC"
+msgstr ""
+"Fabriqué en bois de cire blanche, avec un pompon rouge à la pointe de lance."
+
+#. weapon.csv: 练气枪
+msgid "WEAPON_1003_NAME"
+msgstr "Lance de Raffinage du Qi"
+
+#. weapon.csv: 普通的硬木棍，长与眉齐。...
+msgid "WEAPON_1004_DESC"
+msgstr "Un bâton en bois dur ordinaire, aussi long que les sourcils."
+
+#. weapon.csv: 练气棍
+msgid "WEAPON_1004_NAME"
+msgstr "Bâton de Raffinage du Qi"
+
+#. weapon.csv: 文人雅士常用的折扇，附庸风雅。...
+msgid "WEAPON_1005_DESC"
+msgstr ""
+"Un éventail pliant couramment utilisé par les savants et les lettrés pour "
+"l'élégance."
+
+#. weapon.csv: 练气扇
+msgid "WEAPON_1005_NAME"
+msgstr "Éventail de Raffinage du Qi"
+
+#. weapon.csv: 普通的皮鞭，多用于赶车或刑罚。...
+msgid "WEAPON_1006_DESC"
+msgstr ""
+"Un fouet en cuir ordinaire, principalement utilisé pour conduire les "
+"chariots ou le châtiment."
+
+#. weapon.csv: 练气鞭
+msgid "WEAPON_1006_NAME"
+msgstr "Fouet de Raffinage du Qi"
+
+#. weapon.csv: 桐木制成的古琴，音色尚可。...
+msgid "WEAPON_1007_DESC"
+msgstr ""
+"Une cithare ancienne fabriquée en bois de paulownia, avec une qualité sonore"
+" acceptable."
+
+#. weapon.csv: 练气琴
+msgid "WEAPON_1007_NAME"
+msgstr "Cithare de Raffinage du Qi"
+
+#. weapon.csv: 紫竹削制，声音清脆。...
+msgid "WEAPON_1008_DESC"
+msgstr "Sculptée en bambou pourpre, avec un son cristallin."
+
+#. weapon.csv: 练气笛
+msgid "WEAPON_1008_NAME"
+msgstr "Flûte de Raffinage du Qi"
+
+#. weapon.csv: 随处可见的铁制暗器。...
+msgid "WEAPON_1009_DESC"
+msgstr "Armes cachées en fer couramment visibles."
+
+#. weapon.csv: 练气暗器
+msgid "WEAPON_1009_NAME"
+msgstr "Arme Cachée de Raffinage du Qi"
+
+#. weapon.csv: 剑气森寒。...
+msgid "WEAPON_1021_DESC"
+msgstr "Le qi de l'épée est d'un froid glaçant."
+
+#. weapon.csv: 青霜剑
+msgid "WEAPON_1021_NAME"
+msgstr "Épée de Givre Azur"
+
+#. weapon.csv: 刀光如井中映月，虚实难测。...
+msgid "WEAPON_1022_DESC"
+msgstr ""
+"La lame est comme l'eau, reflétant la lune sans laisser de trace. Il est "
+"difficile de distinguer la réalité de l'illusion, ce qui rend l'adversaire "
+"imprévisible."
+
+#. weapon.csv: 井中月
+msgid "WEAPON_1022_NAME"
+msgstr "Sabre de Lune de Puits"
+
+#. weapon.csv: 枪头隐有火光，能引动凡火。...
+msgid "WEAPON_1023_DESC"
+msgstr ""
+"Faible lueur de feu à la pointe de la lance, capable de déclencher un feu "
+"commun."
+
+#. weapon.csv: 火尖枪
+msgid "WEAPON_1023_NAME"
+msgstr "Lance à Pointe de Feu"
+
+#. weapon.csv: 精铁铸造，重达千斤，力大者可用。...
+msgid "WEAPON_1024_DESC"
+msgstr ""
+"Forgée en fer raffiné, pesant mille jin, utilisable par ceux ayant une "
+"grande force."
+
+#. weapon.csv: 囚龙棒
+msgid "WEAPON_1024_NAME"
+msgstr "Bâton d'Emprisonnement du Dragon"
+
+#. weapon.csv: 桃花影落飞神剑，扇面绘有桃花，暗藏杀机。...
+msgid "WEAPON_1025_DESC"
+msgstr ""
+"L'éventail est peint de pétales cramoisies. Les ombres de fleur sont floues,"
+" cachant l'intention de meurtre, ce qui rend impossible la défense."
+
+#. weapon.csv: 桃花扇
+msgid "WEAPON_1025_NAME"
+msgstr "Éventail de Fleur de Pêcher"
+
+#. weapon.csv: 仿品，虽无打神之能，却可伤人神魂。...
+msgid "WEAPON_1026_DESC"
+msgstr ""
+"Une imitation ; bien que manquant le pouvoir de frapper les dieux, elle peut"
+" blesser l'âme."
+
+#. weapon.csv: 打神鞭
+msgid "WEAPON_1026_NAME"
+msgstr "Fouet de Frappe des Dieux"
+
+#. weapon.csv: 琴音魔性，扰乱心智。...
+msgid "WEAPON_1027_DESC"
+msgstr "Le son de la cithare est démoniaque, perturbant l'esprit."
+
+#. weapon.csv: 天魔琴
+msgid "WEAPON_1027_NAME"
+msgstr "Cithare de Démon Céleste"
+
+#. weapon.csv: 据说能以此笛操控尸傀。...
+msgid "WEAPON_1028_DESC"
+msgstr ""
+"Le son de la flûte est perçant et peut contrôler les cadavres, faisant pâlir"
+" les gens au son."
+
+#. weapon.csv: 鬼笛陈情
+msgid "WEAPON_1028_NAME"
+msgstr "Flûte de Contrôle des Esprits"
+
+#. weapon.csv: 细若牛毛，来去无影，防不胜防。...
+msgid "WEAPON_1029_DESC"
+msgstr ""
+"Fins comme un cheveu de vache, allant et venant sans laisser de trace, "
+"impossible à défendre."
+
+#. weapon.csv: 无影针
+msgid "WEAPON_1029_NAME"
+msgstr "Aiguille sans Ombre"
+
+#. weapon.csv: 百兽宗秘制，笛声可安抚或激怒野兽。...
+msgid "WEAPON_1030_DESC"
+msgstr ""
+"Spécialement fabriquée par la Secte Baishou ; le son de la flûte peut "
+"appaiser ou provoquer les bêtes."
+
+#. weapon.csv: 万兽笛
+msgid "WEAPON_1030_NAME"
+msgstr "Flûte des Dix Mille Bêtes"
+
+#. weapon.csv: 刀身赤红，似渴望饮血。...
+msgid "WEAPON_1031_DESC"
+msgstr ""
+"La lame est cramoisie, semblant assoiffée de sang. Il a une intention de "
+"meurtre lourde et ne peut pas être utilisé par ceux à la volonté faible."
+
+#. weapon.csv: 血饮狂刀
+msgid "WEAPON_1031_NAME"
+msgstr "Sabre Frénétique d'Abreuvement de Sang"
+
+#. weapon.csv: 重剑无锋，大巧不工，独孤求败。...
+msgid "WEAPON_1032_DESC"
+msgstr ""
+"Forgée en fer météorique extraterre. L'épée lourde n'a pas de bord "
+"tranchant, mais un grand talent ne demande aucun savoir-faire. Elle peut "
+"briser toutes les techniques par la force."
+
+#. weapon.csv: 玄铁重剑
+msgid "WEAPON_1032_NAME"
+msgstr "Épée Lourde de Météore"
+
+#. weapon.csv: 软若束带，动若灵蛇。...
+msgid "WEAPON_1033_DESC"
+msgstr ""
+"L'épée est douce comme la soie, mais quand elle est imbue d'énergie "
+"spirituelle, elle se meut comme un serpent spirituel, étrange et "
+"imprévisible."
+
+#. weapon.csv: 紫薇软剑
+msgid "WEAPON_1033_NAME"
+msgstr "Épée Douce du Serpent Spirituel"
+
+#. weapon.csv: 镇魂宗制式兵器，水火相济，困敌锁魂。...
+msgid "WEAPON_1034_DESC"
+msgstr ""
+"Une arme standard de la Secte Zhenhun, combinant eau et feu pour piéger les "
+"ennemis et verrouiller les âmes."
+
+#. weapon.csv: 水火囚龙棍
+msgid "WEAPON_1034_NAME"
+msgstr "Bâton d'Emprisonnement du Dragon Eau-Feu"
+
+#. weapon.csv: 成套飞剑，内蕴辟邪神雷，克制天下邪祟。...
+msgid "WEAPON_1051_DESC"
+msgstr ""
+"Un ensemble d'épées volantes affinées du Bambou du Tonnerre Céleste, "
+"contenant le Tonnerre Divin Écarté du Mal pour supprimer tout le mal du "
+"monde."
+
+#. weapon.csv: 青竹蜂云剑
+msgid "WEAPON_1051_NAME"
+msgstr "Épée du Bambou du Tonnerre Céleste"
+
+#. weapon.csv: 六耳猕猴的兵器，随心变化，大小如意。...
+msgid "WEAPON_1052_DESC"
+msgstr ""
+"L'arme du Macaque aux Six Oreilles, changeant comme désiré, aussi grand ou "
+"petit que souhaité."
+
+#. weapon.csv: 随心铁杆兵
+msgid "WEAPON_1052_NAME"
+msgstr "Tige de Fer Comme-Vous-Voulez"
+
+#. weapon.csv: 扇面有空中火、石中火、木中火等五火，一扇...
+msgid "WEAPON_1053_DESC"
+msgstr ""
+"La surface de l'éventail comporte cinq feux incluant le feu de l'air, le feu"
+" de la pierre et le feu du bois, réduisant les choses en cendres en un seul "
+"mouvement."
+
+#. weapon.csv: 五火七禽扇
+msgid "WEAPON_1053_NAME"
+msgstr "Éventail des Cinq Feux et Sept Volailles"
+
+#. weapon.csv: 杀气滔天，曾染魔神之血，枪出无回。...
+msgid "WEAPON_1054_DESC"
+msgstr ""
+"Intention de meurtre déferlante, autrefois teintée du sang des dieux-démons "
+"; la lance ne revient jamais une fois lancée."
+
+#. weapon.csv: 弑神枪
+msgid "WEAPON_1054_NAME"
+msgstr "Lance de Tueur de Dieux"
+
+#. weapon.csv: 赤锋矛，不朽盾，斩尽仙王灭九天。...
+msgid "WEAPON_1055_DESC"
+msgstr ""
+"Cramoisie partout, avec un esprit de combat écrasant. Elle a été teintée du "
+"sang d'innombrables hommes forts, et la lance frappe sans regret."
+
+#. weapon.csv: 赤锋矛
+msgid "WEAPON_1055_NAME"
+msgstr "Lance de Guerre au Sang Cramoisi"
+
+#. weapon.csv: 红葫芦内藏一线毫光，有眉有目。请宝贝转身...
+msgid "WEAPON_1056_DESC"
+msgstr ""
+"Une trace de lumière cachée dans une calebasse rouge, avec des sourcils et "
+"des yeux. Veuillez vous tourner, trésor, car dieux et fantômes ne peuvent "
+"s'échapper."
+
+#. weapon.csv: 斩仙飞刀
+msgid "WEAPON_1056_NAME"
+msgstr "Poignard Volant du Tueur d'Immortels"
+
+#. weapon.csv: 非铜非铁亦非钢，曾在须弥山下藏。利气直透...
+msgid "WEAPON_1057_DESC"
+msgstr ""
+"Ni cuivre, ni fer, ni acier, autrefois caché sous le Mont Sumeru. Le qi "
+"tranchant transperce directement les neuf cieux."
+
+#. weapon.csv: 诛仙剑
+msgid "WEAPON_1057_NAME"
+msgstr "Épée du Tueur d'Immortels"
+
+#. weapon.csv: 挚情之剑，一雌一雄，分则为杀，合则为情。...
+msgid "WEAPON_1058_DESC"
+msgstr ""
+"Épées du véritable amour, l'une femelle et l'une mâle, tuant quand séparées,"
+" amoureuses quand ensemble."
+
+#. weapon.csv: 干将莫邪
+msgid "WEAPON_1058_NAME"
+msgstr "Gan Jiang et Mo Ye"
+
+#. weapon.csv: 太阴之精叶，一扇息火，二扇生风，三扇下雨...
+msgid "WEAPON_1059_DESC"
+msgstr ""
+"Feuille d'essence du Taiyin ; un mouvement arrête le feu, deux mouvements "
+"créent du vent, trois mouvements apportent la pluie."
+
+#. weapon.csv: 芭蕉扇
+msgid "WEAPON_1059_NAME"
+msgstr "Éventail de Bananier"
+
+#. weapon.csv: 韦护的兵器，虽然轻灵，打在人身却重如泰山...
+msgid "WEAPON_1060_DESC"
+msgstr ""
+"L'arme de Wei Hu ; bien que légère et agile, elle frappe avec le poids du "
+"Mont Tai."
+
+#. weapon.csv: 紫金降魔杵
+msgid "WEAPON_1060_NAME"
+msgstr "Pilon de Subjugation des Démons en Or Pourpre"
+
+#. weapon.csv: 刀背嵌入九个金环，挥舞时金环碰撞，声若雷...
+msgid "WEAPON_1061_DESC"
+msgstr ""
+"Le dos du sabre est serti de neuf anneaux d'or. Lorsqu'ils sont agités, les "
+"anneaux s'entrechoquent avec un son tonique qui instille la peur dans le "
+"cœur."
+
+#. weapon.csv: 九环金背刀
+msgid "WEAPON_1061_NAME"
+msgstr "Sabre d'Or à Neuf Anneaux"
+
+#. weapon.csv: 通体由万年寒铁打造，枪身银白，触之冰冷刺...
+msgid "WEAPON_1062_DESC"
+msgstr ""
+"Fabriquée entièrement en fer froid de dix mille ans, le corps de la lance "
+"est blanc argenté et glaçant au toucher."
+
+#. weapon.csv: 寒铁银枪
+msgid "WEAPON_1062_NAME"
+msgstr "Lance d'Argent en Fer Froid"
+
+#. weapon.csv: 采自南海紫竹林，共七节，坚韧异常，不仅能...
+msgid "WEAPON_1063_DESC"
+msgstr ""
+"Récolté de la Forêt de Bambou Pourpre dans la Mer du Sud, il a sept sections"
+" et est exceptionnellement robuste. Il peut blesser les ennemis et lier les "
+"démons."
+
+#. weapon.csv: 七节紫竹鞭
+msgid "WEAPON_1063_NAME"
+msgstr "Fouet de Bambou Pourpre à Sept Sections"
+
+#. weapon.csv: 白玉雕琢而成，弹奏时有金石之声，能洗涤心...
+msgid "WEAPON_1064_DESC"
+msgstr ""
+"Sculptée en jade blanc, elle produit le son du métal et de la pierre quand "
+"jouée, purifiant les démons intérieurs."
+
+#. weapon.csv: 玉琵琶
+msgid "WEAPON_1064_NAME"
+msgstr "Pipa en Jade"
+
+#. weapon.csv: 东海龙宫流出的宝物，吹奏时如闻海潮之声，...
+msgid "WEAPON_1065_DESC"
+msgstr ""
+"Faite de jade froid des abysses. Quand jouée, elle sonne comme un dragon "
+"chantant dans l'océan, secouant les alentours."
+
+#. weapon.csv: 碧海潮生笛
+msgid "WEAPON_1065_NAME"
+msgstr "Flûte du Dragon de l'Océan"
+
+#. weapon.csv: 上古凶兵，内封白虎战魂，出鞘必饮血，不仅...
+msgid "WEAPON_1071_DESC"
+msgstr ""
+"Une arme sinistre antique scellant la féroce âme d'un Tigre Blanc. Elle doit"
+" boire du sang quand elle est dégainée et peut se retourner contre son "
+"maître."
+
+#. weapon.csv: 虎魄
+msgid "WEAPON_1071_NAME"
+msgstr "Lame Maléfique du Tigre Féroce"
+
+#. weapon.csv: 疑似上古天庭的柱石残片炼制，重如山岳，非...
+msgid "WEAPON_1072_DESC"
+msgstr ""
+"Affinée à partir de fragments de piliers censés provenir de la Cour Céleste "
+"Antique. Elle est aussi lourde qu'une montagne et ne peut pas être maniée "
+"par ceux sans grand pouvoir."
+
+#. weapon.csv: 擎天白玉柱
+msgid "WEAPON_1072_NAME"
+msgstr "Pilier de Jade Blanc Optimus Céleste"
+
+#. weapon.csv: 一面纯白主生，一面漆黑主死。扇动间阴阳逆...
+msgid "WEAPON_1073_DESC"
+msgstr ""
+"Un côté est blanc pur pour la vie, l'autre pitch noir pour la mort. L'agiter"
+" inverse le Yin et le Yang, rétrécissant la terre en pouces."
+
+#. weapon.csv: 阴阳扇
+msgid "WEAPON_1073_NAME"
+msgstr "Éventail Yin Yang"
+
+#. weapon.csv: 以上古真龙之脊骨炼制，挥动时隐有龙吟，对...
+msgid "WEAPON_1074_DESC"
+msgstr ""
+"Affinée à partir de la colonne vertébrale d'un ancien vrai dragon. Quand "
+"agitée, il y a un faible rugissement de dragon, supprimant naturellement les"
+" êtres de niveau inférieur."
+
+#. weapon.csv: 龙骨鞭
+msgid "WEAPON_1074_NAME"
+msgstr "Fouet d'Épine du Dragon"
+
+#. weapon.csv: 上古十大神器之一的仿品，拥有支配万物心灵...
+msgid "WEAPON_1075_DESC"
+msgstr ""
+"Une imitation de l'un des Dix Grands Artefacts Anciens, possédant le pouvoir"
+" mystérieux de dominer les esprits de toutes choses."
+
+#. weapon.csv: 伏羲琴
+msgid "WEAPON_1075_NAME"
+msgstr "Cithare de Fuxi"
+
+#. weapon.csv: 魔界至宝，笛声诡谲，能驱使魔物与凶兽为己...
+msgid "WEAPON_1076_DESC"
+msgstr ""
+"Un trésor suprême du Royaume Démon. Le son de la flûte est perfide et peut "
+"conduire les monstres et les bêtes féroces pour son propre usage."
+
+#. weapon.csv: 唤魔笛
+msgid "WEAPON_1076_NAME"
+msgstr "Flûte d'Appel des Démons"
+
+#. weapon.csv: 虽然只是暗器，但其美艳不可方物。当它绽放...
+msgid "WEAPON_1077_DESC"
+msgstr ""
+"Beau au-delà des mots, mais caché sous la lumière brillante se trouve une "
+"intention de meurtre fatale."
+
+#. weapon.csv: 孔雀翎
+msgid "WEAPON_1077_NAME"
+msgstr "Plume de Moineau aux Sept Couleurs"
+
+#. world_info.csv: 你有一系列可以执行的动作。要注意动作的效果、限制条件、区域和时间。
+msgid "WORLD_INFO_ACTION_DESC"
+msgstr ""
+"Tu disposés d'une série d'actions exécutables. Fais attention aux effets, "
+"restrictions, régions et délais des actions."
+
+msgid "WORLD_INFO_ACTION_NAME"
+msgstr "Action"
+
+msgid "WORLD_INFO_ACTION_TITLE"
+msgstr "Action"
+
+#. world_info.csv: 每隔一段不确定的时间会有神秘人组织的拍卖会，或许有好货出售。
+msgid "WORLD_INFO_AUCTION_DESC"
+msgstr ""
+"À intervalles imprévisibles, un personnage mystérieux organise une enchère "
+"où l'on peut trouver de bonnes marchandises."
+
+msgid "WORLD_INFO_AUCTION_NAME"
+msgstr "Enchère"
+
+msgid "WORLD_INFO_AUCTION_TITLE"
+msgstr "Enchère"
+
+#. world_info.csv: 弱肉强食，境界压制极大，高境界者对低境界者有绝对优势。若对方死亡，胜者可掠夺败者财物。
+msgid "WORLD_INFO_BATTLE_DESC"
+msgstr ""
+"La loi du plus fort prévaut ; la compression par les royaumes est massive. "
+"Les cultivateurs de haut niveau possèdent un avantage absolu sur ceux de bas"
+" niveau. Si l'adversaire meurt, le vainqueur peut piller ses biens."
+
+msgid "WORLD_INFO_BATTLE_NAME"
+msgstr "Combat"
+
+msgid "WORLD_INFO_BATTLE_TITLE"
+msgstr "Combat"
+
+#. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。
+msgid "WORLD_INFO_CULTIVATION_DESC"
+msgstr ""
+"La culturation accumule le pouvoir jusqu'à ce que le rang actuel atteigne "
+"son point critique. Les percées peuvent réussir ou échouer ; le succès "
+"propulse le personnage au rang suivant, tandis que l'échec peut avoir un "
+"prix."
+
+msgid "WORLD_INFO_CULTIVATION_NAME"
+msgstr "Culturation"
+
+msgid "WORLD_INFO_CULTIVATION_TITLE"
+msgstr "Culturation"
+
+#. world_info.csv: HP降至0以下也会死亡。
+msgid "WORLD_INFO_DEATH_DESC"
+msgstr "Tomber sous 0 PV entraîne aussi la mort."
+
+msgid "WORLD_INFO_DEATH_NAME"
+msgstr "Mort"
+
+msgid "WORLD_INFO_DEATH_TITLE"
+msgstr "Mort"
+
+#. world_info.csv: 通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服...
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
+msgstr ""
+"Les armes, équipements auxiliaires et élixirs procurent des bonus "
+"supplémentaires. Un bon équipement et les élixirs appropriés peuvent "
+"considérablement améliorer la survivabilité et les capacités de combat du "
+"cultivateur."
+
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
+msgstr "Équipement & Élixir"
+
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE"
+msgstr "Équipement & Élixir"
+
+#. world_info.csv: 这是一个诸多修士竞相修行，纷争四起的修仙世界。
+msgid "WORLD_INFO_INTRO_DESC"
+msgstr ""
+"Ceci est un monde de culturation où de nombreux cultivateurs rivalisent et "
+"où les conflits font rage de tous côtés."
+
+msgid "WORLD_INFO_INTRO_NAME"
+msgstr "Introduction"
+
+msgid "WORLD_INFO_INTRO_TITLE"
+msgstr "Introduction"
+
+#. world_info.csv: 若当前年龄达到最大寿元，会立刻死亡。突破境界可以增加最大寿元，突破失败也可能折损寿元。
+msgid "WORLD_INFO_LIFESPAN_DESC"
+msgstr ""
+"Chaque personnage a une limite d'espérance de vie. Lorsque cette dernière "
+"s'épuise, la mort s'ensuit ; les percées de royaumes prolongent généralement"
+" l'espérance de vie, tandis que les percées échouées peuvent la raccourcir."
+
+msgid "WORLD_INFO_LIFESPAN_NAME"
+msgstr "Espérance de vie"
+
+msgid "WORLD_INFO_LIFESPAN_TITLE"
+msgstr "Espérance de vie"
+
+#. world_info.csv: 道、佛、儒等根本理念，决定门牌的根脚与修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr ""
+"Différentes orthodoxies possèdent différentes méthodes de culturation. Les "
+"taoïstes respirent, les Guerriers endurcissent le Corps, les Bouddhistes "
+"médisent, et les Confucéens éduquent le peuple."
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "Orthodoxie"
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "Orthodoxie"
+
+#. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。
+msgid "WORLD_INFO_REALM_DESC"
+msgstr ""
+"Les royaumes standards du monde, du plus faible au plus fort, sont la "
+"Purification du Qi, l'Établissement des Fondations, la Formation du Noyau et"
+" l'Âme Naissante. Chaque royaume possède des étapes Précoce, Médiane et "
+"Tardive. Les traditions différentes peuvent utiliser d'autres noms, mais les"
+" règles sont calculées selon cette séquence standard."
+
+msgid "WORLD_INFO_REALM_NAME"
+msgstr "Royaume"
+
+msgid "WORLD_INFO_REALM_TITLE"
+msgstr "Royaume"
+
+#. world_info.csv: 不同区域有不同效果，在适当的区域做适当的事情事半功倍。
+msgid "WORLD_INFO_REGION_DESC"
+msgstr ""
+"Différentes régions ont des effets différents ; faire la bonne chose dans la"
+" bonne région donne deux fois le résultat avec la moitié de l'effort."
+
+msgid "WORLD_INFO_REGION_NAME"
+msgstr "Région"
+
+msgid "WORLD_INFO_REGION_TITLE"
+msgstr "Région"
+
+#. world_info.csv: 灵根由五行元素（金、木、水、火、土）组成，分为单灵根、双灵根和天灵根。五行相克：金克木，木克土...
+msgid "WORLD_INFO_ROOT_DESC"
+msgstr ""
+"Les racines spirituelles sont composées de cinq éléments (Métal, Bois, Eau, "
+"Feu, Terre), divisées en Racines Spirituelles Simples, Doubles et Célestes. "
+"L'interaction des cinq éléments : le Métal surpasse le Bois, le Bois "
+"surpasse la Terre, la Terre surpasse l'Eau, l'Eau surpasse le Feu, le Feu "
+"surpasse le Métal. La Racine Spirituelle Céleste contient les cinq éléments "
+"et bénéficie d'un bonus supplémentaire lors d'une percée. L'efficacité de "
+"culturation est maximale dans les régions correspondant à l'attribut de sa "
+"propre racine spirituelle."
+
+msgid "WORLD_INFO_ROOT_NAME"
+msgstr "Racine Spirituelle"
+
+msgid "WORLD_INFO_ROOT_TITLE"
+msgstr "Racine Spirituelle"
+
+#. world_info.csv: 每隔数年会有秘境开启。进入秘境可能遭遇凶险，也可能获得高阶法宝和功法。
+msgid "WORLD_INFO_SECRET_REALM_DESC"
+msgstr ""
+"Des royaumes secrets s'ouvrent tous les quelques années. Entrer dans un "
+"royaume secret peut rencontrer du danger, mais peut aussi obtenir des "
+"artefacts et techniques de haut niveau."
+
+msgid "WORLD_INFO_SECRET_REALM_NAME"
+msgstr "Royaume Secret"
+
+msgid "WORLD_INFO_SECRET_REALM_TITLE"
+msgstr "Royaume Secret"
+
+#. world_info.csv: 修士的庇护所。加入宗门可习得独门功法、获同门庇护；散修自由但资源匮乏。
+msgid "WORLD_INFO_SECT_DESC"
+msgstr ""
+"Un refuge pour les cultivateurs. Rejoindre une Secte permet d'apprendre des "
+"techniques uniques et de bénéficier de la protection des camarades de Secte "
+"; les cultivateurs errants sont libres mais manquent de ressources."
+
+msgid "WORLD_INFO_SECT_NAME"
+msgstr "Secte"
+
+msgid "WORLD_INFO_SECT_TITLE"
+msgstr "Secte"
+
+#. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器...
+msgid "WORLD_INFO_SHOPPING_DESC"
+msgstr ""
+"Dans les régions urbaines, tu peux acheter des élixirs et des armes de "
+"niveau Purification du Qi. Les élixirs achetés sont consommés immédiatement "
+"pour renforcer le personnage ; les armes achetées permettent de passer à un "
+"type d'arme plus adapté."
+
+msgid "WORLD_INFO_SHOPPING_NAME"
+msgstr "Achat"
+
+msgid "WORLD_INFO_SHOPPING_TITLE"
+msgstr "Achat"
+
+#. world_info.csv: 修仙界的通用货币。可用于购买法宝丹药，通过采集、交易或掠夺获取。
+msgid "WORLD_INFO_SPIRIT_STONE_DESC"
+msgstr ""
+"La monnaie commune du monde de la culturation. Peut être utilisée pour "
+"acheter des artefacts et des élixirs, obtenue par la récolte, le commerce ou"
+" le pillage."
+
+msgid "WORLD_INFO_SPIRIT_STONE_NAME"
+msgstr "Pierre Spirituelle"
+
+msgid "WORLD_INFO_SPIRIT_STONE_TITLE"
+msgstr "Pierre Spirituelle"
+
+#. world_info.csv: 世界每隔数年会有一次天象变动（如灵气潮汐），影响角色能力。
+msgid "WORLD_INFO_WORLD_QI_DESC"
+msgstr ""
+"Le monde subit des changements célestes (comme des Marées de Qi) tous les "
+"quelques années, affectant les capacités des personnages."
+
+msgid "WORLD_INFO_WORLD_QI_NAME"
+msgstr "Qi du Monde"
+
+msgid "WORLD_INFO_WORLD_QI_TITLE"
+msgstr "Qi du Monde"
+
+#. world_info.csv: 修仙界设有天地人三榜及宗门榜。天榜收录元婴期强者，地榜收录金丹期强者，人榜收录筑基期强者，宗门榜按宗门总实力排名。
+msgid "WORLD_INFO_RANKING_DESC"
+msgstr ""
+"Le monde de la culturation dispose des classements Ciel, Terre et Humain, "
+"ainsi que du classement des Sectes. Les trois classements personnels sont "
+"groupés par royaume standard équivalent : le Ciel enregistre les experts de "
+"niveau Âme Naissante, la Terre enregistre les experts de niveau Formation du"
+" Noyau, et l'Humain enregistre les experts de niveau Établissement des "
+"Fondations. Le classement des Sectes range les Sectes par puissance totale."
+
+msgid "WORLD_INFO_RANKING_NAME"
+msgstr "Classement"
+
+msgid "WORLD_INFO_RANKING_TITLE"
+msgstr "Classement"
+
+#. world_info.csv: 凡人王朝统御天下，维持凡俗秩序与疆域。皇帝寿元与普通凡人无异，驾崩后会有新帝继位。
+msgid "WORLD_INFO_DYNASTY_DESC"
+msgstr ""
+"Les dynasties mortelles règnent sur le domaine, maintenant l'ordre mondain "
+"et les frontières. Les empereurs ne vivent pas plus longtemps que les "
+"mortels ordinaires, et à la mort de l'un, un nouvel empereur accède au "
+"trône."
+
+msgid "WORLD_INFO_DYNASTY_NAME"
+msgstr "Dynastie"
+
+msgid "WORLD_INFO_DYNASTY_TITLE"
+msgstr "Dynastie"
+
+#. world_info.csv: 修士可为朝廷理政，积累朝廷威望并领取俸禄。威望足够可升官，官职越高，俸禄与气运越多；久不理政，威望会逐渐下滑。
+msgid "WORLD_INFO_OFFICIAL_DESC"
+msgstr ""
+"Les cultivateurs peuvent gouverner pour la cour impériale, accumulant la "
+"réputation de la cour et recevant un salaire. Avec suffisamment de "
+"réputation, ils peuvent être promus ; plus le poste est élevé, plus le "
+"salaire et la chance sont grands. S'ils négligent la gouvernance trop "
+"longtemps, leur réputation déclinera graduellement."
+
+msgid "WORLD_INFO_OFFICIAL_NAME"
+msgstr "Rang Officiel"
+
+msgid "WORLD_INFO_OFFICIAL_TITLE"
+msgstr "Rang Officiel"
+
+#. world_info.csv: The same cultivation ranks have different names in each
+#. tradition.
+msgid "WORLD_INFO_CULTIVATION_ALIAS_DESC"
+msgstr ""
+"Les mêmes rangs de culturation ont des noms différents dans chaque tradition"
+" : les Taoïstes et les cultivateurs errants utilisent Purification du Qi, "
+"Établissement des Fondations, Formation du Noyau et Âme Naissante ; les "
+"cultivateurs martiaux utilisent Trempe du Corps, Trempe des Tendons, Maître "
+"Martial et Saint Martial ; les cultivateurs confucéens utilisent Culturation"
+" du Qi Vital, Illumination du Principe, Établissement du Mandat et Grand "
+"Érudit ; les cultivateurs bouddhistes utilisent Moine Novice, Moine, Arhat "
+"et Bodhisattva ; les cultivateurs yao utilisent Réveil Spirituel, "
+"Transformation de Forme, Noyau du Démon et Roi du Démon. Ces noms "
+"correspondent à la même séquence de royaumes sous-jacente ; ils changent les"
+" mots du récit et de l'interface, mais pas la percée, le pouvoir, "
+"l'espérance de vie, le grade d'objet ou d'autres règles."
+
+#. world_info.csv: Realm Aliases
+msgid "WORLD_INFO_CULTIVATION_ALIAS_NAME"
+msgstr "Alias de Royaumes"
+
+#. world_info.csv: Realm Aliases
+msgid "WORLD_INFO_CULTIVATION_ALIAS_TITLE"
+msgstr "Alias de Royaumes"
+
+#. world_info.csv: 蛊术需要修士持有蛊具并拥有下蛊能力，才能对可观测目标施加蛊。
+msgid "WORLD_INFO_GU_DESC"
+msgstr ""
+"Les arts Gu nécessitent qu'un cultivateur porte un outil Gu et possède "
+"l'aptitude à infliger le Gu avant de l'appliquer à une cible observable. "
+"Différents Gu agissent de différentes manières : le Gu qui Submerge l'Esprit"
+" décale subtilement les relations, le Gu Dévoreur de Sang endommage "
+"périodiquement la vie, tandis que le Gu qui Érode l'Essence et le Gu qui "
+"Désordonne le Cœur perturbent la culturation. Infliger le Gu a un taux de "
+"succès affecté par l'outil, les bonus du lanceur et la résistance au Gu de "
+"la cible ; l'échec peut être détecté et nuire à la relation."
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_NAME"
+msgstr "Gu"
+
+#. world_info.csv: 蛊
+msgid "WORLD_INFO_GU_TITLE"
+msgstr "Gu"
+
+#. world_info.csv: 阵法需要修士持有阵盘并拥有布阵能力，才能在当前区域布置限时区域效果。
+msgid "WORLD_INFO_FORMATION_DESC"
+msgstr ""
+"Les Formations nécessitent qu'un cultivateur porte un disque de formation et"
+" possède l'aptitude à établir une formation avant de placer un effet "
+"régional temporaire à l'emplacement actuel. Différentes formations "
+"conviennent à différentes régions : les zones de culturation et les régions "
+"de Secte peuvent tenir des réseaux de cueillette spirituelle, de garde de "
+"montagne, de clarté et similaires ; les villes peuvent tenir des réseaux de "
+"guérison ; les mines, champs d'herbes et domaines de bêtes peuvent tenir des"
+" réseaux de recherche de veine, de croissance du bois et de chasse aux "
+"bêtes. Les Formations consomment des Pierres Spirituelles et expirent après "
+"la fin de leur durée."
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_NAME"
+msgstr "Formations"
+
+#. world_info.csv: 阵法
+msgid "WORLD_INFO_FORMATION_TITLE"
+msgstr "Formations"
+
+msgid "PERSONA_1015_NAME"
+msgstr "Bienveillant envers les Autres Espèces"
+
+msgid "PERSONA_1015_DESC"
+msgstr ""
+"Vous ressentez une curiosité naturelle et de la chaleur envers les "
+"cultivateurs d'autres races, et êtes disposé à construire des liens par-delà"
+" les différences d'origine."
+
+msgid "PERSONA_1016_NAME"
+msgstr "Déteste les Autres Espèces"
+
+msgid "PERSONA_1016_DESC"
+msgstr ""
+"Vous rejetez instinctivement les cultivateurs d'autres races et trouvez "
+"difficile de vraiment faire confiance aux étrangers."
+
+msgid "WORLD_INFO_RACE_TITLE"
+msgstr "Race"
+
+msgid "WORLD_INFO_RACE_NAME"
+msgstr "Race"
+
+msgid "WORLD_INFO_RACE_DESC"
+msgstr ""
+"Le monde contient à la fois des cultivateurs humains et des Yao. Les Yao "
+"incluent les renards, les loups, les oiseaux, les serpents, les tortues et "
+"d'autres races, chacun avec des instincts différents : les renards sont "
+"rusés et malins, les loups sont des chasseurs féroces, les oiseaux excellent"
+" à la migration et à l'éclaireur, les serpents sont patients et venimeux, et"
+" les tortues sont longévives et défensives. Les Yao peuvent cultiver et "
+"rejoindre des sectes qui les acceptent, mais certaines sectes qui mettent "
+"l'accent sur les rites humains ou l'ordre confucéen ne les acceptent pas."

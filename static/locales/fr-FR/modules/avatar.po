@@ -1,0 +1,163 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Avatar System
+# Field Labels (info_dict keys)
+msgid "Origin"
+msgstr "Origine"
+
+msgid "Origin: {origin}"
+msgstr "Origine : {origin}"
+
+msgid "Orthodoxy"
+msgstr "Orthodoxie"
+
+msgid "Ranking"
+msgstr "Classement"
+
+msgid "Realm"
+msgstr "Royaume"
+
+msgid "Recent Events"
+msgstr "Événements Récents"
+
+msgid "Region"
+msgstr "Région"
+
+msgid "Relations"
+msgstr "Relations"
+
+msgid "Sect"
+msgstr "Secte"
+
+msgid "Short-term Goal"
+msgstr "Objectif à Court Terme"
+
+msgid "Spirit Animal"
+msgstr "Animal Spirituel"
+
+msgid "Spirit Stones"
+msgstr "Pierres Spirituelles"
+
+msgid "Technique"
+msgstr "Technique"
+
+msgid "Traits"
+msgstr "Traits"
+
+msgid "Weapon"
+msgstr "Arme"
+
+msgid "appearance_10_desc_female"
+msgstr ""
+"Votre beauté est si captivante qu'on vous se souvient au premier coup d'œil."
+
+msgid "appearance_10_desc_male"
+msgstr "Vous êtes tellement beau que vous semblez venir d'un autre monde."
+
+msgid "appearance_10_name"
+msgstr "Captivant"
+
+msgid "appearance_1_desc_female"
+msgstr "Vous êtes très laide, avec des traits discordants, ce qui fait éviter les gens."
+
+msgid "appearance_1_desc_male"
+msgstr "Vous êtes très laid, avec des traits discordants, attirant souvent les regards."
+
+# Automatically added missing keys
+msgid "appearance_1_name"
+msgstr "Hideux"
+
+msgid "appearance_2_desc_female"
+msgstr "Votre apparence est brute, avec certains traits paraissant tout à fait abruptement."
+
+msgid "appearance_2_desc_male"
+msgstr "Votre apparence est brute, avec certains traits paraissant tout à fait abruptement."
+
+msgid "appearance_2_name"
+msgstr "Laid"
+
+msgid "appearance_3_desc_female"
+msgstr "Votre apparence est médiocre et pas très agréable à regarder."
+
+msgid "appearance_3_desc_male"
+msgstr "Votre apparence est médiocre et pas très agréable à regarder."
+
+msgid "appearance_3_name"
+msgstr "Grossier"
+
+msgid "appearance_4_desc_female"
+msgstr "Vous avez une apparence très ordinaire, facilement perdu dans une foule."
+
+msgid "appearance_4_desc_male"
+msgstr "Vous avez une apparence très ordinaire, facilement perdu dans une foule."
+
+msgid "appearance_4_name"
+msgstr "Ordinaire"
+
+msgid "appearance_5_desc_female"
+msgstr "Vous avez des traits délicats et êtes assez agréable à regarder."
+
+msgid "appearance_5_desc_male"
+msgstr "Vous avez des traits délicats et êtes assez agréable à regarder."
+
+msgid "appearance_5_name"
+msgstr "Délicat"
+
+msgid "appearance_6_desc_female"
+msgstr "Vous avez des traits réguliers et paraissez très énergique."
+
+msgid "appearance_6_desc_male"
+msgstr "Vous avez des traits réguliers et paraissez très énergique."
+
+msgid "appearance_6_name"
+msgstr "Élégant"
+
+msgid "appearance_7_desc_female"
+msgstr "Vous êtes très belle et attire les regards."
+
+msgid "appearance_7_desc_male"
+msgstr "Vous êtes très beau, avec un taux de retournement de tête élevé."
+
+msgid "appearance_7_name"
+msgstr "Beau/Belle"
+
+msgid "appearance_8_desc_female"
+msgstr "Vous êtes tellement belle que c'est stupéfiant."
+
+msgid "appearance_8_desc_male"
+msgstr ""
+"Vous avez une apparence remarquable et attire les regards partout où vous allez."
+
+msgid "appearance_8_name"
+msgstr "Époustouflant"
+
+msgid "appearance_9_desc_female"
+msgstr "Votre beauté est captivante, presque inoubliable au premier coup d'œil."
+
+msgid "appearance_9_desc_male"
+msgstr "Votre apparence et votre aura sont hors pair, attirant souvent des regards furtifs."
+
+msgid "appearance_9_name"
+msgstr "Exquis"
+
+msgid "daughter"
+msgstr "fille"
+
+msgid ""
+"{name} has awakened their spiritual roots and embarked on the path of "
+"cultivation."
+msgstr ""
+"{name} a réveillé ses racines spirituelles et s'est lancé sur la voie de la "
+"cultivation."

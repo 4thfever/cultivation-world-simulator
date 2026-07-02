@@ -1,0 +1,56 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "CITY_REGION_301_DESC"
+msgstr ""
+"Une grande ville prospère avec une population dense et des marchands affairés, un "
+"lieu important pour le commerce des matériaux célestes et des trésors terrestres et pour "
+"chercher des opportunités."
+
+msgid "CITY_REGION_301_NAME"
+msgstr "Cité de Qingyun"
+
+msgid "CITY_REGION_302_DESC"
+msgstr ""
+"Une petite ville commerciale dans une oasis du désert, où les caravanes passent sans "
+"fin et les cultivateurs se rassemblent pour se ravitailler et échanger."
+
+msgid "CITY_REGION_302_NAME"
+msgstr "Cité de Shazhou"
+
+msgid "CITY_REGION_303_DESC"
+msgstr ""
+"Une ville de cultivation au cœur de la forêt ; bien que moins animée que les capitales célèbres, "
+"elle accueille toujours de nombreux cultivateurs et est idéale pour la cultivation "
+"et l'affinage d'artefacts."
+
+msgid "CITY_REGION_303_NAME"
+msgstr "Cité de Cuilin"
+
+msgid "CITY_REGION_304_DESC"
+msgstr ""
+"Une grande ville florissante à l'embouchure du fleuve, où les voies d'eau prospèrent et "
+"les cultivateurs d'aspect aquatique se rassemblent en grand nombre."
+
+msgid "CITY_REGION_304_NAME"
+msgstr "Cité de Canglan"
+
+msgid "CITY_REGION_305_DESC"
+msgstr ""
+"Une petite ville de montagne perchée au sommet de pics sans fin, enveloppée de brume toute l'année "
+"et riche en qi spirituel pur, un excellent lieu pour les ascètes de "
+"comprendre la Voie Céleste."
+
+msgid "CITY_REGION_305_NAME"
+msgstr "Cité de Lanyue"

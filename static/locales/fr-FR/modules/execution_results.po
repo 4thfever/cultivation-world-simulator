@@ -1,0 +1,29 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Execution Results
+msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
+msgstr "{avatar_name} {done} {grade} {label}『{item_name}』."
+
+msgid "{avatar} failed retreat and lost {years} years of lifespan."
+msgstr "{avatar} a échoué sa retraite et a perdu {years} années d'espérance de vie."
+
+msgid "{avatar} finished retreat successfully."
+msgstr "{avatar} a achevé sa retraite avec succès."
+
+msgid "{avatar} gained cultivation experience +{exp} points"
+msgstr "{avatar} a gagné de l'expérience de cultivation +{exp} points"
+
+msgid "{winner} defeated {loser}"
+msgstr "{winner} a vaincu {loser}"

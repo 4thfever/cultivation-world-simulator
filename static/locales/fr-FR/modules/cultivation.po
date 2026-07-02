@@ -1,0 +1,39 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Died from severe injuries"
+msgstr "Mort de graves blessures"
+
+msgid "Died of old age"
+msgstr "Mort de vieillesse"
+
+# Cultivation System - Realm
+# Realm Status
+msgid "Needs breakthrough"
+msgstr "Percée nécessaire"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Not at bottleneck, no breakthrough needed"
+msgstr "Pas de goulet d'étranglement, aucune percée nécessaire"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "{realm}{stage}(Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage} (Niveau {level}). Au goulet d'étranglement : {status}"
+
+msgid "{realm}{stage}(Level {level}){status}"
+msgstr "{realm}{stage} (Niveau {level}){status}"

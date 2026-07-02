@@ -1,0 +1,177 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"\n"
+"--- Current Effects Detail ---"
+msgstr ""
+"\n"
+"--- Détail des Effets Actuels ---"
+
+msgid "Contains elements: {elements}"
+msgstr "Contient les éléments : {elements}"
+
+msgid "Identity: {identity}"
+msgstr "Identité : {identity}"
+
+msgid "No additional effects"
+msgstr "Aucun effet supplémentaire"
+
+msgid "Performing {action}"
+msgstr "Exécution de {action}"
+
+msgid "Realm: {realm}"
+msgstr "Royaume : {realm}"
+
+# Feedback labels
+msgid "feedback_accept"
+msgstr "Accepter"
+
+msgid "feedback_attack"
+msgstr "Se battre"
+
+msgid "feedback_escape"
+msgstr "S'échapper"
+
+msgid "feedback_move_away_from_avatar"
+msgstr "Tenter de s'éloigner"
+
+msgid "feedback_move_away_from_region"
+msgstr "Quitter cet endroit"
+
+msgid "feedback_reject"
+msgstr "Rejeter"
+
+msgid "Goldfinger"
+msgstr "Doigt d'or"
+
+msgid "{avatar} attempted to escape from {target}: {result}"
+msgstr "{avatar} a tenté de s'échapper de {target} : {result}"
+
+msgid "{avatar} attempts to escape from {target}"
+msgstr "{avatar} tente de s'échapper de {target}"
+
+msgid "{avatar} attempts to tame spirit beast at {location}"
+msgstr "{avatar} tente d'apprivoiser une bête spirituelle à {location}"
+
+msgid "{avatar} begins harvesting at {location}"
+msgstr "{avatar} commence à récolter à {location}"
+
+msgid "{avatar} begins hunting at {location}"
+msgstr "{avatar} commence à chasser à {location}"
+
+msgid "{avatar} begins leaving {region}"
+msgstr "{avatar} commence à quitter {region}"
+
+msgid "{avatar} begins mining at {location}"
+msgstr "{avatar} commence à exploiter à {location}"
+
+msgid "{avatar} begins moving away from {target}"
+msgstr "{avatar} commence à s'éloigner de {target}"
+
+msgid "{avatar} begins moving toward {direction}"
+msgstr "{avatar} commence à se déplacer vers {direction}"
+
+msgid "{avatar} begins moving toward {region}"
+msgstr "{avatar} commence à se déplacer vers {region}"
+
+msgid "{avatar} begins moving toward {target}"
+msgstr "{avatar} commence à se déplacer vers {target}"
+
+msgid "{avatar} begins nurturing {weapon}"
+msgstr "{avatar} commence à cultiver {weapon}"
+
+msgid "{avatar} begins respiring at {location}, {efficiency}"
+msgstr "{avatar} commence la respiration à {location}, {efficiency}"
+
+msgid "{avatar} begins resting and healing at {location}"
+msgstr "{avatar} commence à se reposer et guérir à {location}"
+
+msgid "{avatar} breakthrough result: {result}"
+msgstr "Résultat de la percée de {avatar} : {result}"
+
+msgid "tribulation_inner_demon"
+msgstr "démon intérieur"
+
+msgid "tribulation_lightning_tribulation"
+msgstr "foudre"
+
+msgid "tribulation_body_reforging"
+msgstr "corps"
+
+msgid "tribulation_vengeance"
+msgstr "vengeance"
+
+msgid "tribulation_love_tribulation"
+msgstr "amour"
+
+msgid "tribulation_solar_force"
+msgstr "force solaire"
+
+msgid "tribulation_thunderflame"
+msgstr "flamme tonnerre"
+
+msgid "tribulation_wind_disaster"
+msgstr "tempête"
+
+msgid "tribulation_nether_prison"
+msgstr "prison de l'au-delà"
+
+msgid "tribulation_demonic_tribulation"
+msgstr "démoniaque"
+
+msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
+msgstr "{avatar} a rencontré l'épreuve {calamity}, percée {result}"
+
+msgid "{avatar} finished harvesting, obtained: {materials}"
+msgstr "{avatar} a terminé la récolte, a obtenu : {materials}"
+
+msgid "{avatar} finished hunting, obtained: {materials}"
+msgstr "{avatar} a terminé la chasse, a obtenu : {materials}"
+
+msgid "{avatar} finished mining, obtained: {materials}"
+msgstr "{avatar} a terminé l'exploitation, a obtenu : {materials}"
+
+msgid "{avatar} finished moving toward {direction}"
+msgstr "{avatar} a terminé le déplacement vers {direction}"
+
+msgid "{avatar} spent {price} spirit stones in town, {action} {item}{suffix}"
+msgstr "{avatar} a dépensé {price} pierres spirituelles en ville, {action} {item}{suffix}"
+
+msgid "{avatar} starts {action}"
+msgstr "{avatar} commence {action}"
+
+msgid "{label}: {names}"
+msgstr "{label} : {names}"
+
+# Complex Formatted String (get_other_avatar_info)
+msgid ""
+"{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: "
+"{sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: "
+"{goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, "
+"HP: {hp}"
+msgstr ""
+"{name}, Surnom : {nickname}, Royaume : {realm}, Relation : {relation}, Secte : "
+"{sect}, Alignement : {alignment}, Apparence : {appearance}, Doigt d'or : "
+"{goldfinger}, Technique : {technique}, Arme : {weapon}, Auxiliaire : {aux}, "
+"PV : {hp}"
+
+msgid "{name}, Realm: {realm}"
+msgstr "{name}, Royaume : {realm}"
+
+msgid "{region} does not sell {item}"
+msgstr "{region} ne vend pas {item}"
+
+msgid "{sect} {rank}"
+msgstr "{sect} {rank}"

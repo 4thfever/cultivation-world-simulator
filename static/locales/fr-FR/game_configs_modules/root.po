@@ -1,0 +1,93 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. root.csv: 资质通天；五行皆通，修行全面...
+msgid "ROOT_10_DESC"
+msgstr "Aptitude hors-pair ; maîtrise complète des cinq éléments"
+
+#. root.csv: 天灵根
+msgid "ROOT_10_NAME"
+msgstr "Racine Spirituelle Céleste"
+
+#. root.csv: 刚强果断；攻击力强，适合剑修...
+msgid "ROOT_1_DESC"
+msgstr "Fort et décisif ; puissance d'attaque élevée"
+
+#. root.csv: 金灵根
+msgid "ROOT_1_NAME"
+msgstr "Racine Spirituelle de Métal"
+
+#. root.csv: 仁厚坚韧；擅恢复、毒术与木属性法术...
+msgid "ROOT_2_DESC"
+msgstr "Bienveillant et résilient ; excellent en récupération"
+
+#. root.csv: 木灵根
+msgid "ROOT_2_NAME"
+msgstr "Racine Spirituelle de Bois"
+
+#. root.csv: 智慧圆融；身法轻盈，善辅助与隐匿...
+msgid "ROOT_3_DESC"
+msgstr "Sage et fluide ; mouvements légers du corps"
+
+#. root.csv: 水灵根
+msgid "ROOT_3_NAME"
+msgstr "Racine Spirituelle d'Eau"
+
+#. root.csv: 激情暴烈；高爆发攻术，火系功法...
+msgid "ROOT_4_DESC"
+msgstr "Passionné et violent ; techniques d'attaque à haut débit"
+
+#. root.csv: 火灵根
+msgid "ROOT_4_NAME"
+msgstr "Racine Spirituelle de Feu"
+
+#. root.csv: 稳重踏实；防御高，体修或傀儡术...
+msgid "ROOT_5_DESC"
+msgstr "Stable et pratique ; défense élevée"
+
+#. root.csv: 土灵根
+msgid "ROOT_5_NAME"
+msgstr "Racine Spirituelle de Terre"
+
+#. root.csv: 爆发性极强；战斗系顶尖...
+msgid "ROOT_6_DESC"
+msgstr "Explosif extrêmement ; meilleur en combat"
+
+#. root.csv: 雷灵根
+msgid "ROOT_6_NAME"
+msgstr "Racine Spirituelle de Tonnerre"
+
+#. root.csv: 控制力强；持久性好...
+msgid "ROOT_7_DESC"
+msgstr "Contrôle puissant ; bonne persistance"
+
+#. root.csv: 冰灵根
+msgid "ROOT_7_NAME"
+msgstr "Racine Spirituelle de Glace"
+
+#. root.csv: 身法卓绝；难以捉摸...
+msgid "ROOT_8_DESC"
+msgstr "Mouvements exceptionnels ; insaisissable"
+
+#. root.csv: 风灵根
+msgid "ROOT_8_NAME"
+msgstr "Racine Spirituelle de Vent"
+
+#. root.csv: 隐匿系；擅幻术与诡道...
+msgid "ROOT_9_DESC"
+msgstr "Orienté vers la dissimulation ; excellent en illusions et subterfuge"
+
+#. root.csv: 暗灵根
+msgid "ROOT_9_NAME"
+msgstr "Racine Spirituelle de Ténèbres"

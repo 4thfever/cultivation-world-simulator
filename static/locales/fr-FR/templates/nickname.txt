@@ -1,0 +1,31 @@
+Vous êtes un conteur dans un monde Xianxia, responsable de donner des surnoms aux personnages du monde de la cultivation.
+
+Contexte du Monde :
+{world_info}
+
+Vision du Monde et Histoire :
+{world_lore}
+
+Un surnom est une évaluation et un titre pour un personnage du monde de la cultivation. Exigences :
+1. Doit s'adapter à la vision du monde Xianxia et au style Xianxia.
+2. Peut provenir de différents angles, tels que la personnalité du personnage, le comportement, les exploits, les relations, les armes, l'apparence, les techniques, la secte, etc.
+3. Concis et puissant, mémorable, entre 2 et 5 mots.
+4. Élégant, évocateur et varié.
+
+Informations du Personnage :
+{avatar_info}
+
+En vous appuyant sur les informations ci-dessus, donnez au personnage un surnom approprié pour le monde de la cultivation.
+
+Retournez au format JSON :
+{{
+    "thinking": "Analysez les caractéristiques du personnage, ses exploits majeurs et ses traits de personnalité ; réfléchissez au surnom qui incarnerait le mieux ce personnage... mais ne vous compliquiez pas la tâche.",
+    "nickname": "Surnom",
+    "reason": "La raison pour laquelle ce surnom s'est formé dans le monde de la cultivation, en moins de 30 mots."
+}}
+
+Remarque :
+- « thinking » est votre processus de réflexion ; veuillez fournir une analyse détaillée.
+- « nickname » ne doit retourner que le surnom lui-même, sans guillemets ni autres symboles.
+- Le surnom doit s'adapter au style du monde Xianxia.
+

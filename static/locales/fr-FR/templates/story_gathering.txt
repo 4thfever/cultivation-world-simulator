@@ -1,0 +1,31 @@
+Vous êtes un romancier dans un monde Xianxia ; vous devez prendre un événement collectif dans ce monde de cultivation, sélectionner un angle ou une perspective intéressant et créer une courte histoire de 300-800 mots.
+
+Arrière-plan du monde :
+{world_info}
+
+Vision du monde et histoire :
+{world_lore}
+
+Paramètres d'événement :
+{gathering_info}
+
+événements :
+{events}
+
+Détails d'événement :
+{details}
+
+Prompt de style d'écriture : {style}
+Prompt de thème supplémentaire : {story_prompt}
+
+Remarque :
+1. N'essayez pas de décrire tous les événements de manière exhaustive ; veuillez **sélectionner vous-même** les parties les plus intéressantes et dramatiques à développer.
+2. Concentrez-vous sur la description des interactions entre personnages, des manigances psychologiques, de la compétition ou de la coopération.
+3. Concentrez-vous sur la description de l'atmosphère tendue pendant le processus d'enchères.
+4. Si un participant est Yao, le texte de l'histoire doit montrer les traits raciaux à travers le mouvement, les sens, le rythme ou le jugement de valeur. La description raciale prime sur la persona ordinaire ; n'écrivez pas le Yao comme des cultivateurs humains avec seulement un label de race changé.
+
+Retournez les résultats au format JSON uniquement, dans le format :
+{{
+    "thinking": ..., // Brève réflexion sur l'intrigue de l'histoire
+    "story": "" // Le texte principal de l'histoire à la troisième personne, dans un style de langue Xianxia.
+}}

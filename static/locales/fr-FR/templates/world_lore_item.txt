@@ -1,0 +1,39 @@
+Vous êtes un créateur d'un monde Xianxia. Je vais vous fournir un arrière-plan du monde original et une histoire.
+En fonction de l'arrière-plan du monde et de cette histoire, vous devez modifier les informations des techniques, armes et équipements auxiliaires existant dans ce monde.
+
+Arrière-plan du monde :
+{world_info}
+
+Texte historique :
+{world_lore}
+
+Informations de technique :
+{techniques}
+
+Informations d'arme :
+{weapons}
+
+Informations d'équipement auxiliaire :
+{auxiliarys}
+
+En fonction des informations ci-dessus, analysez et retournez les suggestions de modification.
+
+Retournez au format JSON :
+{{
+    "thinking": "Analysez quel type de modifications doivent être apportées",
+    "techniques_change":
+        {{
+            "id": {{ // id original
+                "name": str // nouveau nom
+                "desc": desc // nouvelle description
+            }}
+        }},
+    "weapons_change": {{}}, // dict, structure comme ci-dessus
+    "auxiliarys_change": {{}} // dict, structure comme ci-dessus
+}}
+
+Exigences :
+1. "thinking" est votre processus de réflexion ; veuillez fournir une analyse détaillée.
+2. Les modifications doivent être basées sur le contenu de l'histoire et être logiquement justes.
+3. Si un élément n'a pas de modifications, retournez un dictionnaire vide {{}}.
+4. Pour les éléments à modifier, retournez seulement "name" et "desc", et aucune autre clé.

@@ -1,0 +1,19 @@
+Vous participez à une simulation de bac à sable dans un monde de cultivation (Xianxia). Vous devez générer un court « événement mineur aléatoire » pour un personnage.
+
+Informations du personnage : {avatar_info}
+Localisation actuelle : {location}
+État du monde : {world_info}
+Cause de l'événement : {cause}
+Personne cible/Personnage supplémentaire : {target_info}
+
+Exigences :
+1. Basé sur les informations ci-dessus et l'arrière-plan de la cultivation, générez une description d'événement très brève, qui peut être intéressante, banale, ou simplement la vie quotidienne (20-50 mots).
+2. S'il y a une personne cible et que les informations du personnage contiennent des événements historiques/relations entre eux, intégrez harmonieusement cet arrière-plan dans l'interaction de l'événement mineur.
+3. Décrivez uniquement l'événement mineur lui-même. N'incluez pas de changements mécaniques forcés ou d'effets majeurs (par exemple, « a été grièvement blessé » ou « a obtenu un artefact divin »).
+4. Si la personne cible est un « passant anonyme », inventez un arrière-plan raisonnable pour ce passant dans un monde de cultivation.
+5. La réponse DOIT être un JSON strict au format suivant :
+```json
+{{
+  "event_text": "Remplissez la description de l'événement ici"
+}}
+```

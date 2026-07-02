@@ -1,0 +1,260 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. sect_region.csv: SECT_REGION_401_DESC
+msgid "SECT_REGION_401_DESC"
+msgstr ""
+"Les Pics de Jueyu s'élancent dans l'océan de nuages, reliés par des chaînes "
+"de fer et des ponts de nuages surplombant des sentiers montagneux périleux. "
+"Seuls ceux dont l'intention de sabre est véritablement stable peuvent "
+"atteindre les plus hauts sommets. À mi-hauteur se dressent des plateformes "
+"de test du sabre, des bassins de purification du sabre et des falaises "
+"escarpées gravées d'innombrables marques de lame ; plus haut encore, le "
+"vent devient plus tranchant et l'éclair traverse parfois les précipices. La "
+"porte de la secte entière semble être un ancien sabre tiré mais jamais "
+"remis au fourreau, austère, majestueux et chargé d'une menace glaciale."
+
+#. sect_region.csv: SECT_REGION_401_NAME
+msgid "SECT_REGION_401_NAME"
+msgstr "Pic de Jueyu"
+
+#. sect_region.csv: SECT_REGION_402_DESC
+msgid "SECT_REGION_402_DESC"
+msgstr ""
+"La Caverne des Myriade de Bêtes se cache au cœur des chaînes montagneuses, "
+"ses couches extérieures scellées par un brouillard toxique et des vignes "
+"enchevêtrées formant une barrière naturelle. C'est en s'enfonçant que l'on "
+"atteint les domaines des bêtes qui s'étendent plus bas. Des ponts de pierre, "
+"des portes de fer et des plateformes de dressage de bêtes divisent les "
+"niveaux, tandis que des rugissements sourds et des cliquetis de chaînes "
+"résonnent sans fin dans l'air épais de qi démoniaque persistant. Des os et "
+"des marques de griffes jonchent le sol. C'est moins une porte de secte "
+"ordinaire qu'une cité-nid vivante de bêtes colossales, et chaque niveau "
+"inférieur semble plus oppressant que le précédent."
+
+#. sect_region.csv: SECT_REGION_402_NAME
+msgid "SECT_REGION_402_NAME"
+msgstr "Grotte des Dix Mille Bêtes"
+
+#. sect_region.csv: SECT_REGION_403_DESC
+msgid "SECT_REGION_403_DESC"
+msgstr ""
+"Jinghaiya se suspend au-dessus d'une falaise côtière à pic, où des salles, "
+"des corridors et des terrasses panoramiques de jade d'esprit de givre "
+"s'élèvent à demi voilés dans la brume océane. De loin, la porte entière de "
+"la secte semble flotter dans la lumière lunaire et les embruns. Au pied de "
+"la falaise, le mur de jade reflète la mer et les étoiles, et avec la montée "
+"et la baisse des marées, des lueurs aqueuses ondulent sur les murs et les "
+"sols jusqu'à ce que les chemins semblent à moitié réels et à moitié illusoires. "
+"Il est si calme ici que seuls les vagues, le vent et l'occasionnel tintement "
+"d'une cloche frôlant un avant-toit rappellent aux visiteurs qu'ils n'ont pas "
+"encore quitté le monde mortel."
+
+#. sect_region.csv: SECT_REGION_403_NAME
+msgid "SECT_REGION_403_NAME"
+msgstr "Falaise de la Mer Silencieuse"
+
+#. sect_region.csv: SECT_REGION_404_DESC
+msgid "SECT_REGION_404_DESC"
+msgstr ""
+"La Mer Morte est constituée d'îles noires et de baies ombragées reliées par "
+"des ponts de planches étroites, des marqueurs de ferry en ruine et des "
+"phares à feu spectral, si bien que de loin elle ressemble à une cité de "
+"spectres dérivant sur des eaux noir encre. La mer monte sans vent, et chaque "
+"vague qui s'élève porte un cri semblable à des pleurs lointains. Les salles "
+"et les marches de pierre sur les îles sont teintées de gris-blanc et de vert "
+"malade par la brume moite. À la nuit tombée, la lumière lunaire compte moins "
+"que les lampes à âmes vacillant dans le brouillard, transformant toute la "
+"région en quelque chose ressemblant à l'au-delà vu en rêve."
+
+#. sect_region.csv: SECT_REGION_404_NAME
+msgid "SECT_REGION_404_NAME"
+msgstr "Mer du Silence Absolu"
+
+#. sect_region.csv: SECT_REGION_405_DESC
+msgid "SECT_REGION_405_DESC"
+msgstr ""
+"À première vue, la Vallée de Qianji ressemble à une vallée montagneuse "
+"ordinaire, avec des routes de pierre bleue, des avant-toits élégants et des "
+"courettes et des fleurs soigneusement arrangées. Ce n'est qu'en s'approchant "
+"que l'on réalise que les ponts peuvent tourner, les murs peuvent s'ouvrir et "
+"se fermer, et même la hauteur des escaliers dissimule des mécanismes de "
+"déclenchement. Des tours de guet et des ponts suspendus se dressent au-dessus, "
+"tandis que des tunnels secrets, des ateliers et des chambres scellées s'étendent "
+"au-dessous. De temps à autre, on entend le grincement des dents d'engrenage, "
+"le doux bourdonnement du métal ou les pas de marionnette approcher de nulle part. "
+"La chose la plus terrifiante ici n'est pas un seul piège, mais que la vallée "
+"entière est elle-même une machine géante."
+
+#. sect_region.csv: SECT_REGION_405_NAME
+msgid "SECT_REGION_405_NAME"
+msgstr "Vallée des Mille Mécanismes"
+
+#. sect_region.csv: SECT_REGION_406_DESC
+msgid "SECT_REGION_406_DESC"
+msgstr ""
+"Le Terrier Doré se situe dans un ciel privé caché derrière une cité de marché "
+"prospère. À l'entrée s'étendent des mers de lanternes, une encens dérivante, "
+"des ponts courbés et des pavillons étagés au-dessus de l'eau. Plus on s'enfonce, "
+"plus le tumulte s'efface et plus les sons de l'eau et de la musique deviennent "
+"persistants. Les terrasses extérieures scintillent d'or et de jade et débordent "
+"de clients, tandis que plus loin se trouvent des salles tranquilles, des sources "
+"chaudes et des bassins de rêve cachés derrière de la gaze, des murs de fleurs "
+"et du brouillard. Tout ici est beau et luxueux, pourtant il est impossible de "
+"dire si l'on vient pour festoyer, pour rêver ou pour entrer dans une forme plus "
+"subtile de culture."
+
+#. sect_region.csv: SECT_REGION_406_NAME
+msgid "SECT_REGION_406_NAME"
+msgstr "Terrier de Dissipation de l'Or"
+
+#. sect_region.csv: SECT_REGION_407_DESC
+msgid "SECT_REGION_407_DESC"
+msgstr ""
+"L'Île de Pudu se suspend seule au centre de la Mer de Tempête. Au-delà de ses "
+"côtes, des vagues colossales s'élèvent et l'éclair tourbillonne, mais à "
+"l'intérieur, les cloches et la lumière bouddhiste maintiennent l'île dans un "
+"calme presque figé. La Pagode Vajra se dresse au centre, entourée de halls "
+"de temple, de marches de pierre, de plateformes d'austérité au bord de la "
+"falaise et d'un port faisant face à l'eau. Les cloches dorées au sommet "
+"tintent avec le vent de mer et semblent lisser l'orage peu à peu. Quand la "
+"brume du matin se lève, la lumière dorée s'écoule sur les récifs noirs et les "
+"salles pâles, et l'île ressemble à un sceau sacré soulevé d'une mer en colère."
+
+#. sect_region.csv: SECT_REGION_407_NAME
+msgid "SECT_REGION_407_NAME"
+msgstr "Île de Pudu"
+
+#. sect_region.csv: SECT_REGION_408_DESC
+msgid "SECT_REGION_408_DESC"
+msgstr ""
+"Le Marais de l'Ombre ne connaît jamais la véritable lumière du jour. Un "
+"brouillard toxique, l'eau fétide et les anciens arbres enchevêtrés scellent "
+"toute la région, et les intrus sont souvent observés par des yeux invisibles "
+"avant même de remarquer la porte de la secte. Le vrai bastion n'est pas "
+"concentré en surface : des tours cachées et des ponts de corde gisent dans "
+"la canopée, tandis que des tunnels, des cellules et des entrées couvertes de "
+"miasmes s'étendent sous le marécage. Il y a presque pas de ligne de vue "
+"ouverte ici, seulement des lampes froides vacillant à travers le brouillard "
+"qui dérive et les eaux noires prêtes à engloutir le son des pas à tout moment."
+
+#. sect_region.csv: SECT_REGION_408_NAME
+msgid "SECT_REGION_408_NAME"
+msgstr "Marais de l'Ombre"
+
+#. sect_region.csv: SECT_REGION_409_DESC
+msgid "SECT_REGION_409_DESC"
+msgstr ""
+"Les Îles Flottantes de Duobao ne sont pas une seule île mais une chaîne "
+"d'îles célestes de différentes tailles reliées par d'énormes chaînes, des "
+"ponts de nuages et des routes de navires nuages formant une cité immortelle "
+"suspendue dans les cieux. L'anneau extérieur est rempli de quais affairés et "
+"de cours de fret, les niveaux intermédiaires avec des rues commerciales, des "
+"maisons d'enchères et des marchés, et les hauteurs avec des tours de forgeage "
+"ventilant les feux des fournaises jour et nuit. Après la tombée de la nuit, "
+"les lampes courent le long des chaînes et des voies célestes dans les nuages, "
+"donnant à toute la région l'aspect d'une toile marchande dorée étendue à "
+"travers le ciel, éternellement bruyante et éternellement en mouvement."
+
+#. sect_region.csv: SECT_REGION_409_NAME
+msgid "SECT_REGION_409_NAME"
+msgstr "Île Flottante des Myriade de Trésors"
+
+#. sect_region.csv: SECT_REGION_410_DESC
+msgid "SECT_REGION_410_DESC"
+msgstr ""
+"La Vallée de l'Écho se rétrécit entre des falaises vertigineuses, formant "
+"naturellement d'innombrables trous de résonance et fissures sonores. Même une "
+"seule note pincée peut tourbillonner dans la vallée longtemps sans s'estomper. "
+"Les pavillons, les terrasses au bord de l'eau, les tours de qin et les corridors "
+"suivent les contours de la montagne tandis que les ruisseaux coulent droit à "
+"travers les bâtiments. En surface, c'est aussi gracieux qu'une retraite "
+"immortelle, mais une écoute attentive révèle que le vent passant aux avant-toits "
+"et les gouttes frappant l'eau semblent réarrangés par une main invisible. La "
+"vallée est souvent plus dangereuse non quand la musique la remplit, mais quand "
+"tout tombe soudainement silencieux."
+
+#. sect_region.csv: SECT_REGION_410_NAME
+msgid "SECT_REGION_410_NAME"
+msgstr "Vallée de l'Écho"
+
+#. sect_region.csv: SECT_REGION_411_DESC
+msgid "SECT_REGION_411_DESC"
+msgstr ""
+"Mizhongtian semble à première vue être seulement un pic solitaire, mais une "
+"fois franchie la porte de la secte, les terrasses, les marches, les ponts et "
+"les routes se révèlent tous être imbriqués dans des couches d'espace replié. "
+"Le même chemin peut sembler complètement différent quand on le regarde d'avant "
+"et d'après. Sur les pentes se dressent des places gravées de motifs de "
+"formations, des corridors suspendus en l'air et des salles qui s'évanouissent "
+"et réapparaissent, tandis que des lignes de lumière s'écoulent parfois à travers "
+"le sol comme si la montagne elle-même réfléchissait lentement. Il n'y a pas "
+"de sens stable de direction ici ; chaque pas se sent comme entrer dans un autre "
+"monde."
+
+#. sect_region.csv: SECT_REGION_411_NAME
+msgid "SECT_REGION_411_NAME"
+msgstr "Ciel du Labyrinthe"
+
+#. sect_region.csv: SECT_REGION_412_DESC
+msgid "SECT_REGION_412_DESC"
+msgstr ""
+"Le Ciel de l'Aurore gît dans les profondeurs de la nuit éternelle du nord "
+"lointain. Au-delà s'étendent des plaines de glace silencieuses, mais ce seul "
+"palais-cité baigne toute l'année dans l'aurore mouvante aussi brillante que le "
+"jour. Des murs de glace altiers, des portes de fer noir, des ponts gelés et "
+"des champs d'entraînement scintillent sous la lumière mouvante, tandis que au "
+"cœur de la cité l'autel de la flamme sacrée projette une douce lueur rouge-"
+"chaleur à travers le froid. Sa beauté n'est pas simplement grandeur, mais la "
+"coexistence ordonnée de glace et de feu, immobilité et rayonnement, comme si "
+"toute la cité était une flamme endurante au cœur de l'hiver le plus profond."
+
+#. sect_region.csv: SECT_REGION_412_NAME
+msgid "SECT_REGION_412_NAME"
+msgstr "Royaume de l'Aurore Céleste"
+
+#. sect_region.csv: SECT_REGION_413_DESC
+msgid "SECT_REGION_413_DESC"
+msgstr ""
+"La Forêt des Sages se dresse là où convergent les veines spirituelles "
+"centrales, remplie d'anciens arbres vertigineux et de stèles de pierre "
+"éparses. Des halls de conférences, des bibliothèques et des courettes au bord "
+"de l'eau sont nichés dans l'ombre, et quiconque y marche doit souvent suivre "
+"des chemins couverts de feuilles mortes et des corridors gravés "
+"d'inscriptions classiques. Le jour, le son de la lecture voyage loin avec le "
+"vent forestier ; la nuit, les stèles émettent une faible lueur sous la lune, "
+"laissant les arbres et les avant-toits enveloppés d'une dignité tranquille. "
+"L'endroit ressemble moins à une secte fermée qu'à une académie vivante "
+"grandissant encore avec le temps."
+
+#. sect_region.csv: SECT_REGION_413_NAME
+msgid "SECT_REGION_413_NAME"
+msgstr "Forêt des Sages"
+
+#. sect_region.csv: SECT_REGION_414_DESC
+msgid "SECT_REGION_414_DESC"
+msgstr ""
+"La montagne au-dessus du Bassin de Sang d'Asura est rouge foncé de part en "
+"part, avec du brouillard de couleur sang et de la chaleur s'élevant "
+"constamment de ses fissures. Au cœur de la montagne, d'immenses bassins de "
+"sang souterrain et des halls sacrificiels étagés ont été creusés dans la "
+"terre. Des ponts de chaîne de fer enjambent les rivières de sang, et des "
+"escaliers de pierre descendent vers des plateformes de bataille, des cavernes "
+"d'os et des autels illuminés par une lumière écarlate. Plus on descend, plus "
+"l'odeur de rouille, de médicament et de sang moite devient lourde. Le bastion "
+"entier semble être une bête monstrueuse respirant lentement sous terre."
+
+#. sect_region.csv: SECT_REGION_414_NAME
+msgid "SECT_REGION_414_NAME"
+msgstr "Bassin de Sang d'Asura"

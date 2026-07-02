@@ -1,0 +1,60 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "ORTHODOXY_BUDDHISM_DESC"
+msgstr ""
+"Sauver tous les êtres sensibles et améliorer le domaine de cultivation par "
+"la méditation et l'illumination soudaine."
+
+# Buddhism
+msgid "ORTHODOXY_BUDDHISM_NAME"
+msgstr "Bouddhisme"
+
+msgid "ORTHODOXY_CONFUCIANISM_DESC"
+msgstr ""
+"Éduquer le peuple commun, cultiver l'Esprit Noble (Haoran Qi) et le domaine "
+"augmentera en conséquence."
+
+# Confucianism
+msgid "ORTHODOXY_CONFUCIANISM_NAME"
+msgstr "Confucianisme"
+
+msgid "ORTHODOXY_DAO_DESC"
+msgstr ""
+"Conformer à la Voie Céleste, respirer l'énergie spirituelle (Qi) et améliorer "
+"le domaine de cultivation par la pratique."
+
+# Dao (Daoism)
+msgid "ORTHODOXY_DAO_NAME"
+msgstr "Dao"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr "Prendre le Ciel et la Terre comme maître, suivre la Voie de la Nature."
+
+# Nature (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "Nature"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr ""
+"Entrer dans la Dao par les arts martiaux et le Tempérage du Corps. Bien que "
+"les progrès soient lents, la fondation est solide, et briser les goulets "
+"d'étranglement se fait aussi naturellement que manger et boire."
+
+# Martial (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "Martial"
+
+msgid "Orthodoxy [{name}]"
+msgstr "Orthodoxie [{name}]"

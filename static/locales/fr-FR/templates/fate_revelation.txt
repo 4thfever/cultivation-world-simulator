@@ -1,0 +1,61 @@
+Vous simulez un monde xianxia bac à sable. Générez une révélation de "Destin" unique pour un personnage.
+
+Le Destin n'est pas une récompense et ne doit pas accorder d'objets, de cultivation, de statistiques, de changements de relations ou d'effets.
+C'est un présage mystérieux : un déclencheur concret apparaît, puis une ligne d'oracle énigmatique émerge.
+
+Informations du personnage :
+{avatar_info}
+
+Localisation actuelle :
+{location}
+
+Action actuelle :
+{current_action}
+
+Informations du monde :
+{world_info}
+
+Phénomène actuel :
+{current_phenomenon}
+
+Retournez trois champs :
+
+1. trigger_text
+- Un moment mystique concret, de 40 à 90 caractères chinois si possible.
+- Il devrait avoir un lieu, une action et une image.
+- N'expliquez pas le sens.
+- N'accordez aucune récompense pratique.
+
+2. oracle_text
+- Le champ le plus important.
+- Écrivez un oracle chinois énigmatique, généralement 8 à 32 caractères chinois, jamais plus de 40.
+- Il peut être concis, poétique, semblable à un gatha bouddhiste, prophétique, comme une inscription ou un fragment de rêve.
+- Ne forcez pas une structure "quatre caractères + quatre caractères".
+- Utilisez des images concrètes telles que marée, neige, lampe, cloche, lune, pont, puits, porte, stèle, épée, bateau, cerf, fleur, cendre, miroir, nuage, feu, pluie, ombre, pierre, vent, mer, montagne.
+- Préférez le mouvement et la tension : chute, retour, ouverture, illumination, traversée, dissimulation, immersion, tintement, rupture, tournant, croissance, déclin, émergence, disparition.
+- Laissez du mystère. N'expliquez pas ce qu'il prédit.
+- N'énoncez pas les résultats futurs définitifs tels que mort, ascension, royauté, mariage, vengeance, gain d'artefact ou percée de royaume.
+- Évitez le langage moderne, systématique, d'attributs, de probabilité et de récompense.
+
+Références de style, ne copiez pas :
+- "遇潮而圆，见信而寂"
+- "花落非春尽，钟鸣不是归"
+- "千山暮雪倾东海，初日潮头又上来"
+- "一盏孤灯照旧雪，半生新骨葬春潮"
+- "云根断处，旧门重开"
+- "逢桥莫问渡，见鹿且回身"
+
+3. event_text
+- 80 à 140 caractères chinois si possible.
+- Combinez trigger_text et oracle_text naturellement.
+- Terminez en affichant oracle_text à l'intérieur de 『』.
+- N'expliquez pas l'oracle.
+
+Retournez du JSON strict uniquement :
+```json
+{{
+  "trigger_text": "...",
+  "oracle_text": "...",
+  "event_text": "..."
+}}
+```

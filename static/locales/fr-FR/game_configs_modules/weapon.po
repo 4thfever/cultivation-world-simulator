@@ -1,0 +1,445 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. weapon.csv: 市井铁匠铺打造的铁剑，勉强能用。...
+msgid "WEAPON_1001_DESC"
+msgstr "Une épée en fer forgée par un forgerons local, à peine utilisable."
+
+#. weapon.csv: 练气剑
+msgid "WEAPON_1001_NAME"
+msgstr "Épée de Raffinage du Qi"
+
+#. weapon.csv: 厚背砍刀，寻常武夫的最爱。...
+msgid "WEAPON_1002_DESC"
+msgstr "Un sabre à dos épais, le favori des guerriers ordinaires."
+
+#. weapon.csv: 练气刀
+msgid "WEAPON_1002_NAME"
+msgstr "Sabre de Raffinage du Qi"
+
+#. weapon.csv: 白蜡杆制成，枪头挂着红缨。...
+msgid "WEAPON_1003_DESC"
+msgstr "Fabriqué en bois de cire blanche, avec un pompon rouge à la pointe de lance."
+
+#. weapon.csv: 练气枪
+msgid "WEAPON_1003_NAME"
+msgstr "Lance de Raffinage du Qi"
+
+#. weapon.csv: 普通的硬木棍，长与眉齐。...
+msgid "WEAPON_1004_DESC"
+msgstr "Un bâton en bois dur ordinaire, aussi long que les sourcils."
+
+#. weapon.csv: 练气棍
+msgid "WEAPON_1004_NAME"
+msgstr "Bâton de Raffinage du Qi"
+
+#. weapon.csv: 文人雅士常用的折扇，附庸风雅。...
+msgid "WEAPON_1005_DESC"
+msgstr "Un éventail pliant couramment utilisé par les savants et les lettrés pour l'élégance."
+
+#. weapon.csv: 练气扇
+msgid "WEAPON_1005_NAME"
+msgstr "Éventail de Raffinage du Qi"
+
+#. weapon.csv: 普通的皮鞭，多用于赶车或刑罚。...
+msgid "WEAPON_1006_DESC"
+msgstr "Un fouet en cuir ordinaire, principalement utilisé pour conduire les chariots ou le châtiment."
+
+#. weapon.csv: 练气鞭
+msgid "WEAPON_1006_NAME"
+msgstr "Fouet de Raffinage du Qi"
+
+#. weapon.csv: 桐木制成的古琴，音色尚可。...
+msgid "WEAPON_1007_DESC"
+msgstr "Une cithare ancienne fabriquée en bois de paulownia, avec une qualité sonore acceptable."
+
+#. weapon.csv: 练气琴
+msgid "WEAPON_1007_NAME"
+msgstr "Cithare de Raffinage du Qi"
+
+#. weapon.csv: 紫竹削制，声音清脆。...
+msgid "WEAPON_1008_DESC"
+msgstr "Sculptée en bambou pourpre, avec un son cristallin."
+
+#. weapon.csv: 练气笛
+msgid "WEAPON_1008_NAME"
+msgstr "Flûte de Raffinage du Qi"
+
+#. weapon.csv: 随处可见的铁制暗器。...
+msgid "WEAPON_1009_DESC"
+msgstr "Armes cachées en fer couramment visibles."
+
+#. weapon.csv: 练气暗器
+msgid "WEAPON_1009_NAME"
+msgstr "Arme Cachée de Raffinage du Qi"
+
+#. weapon.csv: 剑气森寒。...
+msgid "WEAPON_1021_DESC"
+msgstr "Le qi de l'épée est d'un froid glaçant."
+
+#. weapon.csv: 青霜剑
+msgid "WEAPON_1021_NAME"
+msgstr "Épée de Givre Azur"
+
+#. weapon.csv: 刀光如井中映月，虚实难测。...
+msgid "WEAPON_1022_DESC"
+msgstr ""
+"La lame est comme l'eau, reflétant la lune sans laisser de trace. Il est "
+"difficile de distinguer la réalité de l'illusion, ce qui rend l'adversaire "
+"imprévisible."
+
+#. weapon.csv: 井中月
+msgid "WEAPON_1022_NAME"
+msgstr "Sabre de Lune de Puits"
+
+#. weapon.csv: 枪头隐有火光，能引动凡火。...
+msgid "WEAPON_1023_DESC"
+msgstr "Faible lueur de feu à la pointe de la lance, capable de déclencher un feu commun."
+
+#. weapon.csv: 火尖枪
+msgid "WEAPON_1023_NAME"
+msgstr "Lance à Pointe de Feu"
+
+#. weapon.csv: 精铁铸造，重达千斤，力大者可用。...
+msgid "WEAPON_1024_DESC"
+msgstr ""
+"Forgée en fer raffiné, pesant mille jin, utilisable par ceux ayant une grande "
+"force."
+
+#. weapon.csv: 囚龙棒
+msgid "WEAPON_1024_NAME"
+msgstr "Bâton d'Emprisonnement du Dragon"
+
+#. weapon.csv: 桃花影落飞神剑，扇面绘有桃花，暗藏杀机。...
+msgid "WEAPON_1025_DESC"
+msgstr ""
+"L'éventail est peint de pétales cramoisies. Les ombres de fleur sont floues, "
+"cachant l'intention de meurtre, ce qui rend impossible la défense."
+
+#. weapon.csv: 桃花扇
+msgid "WEAPON_1025_NAME"
+msgstr "Éventail de Fleur de Pêcher"
+
+#. weapon.csv: 仿品，虽无打神之能，却可伤人神魂。...
+msgid "WEAPON_1026_DESC"
+msgstr ""
+"Une imitation ; bien que manquant le pouvoir de frapper les dieux, elle peut "
+"blesser l'âme."
+
+#. weapon.csv: 打神鞭
+msgid "WEAPON_1026_NAME"
+msgstr "Fouet de Frappe des Dieux"
+
+#. weapon.csv: 琴音魔性，扰乱心智。...
+msgid "WEAPON_1027_DESC"
+msgstr "Le son de la cithare est démoniaque, perturbant l'esprit."
+
+#. weapon.csv: 天魔琴
+msgid "WEAPON_1027_NAME"
+msgstr "Cithare de Démon Céleste"
+
+#. weapon.csv: 据说能以此笛操控尸傀。...
+msgid "WEAPON_1028_DESC"
+msgstr ""
+"Le son de la flûte est perçant et peut contrôler les cadavres, faisant pâlir "
+"les gens au son."
+
+#. weapon.csv: 鬼笛陈情
+msgid "WEAPON_1028_NAME"
+msgstr "Flûte de Contrôle des Esprits"
+#. weapon.csv: 细若牛毛，来去无影，防不胜防。...
+msgid "WEAPON_1029_DESC"
+msgstr ""
+"Fins comme un cheveu de vache, allant et venant sans laisser de trace, "
+"impossible à défendre."
+
+#. weapon.csv: 无影针
+msgid "WEAPON_1029_NAME"
+msgstr "Aiguille sans Ombre"
+
+#. weapon.csv: 百兽宗秘制，笛声可安抚或激怒野兽。...
+msgid "WEAPON_1030_DESC"
+msgstr ""
+"Spécialement fabriquée par la Secte Baishou ; le son de la flûte peut "
+"appaiser ou provoquer les bêtes."
+
+#. weapon.csv: 万兽笛
+msgid "WEAPON_1030_NAME"
+msgstr "Flûte des Dix Mille Bêtes"
+
+#. weapon.csv: 刀身赤红，似渴望饮血。...
+msgid "WEAPON_1031_DESC"
+msgstr ""
+"La lame est cramoisie, semblant assoiffée de sang. Il a une intention de "
+"meurtre lourde et ne peut pas être utilisé par ceux à la volonté faible."
+
+#. weapon.csv: 血饮狂刀
+msgid "WEAPON_1031_NAME"
+msgstr "Sabre Frénétique d'Abreuvement de Sang"
+
+#. weapon.csv: 重剑无锋，大巧不工，独孤求败。...
+msgid "WEAPON_1032_DESC"
+msgstr ""
+"Forgée en fer météorique extraterre. L'épée lourde n'a pas de bord tranchant, "
+"mais un grand talent ne demande aucun savoir-faire. Elle peut briser toutes "
+"les techniques par la force."
+
+#. weapon.csv: 玄铁重剑
+msgid "WEAPON_1032_NAME"
+msgstr "Épée Lourde de Météore"
+
+#. weapon.csv: 软若束带，动若灵蛇。...
+msgid "WEAPON_1033_DESC"
+msgstr ""
+"L'épée est douce comme la soie, mais quand elle est imbue d'énergie spirituelle, "
+"elle se meut comme un serpent spirituel, étrange et imprévisible."
+
+#. weapon.csv: 紫薇软剑
+msgid "WEAPON_1033_NAME"
+msgstr "Épée Douce du Serpent Spirituel"
+
+#. weapon.csv: 镇魂宗制式兵器，水火相济，困敌锁魂。...
+msgid "WEAPON_1034_DESC"
+msgstr ""
+"Une arme standard de la Secte Zhenhun, combinant eau et feu pour piéger les "
+"ennemis et verrouiller les âmes."
+
+#. weapon.csv: 水火囚龙棍
+msgid "WEAPON_1034_NAME"
+msgstr "Bâton d'Emprisonnement du Dragon Eau-Feu"
+
+#. weapon.csv: 成套飞剑，内蕴辟邪神雷，克制天下邪祟。...
+msgid "WEAPON_1051_DESC"
+msgstr ""
+"Un ensemble d'épées volantes affinées du Bambou du Tonnerre Céleste, contenant "
+"le Tonnerre Divin Écarté du Mal pour supprimer tout le mal du monde."
+
+#. weapon.csv: 青竹蜂云剑
+msgid "WEAPON_1051_NAME"
+msgstr "Épée du Bambou du Tonnerre Céleste"
+
+#. weapon.csv: 六耳猕猴的兵器，随心变化，大小如意。...
+msgid "WEAPON_1052_DESC"
+msgstr ""
+"L'arme du Macaque aux Six Oreilles, changeant comme désiré, aussi grand ou "
+"petit que souhaité."
+
+#. weapon.csv: 随心铁杆兵
+msgid "WEAPON_1052_NAME"
+msgstr "Tige de Fer Comme-Vous-Voulez"
+
+#. weapon.csv: 扇面有空中火、石中火、木中火等五火，一扇...
+msgid "WEAPON_1053_DESC"
+msgstr ""
+"La surface de l'éventail comporte cinq feux incluant le feu de l'air, le feu "
+"de la pierre et le feu du bois, réduisant les choses en cendres en un seul "
+"mouvement."
+
+#. weapon.csv: 五火七禽扇
+msgid "WEAPON_1053_NAME"
+msgstr "Éventail des Cinq Feux et Sept Volailles"
+
+#. weapon.csv: 杀气滔天，曾染魔神之血，枪出无回。...
+msgid "WEAPON_1054_DESC"
+msgstr ""
+"Intention de meurtre déferlante, autrefois teintée du sang des dieux-démons ; "
+"la lance ne revient jamais une fois lancée."
+
+#. weapon.csv: 弑神枪
+msgid "WEAPON_1054_NAME"
+msgstr "Lance de Tueur de Dieux"
+
+#. weapon.csv: 赤锋矛，不朽盾，斩尽仙王灭九天。...
+msgid "WEAPON_1055_DESC"
+msgstr ""
+"Cramoisie partout, avec un esprit de combat écrasant. Elle a été teintée du "
+"sang d'innombrables hommes forts, et la lance frappe sans regret."
+
+#. weapon.csv: 赤锋矛
+msgid "WEAPON_1055_NAME"
+msgstr "Lance de Guerre au Sang Cramoisi"
+
+#. weapon.csv: 红葫芦内藏一线毫光，有眉有目。请宝贝转身...
+msgid "WEAPON_1056_DESC"
+msgstr ""
+"Une trace de lumière cachée dans une calebasse rouge, avec des sourcils et "
+"des yeux. Veuillez vous tourner, trésor, car dieux et fantômes ne peuvent "
+"s'échapper."
+
+#. weapon.csv: 斩仙飞刀
+msgid "WEAPON_1056_NAME"
+msgstr "Poignard Volant du Tueur d'Immortels"
+
+#. weapon.csv: 非铜非铁亦非钢，曾在须弥山下藏。利气直透...
+msgid "WEAPON_1057_DESC"
+msgstr ""
+"Ni cuivre, ni fer, ni acier, autrefois caché sous le Mont Sumeru. Le qi "
+"tranchant transperce directement les neuf cieux."
+
+#. weapon.csv: 诛仙剑
+msgid "WEAPON_1057_NAME"
+msgstr "Épée du Tueur d'Immortels"
+
+#. weapon.csv: 挚情之剑，一雌一雄，分则为杀，合则为情。...
+msgid "WEAPON_1058_DESC"
+msgstr ""
+"Épées du véritable amour, l'une femelle et l'une mâle, tuant quand séparées, "
+"amoureuses quand ensemble."
+
+#. weapon.csv: 干将莫邪
+msgid "WEAPON_1058_NAME"
+msgstr "Gan Jiang et Mo Ye"
+
+#. weapon.csv: 太阴之精叶，一扇息火，二扇生风，三扇下雨...
+msgid "WEAPON_1059_DESC"
+msgstr ""
+"Feuille d'essence du Taiyin ; un mouvement arrête le feu, deux mouvements "
+"créent du vent, trois mouvements apportent la pluie."
+
+#. weapon.csv: 芭蕉扇
+msgid "WEAPON_1059_NAME"
+msgstr "Éventail de Bananier"
+
+#. weapon.csv: 韦护的兵器，虽然轻灵，打在人身却重如泰山...
+msgid "WEAPON_1060_DESC"
+msgstr ""
+"L'arme de Wei Hu ; bien que légère et agile, elle frappe avec le poids du "
+"Mont Tai."
+
+#. weapon.csv: 紫金降魔杵
+msgid "WEAPON_1060_NAME"
+msgstr "Pilon de Subjugation des Démons en Or Pourpre"
+
+#. weapon.csv: 刀背嵌入九个金环，挥舞时金环碰撞，声若雷...
+msgid "WEAPON_1061_DESC"
+msgstr ""
+"Le dos du sabre est serti de neuf anneaux d'or. Lorsqu'ils sont agités, les "
+"anneaux s'entrechoquent avec un son tonique qui instille la peur dans le cœur."
+
+#. weapon.csv: 九环金背刀
+msgid "WEAPON_1061_NAME"
+msgstr "Sabre d'Or à Neuf Anneaux"
+
+#. weapon.csv: 通体由万年寒铁打造，枪身银白，触之冰冷刺...
+msgid "WEAPON_1062_DESC"
+msgstr ""
+"Fabriquée entièrement en fer froid de dix mille ans, le corps de la lance est "
+"blanc argenté et glaçant au toucher."
+
+#. weapon.csv: 寒铁银枪
+msgid "WEAPON_1062_NAME"
+msgstr "Lance d'Argent en Fer Froid"
+
+#. weapon.csv: 采自南海紫竹林，共七节，坚韧异常，不仅能...
+msgid "WEAPON_1063_DESC"
+msgstr ""
+"Récolté de la Forêt de Bambou Pourpre dans la Mer du Sud, il a sept sections "
+"et est exceptionnellement robuste. Il peut blesser les ennemis et lier les "
+"démons."
+
+#. weapon.csv: 七节紫竹鞭
+msgid "WEAPON_1063_NAME"
+msgstr "Fouet de Bambou Pourpre à Sept Sections"
+
+#. weapon.csv: 白玉雕琢而成，弹奏时有金石之声，能洗涤心...
+msgid "WEAPON_1064_DESC"
+msgstr ""
+"Sculptée en jade blanc, elle produit le son du métal et de la pierre quand "
+"jouée, purifiant les démons intérieurs."
+
+#. weapon.csv: 玉琵琶
+msgid "WEAPON_1064_NAME"
+msgstr "Pipa en Jade"
+
+#. weapon.csv: 东海龙宫流出的宝物，吹奏时如闻海潮之声，...
+msgid "WEAPON_1065_DESC"
+msgstr ""
+"Faite de jade froid des abysses. Quand jouée, elle sonne comme un dragon "
+"chantant dans l'océan, secouant les alentours."
+
+#. weapon.csv: 碧海潮生笛
+msgid "WEAPON_1065_NAME"
+msgstr "Flûte du Dragon de l'Océan"
+
+#. weapon.csv: 上古凶兵，内封白虎战魂，出鞘必饮血，不仅...
+msgid "WEAPON_1071_DESC"
+msgstr ""
+"Une arme sinistre antique scellant la féroce âme d'un Tigre Blanc. Elle doit "
+"boire du sang quand elle est dégainée et peut se retourner contre son maître."
+
+#. weapon.csv: 虎魄
+msgid "WEAPON_1071_NAME"
+msgstr "Lame Maléfique du Tigre Féroce"
+
+#. weapon.csv: 疑似上古天庭的柱石残片炼制，重如山岳，非...
+msgid "WEAPON_1072_DESC"
+msgstr ""
+"Affinée à partir de fragments de piliers censés provenir de la Cour Céleste "
+"Antique. Elle est aussi lourde qu'une montagne et ne peut pas être maniée par "
+"ceux sans grand pouvoir."
+
+#. weapon.csv: 擎天白玉柱
+msgid "WEAPON_1072_NAME"
+msgstr "Pilier de Jade Blanc Optimus Céleste"
+
+#. weapon.csv: 一面纯白主生，一面漆黑主死。扇动间阴阳逆...
+msgid "WEAPON_1073_DESC"
+msgstr ""
+"Un côté est blanc pur pour la vie, l'autre pitch noir pour la mort. L'agiter "
+"inverse le Yin et le Yang, rétrécissant la terre en pouces."
+
+#. weapon.csv: 阴阳扇
+msgid "WEAPON_1073_NAME"
+msgstr "Éventail Yin Yang"
+
+#. weapon.csv: 以上古真龙之脊骨炼制，挥动时隐有龙吟，对...
+msgid "WEAPON_1074_DESC"
+msgstr ""
+"Affinée à partir de la colonne vertébrale d'un ancien vrai dragon. Quand "
+"agitée, il y a un faible rugissement de dragon, supprimant naturellement les "
+"êtres de niveau inférieur."
+
+#. weapon.csv: 龙骨鞭
+msgid "WEAPON_1074_NAME"
+msgstr "Fouet d'Épine du Dragon"
+
+#. weapon.csv: 上古十大神器之一的仿品，拥有支配万物心灵...
+msgid "WEAPON_1075_DESC"
+msgstr ""
+"Une imitation de l'un des Dix Grands Artefacts Anciens, possédant le pouvoir "
+"mystérieux de dominer les esprits de toutes choses."
+
+#. weapon.csv: 伏羲琴
+msgid "WEAPON_1075_NAME"
+msgstr "Cithare de Fuxi"
+
+#. weapon.csv: 魔界至宝，笛声诡谲，能驱使魔物与凶兽为己...
+msgid "WEAPON_1076_DESC"
+msgstr ""
+"Un trésor suprême du Royaume Démon. Le son de la flûte est perfide et peut "
+"conduire les monstres et les bêtes féroces pour son propre usage."
+
+#. weapon.csv: 唤魔笛
+msgid "WEAPON_1076_NAME"
+msgstr "Flûte d'Appel des Démons"
+
+#. weapon.csv: 虽然只是暗器，但其美艳不可方物。当它绽放...
+msgid "WEAPON_1077_DESC"
+msgstr ""
+"Beau au-delà des mots, mais caché sous la lumière brillante se trouve une "
+"intention de meurtre fatale."
+
+#. weapon.csv: 孔雀翎
+msgid "WEAPON_1077_NAME"
+msgstr "Plume de Moineau aux Sept Couleurs"

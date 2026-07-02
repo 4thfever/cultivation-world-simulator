@@ -33,6 +33,12 @@
       "label": "日本語",
       "html_lang": "ja",
       "enabled": true
+    },
+    {
+      "code": "fr-FR",
+      "label": "Français",
+      "html_lang": "fr",
+      "enabled": true
     }
   ]
 }

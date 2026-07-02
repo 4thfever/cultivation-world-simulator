@@ -1,0 +1,95 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Auxiliary System - Auxiliaries
+msgid " Devoured Souls: {count}"
+msgstr " Âmes Dévorées : {count}"
+
+msgid " Devoured Souls: {count}, Battle Bonus: +{bonus}"
+msgstr " Âmes Dévorées : {count}, Bonus de Combat : +{bonus}"
+
+msgid "A rogue cultivator {name} has appeared in the world."
+msgstr "Un cultivateur vagabond {name} est apparu dans le monde."
+
+msgid "A rogue cultivator {name} appeared, but their lifespan was already exhausted."
+msgstr "Un cultivateur vagabond {name} est apparu, mais sa durée de vie était déjà épuisée."
+
+msgid "{name} awakened spiritual roots, but their lifespan was already exhausted."
+msgstr "{name} a réveillé ses racines spirituelles, mais sa durée de vie était déjà épuisée."
+
+msgid "Age"
+msgstr "Âge"
+
+msgid "Alignment"
+msgstr "Alignement"
+
+msgid "Appearance"
+msgstr "Apparence"
+
+msgid "Auxiliary"
+msgstr "Équipement Auxiliaire"
+
+msgid "Backstory"
+msgstr "Contexte"
+
+msgid "Backstory: {backstory}"
+msgstr "Contexte : {backstory}"
+
+msgid "Fate"
+msgstr "Destin"
+
+msgid "Fate Revelation"
+msgstr "Révélation du Destin"
+
+msgid "Current Action"
+msgstr "Action Actuelle"
+
+msgid "Current Action: {action}"
+msgstr "Action Actuelle : {action}"
+
+msgid "Current Effects"
+msgstr "Effets Actuels"
+
+msgid "Emotion"
+msgstr "Émotion"
+
+msgid "Gender"
+msgstr "Genre"
+
+msgid "HP"
+msgstr "PV"
+
+msgid "Long-term Goal"
+msgstr "Objectif à Long Terme"
+
+msgid "Major Events"
+msgstr "Événements Majeurs"
+
+msgid "Materials"
+msgstr "Matériaux"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Nearby Avatars"
+msgstr "Avatars Proches"
+
+msgid "Nickname"
+msgstr "Surnom"
+
+msgid "{desc} (Devoured Souls: {souls})"
+msgstr "{desc} (Âmes Dévorées : {souls})"
+
+msgid "{desc} (Devoured Souls: {souls}, Battle Bonus: +{bonus})"
+msgstr "{desc} (Âmes Dévorées : {souls}, Bonus de Combat : +{bonus})"

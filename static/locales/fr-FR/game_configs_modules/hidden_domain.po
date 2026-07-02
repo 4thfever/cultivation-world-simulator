@@ -1,0 +1,69 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. hidden_domain.csv: 万年前人族大能与炎魔皇同归于尽之地，至今...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
+msgstr ""
+"Lieu où un expert humain et l'Empereur Démon des Flammes ont péri ensemble il "
+"y a dix mille ans. Jusqu'à présent, les veines terrestres crachent encore le "
+"Feu Maléfique Chtonien inextinguible, teintant le ciel de rouge sang. Enfouis "
+"sous la terre calcinée gisent d'innombrables épées et hallebardes brisées, et "
+"à minuit, les âmes de bataille rugissent, rejouant le carnage tragique du "
+"passé. S'entraîner ici exige de supporter la douleur constante du poison de "
+"feu érodant le cœur, mais c'est excellent pour saisir l'intention de combat "
+"antique. Ceux de grand destin pourraient même cueillir des artefacts "
+"fragmentaires laissés par les anciens cultivateurs dans les profondeurs de la "
+"lave ou entrevoir une trace du Grand Tao."
+
+#. hidden_domain.csv: 陨仙焚谷
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_NAME"
+msgstr "Vallée des Immortels Déchus"
+
+#. hidden_domain.csv: 漂浮于九天罡风层之上的宏伟宫殿群，非有大...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_DESC"
+msgstr ""
+"Un magnifique complexe de palais flottant au-dessus de la Couche des Vents "
+"Supérieurs des Neuf Cieux. Seuls ceux d'une grande persévérance peuvent "
+"traverser les fissures spatiales périphériques qui déchirent la chair. "
+"L'intérieur fourmille de restrictions anciennes et de matrices d'illusion "
+"superposées ; un mauvais pas signifie l'annihilation du corps et de l'âme, "
+"perdu à jamais dans le vide. Bien que le Pavillon des Écritures s'soit "
+"effondré au fil du temps, chaque page des livres d'or et des rouleaux de jade "
+"dispersés dans la turbulence du vide enregistre des pouvoirs surnaturels "
+"suprêmes capables de causer un bain de sang dans le monde de la cultivation. "
+"Seuls les cultivateurs de la Cohésion de Noyau d'élite peuvent à peine "
+"résister à la pression des temps anciens pour entrevoir une lueur "
+"d'opportunité d'immortalité."
+
+#. hidden_domain.csv: 九天虚空殿
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_NAME"
+msgstr "Palais du Vide des Neuf Cieux"
+
+#. hidden_domain.csv: 此乃上古丹宗"青帝苑"崩碎后遗落的一角碎...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_DESC"
+msgstr ""
+"Un fragment du Jardin de l'Empereur Azur antique qui s'est brisé il y a des "
+"éons, maintenant perpétuellement enveloppé d'une miasme toxique multicolore. "
+"Les lois brisées à l'intérieur causent la croissance effrénée des plantes "
+"spirituelles, avec des vignes démoniaques métamorphes et des fleurs "
+"anthropophages lurking in the shadows. La rumeur veut que si l'on peut "
+"traverser la « Forêt du Silence Morte » extérieure et trouver la « Source "
+"d'Esprit du Bois Azur » au cœur, même l'herbe mortelle peut devenir "
+"médecine immortelle. Cependant, il faut se méfier des bêtes gardiens, "
+"perverties par des millénaires de consommation de résidus de médecine, qui "
+"ont soif de sang frais."
+
+#. hidden_domain.csv: 万木残界
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_NAME"
+msgstr "Reste des Dix Mille Bois"

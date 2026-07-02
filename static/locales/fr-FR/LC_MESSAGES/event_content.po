@@ -1,0 +1,61 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Game automatically saved"
+msgstr "Partie sauvegardée automatiquement"
+
+msgid "In the auction for {item_name}, {winner_name} outbid {runner_up_name} with {price} spirit stones and won the item."
+msgstr "Lors de la vente aux enchères de {item_name}, {winner_name} a surenchéri sur {runner_up_name} avec {price} pierres spirituelles et a remporté l'objet."
+
+msgid "Retreat Bonus"
+msgstr "Illumination de retraite"
+
+msgid "Unsupported item type: {item_type}"
+msgstr "Type d'objet non pris en charge : {item_type}"
+
+msgid "game.sect_update_event"
+msgstr "[{sect_name}] la puissance de combat totale de cette année a atteint {strength}, le rayon du territoire est devenu {radius}, rapportant {income} pierres spirituelles du territoire."
+
+msgid "retreat_action_name"
+msgstr "Retraite"
+
+msgid "retreat_death_append"
+msgstr " Et ayant épuisé l'ultime parcelle de vitalité durant la retraite, il rendit l'âme."
+
+msgid "retreat_desc"
+msgstr "Retraite, pour percer au-delà de soi-même. Extrêmement risquée, réservée à ceux dotés d'une grande persévérance."
+
+msgid "retreat_fail"
+msgstr "Échec de la retraite ! Vitalité gravement endommagée, {years} années d'espérance de vie perdues."
+
+msgid "retreat_requirements"
+msgstr "Aucune restriction ; temps de recharge requis"
+
+msgid "retreat_start"
+msgstr "{avatar} entame une retraite, l'heure de la percée est incertaine."
+
+msgid "retreat_story_prompt_fail"
+msgstr "Ceci concerne une retraite ratée. Décrivez comment le cultivateur fut tourmenté par ses démons intérieurs et le doute de soi, avant de subir finalement un contrecoup durant la retraite. Aucune description de combat nécessaire."
+
+msgid "retreat_story_prompt_success"
+msgstr "Ceci concerne une retraite réussie. Décrivez comment le cultivateur surmonta la solitude, saisit la Voie Céleste et perça finalement l'état d'esprit durant la retraite. Aucune description de combat nécessaire."
+
+msgid "retreat_success"
+msgstr "Retraite achevée avec succès ! Cultivation améliorée, compréhension de la Voie Céleste approfondie."
+
+msgid "{avatar_name} abandoned {item_name}."
+msgstr "{avatar_name} a abandonné {item_name}."
+
+msgid "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
+msgstr "{avatar_name} a vendu le {item_name} nouvellement obtenu, gagnant {price} pierres spirituelles."

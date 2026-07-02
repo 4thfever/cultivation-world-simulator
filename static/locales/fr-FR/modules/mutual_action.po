@@ -1,0 +1,267 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ", sell old {label}『{old_name}』"
+msgstr ", vendre l'ancien {label}『{old_name}』"
+
+msgid ", {replace} old {label}『{old_name}』"
+msgstr ", {replace} l'ancien {label}『{old_name}』"
+
+msgid "Already lovers"
+msgstr "Déjà amoureux"
+
+msgid "Already sworn siblings"
+msgstr "Déjà frères et sœurs jurés"
+
+# MutualAction: Confess
+msgid "confess_action_name"
+msgstr "Avouer"
+
+msgid "confess_description"
+msgstr ""
+"Avouer son amour à une cible à portée d'interaction. Si accepté, ils "
+"deviennent amoureux."
+
+msgid "confess_requirements"
+msgstr "Cible à portée d'interaction, et pas déjà amoureux."
+
+msgid "confess_story_prompt"
+msgstr ""
+"Décrivez le processus par lequel {initiator} avoue son amour à {target}. "
+"Incluez leurs sentiments intérieurs et l'atmosphère. Si accepté, décrivez la "
+"romance de leur devenir amoureux. Si rejeté, décrivez le refus doux et les "
+"regrets."
+
+# MutualAction: Conversation
+msgid "conversation_action_name"
+msgstr "Conversation"
+
+msgid "conversation_description"
+msgstr "Avoir une conversation d'échange avec un autre"
+
+msgid "conversation_requirements"
+msgstr "Cible à portée d'interaction"
+
+# MutualAction: DriveAway
+msgid "drive_away_action_name"
+msgstr "Chasser"
+
+msgid "drive_away_description"
+msgstr "Intimider l'adversaire pour le faire partir de ce lieu par la force"
+
+msgid "drive_away_requirements"
+msgstr "Cible à portée d'interaction ; impossible d'exécuter consécutivement"
+
+msgid "feedback_talk"
+msgstr "Parler"
+
+msgid "feedback_yield"
+msgstr "Céder"
+
+# MutualAction: Gift
+msgid "gift_action_name"
+msgstr "Offrir"
+
+msgid "gift_description"
+msgstr ""
+"Offrir des pierres spirituelles ou des objets à un autre. Utilisez le "
+"paramètre 'item_id' : ID d'Article (int) ou 'SPIRIT_STONE'."
+
+msgid "gift_requirements"
+msgstr ""
+"L'initiateur possède l'article ; cible à portée d'interaction ; les élixirs "
+"ne peuvent pas être offerts"
+
+# MutualAction: Impart
+msgid "impart_action_name"
+msgstr "Transmettre"
+
+msgid "impart_description"
+msgstr ""
+"Transmettre l'expérience de culture à votre disciple, petit-enfant martial, "
+"frère martial, enfant, petit-enfant ou ami"
+
+msgid "impart_requirements"
+msgstr ""
+"La cible doit être votre disciple, petit-enfant martial, frère martial, "
+"enfant, petit-enfant ou ami ; niveau initiateur > niveau cible + 20 ; cible "
+"à portée d'interaction ; impossible d'exécuter consécutivement"
+
+# MutualAction Base
+msgid "mutual_action_name"
+msgstr "Action Mutuelle"
+
+msgid "mutual_action_requirements"
+msgstr "Cible à portée d'interaction"
+
+# MutualAction: Attack
+msgid "mutual_attack_action_name"
+msgstr "Attaquer"
+
+msgid "mutual_attack_description"
+msgstr "Attaquer la cible"
+
+msgid "mutual_attack_requirements"
+msgstr "Cible à portée d'interaction ; impossible d'exécuter consécutivement"
+
+# MutualAction: Occupy
+msgid "occupy_action_name"
+msgstr "Occuper une Caverne"
+
+msgid "occupy_description"
+msgstr ""
+"Occuper ou saisir une caverne. Remarque : Ceci peut déclencher un combat "
+"avec le propriétaire de la caverne"
+
+msgid "occupy_requirements"
+msgstr "Cible à portée d'interaction ; impossible d'exécuter consécutivement"
+
+msgid "occupy_story_prompt"
+msgstr ""
+"C'est un combat pour une caverne. Ne mentionnez pas les valeurs spécifiques "
+"de PV ou de dégâts."
+
+# MutualAction: Spar
+msgid "spar_action_name"
+msgstr "S'Entraîner"
+
+msgid "spar_description"
+msgstr ""
+"S'entraîner avec la cible, arrêter au bon moment (augmente grandement la "
+"maîtrise des armes, aucun dégât)"
+
+msgid "spar_requirements"
+msgstr "Cible à portée d'interaction ; impossible d'exécuter consécutivement"
+
+msgid "spar_story_prompt"
+msgstr ""
+"C'est un entraînement amical entre deux personnes, s'arrêtant au bon moment, "
+"sans dommage réel. Concentrez-vous sur la description des mouvements exquis "
+"des deux côtés et leur inspiration mutuelle. N'incluez pas de descriptions "
+"sanglantes ou de blessures graves."
+
+msgid "spirit stones"
+msgstr "pierres spirituelles"
+
+msgid "swear_brotherhood_action_name"
+msgstr "Jurer Fraternité"
+
+msgid "swear_brotherhood_description"
+msgstr ""
+"Proposer de devenir frères et sœurs jurés avec un cultivateur à portée "
+"d'interaction."
+
+msgid "swear_brotherhood_requirements"
+msgstr "Cible à portée d'interaction ; pas déjà frères et sœurs jurés."
+
+msgid "swear_brotherhood_story_prompt"
+msgstr ""
+"C'est un juramento héroïque de fraternité. Décrivez leur appréciation mutuelle "
+"et leur vœu de vivre et mourir ensemble."
+
+# MutualAction: Talk
+msgid "talk_action_name"
+msgstr "Parler"
+
+msgid "talk_description"
+msgstr "Initier une conversation avec quelqu'un, ne peut pas être soi-même"
+
+msgid "talk_requirements"
+msgstr "Cible à portée d'interaction"
+
+msgid "{avatar1} conversation with {avatar2}: {content}"
+msgstr "Conversation entre {avatar1} et {avatar2} : {content}"
+
+msgid "{giver} imparts cultivation knowledge to {receiver}"
+msgstr "{giver} transmet le savoir de culture à {receiver}"
+
+msgid ""
+"{initiator} attempted to seize {target}'s cave dwelling {region}, {target} "
+"rejected and engaged in battle"
+msgstr ""
+"{initiator} a tenté de saisir la caverne {region} de {target}, {target} a "
+"rejeté et engagé le combat"
+
+msgid "{initiator} attempts to gift {item} to {target}"
+msgstr "{initiator} tente d'offrir {item} à {target}"
+
+msgid "{initiator} attempts to seize {region} from {host}"
+msgstr "{initiator} tente de saisir {region} de {host}"
+
+msgid "{initiator} begins occupying unclaimed cave dwelling {region}"
+msgstr "{initiator} commence à occuper la caverne non réclamée {region}"
+
+msgid "{initiator} and {target} enjoyed a tea gathering"
+msgstr "{initiator} et {target} ont apprécié une réunion autour du thé"
+
+msgid "{initiator} and {target} played a game of chess"
+msgstr "{initiator} et {target} ont joué aux échecs"
+
+msgid "{initiator} challenges {target} to spar"
+msgstr "{initiator} défie {target} pour s'entraîner"
+
+msgid "{initiator} confesses their love to {target}"
+msgstr "{initiator} avoue son amour à {target}"
+
+msgid "{initiator} forced {target} to yield {region}"
+msgstr "{initiator} a forcé {target} à céder {region}"
+
+msgid "{initiator} initiates {action} with {target}"
+msgstr "{initiator} initie {action} avec {target}"
+
+msgid "{initiator} proposes to become sworn siblings with {target}"
+msgstr "{initiator} propose de devenir frères et sœurs jurés avec {target}"
+
+msgid "{initiator} successfully gifted {item} to {target}"
+msgstr "{initiator} a offert avec succès {item} à {target}"
+
+msgid "{master} imparts cultivation knowledge to apprentice {apprentice}"
+msgstr "{master} transmet le savoir de culture à l'apprenti {apprentice}"
+
+msgid "{region} is not a cultivation area, cannot occupy"
+msgstr "{region} n'est pas une zone de culture, ne peut pas occuper"
+
+msgid "{target} accepted {initiator}'s confession, they became lovers"
+msgstr "{target} a accepté l'aveu de {initiator}, ils sont devenus amoureux"
+
+msgid "{target} accepted {initiator}'s proposal, they became sworn siblings"
+msgstr "{target} a accepté la proposition de {initiator}, ils sont devenus frères et sœurs jurés"
+
+msgid "{target} accepted {initiator}'s talk invitation"
+msgstr "{target} a accepté l'invitation de conversation de {initiator}"
+
+msgid "{target} feedback to {initiator}: {feedback}"
+msgstr "Réponse de {target} à {initiator} : {feedback}"
+
+msgid "{avatar} occupied cave dwelling {region}"
+msgstr "{avatar} a occupé la caverne {region}"
+
+msgid "{target} rejected {initiator}'s confession"
+msgstr "{target} a rejeté l'aveu de {initiator}"
+
+msgid "{target} rejected {initiator}'s proposal to become sworn siblings"
+msgstr "{target} a rejeté la proposition de {initiator} de devenir frères et sœurs jurés"
+
+msgid "{target} rejected {initiator}'s talk invitation"
+msgstr "{target} a rejeté l'invitation de conversation de {initiator}"
+
+msgid "{target} rejected {initiator}'s gift: {item}"
+msgstr "{target} a rejeté le cadeau de {initiator} : {item}"
+
+msgid ""
+"{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "
+"proficiency +{w_gain}, {loser} proficiency +{l_gain})"
+msgstr ""
+"{winner} a gagné un léger avantage dans l'entraînement, a vaincu {loser}. "
+"({winner} maîtrise +{w_gain}, {loser} maîtrise +{l_gain})"

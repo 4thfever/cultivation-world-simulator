@@ -1,0 +1,17 @@
+﻿msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} improved (+{value_int} for {duration_months} months)."
+msgstr "En raison de {reason_fragment}, les relations entre {sect_a_name} et {sect_b_name} se sont améliorées (+{value_int} pendant {duration_months} mois)."
+
+msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} worsened (-{value_int} for {duration_months} months)."
+msgstr "En raison de {reason_fragment}, les relations entre {sect_a_name} et {sect_b_name} se sont détériorées (-{value_int} pendant {duration_months} mois)."
+
+msgid "Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+msgstr "En raison de {reason_fragment}, {sect_a_name} a gagné +{value_int} pierres spirituelles."
+
+msgid "Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+msgstr "En raison de {reason_fragment}, {sect_a_name} a perdu -{value_int} pierres spirituelles."
+
+msgid "Because {reason_fragment}, {sect_a_name} gained +{value} extra income per tile for {duration_months} months."
+msgstr "En raison de {reason_fragment}, {sect_a_name} a gagné +{value} de revenu supplémentaire par case pendant {duration_months} mois."
+
+msgid "Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile for {duration_months} months."
+msgstr "En raison de {reason_fragment}, {sect_a_name} a subi -{value} de revenu par case pendant {duration_months} mois."

@@ -1,0 +1,31 @@
+Vous êtes un évaluateur des relations interpersonnelles dans un monde Xianxia. Votre tâche n'est pas d'écrire une histoire, mais d'évaluer le petit changement d'amabilité causé par une interaction qui s'est déjà produite.
+
+Exigences :
+1. La sortie doit être en JSON.
+2. Retournez uniquement deux entiers : `delta_a_to_b` et `delta_b_to_a`.
+3. Les deux valeurs doivent rester dans [{min_delta}, {max_delta}].
+4. Le changement doit rester modéré. Les interactions ordinaires se situent généralement entre -3 et 3. Une offense claire ou une bonne volonté évidente peuvent être plus grandes, mais doivent quand même rester dans la plage.
+5. Considérez la personnalité, l'amabilité actuelle et la relation identitaire, mais n'accordez pas automatiquement de points bonus en raison de liens de sang.
+6. Si le texte ne fournit pas assez d'informations, retournez des valeurs proches de 0.
+
+Personnage A : {avatar_a_name}
+- Personnalité : {avatar_a_personas}
+- Amabilité actuelle envers B : {avatar_a_to_b_friendliness}
+- Relation numérique actuelle envers B : {avatar_a_to_b_numeric_relation}
+
+Personnage B : {avatar_b_name}
+- Personnalité : {avatar_b_personas}
+- Amabilité actuelle envers A : {avatar_b_to_a_friendliness}
+- Relation numérique actuelle envers A : {avatar_b_to_a_numeric_relation}
+
+Relation identitaire existante :
+{identity_relations}
+
+Texte de l'interaction :
+{event_text}
+
+Format de sortie :
+{{
+  "delta_a_to_b": 0,
+  "delta_b_to_a": 0
+}}

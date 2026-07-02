@@ -1,0 +1,233 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Effect Source Labels
+msgid "Sect [{name}]"
+msgstr "Secte [{name}]"
+
+msgid "Official Rank [{name}]"
+msgstr "Rang Officiel [{name}]"
+
+msgid "Special effect (dynamic)"
+msgstr "Effet spécial (dynamique)"
+
+msgid "Spirit Animal [{name}]"
+msgstr "Animal Spirituel [{name}]"
+
+msgid "Spirit Root"
+msgstr "Racine Spirituelle"
+
+msgid "Technique [{name}]"
+msgstr "Technique [{name}]"
+
+msgid "Trait [{name}]"
+msgstr "Trait [{name}]"
+
+msgid "Weapon [{name}]"
+msgstr "Arme [{name}]"
+
+msgid "effect_source_cultivation_realm"
+msgstr "Royaume de Culture"
+
+msgid "effect_source_breakthrough_failure"
+msgstr "Échec de Percée"
+
+msgid "effect_source_retreat_failure"
+msgstr "Échec de Retraite"
+
+msgid "effect_source_persistent_effect"
+msgstr "Effet Persistant"
+
+msgid "effect_source_help_people_karma"
+msgstr "Aider les Gens"
+
+msgid "effect_source_plunder_people_karma"
+msgstr "Piller les Gens"
+
+msgid "effect_source_devour_people_karma"
+msgstr "Dévorer les Gens"
+
+# Effect Formatting
+msgid "action_list_separator"
+msgstr ", "
+
+msgid "effect_damage_reduction"
+msgstr "Réduction des Dégâts"
+
+msgid "effect_extra_assassinate_success_rate"
+msgstr "Taux de Succès d'Assassinat"
+
+msgid "effect_extra_battle_strength_points"
+msgstr "Force de Combat"
+
+msgid "effect_extra_breakthrough_success_rate"
+msgstr "Taux de Succès de Percée"
+
+msgid "effect_extra_cast_success_rate"
+msgstr "Taux de Succès de Fonte"
+
+msgid "effect_extra_catch_success_rate"
+msgstr "Taux de Succès de Capture"
+
+msgid "effect_extra_dual_cultivation_exp"
+msgstr "Expérience de Culture en Duo"
+
+msgid "effect_extra_educate_efficiency"
+msgstr "Efficacité de l'Enseignement"
+
+msgid "effect_extra_educate_population_prob"
+msgstr "Probabilité de Croissance de Population par Enseignement"
+
+msgid "effect_extra_govern_reputation_gain_multiplier"
+msgstr "Gain de Réputation de Gouvernement"
+
+msgid "effect_extra_epiphany_probability"
+msgstr "Probabilité d'Épiphanie"
+
+msgid "effect_extra_luck"
+msgstr "Chance"
+
+msgid "Luck"
+msgstr "Chance"
+
+msgid "effect_extra_escape_success_rate"
+msgstr "Taux de Succès d'Évasion"
+
+msgid "effect_extra_fortune_probability"
+msgstr "Probabilité de Fortune"
+
+msgid "effect_extra_harvest_materials"
+msgstr "Matériaux de Récolte"
+
+msgid "effect_extra_hidden_domain_danger_prob"
+msgstr "Taux de Danger du Domaine Caché"
+
+msgid "effect_extra_hidden_domain_drop_prob"
+msgstr "Taux de Drop du Domaine Caché"
+
+# Effect System
+# Effect Names
+msgid "effect_extra_hp_recovery_rate"
+msgstr "Taux de Récupération des PV"
+
+msgid "effect_extra_hunt_materials"
+msgstr "Matériaux de Chasse"
+
+msgid "effect_extra_item_sell_price_multiplier"
+msgstr "Prix de Vente d'Article"
+
+msgid "effect_extra_max_hp"
+msgstr "PV Max"
+
+msgid "effect_extra_max_lifespan"
+msgstr "Durée de Vie Max"
+
+msgid "effect_extra_appearance"
+msgstr "Apparence"
+
+msgid "effect_extra_mine_materials"
+msgstr "Matériaux d'Extraction"
+
+msgid "effect_extra_misfortune_probability"
+msgstr "Probabilité de Malheur"
+
+msgid "effect_extra_move_step"
+msgstr "Pas de Mouvement"
+
+msgid "effect_extra_observation_radius"
+msgstr "Portée d'Observation"
+
+msgid "effect_extra_plunder_multiplier"
+msgstr "Gain de Pillage"
+
+msgid "effect_extra_refine_success_rate"
+msgstr "Taux de Succès de Raffinage"
+
+msgid "effect_extra_sect_mission_success_rate"
+msgstr "Taux de Succès de Mission de Secte"
+
+msgid "effect_extra_respire_exp"
+msgstr "Expérience de Respiration"
+
+msgid "effect_extra_respire_exp_multiplier"
+msgstr "Multiplicateur d'Expérience Supplémentaire de Respiration"
+
+msgid "effect_extra_retreat_success_rate"
+msgstr "Taux de Succès de Retraite"
+
+msgid "effect_extra_temper_exp_multiplier"
+msgstr "Efficacité de Trempe du Corps"
+
+msgid "effect_extra_weapon_proficiency_gain"
+msgstr "Gain de Maîtrise des Armes"
+
+msgid "effect_extra_weapon_upgrade_chance"
+msgstr "Chance d'Amélioration d'Arme"
+
+msgid "effect_legal_actions"
+msgstr "Capacités Spéciales"
+
+msgid "effect_realm_suppression_bonus"
+msgstr "Suppression de Royaume"
+
+msgid "effect_respire_duration_reduction"
+msgstr "Réduction de Durée de Respiration"
+
+msgid "effect_separator"
+msgstr "; "
+
+msgid "effect_shop_buy_price_reduction"
+msgstr "Réduction d'Achat"
+
+msgid "effect_temper_duration_reduction"
+msgstr "Réduction de Durée de Trempe du Corps"
+
+msgid "play_benefit"
+msgstr "Bénéfice de Loisir"
+
+msgid "effect_extra_plant_income"
+msgstr "Revenu Supplémentaire de Plante"
+
+msgid "effect_extra_income_per_tile"
+msgstr "Revenu supplémentaire par tuile (annuellement)"
+
+msgid "effect_extra_formation_power"
+msgstr "Puissance de Formation"
+
+msgid "effect_extra_formation_duration_months"
+msgstr "Durée de Formation"
+
+msgid "effect_formation_cost_reduction"
+msgstr "Coût de Formation"
+
+msgid "effect_extra_gu_success_rate"
+msgstr "Taux de Succès d'Infliction de Gu"
+
+msgid "effect_extra_gu_duration_months"
+msgstr "Mois de Durée du Gu"
+
+msgid "effect_extra_gu_resistance_rate"
+msgstr "Résistance au Gu"
+
+msgid "effect_source_gu_qianxin"
+msgstr "Gu du Lien Cardiaque"
+
+msgid "effect_source_gu_shixue"
+msgstr "Gu du Rongement Sanguin"
+
+msgid "effect_source_gu_shiyuan"
+msgstr "Gu de l'Essence Érodée"
+
+msgid "effect_source_gu_luanxin"
+msgstr "Gu du Désordre Mental"

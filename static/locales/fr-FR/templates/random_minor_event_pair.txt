@@ -1,0 +1,26 @@
+Vous participez à une simulation en bac à sable située dans un monde Xianxia. En vous basant sur les informations données, écrivez un très court incident mineur impliquant deux personnages.
+
+Personnage A : {avatar_a_name}
+Info du Personnage A : {avatar_a_info}
+Personnage B : {avatar_b_name}
+Info du Personnage B : {avatar_b_info}
+Localisation actuelle : {location}
+État actuel du monde : {world_info}
+Type d'événement mineur : {event_key}
+Description de l'événement mineur : {event_desc}
+Ton : {tone}
+Indice de relation : {relation_hint}
+Résumé de la relation actuelle : {current_relation_summary}
+
+Exigences :
+1. Écrivez un seul petit incident qui vient de se produire entre les deux personnages, en 20-60 mots.
+2. Les interactions douces telles que la gentillesse, l'indifférence, le malaise, la prudence, les querelles, la rivalité ou l'aide occasionnelle sont autorisées.
+3. N'escaladez pas à des événements majeurs tels qu'une bataille complète, des serments d'inimité, des déclarations d'amour ou un apprentissage formel.
+4. Ne déclarez pas directement des conclusions comme « leur relation s'est améliorée » ou « leur relation s'est détériorée » ; laissez le ton émerger du texte lui-même.
+5. N'incluez pas d'attributs, de chiffres ou de résultats de règlement de ressources.
+6. Retournez un JSON strict :
+```json
+{{
+  "event_text": "Écrivez la description de l'événement ici"
+}}
+```

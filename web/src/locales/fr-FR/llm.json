@@ -1,0 +1,119 @@
+{
+  "loading": "Chargement...",
+  "fetch_failed": "Échec de la récupération de la configuration",
+  "test_success": "Test de connexion réussi",
+  "save_success": "Configuration enregistrée",
+  "test_save_failed": "Échec du test ou de l'enregistrement : {error}",
+  "test_save_failed_title": "Échec du test ou de l'enregistrement",
+  "api_key_required": "Veuillez renseigner la clé API",
+  "base_url_required": "Veuillez renseigner l'URL de base",
+  "api_key_saved_hint": "La clé API est enregistrée. Laissez le champ vide pour continuer à l'utiliser, ou saisissez une nouvelle clé pour la remplacer.",
+  "preset_applied": "Préréglage {name} appliqué ({extra})",
+  "preset_extra_key": "Veuillez renseigner la clé API",
+  "preset_extra_keep_saved_key": "continuera d'utiliser la clé API enregistrée ; saisissez une nouvelle clé si vous avez changé de fournisseur",
+  "preset_extra_keep_draft_key": "a conservé la clé API que vous avez déjà saisie",
+  "preset_extra_local": "Veuillez vous assurer qu'Ollama est en cours d'exécution",
+  "clear_key": {
+    "title": "Effacer la clé API enregistrée ?",
+    "content": "Une fois effacée, les fournisseurs nécessitant une clé ne se connecteront plus tant que vous n'aurez pas saisi une nouvelle clé API.",
+    "confirm": "Effacer",
+    "success": "Clé API enregistrée effacée",
+    "failed": "Échec de l'effacement de la clé API"
+  },
+  "sections": {
+    "quick_fill": "Remplissage rapide",
+    "api_config": "Configuration de l'API",
+    "model_selection": "Sélection du modèle",
+    "run_mode": "Mode d'exécution"
+  },
+  "labels": {
+    "api_key": "Clé API",
+    "base_url": "URL de base",
+    "normal_model": "Modèle normal (Normal)",
+    "fast_model": "Modèle rapide (Fast)",
+    "max_concurrent_requests": "Requêtes simultanées max.",
+    "what_is_api": "Qu'est-ce qu'une API / Comment l'obtenir ?",
+    "api_format": "Format de l'API"
+  },
+  "descs": {
+    "normal_model": "Utilisé pour la logique complexe, la génération d'histoires, etc.",
+    "fast_model": "Utilisé pour les jugements simples, les interactions fréquentes, etc.",
+    "max_concurrent_requests": "Nombre de requêtes simultanées vers l'IA. Une valeur plus élevée augmente la vitesse mais peut déclencher la limite de débit de l'API. Recommandé : 5-20."
+  },
+  "placeholders": {
+    "api_key": "Saisissez votre clé API ici (commence généralement par sk-)",
+    "api_key_saved": "Saisissez une nouvelle clé API pour remplacer la clé enregistrée",
+    "base_url": "https://api.example.com/v1",
+    "normal_model": "ex. : gpt-4, claude-3-opus, qwen-plus",
+    "fast_model": "ex. : gpt-3.5-turbo, qwen3.5-flash",
+    "max_concurrent_requests": "Par défaut : 10"
+  },
+  "modes": {
+    "default": "Équilibré (Défaut)",
+    "default_desc": "Sélection automatique des modèles (Recommandé)",
+    "normal": "Intelligent (Normal)",
+    "normal_desc": "Utiliser le modèle intelligent pour toutes les tâches",
+    "fast": "Rapide (Fast)",
+    "fast_desc": "Utiliser le modèle rapide pour toutes les tâches"
+  },
+  "formats": {
+    "openai": "Compatible OpenAI",
+    "openai_desc": "Pris en charge par la plupart des fournisseurs",
+    "anthropic": "Anthropic natif",
+    "anthropic_desc": "API Anthropic Claude directe"
+  },
+  "actions": {
+    "testing": "Test de la connexion...",
+    "test_and_save": "Tester la connexion et enregistrer",
+    "clear_saved_key": "Effacer la clé enregistrée"
+  },
+  "help": {
+    "title": "Qu'est-ce qu'une API ? Guide de configuration",
+    "q1_title": "🌐 1. Qu'est-ce qu'une API ?",
+    "q1_content": "Une API (interface de programmation d'application) est comme une « ligne téléphonique ». Ce jeu n'a pas de capacité de réflexion propre ; il se connecte à un « cerveau » IA distant (comme les serveurs de Qwen ou DeepSeek) via cette ligne. Lorsque le jeu effectue son bilan mensuel et décide des actions des NPC, il envoie les informations pertinentes via l'API à l'IA, qui réfléchit et renvoie le résultat.",
+    "q2_title": "⚡ 2. Modèles recommandés (2025)",
+    "q2_qwen": "Acteur national majeur (Alibaba), stable avec de larges quotas gratuits, idéal pour débuter.",
+    "q2_deepseek": "Rapport coût-performance extrêmement élevé, une logique bien adaptée au contexte chinois.",
+    "q2_gemini": "Produit par Google, performance globale de premier plan.",
+    "q3_title": "📝 3. Comment renseigner la configuration ?",
+    "q3_content": "Une fois que vous disposez d'une API, vous devez renseigner ces trois paramètres essentiels. En général, vous les trouverez dans la documentation du fournisseur :",
+    "q3_format_note": "⚠️ Note : ce jeu prend en charge à la fois les formats d'API compatibles OpenAI et Anthropic natif. La plupart des fournisseurs utilisent le format compatible OpenAI ; si vous vous connectez directement à l'API Anthropic, sélectionnez « Anthropic natif » dans l'option Format de l'API. Nous recommandons d'utiliser les préréglages.",
+    "q3_base_url": "URL de base de l'API : le point d'entrée vers l'IA, généralement fourni par le vendeur (ex. : https://api.deepseek.com).",
+    "q3_api_key": "Clé API : votre justificatif d'identité, comme un mot de passe de compte.",
+    "q3_model_name": "Nom du modèle : indique au serveur quel « cerveau » utiliser, ex. : deepseek-chat ou gemini-3-flash-preview.",
+    "q4_title": "🔗 4. Où obtenir une clé ?",
+    "q5_title": "🛡️ 5. Note de sécurité",
+    "q5_p1": "Votre clé API n'est enregistrée que dans `secrets.json`, dans le répertoire local de données utilisateur, et le backend du jeu exécuté localement communique directement avec le vendeur du modèle. Ce jeu (Simulateur de Monde de Cultivation) est entièrement open-source et n'enverra jamais votre clé à un quelconque serveur tiers. Par ailleurs, veuillez ne pas partager le répertoire de données utilisateur contenant les paramètres/secrets.",
+    "q5_p2": "L'utilisation de jetons engendre des coûts ; veuillez évaluer vous-même le coût d'utilisation.",
+    "confirm": "J'ai compris"
+  },
+  "presets": {
+    "openai": "OpenAI",
+    "qwen": "Qwen",
+    "deepseek": "DeepSeek",
+    "minimax": "MiniMax",
+    "longcat": "LongCat",
+    "siliconflow": "SiliconFlow",
+    "openrouter": "OpenRouter",
+    "gemini": "Gemini",
+    "groq": "Groq",
+    "kimi": "Kimi",
+    "ollama": "Ollama",
+    "anthropic": "Anthropic"
+  },
+  "badges": {
+    "recommended": "Reco",
+    "free": "Éco",
+    "local": "Local"
+  },
+  "help_links": {
+    "openai": "Plateforme OpenAI",
+    "qwen": "Aliyun Bailian (Qwen / Recommandé)",
+    "deepseek": "Plateforme DeepSeek (Rapide et économique)",
+    "minimax": "Plateforme MiniMax (contexte 1M, rapide)",
+    "longcat": "Plateforme d'API LongCat (Meituan, quota gratuit généreux)",
+    "openrouter": "OpenRouter (Tout-en-un, Recommandé)",
+    "siliconflow": "SiliconFlow (Agrégation nationale)",
+    "gemini": "Google AI Studio (Gemini)"
+  }
+}

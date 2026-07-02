@@ -1,0 +1,55 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: fr-FR\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"\n"
+"【Related Avatars Information】"
+msgstr ""
+"\n"
+"【Informations sur les personnages liés】"
+
+msgid "auxiliary"
+msgstr "équipement auxiliaire"
+
+msgid "elixir"
+msgstr "élixir"
+
+msgid "item_label_auxiliary"
+msgstr "Auxiliaire"
+
+msgid "item_label_elixir"
+msgstr "Élixir"
+
+msgid "item_label_technique"
+msgstr "Technique"
+
+# Item Verbs
+msgid "item_verb_equip"
+msgstr "équiper"
+
+msgid "item_verb_equipped"
+msgstr "équipé"
+
+msgid "item_verb_practice"
+msgstr "pratiquer"
+
+msgid "item_verb_replace"
+msgstr "remplacer"
+
+msgid "item_verb_switched"
+msgstr "est passé à"
+
+# Auto-equip Message
+msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
+msgstr "{avatar_name} a obtenu {grade} {label}『{item_name}』et {action}."
