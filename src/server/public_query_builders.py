@@ -73,8 +73,8 @@ def create_public_query_builders(
             render_config=config.get("frontend_defaults", {}),
         )
 
-    def build_public_map_presets() -> dict:
-        return get_map_presets_query()
+    def build_public_map_presets(locale: str | None = None) -> dict:
+        return get_map_presets_query(locale=locale)
 
     def build_public_runtime_status() -> dict:
         return get_runtime_status(

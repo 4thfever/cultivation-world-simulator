@@ -12,7 +12,7 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-from src.i18n.locale_registry import get_default_locale, get_fallback_locale
+from src.i18n.locale_registry import coerce_locale_code, get_default_locale, get_fallback_locale
 
 # Cache for loaded translations.
 _translations: dict[str, Optional[gettext.GNUTranslations]] = {}
@@ -89,6 +89,40 @@ def _get_translation() -> Optional[gettext.GNUTranslations]:
     return _translations.get(lang)
 
 
+def _get_translation_for_locale(lang_code: str) -> Optional[gettext.GNUTranslations]:
+    lang = coerce_locale_code(lang_code, enabled_only=True)
+
+    if lang not in _translations:
+        locale_dir = _get_locale_dir()
+        locale_name = _lang_to_locale(lang)
+
+        try:
+            trans = gettext.translation(
+                "messages",
+                localedir=str(locale_dir),
+                languages=[locale_name]
+            )
+        except FileNotFoundError:
+            trans = None
+
+        try:
+            config_trans = gettext.translation(
+                "game_configs",
+                localedir=str(locale_dir),
+                languages=[locale_name]
+            )
+            if trans:
+                trans.add_fallback(config_trans)
+            else:
+                trans = config_trans
+        except FileNotFoundError:
+            pass
+
+        _translations[lang] = trans
+
+    return _translations.get(lang)
+
+
 def _has_explicit_translation_entry(
     trans: Optional[gettext.GNUTranslations],
     message: str,
@@ -158,6 +192,21 @@ def t(message: str, **kwargs) -> str:
     return translated
 
 
+def t_for_locale(message: str, lang_code: str, **kwargs) -> str:
+    """
+    Translate a message for a specific UI locale without changing global runtime language.
+    """
+    trans = _get_translation_for_locale(lang_code)
+    translated = trans.gettext(message) if trans else message
+
+    if kwargs:
+        try:
+            return translated.format(**kwargs)
+        except KeyError:
+            return translated
+    return translated
+
+
 def reload_translations() -> None:
     """
     Clear translation cache.
@@ -167,4 +216,4 @@ def reload_translations() -> None:
     _translations.clear()
 
 
-__all__ = ["t", "reload_translations"]
+__all__ = ["t", "t_for_locale", "reload_translations"]

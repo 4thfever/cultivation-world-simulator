@@ -1,18 +1,18 @@
 {
-  "title": "Démarrer la partie",
-  "description": "Configurez l'état initial du monde. Note : ces paramètres ne peuvent plus être modifiés une fois la partie lancée.",
+  "title": "Nouvelle partie",
+  "description": "Configurez le monde initial. Ces paramètres seront verrouillés après le lancement.",
   "labels": {
     "map": "Carte du monde",
-    "init_npc_num": "Cultivateurs initiaux",
+    "init_npc_num": "Cultivateurs",
     "sect_num": "Sectes actives",
-    "new_npc_rate": "Taux mensuel de nouveaux cultivateurs",
-    "world_lore": "Vision du monde et histoire"
+    "new_npc_rate": "Éveil mensuel",
+    "world_lore": "Lore du monde"
   },
   "tips": {
-    "sect_num": "Le nombre de sectes doit être inférieur à la moitié des cultivateurs initiaux."
+    "sect_num": "Les sectes doivent être moins nombreuses que la moitié des cultivateurs."
   },
   "placeholders": {
-    "world_lore": "Décrivez d'abord le système de cultivation, l'alignement moral, l'écosystème des sectes et la couleur régionale, puis ajoutez les grandes ères et événements historiques. Activer cette option utilise le LLM et augmente notablement le temps d'initialisation. (Facultatif)"
+    "world_lore": "Décrivez le système de cultivation, les factions, les régions et l'histoire. Utilise le LLM et rallonge l'initialisation. (Facultatif)"
   },
   "options": {},
   "actions": {
@@ -20,7 +20,7 @@
   },
   "messages": {
     "load_failed": "Échec du chargement de la configuration",
-    "start_success": "Configuration enregistrée, initialisation du monde...",
+    "start_success": "Configuration enregistrée, initialisation...",
     "start_failed": "Échec du démarrage de la partie"
   }
 }

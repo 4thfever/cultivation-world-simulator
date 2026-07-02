@@ -214,3 +214,22 @@ def test_map_presets_are_localized():
     finally:
         language_manager.set_language(original_language)
         reload_translations()
+
+
+def test_map_presets_can_be_localized_for_specific_locale_without_switching_global_language():
+    original_language = str(language_manager)
+    try:
+        language_manager.set_language("zh-CN")
+        reload_translations()
+
+        presets = {preset.id: preset.to_dict(locale="fr-FR") for preset in list_map_presets()}
+
+        assert str(language_manager) == "zh-CN"
+        assert presets["classic"]["name"] == "Les Neuf Provinces Centrales"
+        assert presets["island_seas"]["desc"] == (
+            "Les mers ouvertes divisent les îles, donnant au monde un sentiment d'espace plus large."
+        )
+        assert presets["mountain_frontier"]["size_label"] == "Moyen"
+    finally:
+        language_manager.set_language(original_language)
+        reload_translations()

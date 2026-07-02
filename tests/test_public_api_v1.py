@@ -471,6 +471,30 @@ def test_v1_create_avatar_returns_ok_envelope(base_world):
         main.game_instance.update(original)
 
 
+def test_v1_map_presets_accepts_ui_locale_without_switching_runtime_language():
+    original = _reset_state()
+    original_language = str(main.language_manager)
+    try:
+        main.language_manager.set_language("zh-CN")
+        client = TestClient(main.app)
+
+        response = client.get("/api/v1/query/world/map-presets?locale=fr-FR")
+
+        assert response.status_code == 200
+        payload = response.json()
+        assert payload["ok"] is True
+        maps = {item["id"]: item for item in payload["data"]["maps"]}
+        assert maps["classic"]["name"] == "Les Neuf Provinces Centrales"
+        assert maps["island_seas"]["desc"] == (
+            "Les mers ouvertes divisent les îles, donnant au monde un sentiment d'espace plus large."
+        )
+        assert str(main.language_manager) == "zh-CN"
+    finally:
+        main.language_manager.set_language(original_language)
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
 def test_v1_update_avatar_adjustment_returns_ok_envelope(base_world):
     original = _reset_state()
     try:

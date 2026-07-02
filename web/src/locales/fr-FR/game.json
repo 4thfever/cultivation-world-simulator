@@ -11,8 +11,8 @@
     "click_to_change": "(Cliquez pour changer de phénomène)",
     "author_github": "Mettez-nous une étoile sur GitHub",
     "hidden_domain": {
-      "label": "[Domaine Caché]",
-      "title": "Liste des Domaines Cachés",
+      "label": "Domaines",
+      "title": "Domaines cachés",
       "empty": "Aucune donnée de domaine caché",
       "required_realm": "Royaume requis",
       "danger": "Danger",
@@ -21,16 +21,16 @@
       "open_chance": "Chance d'apparition"
     },
     "world_info": {
-      "label": "[Infos du monde]",
-      "title": "Infos du monde",
-      "ai_knowledge_note": "Ce que l'IA cultivatrice sait du monde de cultivation",
+      "label": "Monde",
+      "title": "Infos monde",
+      "ai_knowledge_note": "Ce que l'IA cultivatrice sait du monde",
       "empty": "Aucune info du monde disponible"
     },
     "avatar_overview": {
-      "label": "[Personnages]"
+      "label": "Persos"
     },
     "time": {
-      "title": "Aperçu du temps",
+      "title": "Temps",
       "current_date": "Date actuelle",
       "current_date_value": "An {year}, Mois {month}",
       "elapsed": "Durée d'exécution",
@@ -128,7 +128,7 @@
     "filter_event_scope_minor": "Mineurs",
     "deceased": "(Décédé)",
     "add_second": "+ Ajouter un second",
-    "load_more": "Faites défiler vers le haut pour en charger plus",
+    "load_more": "Défilez vers le haut pour charger plus",
     "roleplay_locked": "Jeu de rôle verrouillé : {avatar}",
     "story_subject_prefix": "[{avatar}] {content}",
     "empty_dual": "Aucun événement entre ces deux personnages",
@@ -137,15 +137,15 @@
   },
   "roleplay": {
     "panel": {
-      "start": "Jeu de rôle",
-      "stop": "Arrêter le jeu de rôle",
-      "controlled_by": "Jeu de rôle en cours : {avatar}",
+      "start": "Incarner",
+      "stop": "Arrêter",
+      "controlled_by": "Vous incarnez : {avatar}",
       "go_to_controlled": "Aller au personnage"
     },
     "dock": {
-      "interaction_title": "Journal d'interaction",
-      "interaction_caption": "Entrées et sorties durant cette session de jeu de rôle",
-      "interaction_empty": "Aucun nouvel enregistrement d'interaction pour l'instant.",
+      "interaction_title": "Interactions",
+      "interaction_caption": "Historique de cette session",
+      "interaction_empty": "Aucune interaction pour l'instant.",
       "collapse": "Réduire le panneau de jeu de rôle",
       "expand": "Agrandir le panneau de jeu de rôle",
       "collapse_short": "Min",
@@ -169,16 +169,16 @@
       "title_choice": "Choix",
       "title_conversation": "Conversation",
       "title_observing": "Observer",
-      "caption_decision": "Saisissez une intention et le système la développera en une chaîne d'actions",
-      "caption_choice": "Faites une réponse parmi des options limitées",
-      "caption_conversation": "Le joueur parle en tant que {avatar}, et l'autre partie répond via le LLM",
-      "caption_observing": "Aucune requête ne nécessite un traitement immédiat pour l'instant",
-      "decision_default_description": "Saisissez une intention et le système la développera en la prochaine chaîne d'actions de ce personnage.",
+      "caption_decision": "Saisissez une intention ; le système en fera une chaîne d'actions",
+      "caption_choice": "Choisissez une option",
+      "caption_conversation": "Vous parlez en tant que {avatar}; l'autre répond via le LLM",
+      "caption_observing": "Aucune requête à traiter pour l'instant",
+      "decision_default_description": "Saisissez une intention pour générer la prochaine chaîne d'actions.",
       "choice_default_description": "Choisissez une réponse.",
-      "conversation_default_description": "Le monde est en pause, attendant que vous poursuiviez la parole en tant que personnage actuel."
+      "conversation_default_description": "Le monde attend votre prochaine réplique."
     },
     "decision": {
-      "placeholder": "Saisissez la prochaine intention du personnage, par exemple : récupérer d'abord, puis explorer les environs.",
+      "placeholder": "Prochaine intention, ex. : récupérer puis explorer les environs.",
       "submit": "Envoyer l'ordre",
       "submitting": "Traitement..."
     },
@@ -191,7 +191,7 @@
       "sending": "Envoi...",
       "awaiting_reply": "En attente de réponse...",
       "end": "Terminer la conversation",
-      "end_disabled": "Vous ne pouvez pas terminer la conversation en attendant une réponse"
+      "end_disabled": "Attendez la réponse avant de terminer"
     },
     "pause_indicator": {
       "awaiting_decision": "Jeu de rôle en pause : en attente de votre ordre",
@@ -230,9 +230,9 @@
       "middle": "Étape Intermédiaire",
       "late": "Étape Finale"
     },
-    "title_short": "[Classements]",
-    "tournament_short": "[Tournoi]",
-    "title": "Classements du Ciel, de la Terre et des Hommes",
+    "title_short": "Rangs",
+    "tournament_short": "Tournoi",
+    "title": "Classements",
     "heaven": "Ciel (Âme Naissante)",
     "earth": "Terre (Formation du Noyau)",
     "human": "Homme (Fondations)",
@@ -253,8 +253,8 @@
     "earth_first": "1er de la Terre",
     "human_first": "1er des Hommes"
   },
-  "sect_relations": {
-    "title_short": "[Relations des sectes]",
+    "sect_relations": {
+    "title_short": "Diplomatie",
     "title": "Relations des sectes",
     "sect_a": "Secte A",
     "sect_b": "Secte B",
@@ -284,7 +284,7 @@
     }
   },
   "mortal_system": {
-    "title_short": "[Mortels]",
+    "title_short": "Mortels",
     "title": "Système mortel",
     "empty": "Aucune donnée",
     "population_value": "{value}",
@@ -315,7 +315,7 @@
     }
   },
   "dynasty": {
-    "title_short": "[Dynastie]",
+    "title_short": "Dynastie",
     "title": "Dynastie",
     "name": "Nom de la dynastie",
     "royal_house": "Maison royale",
@@ -349,20 +349,20 @@
     }
   },
   "avatar_overview": {
-    "title_short": "[Personnages]",
+    "title_short": "Persos",
     "title": "Aperçu des personnages",
-    "status_summary": "[Personnages {total} · Vivants {alive} · Morts {dead}]",
+    "status_summary": "Persos {total} · Vivants {alive} · Morts {dead}",
     "empty": "Aucune statistique de personnage disponible",
     "tabs": {
       "overview": "Aperçu",
       "deceased": "Décédés"
     },
     "summary": {
-      "title": "Statistiques générales",
-      "total_count": "Total des personnages",
-      "alive_count": "Personnages vivants",
-      "dead_count": "Personnages décédés",
-      "sect_member_count": "Membres de sectes",
+      "title": "Statistiques",
+      "total_count": "Total",
+      "alive_count": "Vivants",
+      "dead_count": "Décédés",
+      "sect_member_count": "En secte",
       "rogue_count": "Cultivateurs errants"
     },
     "realm_distribution": {

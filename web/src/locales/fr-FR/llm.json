@@ -83,7 +83,7 @@
     "q3_model_name": "Nom du modèle : indique au serveur quel « cerveau » utiliser, ex. : deepseek-chat ou gemini-3-flash-preview.",
     "q4_title": "🔗 4. Où obtenir une clé ?",
     "q5_title": "🛡️ 5. Note de sécurité",
-    "q5_p1": "Votre clé API n'est enregistrée que dans `secrets.json`, dans le répertoire local de données utilisateur, et le backend du jeu exécuté localement communique directement avec le vendeur du modèle. Ce jeu (Simulateur de Monde de Cultivation) est entièrement open-source et n'enverra jamais votre clé à un quelconque serveur tiers. Par ailleurs, veuillez ne pas partager le répertoire de données utilisateur contenant les paramètres/secrets.",
+    "q5_p1": "Votre clé API n'est enregistrée que dans `secrets.json`, dans le répertoire local de données utilisateur, et le backend local communique directement avec le fournisseur du modèle. Cultivation IA est open-source et n'enverra jamais votre clé à un serveur tiers. Ne partagez pas le répertoire utilisateur contenant paramètres et secrets.",
     "q5_p2": "L'utilisation de jetons engendre des coûts ; veuillez évaluer vous-même le coût d'utilisation.",
     "confirm": "J'ai compris"
   },

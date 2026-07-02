@@ -34,8 +34,9 @@ export const worldApi = {
     return normalizeMapResponse(data);
   },
 
-  async fetchMapPresets() {
-    const data = await httpClient.get<MapPresetsResponseDTO>('/api/v1/query/world/map-presets');
+  async fetchMapPresets(locale?: string) {
+    const query = locale ? `?locale=${encodeURIComponent(locale)}` : '';
+    const data = await httpClient.get<MapPresetsResponseDTO>(`/api/v1/query/world/map-presets${query}`);
     return Array.isArray(data.maps) ? data.maps : [];
   },
 

@@ -12,7 +12,7 @@ def create_public_query_router(
     build_runtime_status: Callable[[], dict],
     build_world_state: Callable[[], dict],
     build_world_map: Callable[[], dict],
-    build_map_presets: Callable[[], dict],
+    build_map_presets: Callable[..., dict],
     build_current_run: Callable[[], dict],
     build_events_page: Callable[..., dict],
     build_rankings: Callable[[], dict],
@@ -47,8 +47,8 @@ def create_public_query_router(
         return ok_response(build_world_map())
 
     @router.get("/api/v1/query/world/map-presets")
-    def get_world_map_presets_v1():
-        return ok_response(build_map_presets())
+    def get_world_map_presets_v1(locale: str | None = None):
+        return ok_response(build_map_presets(locale=locale))
 
     @router.get("/api/v1/query/system/current-run")
     def get_current_run_v1():

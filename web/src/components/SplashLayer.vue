@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import { NButton, NSpace } from 'naive-ui'
+import { NButton } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { useBgm } from '../composables/useBgm'
 import { withBasePublicPath } from '@/utils/assetUrls'
@@ -80,7 +80,7 @@ function handleClick(key: string) {
       </div>
       
       <div class="menu-area">
-        <n-space vertical size="large">
+        <div class="menu-stack">
           <n-button
             v-for="opt in menuOptions"
             :key="opt.key"
@@ -98,7 +98,7 @@ function handleClick(key: string) {
               <span class="btn-sub">{{ opt.subLabel }}</span>
             </div>
           </n-button>
-        </n-space>
+        </div>
       </div>
     </div>
   </div>
@@ -132,7 +132,8 @@ function handleClick(key: string) {
 .glass-panel {
   position: relative;
   z-index: 1;
-  width: 400px;
+  box-sizing: border-box;
+  width: clamp(360px, 42vw, 460px);
   height: 100%;
   background: rgba(0, 0, 0, 0.4); /* 半透明黑底 */
   backdrop-filter: blur(20px); /* 核心模糊效果 */
@@ -140,40 +141,52 @@ function handleClick(key: string) {
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0 60px;
+  justify-content: space-between;
+  padding: clamp(32px, 6vh, 72px) clamp(32px, 5vw, 60px);
   box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
 }
 
 .title-area {
-  margin-bottom: 80px;
   color: #fff;
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .title-area h1 {
-  font-size: 3rem;
+  font-size: clamp(2.15rem, 5.1vh, 3rem);
+  line-height: 1.22;
   margin-bottom: 10px;
   font-weight: bold;
-  letter-spacing: 4px;
+  letter-spacing: clamp(1px, 0.35vw, 4px);
+  overflow-wrap: break-word;
 }
 
 .title-area p {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.1vh, 1.2rem);
+  line-height: 1.45;
   opacity: 0.8;
-  letter-spacing: 2px;
+  letter-spacing: clamp(1px, 0.2vw, 2px);
+}
+
+.menu-area {
+  width: 100%;
+}
+
+.menu-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.4vh, 16px);
 }
 
 /* 按钮样式微调 */
 .menu-btn {
-  height: 60px; /* 稍微加大一点按钮高度 */
+  height: clamp(50px, 6.3vh, 60px); /* 随语言和视口高度收缩，避免长语种顶出首屏 */
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   
   /* 核心修复：强制内容左对齐 */
   justify-content: flex-start;
   text-align: left;
-  padding-left: 32px; /* 统一的左侧留白 */
+  padding-left: clamp(22px, 3vw, 32px); /* 统一的左侧留白 */
 }
 
 /* 修复 Naive UI 按钮内容可能默认居中的问题 */
@@ -190,9 +203,12 @@ function handleClick(key: string) {
 }
 
 .btn-label {
-  font-size: 20px;
-  letter-spacing: 4px;
+  max-width: 100%;
+  font-size: clamp(16px, 2.1vh, 20px);
+  letter-spacing: clamp(1px, 0.28vw, 4px);
   line-height: 1.2;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .btn-sub {
@@ -212,9 +228,27 @@ function handleClick(key: string) {
 /* 针对移动端的简单适配（虽然这种游戏一般是桌面端） */
 @media (max-width: 768px) {
   .glass-panel {
-    width: 100%;
+    width: min(100%, 420px);
     border-right: none;
     background: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (max-height: 760px) {
+  .glass-panel {
+    padding-block: 24px;
+  }
+
+  .title-area h1 {
+    font-size: clamp(1.9rem, 4.8vh, 2.4rem);
+  }
+
+  .menu-stack {
+    gap: 8px;
+  }
+
+  .menu-btn {
+    height: 48px;
   }
 }
 </style>

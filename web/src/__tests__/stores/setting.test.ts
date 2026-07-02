@@ -6,6 +6,7 @@ const {
   mockFetchSettings,
   mockPatchSettings,
   mockStartGame,
+  mockFetchMapPresets,
   mockMapPreload,
   mockWorldFetchState,
   mockSectRefreshTerritories,
@@ -14,6 +15,7 @@ const {
   mockFetchSettings: vi.fn(),
   mockPatchSettings: vi.fn(),
   mockStartGame: vi.fn(),
+  mockFetchMapPresets: vi.fn(),
   mockMapPreload: vi.fn(),
   mockWorldFetchState: vi.fn(),
   mockSectRefreshTerritories: vi.fn(),
@@ -83,6 +85,12 @@ vi.mock('@/api/modules/system', () => ({
   },
 }))
 
+vi.mock('@/api/modules/world', () => ({
+  worldApi: {
+    fetchMapPresets: mockFetchMapPresets,
+  },
+}))
+
 vi.mock('@/stores/map', () => ({
   useMapStore: () => ({
     preloadMap: mockMapPreload,
@@ -121,6 +129,9 @@ describe('useSettingStore', () => {
     mockI18nMode = 'composition'
     currentSettings = clone(baseSettings)
     mockMapPreload.mockResolvedValue(undefined)
+    mockFetchMapPresets.mockResolvedValue([
+      { id: 'classic', name: '九州中土', desc: '地貌均衡，适合默认体验。', size_label: '中型' },
+    ])
     mockWorldFetchState.mockResolvedValue(undefined)
     mockSectRefreshTerritories.mockResolvedValue(undefined)
     mockEventResetEvents.mockResolvedValue(undefined)
@@ -165,6 +176,7 @@ describe('useSettingStore', () => {
     expect(store.locale).toBe(testDefaultLocale)
     expect(store.bgmVolume).toBe(0.5)
     expect(store.newGameDraft.init_npc_num).toBe(9)
+    expect(mockFetchMapPresets).toHaveBeenCalledWith(testDefaultLocale)
   })
 
   it('updates i18n locale after hydrate', async () => {
@@ -192,6 +204,7 @@ describe('useSettingStore', () => {
     expect(store.locale).toBe('zh-TW')
     expect(store.newGameDraft.content_locale).toBe('zh-TW')
     expect(document.documentElement.lang).toBe(getExpectedHtmlLang('zh-TW'))
+    expect(mockFetchMapPresets).toHaveBeenCalledWith('zh-TW')
     expect(mockMapPreload).toHaveBeenCalled()
     expect(mockWorldFetchState).toHaveBeenCalled()
     expect(mockEventResetEvents).toHaveBeenCalledWith({})

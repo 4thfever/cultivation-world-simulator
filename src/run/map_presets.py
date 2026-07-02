@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from src.utils.config import CONFIG
-from src.i18n import t
+from src.i18n import t, t_for_locale
 
 
 DEFAULT_MAP_ID = "classic"
@@ -26,12 +26,13 @@ class MapPreset:
     desc_id: str = ""
     size_label_id: str = ""
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self, locale: str | None = None) -> dict[str, Any]:
+        translate = (lambda key: t_for_locale(key, locale)) if locale else t
         return {
             "id": self.id,
-            "name": t(self.name_id) if self.name_id else self.name,
-            "desc": t(self.desc_id) if self.desc_id else self.desc,
-            "size_label": t(self.size_label_id) if self.size_label_id else self.size_label,
+            "name": translate(self.name_id) if self.name_id else self.name,
+            "desc": translate(self.desc_id) if self.desc_id else self.desc,
+            "size_label": translate(self.size_label_id) if self.size_label_id else self.size_label,
             "version": self.version,
             "is_default": self.is_default,
         }
@@ -101,5 +102,5 @@ def resolve_map_source_file(map_id: str | None = None) -> tuple[MapPreset, Path]
     return preset, source_path
 
 
-def get_map_presets_query() -> dict[str, list[dict[str, Any]]]:
-    return {"maps": [preset.to_dict() for preset in list_map_presets()]}
+def get_map_presets_query(locale: str | None = None) -> dict[str, list[dict[str, Any]]]:
+    return {"maps": [preset.to_dict(locale=locale) for preset in list_map_presets()]}

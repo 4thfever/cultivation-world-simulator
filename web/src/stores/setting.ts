@@ -62,7 +62,7 @@ export const useSettingStore = defineStore('setting', () => {
 
   async function loadMapPresets() {
     try {
-      const presets = await worldApi.fetchMapPresets();
+      const presets = await worldApi.fetchMapPresets(locale.value);
       mapPresets.value = presets.length > 0
         ? presets
         : [{ id: 'classic', name: '九州中土', desc: '', size_label: '' }];
@@ -128,6 +128,7 @@ export const useSettingStore = defineStore('setting', () => {
         new_game_defaults: { content_locale: nextLocale },
       });
       applySettings(settings);
+      await loadMapPresets();
       await refreshLocalizedRuntimeData();
     } catch (e) {
       locale.value = previous;

@@ -1,5 +1,5 @@
 {
-  "title": "Simulateur de Monde de Cultivation IA",
+  "title": "Cultivation IA",
   "tagline_en": "AI Cultivation World Simulator",
   "subtitle_start_en": "Start Game",
   "subtitle_load_en": "Load Game",
@@ -7,7 +7,7 @@
   "subtitle_settings_en": "Settings",
   "subtitle_about_en": "About",
   "subtitle_exit_en": "Exit",
-  "start": "Commencer la cultivation",
+  "start": "Commencer",
   "continue": "Poursuivre la voie",
   "settings": "Paramètres"
 }
