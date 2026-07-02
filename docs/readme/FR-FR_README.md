@@ -261,6 +261,7 @@ Merci aux contributeurs et à la communauté pour les projets et publications li
     <td align="center"><a href="https://github.com/Tianrant"><img src="https://avatars.githubusercontent.com/u/260025727?v=4" width="56" height="56" alt="Tianrant" /><br /><sub><b>Tianrant</b></sub></a></td>
     <td align="center"><a href="https://github.com/cw1990"><img src="https://avatars.githubusercontent.com/u/10458746?v=4" width="56" height="56" alt="cw1990" /><br /><sub><b>cw1990</b></sub></a></td>
     <td align="center"><a href="https://github.com/RealityError"><img src="https://avatars.githubusercontent.com/u/67266280?v=4" width="56" height="56" alt="RealityError" /><br /><sub><b>RealityError</b></sub></a></td>
+    <td align="center"><a href="https://github.com/mitsuko33000-ops"><img src="https://avatars.githubusercontent.com/u/270795383?v=4" width="56" height="56" alt="mitsuko33000-ops" /><br /><sub><b>mitsuko33000-ops</b></sub></a></td>
   </tr>
 </table>
 

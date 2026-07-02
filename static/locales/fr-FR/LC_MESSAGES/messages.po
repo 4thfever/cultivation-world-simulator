@@ -259,179 +259,181 @@ msgid "sect_task_title_sect_task_receive_returnees"
 msgstr "Recevoir les Disciples de Retour"
 
 msgid "sect_task_title_sect_task_maintain_array_node"
-msgstr "Maintain the Array Node"
+msgstr "Entretenir le nœud de formation"
 
 msgid "sect_task_title_sect_task_inspect_restrictions"
-msgstr "Inspect the Restrictions"
+msgstr "Inspecter les restrictions"
 
 msgid "sect_task_title_sect_task_guard_scripture_pavilion"
-msgstr "Guard the Scripture Pavilion"
+msgstr "Garder le pavillon des textes sacrés"
 
 msgid "sect_task_title_sect_task_investigate_night_anomaly"
-msgstr "Investigate the Night Anomaly"
+msgstr "Enquêter sur l'anomalie nocturne"
 
 msgid "sect_task_title_sect_task_host_law_hall"
-msgstr "Preside Over the Law Hall"
+msgstr "Présider le hall des lois"
 
 msgid "sect_task_title_sect_task_clean_training_grounds"
-msgstr "Clear Restriction Residue from the Training Grounds"
+msgstr "Nettoyer les résidus de restriction du terrain d'entraînement"
 
 msgid "sect_task_title_sect_task_watch_reception_platform"
-msgstr "Guard the Reception Platform"
+msgstr "Garder la plateforme d'accueil"
 
 msgid "sect_task_title_sect_task_sort_low_tier_scrolls"
-msgstr "Sort Low-Tier Scriptures"
+msgstr "Trier les textes sacrés de bas rang"
 
 msgid "sect_task_title_sect_task_count_outer_supplies"
-msgstr "Inventory Outer Sect Supplies"
+msgstr "Inventorier les fournitures de la Secte extérieure"
 
 msgid "sect_task_title_sect_task_maintain_irrigation_channels"
-msgstr "Maintain Spirit Field Irrigation Channels"
+msgstr "Entretenir les canaux d'irrigation des champs spirituels"
 
 msgid "sect_task_title_sect_task_feed_spirit_beasts"
-msgstr "Feed Low-Tier Spirit Beasts"
+msgstr "Nourrir les bêtes spirituelles de bas rang"
 
 msgid "sect_task_title_sect_task_register_new_disciples"
-msgstr "Register New Disciples"
+msgstr "Enregistrer les nouveaux disciples"
 
 msgid "sect_task_title_sect_task_search_lost_tokens"
-msgstr "Search for Lost Tokens"
+msgstr "Rechercher des jetons perdus"
 
 msgid "sect_task_title_sect_task_patrol_restriction_barrier"
-msgstr "Patrol the Mountain Gate Restrictions"
+msgstr "Patrouiller les restrictions de la porte de montagne"
 
 msgid "sect_task_title_sect_task_guard_pill_hall"
-msgstr "Guard the Pill Hall"
+msgstr "Garder le hall des pilules"
 
 msgid "sect_task_title_sect_task_escort_message_jade"
-msgstr "Escort Message Jade Slips"
+msgstr "Escorter des feuillets de jade messagers"
 
 msgid "sect_task_title_sect_task_mediate_disciple_dispute"
-msgstr "Mediate a Dispute Between Disciples"
+msgstr "Médier un conflit entre disciples"
 
 msgid "sect_task_title_sect_task_inspect_market_order"
-msgstr "Inspect the Order of the Attached Bazaar"
+msgstr "Inspecter l'ordre du bazar affilié"
 
 msgid "sect_task_title_sect_task_search_missing_outer_disciple"
-msgstr "Search for Missing Outer Disciples"
+msgstr "Rechercher des disciples extérieurs disparus"
 
 msgid "sect_task_title_sect_task_repair_field_barrier"
-msgstr "Repair the Spirit Field Barrier"
+msgstr "Réparer la barrière du champ spirituel"
 
 msgid "sect_task_title_sect_task_assist_apprentice_trial"
-msgstr "Assist in an Apprentice Selection Trial"
+msgstr "Aider à une épreuve de sélection d'apprentis"
 
 msgid "sect_task_title_sect_task_inspect_grand_array_nodes"
-msgstr "Inspect the Grand Protective Array Nodes"
+msgstr "Inspecter les nœuds de la grande formation protectrice"
 
 msgid "sect_task_title_sect_task_guard_seclusion_cave"
-msgstr "Guard the Seclusion Cave Perimeter"
+msgstr "Garder le périmètre de la grotte de réclusion"
 
 msgid "sect_task_title_sect_task_track_infiltrator"
-msgstr "Track Down an Infiltrating Spy"
+msgstr "Traquer un espion infiltré"
 
 msgid "sect_task_title_sect_task_investigate_leyline_fluctuation"
-msgstr "Investigate Leyline Fluctuations"
+msgstr "Enquêter sur les fluctuations des lignes telluriques"
 
 msgid "sect_task_title_sect_task_escort_secret_treasury"
-msgstr "Escort Secret Treasury Materials"
+msgstr "Escorter des matériaux du trésor secret"
 
 msgid "sect_task_title_sect_task_suppress_earthfire"
-msgstr "Suppress an Earthfire Leak"
+msgstr "Réprimer une fuite de feu terrestre"
 
 msgid "sect_task_title_sect_task_investigate_forbidden_art"
-msgstr "Investigate Hidden Forbidden Arts"
+msgstr "Enquêter sur des arts interdits dissimulés"
 
 msgid "sect_task_title_sect_task_guard_forbidden_area"
-msgstr "Guard the Forbidden Area Entrance"
+msgstr "Garder l'entrée de la zone interdite"
 
 msgid "sect_task_title_sect_task_oversee_grand_array_core"
-msgstr "Oversee the Grand Protective Array Core"
+msgstr "Superviser le noyau de la grande formation protectrice"
 
 msgid "sect_task_title_sect_task_review_treasury_irregularities"
-msgstr "Audit Treasury Allocations"
+msgstr "Auditer les allocations du trésor"
 
 msgid "sect_task_title_sect_task_secure_sect_ceremony"
-msgstr "Secure the Sect Ceremony"
+msgstr "Sécuriser la cérémonie de la Secte"
 
 msgid "sect_task_title_sect_task_trial_major_rule_case"
-msgstr "Try a Major Rule Violation Case"
+msgstr "Juger une grave violation des règles"
 
 msgid "sect_task_title_sect_task_screen_core_promotion"
-msgstr "Review Core Disciple Promotion Trials"
+msgstr "Examiner les épreuves de promotion des disciples centraux"
 
 msgid "sect_task_title_sect_task_coordinate_border_defense"
-msgstr "Coordinate Border Defense"
+msgstr "Coordonner la défense frontalière"
 
 msgid "sect_task_title_sect_task_investigate_internal_traitor"
-msgstr "Investigate a Suspected Internal Traitor"
+msgstr "Enquêter sur un traître interne présumé"
 
 msgid "action_setformation_short_name"
-msgstr "Set Formation"
+msgstr "Installer une Formation"
 
 msgid "set_formation_action_name"
-msgstr "Set Formation"
+msgstr "Installer une Formation"
 
 msgid "set_formation_description"
 msgstr ""
-"Set a formation in the current region. Requires an equipped formation disk "
-"and consumes spirit stones. Each region can have only one active formation "
-"at a time; a new formation replaces the existing one. The Spirit-Gathering "
-"Formation increases breathing cultivation gains and suits cultivation "
-"regions and sect headquarters. The Mountain-Guard Formation improves combat "
-"capability within the formation and suits sect headquarters and cultivation "
-"regions. The Healing Formation improves healing recovery and suits sect "
-"headquarters, cultivation regions, and cities. The Clarity Formation "
-"improves seclusion and breakthrough stability and suits cultivation regions "
-"and sect headquarters. The Vein-Seeking Formation increases mining gains and"
-" suits normal regions with mineral lodes. The Wood-Growth Formation "
-"increases gathering gains and suits normal regions with plants. The Beast-"
-"Driving Formation increases hunting gains and suits normal regions with "
-"animals."
+"Installe une formation dans la région actuelle. Nécessite un disque de "
+"formation équipé et consomme des pierres spirituelles. Chaque région ne peut"
+" avoir qu'une seule formation active à la fois ; une nouvelle formation "
+"remplace l'ancienne. La Formation d'Appel d'Esprits augmente les gains de "
+"respiration cultivatrice et convient aux régions de cultivation et aux "
+"quartiers généraux de Secte. La Formation de Garde de Montagne améliore la "
+"puissance de combat dans la formation et convient aux quartiers généraux de "
+"Secte et aux régions de cultivation. La Formation de Guérison améliore la "
+"récupération et convient aux quartiers généraux de Secte, aux régions de "
+"cultivation et aux villes. La Formation de Clarté améliore la réclusion et "
+"la stabilité des percées, et convient aux régions de cultivation et aux "
+"quartiers généraux de Secte. La Formation de Recherche de Veine augmente les"
+" gains de minage et convient aux régions normales avec filons. La Formation "
+"de Croissance du Bois augmente les gains de cueillette et convient aux "
+"régions normales avec plantes. La Formation de Conduite des Bêtes augmente "
+"les gains de chasse et convient aux régions normales avec animaux."
 
 msgid "set_formation_requirements"
 msgstr ""
-"Requires an equipped formation disk, a valid location for the selected "
-"formation, and enough spirit stones."
+"Nécessite un disque de formation équipé, un emplacement valide pour la "
+"formation choisie et assez de pierres spirituelles."
 
 msgid "formation_spirit_gathering_name"
-msgstr "Spirit-Gathering Formation"
+msgstr "Formation d'Appel d'Esprits"
 
 msgid "formation_mountain_guard_name"
-msgstr "Mountain-Guard Formation"
+msgstr "Formation de Garde de Montagne"
 
 msgid "formation_healing_name"
-msgstr "Healing Formation"
+msgstr "Formation de Guérison"
 
 msgid "formation_clarity_name"
-msgstr "Clarity Formation"
+msgstr "Formation de Clarté"
 
 msgid "formation_vein_seeking_name"
-msgstr "Vein-Seeking Formation"
+msgstr "Formation de Recherche de Veine"
 
 msgid "formation_wood_growth_name"
-msgstr "Wood-Growth Formation"
+msgstr "Formation de Croissance du Bois"
 
 msgid "formation_beast_driving_name"
-msgstr "Beast-Driving Formation"
+msgstr "Formation de Conduite des Bêtes"
 
 msgid "Missing formation disk"
-msgstr "Missing formation disk"
+msgstr "Disque de formation manquant"
 
 msgid "Invalid formation type"
-msgstr "Invalid formation type"
+msgstr "Type de formation invalide"
 
 msgid "Current location cannot set formation"
-msgstr "Current location cannot set formation"
+msgstr "Impossible d'installer une formation à l'emplacement actuel"
 
 msgid "Formation cannot be set in current region"
-msgstr "Formation cannot be set in current region"
+msgstr "Impossible d'installer une formation dans la région actuelle"
 
 msgid "Not enough spirit stones"
-msgstr "Not enough spirit stones"
+msgstr "Pierres spirituelles insuffisantes"
 
 msgid "Current region"
-msgstr "Current region"
+msgstr "Région actuelle"
 
 msgid "{avatar} begins setting {formation} in {region}."
 msgstr "{avatar} commence à installer {formation} dans {region}."
@@ -447,52 +449,54 @@ msgstr ""
 "cette région a été remplacée."
 
 msgid "action_inflictgu_short_name"
-msgstr "Inflict Gu"
+msgstr "Infliger un Gu"
 
 msgid "inflict_gu_action_name"
-msgstr "Inflict Gu"
+msgstr "Infliger un Gu"
 
 msgid "inflict_gu_description"
 msgstr ""
-"Inflict a Gu on the target. If successful, its effect is settled monthly."
+"Inflige un Gu à la cible. En cas de succès, son effet est résolu chaque "
+"mois."
 
 msgid "inflict_gu_requirements"
-msgstr "Requires an equipped Gu tool."
+msgstr "Nécessite un outil à Gu équipé."
 
 msgid "gu_qianxin_name"
-msgstr "Heartlink Gu"
+msgstr "Gu du Lien du Cœur"
 
 msgid "gu_shixue_name"
-msgstr "Bloodgnaw Gu"
+msgstr "Gu Ronge-Sang"
 
 msgid "gu_shiyuan_name"
-msgstr "Essence-Eroding Gu"
+msgstr "Gu Érode-Essence"
 
 msgid "gu_luanxin_name"
-msgstr "Mind-Disorder Gu"
+msgstr "Gu du Trouble de l'Esprit"
 
 msgid "Missing Gu tool"
-msgstr "Missing Gu tool"
+msgstr "Outil à Gu manquant"
 
 msgid "Invalid Gu type"
-msgstr "Invalid Gu type"
+msgstr "Type de Gu invalide"
 
 msgid "Cannot inflict Gu on self"
-msgstr "Cannot inflict Gu on self"
+msgstr "Impossible de s'infliger un Gu à soi-même"
 
 msgid "{caster} attempts to inflict {gu_name} on {target}."
-msgstr "{caster} attempts to inflict {gu_name} on {target}."
+msgstr "{caster} tente d'infliger {gu_name} à {target}."
 
 msgid "{caster} successfully inflicted {gu_name} on {target}."
-msgstr "{caster} successfully inflicted {gu_name} on {target}."
+msgstr "{caster} a réussi à infliger {gu_name} à {target}."
 
 msgid "{caster} failed to inflict {gu_name} on {target}."
-msgstr "{caster} failed to inflict {gu_name} on {target}."
+msgstr "{caster} n'a pas réussi à infliger {gu_name} à {target}."
 
 msgid ""
 "{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
 msgstr ""
-"{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
+"{caster} n'a pas réussi à infliger {gu_name} à {target} ; la tentative a été"
+" détectée."
 
 msgid "{target}'s {gu_name} took effect, losing {amount} HP."
 msgstr ""
