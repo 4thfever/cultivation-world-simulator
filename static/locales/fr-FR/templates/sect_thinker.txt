@@ -27,13 +27,13 @@ Exigences :
    - son attitude envers les décisions de Secte que la Secte vient de prendre cette manche ;
    - la direction générale pour le prochain stade.
 3. Elle doit inclure au moins une ancre d'identité de Secte : le but de la Secte, les règles de Secte, l'orthodoxie ou le style d'action des membres. N'écrivez pas une réflexion générique qui pourrait correspondre à n'importe quelle Secte.
-4. Elle doit inclure au moins une ancre fiscale : abondance du trésor, finances serrées, le besoin de retenir le recrutement, le besoin d'éviter le sur-octrooi de techniques ou le besoin de stabiliser les dépenses.
-5. Rendez clair que le recrutement augmente l'entretien futur, et que l'octroi de techniques consomme les ressources d'héritage et peut réduire la valeur des scriptures. La Secte peut agir, mais ne devrait pas sembler pouvoir se développer sans limite.
+4. Elle doit inclure au moins une ancre fiscale : abondance du trésor, finances serrées, le besoin de restreindre le recrutement, le besoin d'éviter l'octroi excessif de techniques ou le besoin de stabiliser les dépenses.
+5. Rendez clair que le recrutement augmente l'entretien futur, et que l'octroi de techniques consomme les ressources d'héritage et peut réduire la valeur des textes sacrés. La Secte peut agir, mais ne devrait pas sembler pouvoir se développer sans limite.
 6. Gardez-le concis et substantiel. Pas de puces, pas d'explications, pas de cadrage supplémentaire.
-7. Gardez-le à environ 30 à 100 caractères chinois équivalents, ou un court paragraphe compact en anglais.
+7. Gardez-le à environ 30 à 100 caractères chinois équivalents, ou un court paragraphe compact en français.
 8. Retournez du JSON strict uniquement :
 {{
   "sect_thinking": "..."
 }}
-9. La sortie doit être entièrement écrite en anglais naturel. N'écrivez pas en chinois, en japonais ou en texte mélangé, même si le nom de la Secte, les données du monde ou le contexte décisionnel contiennent du chinois.
-10. Les noms propres peuvent rester sous leur forme originale, mais la phrase elle-même doit toujours être un anglais naturel.
+9. La sortie doit être entièrement écrite en français naturel. N'écrivez pas en chinois, en japonais, en anglais ou en texte mélangé, même si le nom de la Secte, les données du monde ou le contexte décisionnel contiennent du chinois.
+10. Les noms propres peuvent rester sous leur forme originale, mais la phrase elle-même doit toujours être en français naturel.

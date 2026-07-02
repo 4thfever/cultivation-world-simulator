@@ -409,13 +409,13 @@ msgid "Current region"
 msgstr "Current region"
 
 msgid "{avatar} begins setting {formation} in {region}."
-msgstr "{avatar} begins setting {formation} in {region}."
+msgstr "{avatar} commence à installer {formation} dans {region}."
 
 msgid "{avatar} set {formation} in {region}."
-msgstr "{avatar} set {formation} in {region}."
+msgstr "{avatar} a installé {formation} dans {region}."
 
 msgid "{avatar} set {formation} in {region}; the original formation in this region was replaced."
-msgstr "{avatar} set {formation} in {region}; the original formation in this region was replaced."
+msgstr "{avatar} a installé {formation} dans {region} ; la formation précédente de cette région a été remplacée."
 
 msgid "action_inflictgu_short_name"
 msgstr "Inflict Gu"
@@ -464,8 +464,10 @@ msgid ""
 msgstr "{caster} failed to inflict {gu_name} on {target}; the attempt was detected."
 
 msgid "{target}'s {gu_name} took effect, losing {amount} HP."
-msgstr "{target}'s {gu_name} took effect, losing {amount} HP."
+msgstr "Le {gu_name} de {target} a pris effet, lui faisant perdre {amount} PV."
 
 msgid ""
 "{target}'s {gu_name} took effect, losing {amount} cultivation experience."
-msgstr "{target}'s {gu_name} took effect, losing {amount} cultivation experience."
+msgstr ""
+"Le {gu_name} de {target} a pris effet, lui faisant perdre {amount} points "
+"d'expérience de cultivation."

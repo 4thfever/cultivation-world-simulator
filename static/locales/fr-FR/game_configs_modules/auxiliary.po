@@ -58,7 +58,7 @@ msgstr "Essence de Fer"
 msgid "AUXILIARY_2006_DESC"
 msgstr ""
 "Elle peut percer les illusions, contempler l'essence primordiale, chercher "
-"les opprtunités célestes et fixer directement le Grand Dao."
+"les opportunités célestes et fixer directement le Grand Dao."
 
 #. auxiliary.csv: 源天神眼
 msgid "AUXILIARY_2006_NAME"

@@ -27,7 +27,7 @@ Contraintes :
 10. Vous planifiez seulement les cibles et les actions. N'inventez pas de valeurs avatar_id ou other_sect_id.
 11. Toutes les décisions doivent suivre l'identité propre de la Secte : son but, ses règles, son orthodoxie, le style d'action des membres et l'état actuel du trésor.
 12. Le recrutement n'est pas une expansion gratuite : chaque recrutement réussi coûte immédiatement {recruit_cost} pierres spirituelles et augmente aussi l'entretien annuel futur.
-13. L'octroi de techniques ne dépense pas directement de pierres spirituelles, mais consomme les ressources d'héritage ; les récompenses fréquentes peuvent réduire la rareté et la valeur de la collection de scriptures de la Secte.
+13. L'octroi de techniques ne dépense pas directement de pierres spirituelles, mais consomme les ressources d'héritage ; les récompenses fréquentes peuvent réduire la rareté et la valeur de la collection de textes sacrés de la Secte.
 14. Le soutien en pierres spirituelles est une sortie d'argent directe. Lorsque les finances sont serrées, la Secte peut toujours agir, mais ne devrait pas recruter agressivement, récompenser largement les techniques et financer de nombreux disciples à la fois.
 15. Si `treasury_pressure` ou `resource_pressure` indique une tension financière, priorisez la stabilisation des dépenses et ne prenez que les actions les plus nécessaires qui correspondent vraiment à la doctrine de la Secte.
 16. Si une autre Secte a été hostile longtemps, les relations sont mauvaises, le chevauchement de territoire est évident, et votre Secte n'est pas à un désavantage de pouvoir clair, résoudre la haine, la pression frontalière et les conflits de ressources par la guerre est une option raisonnable et viable.
@@ -51,6 +51,6 @@ Exigences supplémentaires :
 1. Si vous ne prenez pas une catégorie de décision, retournez un tableau vide pour ce champ.
 2. Ne répétez pas le même avatar_id ou other_sect_id.
 3. Gardez `thinking` concis, environ 20 à 60 mots.
-4. `thinking` devrait refléter directement à la fois l'identité de la Secte et la position fiscale. Si cette manche inclut une diplomatie de ligne dure ou des considérations de guerre, cela devrait aussi apparaître naturellement, par exemple : "Notre Secte doit uphold l'héritage orthodoxe, dépenser avec prudence, et répondre à la pression hostile avec une force décisive."
-5. Le champ `thinking` doit être entièrement écrit en anglais naturel. N'écrivez pas en chinois, en japonais ou en texte mélangé, même si les noms ou les données sources contiennent du chinois.
-6. Les noms propres peuvent rester sous leur forme originale, mais la phrase elle-même doit toujours être un anglais naturel.
+4. `thinking` devrait refléter directement à la fois l'identité de la Secte et la position fiscale. Si cette manche inclut une diplomatie de ligne dure ou des considérations de guerre, cela devrait aussi apparaître naturellement, par exemple : "Notre Secte doit préserver l'héritage orthodoxe, dépenser avec prudence et répondre à la pression hostile avec une force décisive."
+5. Le champ `thinking` doit être entièrement écrit en français naturel. N'écrivez pas en chinois, en japonais, en anglais ou en texte mélangé, même si les noms ou les données sources contiennent du chinois.
+6. Les noms propres peuvent rester sous leur forme originale, mais la phrase elle-même doit toujours être en français naturel.
