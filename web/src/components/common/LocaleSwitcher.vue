@@ -44,6 +44,8 @@ function getLocaleShortLabel(locale: AppLocale | string) {
       return 'VI'
     case 'ja-JP':
       return '日本語'
+    case 'fr-FR':
+      return 'FR'
     default:
       return String(locale).slice(0, 5).toUpperCase()
   }

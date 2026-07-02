@@ -6,6 +6,7 @@ const ENTITY_ROW_DETAIL_LAYOUT_BY_LOCALE: Record<string, EntityRowDetailLayout> 
   'ja-JP': 'inline-preferred',
   'en-US': 'stacked',
   'vi-VN': 'stacked',
+  'fr-FR': 'stacked',
 };
 
 const ENTITY_ROW_DETAIL_LAYOUT_BY_PREFIX: Record<string, EntityRowDetailLayout> = {
@@ -13,6 +14,7 @@ const ENTITY_ROW_DETAIL_LAYOUT_BY_PREFIX: Record<string, EntityRowDetailLayout> 
   ja: 'inline-preferred',
   en: 'stacked',
   vi: 'stacked',
+  fr: 'stacked',
 };
 
 export function getEntityRowDetailLayout(locale: string | undefined): EntityRowDetailLayout {

@@ -1,6 +1,6 @@
 <!-- 语言 / Language -->
 <h3 align="center">
-  <a href="README.md">简体中文</a> · <a href="docs/readme/ZH-TW_README.md">繁體中文</a> · <a href="docs/readme/EN_README.md">English</a> · <a href="docs/readme/VI-VN_README.md">Tiếng Việt</a> · <a href="docs/readme/JA-JP_README.md">日本語</a>
+  <a href="README.md">简体中文</a> · <a href="docs/readme/ZH-TW_README.md">繁體中文</a> · <a href="docs/readme/EN_README.md">English</a> · <a href="docs/readme/VI-VN_README.md">Tiếng Việt</a> · <a href="docs/readme/JA-JP_README.md">日本語</a> · <a href="docs/readme/FR-FR_README.md">Français</a>
 </h3>
 <p align="center">— ✦ —</p>
 
@@ -246,13 +246,13 @@ docker-compose up -d --build
     <td align="center"><a href="https://github.com/4thfever"><img src="https://avatars.githubusercontent.com/u/19970391?v=4" width="56" height="56" alt="4thfever" /><br /><sub><b>4thfever</b></sub></a></td>
     <td align="center"><a href="https://github.com/xzhseh"><img src="https://avatars.githubusercontent.com/u/91381303?v=4" width="56" height="56" alt="xzhseh" /><br /><sub><b>xzhseh</b></sub></a></td>
     <td align="center"><a href="https://github.com/teps3105"><img src="https://avatars.githubusercontent.com/u/16871632?v=4" width="56" height="56" alt="teps3105" /><br /><sub><b>teps3105</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Meanliss"><img src="https://avatars.githubusercontent.com/u/117923713?v=4" width="56" height="56" alt="Meanliss" /><br /><sub><b>Meanliss</b></sub></a></td>
+    <td align="center"><a href="https://github.com/octo-patch"><img src="https://avatars.githubusercontent.com/u/266937838?v=4" width="56" height="56" alt="octo-patch" /><br /><sub><b>octo-patch</b></sub></a></td>
     <td align="center"><a href="https://github.com/cooleryu"><img src="https://avatars.githubusercontent.com/u/53998515?v=4" width="56" height="56" alt="cooleryu" /><br /><sub><b>cooleryu</b></sub></a></td>
     <td align="center"><a href="https://github.com/LuckVd"><img src="https://avatars.githubusercontent.com/u/37114923?v=4" width="56" height="56" alt="LuckVd" /><br /><sub><b>LuckVd</b></sub></a></td>
-    <td align="center"><a href="https://github.com/MarkYangKp"><img src="https://avatars.githubusercontent.com/u/42310488?v=4" width="56" height="56" alt="MarkYangKp" /><br /><sub><b>MarkYangKp</b></sub></a></td>
-    <td align="center"><a href="https://github.com/Meanliss"><img src="https://avatars.githubusercontent.com/u/117923713?v=4" width="56" height="56" alt="Meanliss" /><br /><sub><b>Meanliss</b></sub></a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/octo-patch"><img src="https://avatars.githubusercontent.com/u/266937838?v=4" width="56" height="56" alt="octo-patch" /><br /><sub><b>octo-patch</b></sub></a></td>
+    <td align="center"><a href="https://github.com/MarkYangKp"><img src="https://avatars.githubusercontent.com/u/42310488?v=4" width="56" height="56" alt="MarkYangKp" /><br /><sub><b>MarkYangKp</b></sub></a></td>
     <td align="center"><a href="https://github.com/Robinwhliu"><img src="https://avatars.githubusercontent.com/u/86167266?v=4" width="56" height="56" alt="Robinwhliu" /><br /><sub><b>Robinwhliu</b></sub></a></td>
     <td align="center"><a href="https://github.com/Seafoodsz"><img src="https://avatars.githubusercontent.com/u/13925953?v=4" width="56" height="56" alt="Seafoodsz" /><br /><sub><b>Seafoodsz</b></sub></a></td>
     <td align="center"><a href="https://github.com/Tianrant"><img src="https://avatars.githubusercontent.com/u/260025727?v=4" width="56" height="56" alt="Tianrant" /><br /><sub><b>Tianrant</b></sub></a></td>

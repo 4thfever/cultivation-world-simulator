@@ -61,7 +61,7 @@
 4. 前端大对象和 Pixi 实例禁止深层响应式代理。
 5. i18n 开发默认遵守 Phase 1（只改 `zh-CN`）；若任务被明确指定为正式多语言补全或新增语言接入，则切换到以 `static/locales/registry.json` 为准的全链路处理模式。
 6. 存档与持久化：`save-load-serialization.mdc` 的技术形状仍须遵守；是否迁就旧存档以 `.cursor/rules/development-phase.mdc` 为准——**清晰优先**，兼容仅可在**零代价**时顺带，禁止为兼容增加实质负担。
-7. 语言列表的单一真相源是 `static/locales/registry.json`；Python 侧 i18n 工具、校验和新增语言流程应优先读取该文件，不要在脚本中重新写死 `zh-CN/zh-TW/en-US`。
+7. 语言列表的单一真相源是 `static/locales/registry.json`；Python 侧 i18n 工具、校验和新增语言流程应优先读取该文件，不要在脚本中重新写死 `zh-CN/zh-TW/en-US/vi-VN/ja-JP/fr-FR`。
 8. i18n 拆分源文件的真源是 `static/locales/<lang>/modules/*.po` 与 `static/locales/<lang>/game_configs_modules/*.po`；`static/locales/<lang>/LC_MESSAGES/messages.po` 与 `static/locales/<lang>/LC_MESSAGES/game_configs.po` 是合并产物，日常不要直接改，改完源文件后要运行 `python tools/i18n/build_mo.py`。
 9. `.po` 中的 `msgid` 不得直接写中文；应使用英文源文或稳定 key，中文内容只能放在 `msgstr`。
 10. 前端设置页的语言入口需要兼顾中文默认界面对外国用户的可发现性；`web/src/components/SystemMenu.vue` 中非英语 UI 的语言文案必须保留可见的 `Language` 英文提示（如 `语言 / Language`），不要在后续本地化时去掉。
@@ -96,7 +96,7 @@
 
 | 技能 | 用途 | 关键流程 |
 |---|---|---|
-| `fill-i18n-phase2` | 进入多语言补全 Phase 2 | 生成缺失报告 -> 按 `static/locales/registry.json` 补全启用语言（如 `en-US/zh-TW/vi-VN/ja-JP`） -> 必要时编译 `.mo` -> 跑 locale 测试 -> 清理报告。 |
+| `fill-i18n-phase2` | 进入多语言补全 Phase 2 | 生成缺失报告 -> 按 `static/locales/registry.json` 补全启用语言（如 `en-US/zh-TW/vi-VN/ja-JP/fr-FR`） -> 必要时编译 `.mo` -> 跑 locale 测试 -> 清理报告。 |
 | `external-control-api` | 规划或实现面向外部 agent / Claw 的稳定控制 API | 先梳理现有 query/command 与 `main.py`/`game_instance` 耦合 -> 明确 runtime/service/API 分层与 v1 命名空间 -> 优先做 mutation 串行化和稳定 DTO/错误码 -> 最后同步 README / `docs/specs/external-control-api.md` / `AGENTS.md`。 |
 | `git-pr` | 创建规范 PR | 从 `main` 拉新分支，标准 commit type，push 后 `gh pr create`，遵守 PR 模板。 |
 | `desktop-distribution` | 桌面打包与 GitHub/Steam/Epic 发布 | 区分 `pack_*` 只构建与 `publish_*` 构建并发布；desktop store 包唯一构建真源是 `tools/package/desktop/pack.ps1`，Steam/Epic 只消费 content root；默认 LLM seed 放 desktop 配置，平台账号放各平台目录。 |

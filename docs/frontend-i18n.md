@@ -34,7 +34,7 @@ web/src/locales/
 
 ### 3.1 如何新增多语言词条？
 
-1. **确定所属模块**：判断你的词条属于哪个模块（例如是在 `ui.json` 还是 `game.json`）。如果是一个全新的大型系统，请按 `static/locales/registry.json` 中所有 `enabled` 语言目录创建同名 JSON 文件，如 `achievement.json`。不要只手写 `zh-CN / zh-TW / en-US` 三个目录。
+1. **确定所属模块**：判断你的词条属于哪个模块（例如是在 `ui.json` 还是 `game.json`）。如果是一个全新的大型系统，请按 `static/locales/registry.json` 中所有 `enabled` 语言目录创建同名 JSON 文件，如 `achievement.json`。不要只手写 `zh-CN / zh-TW / en-US / vi-VN / ja-JP / fr-FR` 这些当前语言目录。
 2. **添加词条**：在对应的 JSON 文件中添加你的词条。注意，此时的 Key 将自动挂载在该模块的命名空间下。
    * **示例**：在 `zh-CN/ui.json` 中添加 `"new_button": "新按钮"`。
    * **使用**：在 Vue 组件中使用 `$t('ui.new_button')` 即可访问。

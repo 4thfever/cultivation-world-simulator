@@ -46,6 +46,7 @@ describe('LocaleSwitcher', () => {
 
     expect(wrapper.find('.locale-panel').exists()).toBe(true)
     expect(wrapper.text()).toContain('English')
+    expect(wrapper.text()).toContain('Français')
   })
 
   it('calls setLocale when selecting a locale', async () => {
