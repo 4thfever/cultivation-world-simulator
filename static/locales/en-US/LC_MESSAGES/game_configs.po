@@ -1641,6 +1641,32 @@ msgstr ""
 msgid "NORMAL_REGION_118_NAME"
 msgstr "Penglai Lost Island"
 
+msgid "OPPORTUNITY_BOON_LUCK_TITLE"
+msgstr "Heavenly Favor"
+
+msgid "OPPORTUNITY_BOON_LUCK_DESC"
+msgstr "A thread of heavenly mystery tempers fate, slightly increasing luck."
+
+msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
+msgstr "Longevity Insight"
+
+msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
+msgstr "Spiritual insight enters the body, slightly increasing lifespan."
+
+msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
+msgstr "Dao Afterglow"
+
+msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
+msgstr "The mind clears, making cultivation easier for several years."
+
+msgid "OPPORTUNITY_BOON_BODY_TITLE"
+msgstr "Spiritual Tempering"
+
+msgid "OPPORTUNITY_BOON_BODY_DESC"
+msgstr ""
+"Spiritual force tempers the body, improving combat strength for several "
+"years."
+
 msgid "ORTHODOXY_BUDDHISM_DESC"
 msgstr ""
 "Save all sentient beings, and improve cultivation realm through meditation "
@@ -4694,6 +4720,22 @@ msgstr "Formations"
 #. world_info.csv: 阵法
 msgid "WORLD_INFO_FORMATION_TITLE"
 msgstr "Formations"
+
+#. world_info.csv: 机缘
+msgid "WORLD_INFO_OPPORTUNITY_DESC"
+msgstr ""
+"Cultivators may occasionally feel a sudden stir of fate, sensing that a "
+"person or place is tied to their own opportunity. If they follow the sense, "
+"they may gain treasure or a boon, return empty-handed, or meet danger; if "
+"they delay too long, the opportunity fades away."
+
+#. world_info.csv: 机缘
+msgid "WORLD_INFO_OPPORTUNITY_NAME"
+msgstr "Opportunity"
+
+#. world_info.csv: 机缘
+msgid "WORLD_INFO_OPPORTUNITY_TITLE"
+msgstr "Opportunity"
 
 msgid "PERSONA_1015_NAME"
 msgstr "Kindred to Other Kinds"

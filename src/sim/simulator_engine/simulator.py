@@ -85,6 +85,10 @@ class Simulator:
             ctx.add_events(await actions.phase_execute_actions(ctx.living_avatars))
             self._raise_if_reset_requested()
 
+            # 6.5 检测行动后命中的限时机缘
+            ctx.add_events(await world_phases.phase_check_opportunities(self.world, ctx.living_avatars))
+            self._raise_if_reset_requested()
+
             # 7. 处理基于事件的交互（第一轮）
             # 第一轮会把动作阶段产出的互动事件计入角色状态，
             # 让紧接着的关系演化可以在同月看到这些变化。

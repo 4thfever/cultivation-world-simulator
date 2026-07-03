@@ -3061,6 +3061,140 @@ msgstr ""
 "{winner} は手合わせでわずかに優勢を得て {loser} を制した。（{winner} 熟練度 +{w_gain}、{loser} 熟練度 "
 "+{l_gain}）"
 
+msgid "nearby"
+msgstr "nearby"
+
+msgid "northeast"
+msgstr "northeast"
+
+msgid "northwest"
+msgstr "northwest"
+
+msgid "southeast"
+msgstr "southeast"
+
+msgid "southwest"
+msgstr "southwest"
+
+msgid "old city"
+msgstr "old city"
+
+msgid "sect territory"
+msgstr "sect territory"
+
+msgid "cave dwelling"
+msgstr "cave dwelling"
+
+msgid "wilderness place"
+msgstr "wilderness place"
+
+msgid "unknown place"
+msgstr "unknown place"
+
+msgid "unknown realm"
+msgstr "unknown realm"
+
+msgid "{realm} cultivator"
+msgstr "{realm} cultivator"
+
+msgid "{realm} {weapon_type} cultivator"
+msgstr "{realm} {weapon_type} cultivator"
+
+msgid "{realm} sect cultivator"
+msgstr "{realm} sect cultivator"
+
+msgid ""
+"{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a"
+" {region_hint} in the {direction}."
+msgstr ""
+"{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a"
+" {region_hint} in the {direction}."
+
+msgid ""
+"{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a"
+" {target_hint} in the {direction}."
+msgstr ""
+"{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a"
+" {target_hint} in the {direction}."
+
+msgid "{avatar_name}'s opportunity sense gradually faded away."
+msgstr "{avatar_name}'s opportunity sense gradually faded away."
+
+msgid ""
+"{avatar_name}'s opportunity sense suddenly broke, leaving nowhere to seek."
+msgstr ""
+"{avatar_name}'s opportunity sense suddenly broke, leaving nowhere to seek."
+
+msgid ""
+"{avatar_name} followed the opportunity and found an ancient treasure: "
+"{item_name}."
+msgstr ""
+"{avatar_name} followed the opportunity and found an ancient treasure: "
+"{item_name}."
+
+msgid ""
+"{avatar_name} followed the opportunity and obtained {item_name}. "
+"{exchange_text}"
+msgstr ""
+"{avatar_name} followed the opportunity and obtained {item_name}. "
+"{exchange_text}"
+
+msgid ""
+"{avatar_name} followed the opportunity and gained a boon: {boon_title}."
+msgstr ""
+"{avatar_name} followed the opportunity and gained a boon: {boon_title}."
+
+msgid ""
+"{avatar_name} followed the opportunity, but the spiritual trace faded away."
+msgstr ""
+"{avatar_name} followed the opportunity, but the spiritual trace faded away."
+
+msgid ""
+"{avatar_name} followed the feeling, but only found the spiritual trace "
+"already gone."
+msgstr ""
+"{avatar_name} followed the feeling, but only found the spiritual trace "
+"already gone."
+
+msgid ""
+"{avatar_name} followed the opportunity, but suffered backlash and was "
+"injured for {damage} HP."
+msgstr ""
+"{avatar_name} followed the opportunity, but suffered backlash and was "
+"injured for {damage} HP."
+
+msgid ""
+"{avatar_name} followed the opportunity, but suffered backlash and perished."
+msgstr ""
+"{avatar_name} followed the opportunity, but suffered backlash and perished."
+
+msgid "opportunity_boon"
+msgstr "Opportunity boon"
+
+msgid "opportunity_story_prompt"
+msgstr ""
+"Write a short xianxia story around this opportunity resolution, emphasizing "
+"heavenly guidance, the character's current situation, and the result itself."
+" Do not rewrite the established facts."
+
+msgid "{years} years and {months} months"
+msgstr "{years} years and {months} months"
+
+msgid "{years} years"
+msgstr "{years} years"
+
+msgid "{months} months"
+msgstr "{months} months"
+
+msgid "Opportunity sense: {hint} This sense may last about {remaining}."
+msgstr "Opportunity sense: {hint} This sense may last about {remaining}."
+
+msgid "effect_extra_opportunity_probability"
+msgstr "Opportunity Chance +{value}"
+
+msgid "effect_source_opportunity"
+msgstr "Opportunity"
+
 msgid ", keep current『{old_name}』"
 msgstr "、現在の『{old_name}』を維持"
 

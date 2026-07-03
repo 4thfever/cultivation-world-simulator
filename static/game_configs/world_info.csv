@@ -24,3 +24,4 @@
 阶层别名,WORLD_INFO_CULTIVATION_ALIAS_TITLE,WORLD_INFO_CULTIVATION_ALIAS_NAME,WORLD_INFO_CULTIVATION_ALIAS_DESC,同一修行阶层在不同体系中有各自名目：道家与散修为练气、筑基、金丹、元婴；武道为淬体、易筋、宗师、武圣；儒道为养气、明理、立命、大儒；佛道为沙弥、比丘、罗汉、菩萨；妖族为开灵、化形、妖丹、妖王。它们彼此对应的是同一套底层境界序列，只改变叙事与界面称谓，不改变突破、战力、寿元、物品品阶等规则。
 蛊,WORLD_INFO_GU_TITLE,WORLD_INFO_GU_NAME,WORLD_INFO_GU_DESC,蛊术需要修士持有蛊具并拥有下蛊能力，才能对可观测目标施加蛊。不同蛊有不同发作方式：潜心蛊会潜移默化影响关系，噬血蛊会周期性损伤生命，蚀元蛊与乱心蛊会侵扰修为。下蛊有成功率，受蛊具、施术者加成与目标抗蛊能力影响；失败时可能被目标察觉并损害关系。
 阵法,WORLD_INFO_FORMATION_TITLE,WORLD_INFO_FORMATION_NAME,WORLD_INFO_FORMATION_DESC,阵法需要修士持有阵盘并拥有布阵能力，才能在当前区域布置限时区域效果。不同阵法适合不同区域：修行地与宗门可布聚灵、守山、明心等阵；城市可布疗愈阵；矿脉、药田、兽域可布对应的寻脉、生木、驱兽阵。阵法会消耗灵石，并在持续时间结束后失效。
+机缘,WORLD_INFO_OPPORTUNITY_TITLE,WORLD_INFO_OPPORTUNITY_NAME,WORLD_INFO_OPPORTUNITY_DESC,修士偶有福至心灵，感应到某人或某地与自身缘法相牵。若循感应而去，或得宝物与助益，或空手而返，亦可能遭逢凶险；若迟迟未寻，机缘也会自行散去。

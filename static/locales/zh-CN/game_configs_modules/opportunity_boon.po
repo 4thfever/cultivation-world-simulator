@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. opportunity_boon.csv: 天机垂青
+msgid "OPPORTUNITY_BOON_LUCK_TITLE"
+msgstr "天机垂青"
+
+#. opportunity_boon.csv: 一缕天机洗练命数，气运微增。
+msgid "OPPORTUNITY_BOON_LUCK_DESC"
+msgstr "一缕天机洗练命数，气运微增。"
+
+#. opportunity_boon.csv: 延寿灵机
+msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
+msgstr "延寿灵机"
+
+#. opportunity_boon.csv: 灵机入体，寿元略有增长。
+msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
+msgstr "灵机入体，寿元略有增长。"
+
+#. opportunity_boon.csv: 悟道余韵
+msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
+msgstr "悟道余韵"
+
+#. opportunity_boon.csv: 心神澄明，数年内修行更易入境。
+msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
+msgstr "心神澄明，数年内修行更易入境。"
+
+#. opportunity_boon.csv: 灵机淬体
+msgid "OPPORTUNITY_BOON_BODY_TITLE"
+msgstr "灵机淬体"
+
+#. opportunity_boon.csv: 灵机淬炼体魄，数年内战力有所提升。
+msgid "OPPORTUNITY_BOON_BODY_DESC"
+msgstr "灵机淬炼体魄，数年内战力有所提升。"

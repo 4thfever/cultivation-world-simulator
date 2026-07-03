@@ -10,6 +10,7 @@ from src.classes.observe import get_avatar_observation_radius
 from src.i18n import t
 from src.systems.autonomous_custom_content_service import try_trigger_autonomous_custom_creation
 from src.systems.fortune import try_trigger_fortune, try_trigger_misfortune
+from src.systems.opportunity import phase_check_opportunities, phase_generate_opportunities
 from src.systems.fate_revelation import try_trigger_fate_revelation
 from src.systems.random_minor_event import try_trigger_random_minor_event
 from src.systems.sect_random_event import try_trigger_sect_random_event
@@ -103,6 +104,7 @@ async def phase_passive_effects(world, living_avatars: list[Avatar]) -> list[Eve
         *[try_trigger_fate_revelation(avatar, world) for avatar in target_avatars],
     )
     events.extend([event for result in results if result for event in result])
+    events.extend(await phase_generate_opportunities(world, target_avatars))
     return events
 
 

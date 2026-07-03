@@ -291,6 +291,19 @@ EXTRA_MISFORTUNE_PROBABILITY = "extra_misfortune_probability"
   - 极高: 0.01 (1%，不少了)
 """
 
+EXTRA_OPPORTUNITY_PROBABILITY = "extra_opportunity_probability"
+"""
+额外机缘概率
+类型: float
+结算: src/systems/opportunity.py
+说明: 每月触发限时机缘感应的额外概率（绝对值）。
+数值参考:
+  - 基础概率通常极低 (<0.01)
+  - 微量: 0.001 (0.1%，有)
+  - 中量: 0.002~0.005 (高)
+  - 极高: 0.01 (1%，不少了)
+"""
+
 # --- 铸造相关 ---
 EXTRA_CAST_SUCCESS_RATE = "extra_cast_success_rate"
 """
@@ -678,6 +691,7 @@ ALL_EFFECTS = [
     "extra_luck",                        # int - 额外气运
     "extra_fortune_probability",         # float - 额外奇遇概率
     "extra_misfortune_probability",      # float - 额外霉运概率
+    "extra_opportunity_probability",     # float - 额外机缘概率
     
     # 铸造相关
     "extra_cast_success_rate",           # float - 额外铸造成功率

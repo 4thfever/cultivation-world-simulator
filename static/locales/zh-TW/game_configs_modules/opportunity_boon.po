@@ -1,0 +1,32 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "OPPORTUNITY_BOON_LUCK_TITLE"
+msgstr "天機垂青"
+
+msgid "OPPORTUNITY_BOON_LUCK_DESC"
+msgstr "一縷天機洗練命數，氣運微增。"
+
+msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
+msgstr "延壽靈機"
+
+msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
+msgstr "靈機入體，壽元略有增長。"
+
+msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
+msgstr "悟道餘韻"
+
+msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
+msgstr "心神澄明，數年內修行更易入境。"
+
+msgid "OPPORTUNITY_BOON_BODY_TITLE"
+msgstr "靈機淬體"
+
+msgid "OPPORTUNITY_BOON_BODY_DESC"
+msgstr "靈機淬煉體魄，數年內戰力有所提升。"

@@ -1,0 +1,32 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "OPPORTUNITY_BOON_LUCK_TITLE"
+msgstr "Heavenly Favor"
+
+msgid "OPPORTUNITY_BOON_LUCK_DESC"
+msgstr "A thread of heavenly mystery tempers fate, slightly increasing luck."
+
+msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
+msgstr "Longevity Insight"
+
+msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
+msgstr "Spiritual insight enters the body, slightly increasing lifespan."
+
+msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
+msgstr "Dao Afterglow"
+
+msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
+msgstr "The mind clears, making cultivation easier for several years."
+
+msgid "OPPORTUNITY_BOON_BODY_TITLE"
+msgstr "Spiritual Tempering"
+
+msgid "OPPORTUNITY_BOON_BODY_DESC"
+msgstr "Spiritual force tempers the body, improving combat strength for several years."

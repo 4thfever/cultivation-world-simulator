@@ -1300,6 +1300,38 @@ msgstr "位于极东海外，孤悬海外，云雾缭绕。岛上灵泉喷涌，
 msgid "NORMAL_REGION_118_NAME"
 msgstr "蓬莱遗岛"
 
+#. opportunity_boon.csv: 天机垂青
+msgid "OPPORTUNITY_BOON_LUCK_TITLE"
+msgstr "天机垂青"
+
+#. opportunity_boon.csv: 一缕天机洗练命数，气运微增。
+msgid "OPPORTUNITY_BOON_LUCK_DESC"
+msgstr "一缕天机洗练命数，气运微增。"
+
+#. opportunity_boon.csv: 延寿灵机
+msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
+msgstr "延寿灵机"
+
+#. opportunity_boon.csv: 灵机入体，寿元略有增长。
+msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
+msgstr "灵机入体，寿元略有增长。"
+
+#. opportunity_boon.csv: 悟道余韵
+msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
+msgstr "悟道余韵"
+
+#. opportunity_boon.csv: 心神澄明，数年内修行更易入境。
+msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
+msgstr "心神澄明，数年内修行更易入境。"
+
+#. opportunity_boon.csv: 灵机淬体
+msgid "OPPORTUNITY_BOON_BODY_TITLE"
+msgstr "灵机淬体"
+
+#. opportunity_boon.csv: 灵机淬炼体魄，数年内战力有所提升。
+msgid "OPPORTUNITY_BOON_BODY_DESC"
+msgstr "灵机淬炼体魄，数年内战力有所提升。"
+
 msgid "ORTHODOXY_BUDDHISM_DESC"
 msgstr "普渡众生，通过禅定后的顿悟增进境界"
 
@@ -3730,6 +3762,19 @@ msgstr "阵法"
 #. world_info.csv: 阵法
 msgid "WORLD_INFO_FORMATION_TITLE"
 msgstr "阵法"
+
+#. world_info.csv:
+#. 修士偶有福至心灵，感应到某人或某地与自身缘法相牵。若循感应而去，或得宝物与助益，或空手而返，亦可能遭逢凶险；若迟迟未寻，机缘也会自行散去。
+msgid "WORLD_INFO_OPPORTUNITY_DESC"
+msgstr "修士偶有福至心灵，感应到某人或某地与自身缘法相牵。若循感应而去，或得宝物与助益，或空手而返，亦可能遭逢凶险；若迟迟未寻，机缘也会自行散去。"
+
+#. world_info.csv: 机缘
+msgid "WORLD_INFO_OPPORTUNITY_NAME"
+msgstr "机缘"
+
+#. world_info.csv: 机缘
+msgid "WORLD_INFO_OPPORTUNITY_TITLE"
+msgstr "机缘"
 
 msgid "PERSONA_1015_NAME"
 msgstr "亲近异类"

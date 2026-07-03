@@ -272,3 +272,15 @@ msgstr "陣法"
 #. world_info.csv: 阵法
 msgid "WORLD_INFO_FORMATION_TITLE"
 msgstr "陣法"
+
+#. world_info.csv: 機緣
+msgid "WORLD_INFO_OPPORTUNITY_DESC"
+msgstr "修士偶有福至心靈，感應到某人或某地與自身緣法相牽。若循感應而去，或得寶物與助益，或空手而返，亦可能遭逢凶險；若遲遲未尋，機緣也會自行散去。"
+
+#. world_info.csv: 機緣
+msgid "WORLD_INFO_OPPORTUNITY_NAME"
+msgstr "機緣"
+
+#. world_info.csv: 機緣
+msgid "WORLD_INFO_OPPORTUNITY_TITLE"
+msgstr "機緣"

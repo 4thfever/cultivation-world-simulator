@@ -10,6 +10,7 @@ from .consts import (
     EXTRA_HIDDEN_DOMAIN_DROP_PROB,
     EXTRA_LUCK,
     EXTRA_MISFORTUNE_PROBABILITY,
+    EXTRA_OPPORTUNITY_PROBABILITY,
 )
 
 
@@ -31,6 +32,7 @@ def build_luck_derived_effects(luck: float) -> dict[str, float]:
 
     return {
         EXTRA_FORTUNE_PROBABILITY: _clamp(luck * 0.001, -0.01, 0.03),
+        EXTRA_OPPORTUNITY_PROBABILITY: _clamp(luck * 0.0005, -0.005, 0.015),
         EXTRA_MISFORTUNE_PROBABILITY: _clamp(-luck * 0.0005, -0.01, 0.01),
         EXTRA_HIDDEN_DOMAIN_DROP_PROB: _clamp(luck * 0.01, -0.10, 0.20),
         EXTRA_HIDDEN_DOMAIN_DANGER_PROB: _clamp(-luck * 0.005, -0.10, 0.10),

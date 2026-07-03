@@ -1,0 +1,6 @@
+id,title_id,desc_id,title,desc,effects,duration_months,weight,min_realm,max_realm,source
+编号,标题ID,描述ID,标题,描述,效果,持续月份,权重,最低境界,最高境界,效果来源
+1,OPPORTUNITY_BOON_LUCK_TITLE,OPPORTUNITY_BOON_LUCK_DESC,天机垂青,一缕天机洗练命数，气运微增。,"{extra_luck: 1}",0,10,QI_REFINEMENT,NASCENT_SOUL,effect_source_opportunity
+2,OPPORTUNITY_BOON_LIFESPAN_TITLE,OPPORTUNITY_BOON_LIFESPAN_DESC,延寿灵机,灵机入体，寿元略有增长。,"{extra_max_lifespan: 10}",0,8,QI_REFINEMENT,NASCENT_SOUL,effect_source_opportunity
+3,OPPORTUNITY_BOON_CULTIVATION_TITLE,OPPORTUNITY_BOON_CULTIVATION_DESC,悟道余韵,心神澄明，数年内修行更易入境。,"{extra_respire_exp_multiplier: 0.5}",60,10,QI_REFINEMENT,NASCENT_SOUL,effect_source_opportunity
+4,OPPORTUNITY_BOON_BODY_TITLE,OPPORTUNITY_BOON_BODY_DESC,灵机淬体,灵机淬炼体魄，数年内战力有所提升。,"{extra_battle_strength_points: 2}",60,8,QI_REFINEMENT,NASCENT_SOUL,effect_source_opportunity

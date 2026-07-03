@@ -44,6 +44,7 @@ from src.classes.world_lore_snapshot import apply_world_lore_snapshot
 from src.config import get_settings_service
 from src.utils.config import CONFIG
 from src.run.map_snapshot import load_map_from_snapshot
+from src.systems.opportunity import load_opportunities
 
 
 def get_events_db_path(save_path: Path) -> Path:
@@ -158,6 +159,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         world.sect_relation_modifiers = list(world_data.get("sect_relation_modifiers", []) or [])
         world.prune_expired_sect_relation_modifiers(int(world.month_stamp))
         world.sect_wars = list(world_data.get("sect_wars", []) or [])
+        load_opportunities(world, world_data.get("opportunities"))
 
         # 恢复已故角色档案
         deceased_data = world_data.get("deceased_records", [])

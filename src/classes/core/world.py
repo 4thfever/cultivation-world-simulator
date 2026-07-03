@@ -17,6 +17,7 @@ from src.classes.language import language_manager
 from src.i18n import t
 from src.classes.ranking import RankingManager
 from src.classes.war import SectWar, STATUS_PEACE, STATUS_WAR
+from src.systems.opportunity import OpportunityManager
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
@@ -58,6 +59,8 @@ class World():
     playthrough_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     sect_relation_modifiers: list[dict[str, Any]] = field(default_factory=list)
     sect_wars: list[dict[str, Any]] = field(default_factory=list)
+    # 机缘管理器：维护单人限时机缘状态与冷却。
+    opportunity_manager: OpportunityManager = field(default_factory=OpportunityManager)
     # 宗门上下文（惰性初始化），用于统一本局启用宗门作用域
     _sect_context: Any = field(default=None, init=False, repr=False)
 

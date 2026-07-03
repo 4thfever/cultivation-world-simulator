@@ -23,6 +23,7 @@ class StoryEventKind(StrEnum):
     SECT_MISSION = "sect_mission"
     WORLD_FORTUNE = "world_fortune"
     WORLD_MISFORTUNE = "world_misfortune"
+    OPPORTUNITY = "opportunity"
     GATHERING = "gathering"
 
 

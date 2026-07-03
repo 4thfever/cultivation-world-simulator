@@ -34,6 +34,21 @@ world:
   autonomous_creation_story_probability: 0.5
   fortune_probability: 0.005
   misfortune_probability: 0.005
+  opportunity:
+    probability: 0.001
+    duration_months: 60
+    cooldown_months_after_dissipated: 12
+    cooldown_months_after_resolved: 60
+    injury_min_hp_ratio: 0.2
+    injury_max_hp_ratio: 0.8
+    target_weights:
+      region: 70
+      avatar: 30
+    outcome_weights:
+      equipment: 35
+      boon: 35
+      empty: 20
+      injury: 10
   fate_revelation_probability: 0.001
   random_minor_event_prob: 0.05
   birth_rate_per_month: 0.005
@@ -55,6 +70,7 @@ world:
       sect_mission: 0.4
       world_fortune: 0.50
       world_misfortune: 0.35
+      opportunity: 0.50
       gathering: 1.0
 
 sect:

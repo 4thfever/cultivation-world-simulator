@@ -485,6 +485,7 @@ def get_avatar_ai_context(
     """
     from src.i18n import t
     from src.systems.cultivation_display import build_avatar_cultivation_display
+    from src.systems.opportunity import get_opportunity_context_text
 
     world = avatar.world
     current_month = int(getattr(world, "month_stamp", 0))
@@ -565,6 +566,7 @@ def get_avatar_ai_context(
             "long_term_objective": avatar.long_term_objective.content if avatar.long_term_objective else "",
             "short_term_objective": avatar.short_term_objective,
             "goldfinger": _get_goldfinger_structured_payload(avatar),
+            "active_opportunity": get_opportunity_context_text(avatar),
         },
         "sect_context": sect_context,
         "local_world": {

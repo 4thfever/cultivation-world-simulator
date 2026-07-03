@@ -1,0 +1,124 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-03 00:00+0000\n"
+"PO-Revision-Date: 2026-07-03 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: zh-TW\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "nearby"
+msgstr "近處"
+
+msgid "northeast"
+msgstr "東北"
+
+msgid "northwest"
+msgstr "西北"
+
+msgid "southeast"
+msgstr "東南"
+
+msgid "southwest"
+msgstr "西南"
+
+msgid "old city"
+msgstr "古城"
+
+msgid "sect territory"
+msgstr "宗門之地"
+
+msgid "cave dwelling"
+msgstr "洞府"
+
+msgid "wilderness place"
+msgstr "荒僻之地"
+
+msgid "unknown place"
+msgstr "未知之地"
+
+msgid "unknown realm"
+msgstr "未知境界"
+
+msgid "{realm} cultivator"
+msgstr "{realm}修士"
+
+msgid "{realm} {weapon_type} cultivator"
+msgstr "{realm}{weapon_type}修"
+
+msgid "{realm} sect cultivator"
+msgstr "{realm}宗門修士"
+
+msgid ""
+"{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a "
+"{region_hint} in the {direction}."
+msgstr "{avatar_name}福至心靈，隱約感到一線機緣與{direction}一處{region_hint}相牽。"
+
+msgid ""
+"{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a "
+"{target_hint} in the {direction}."
+msgstr "{avatar_name}心有所感，似有一線機緣繫於{direction}某位{target_hint}。"
+
+msgid "{avatar_name}'s opportunity sense gradually faded away."
+msgstr "{avatar_name}心頭那縷機緣感應漸漸散去，終究未能尋得。"
+
+msgid "{avatar_name}'s opportunity sense suddenly broke, leaving nowhere to seek."
+msgstr "{avatar_name}心頭那縷機緣感應驟然斷絕，終究無從尋起。"
+
+msgid ""
+"{avatar_name} followed the opportunity and found an ancient treasure: "
+"{item_name}."
+msgstr "{avatar_name}循著機緣而至，得見古修遺物：{item_name}。"
+
+msgid ""
+"{avatar_name} followed the opportunity and obtained {item_name}. "
+"{exchange_text}"
+msgstr "{avatar_name}循著機緣而至，獲得了{item_name}。{exchange_text}"
+
+msgid "{avatar_name} followed the opportunity and gained a boon: {boon_title}."
+msgstr "{avatar_name}循著機緣有所悟，氣機洗練，獲得助益：{boon_title}。"
+
+msgid "{avatar_name} followed the opportunity, but the spiritual trace faded away."
+msgstr "{avatar_name}循著機緣而至，卻只見靈機散盡，終究無所得。"
+
+msgid ""
+"{avatar_name} followed the feeling, but only found the spiritual trace "
+"already gone."
+msgstr "{avatar_name}循著感應而至，卻只見靈機散盡，終究無所得。"
+
+msgid ""
+"{avatar_name} followed the opportunity, but suffered backlash and was injured "
+"for {damage} HP."
+msgstr "{avatar_name}循著機緣而至，卻遭殘留凶險反噬，受傷 {damage} 點。"
+
+msgid "{avatar_name} followed the opportunity, but suffered backlash and perished."
+msgstr "{avatar_name}循著機緣而至，卻遭殘留凶險反噬，身死道消。"
+
+msgid "opportunity_boon"
+msgstr "機緣助益"
+
+msgid "opportunity_story_prompt"
+msgstr "請圍繞這次機緣結算寫一段短小仙俠故事，突出天機牽引、角色當下處境與結果本身。不要改寫已經發生的事實。"
+
+msgid "{years} years and {months} months"
+msgstr "{years}年{months}個月"
+
+msgid "{years} years"
+msgstr "{years}年"
+
+msgid "{months} months"
+msgstr "{months}個月"
+
+msgid "Opportunity sense: {hint} This sense may last about {remaining}."
+msgstr "機緣感應：{hint}此感應約還可維持{remaining}。"
+
+msgid "effect_extra_opportunity_probability"
+msgstr "機緣概率 +{value}"
+
+msgid "effect_source_opportunity"
+msgstr "機緣"

@@ -20,6 +20,7 @@ def get_effect_desc(effect_key: str) -> str:
         "extra_luck": "effect_extra_luck",
         "extra_fortune_probability": "effect_extra_fortune_probability",
         "extra_misfortune_probability": "effect_extra_misfortune_probability",
+        "extra_opportunity_probability": "effect_extra_opportunity_probability",
         "extra_harvest_materials": "effect_extra_harvest_materials",
         "extra_hunt_materials": "effect_extra_hunt_materials",
         "extra_mine_materials": "effect_extra_mine_materials",

@@ -1300,6 +1300,30 @@ msgstr "位於極東海外，孤懸海外，雲霧繚繞。島上靈泉噴湧，
 msgid "NORMAL_REGION_118_NAME"
 msgstr "蓬萊遺島"
 
+msgid "OPPORTUNITY_BOON_LUCK_TITLE"
+msgstr "天機垂青"
+
+msgid "OPPORTUNITY_BOON_LUCK_DESC"
+msgstr "一縷天機洗練命數，氣運微增。"
+
+msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
+msgstr "延壽靈機"
+
+msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
+msgstr "靈機入體，壽元略有增長。"
+
+msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
+msgstr "悟道餘韻"
+
+msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
+msgstr "心神澄明，數年內修行更易入境。"
+
+msgid "OPPORTUNITY_BOON_BODY_TITLE"
+msgstr "靈機淬體"
+
+msgid "OPPORTUNITY_BOON_BODY_DESC"
+msgstr "靈機淬煉體魄，數年內戰力有所提升。"
+
 msgid "ORTHODOXY_BUDDHISM_DESC"
 msgstr "普渡眾生，通過禪定後的頓悟增進境界"
 
@@ -3713,6 +3737,18 @@ msgstr "陣法"
 #. world_info.csv: 阵法
 msgid "WORLD_INFO_FORMATION_TITLE"
 msgstr "陣法"
+
+#. world_info.csv: 機緣
+msgid "WORLD_INFO_OPPORTUNITY_DESC"
+msgstr "修士偶有福至心靈，感應到某人或某地與自身緣法相牽。若循感應而去，或得寶物與助益，或空手而返，亦可能遭逢凶險；若遲遲未尋，機緣也會自行散去。"
+
+#. world_info.csv: 機緣
+msgid "WORLD_INFO_OPPORTUNITY_NAME"
+msgstr "機緣"
+
+#. world_info.csv: 機緣
+msgid "WORLD_INFO_OPPORTUNITY_TITLE"
+msgstr "機緣"
 
 msgid "PERSONA_1015_NAME"
 msgstr "親近異類"

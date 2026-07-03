@@ -43,6 +43,7 @@ from src.classes.language import language_manager
 from src.classes.world_lore_snapshot import build_world_lore_snapshot
 from src.sim.load.load_game import get_events_db_path
 from src.run.map_snapshot import serialize_map_snapshot
+from src.systems.opportunity import serialize_opportunities
 
 
 
@@ -218,6 +219,7 @@ def save_game(
             "sect_runtime_states": sect_runtime_states,
             "sect_relation_modifiers": list(getattr(world, "sect_relation_modifiers", []) or []),
             "sect_wars": list(getattr(world, "sect_wars", []) or []),
+            "opportunities": serialize_opportunities(world),
             # 已故角色档案（独立于 AvatarManager，不受 cleanup 影响）
             "deceased_records": world.deceased_manager.to_save_list(),
         }
