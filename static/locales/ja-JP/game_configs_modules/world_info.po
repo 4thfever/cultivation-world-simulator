@@ -252,12 +252,12 @@ msgstr "陣法"
 
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_DESC"
-msgstr "Cultivators may occasionally feel a sudden stir of fate, sensing that a person or place is tied to their own opportunity. If they follow the sense, they may gain treasure or a boon, return empty-handed, or meet danger; if they delay too long, the opportunity fades away."
+msgstr "修士は時に福至心霊のごとく、ある人や地が自身の縁法と結ばれていると感じることがある。その感応を辿れば、宝物や助けを得ることも、空手で戻ることも、凶険に遭うこともある。長く放置すれば、機縁は自然に散っていく。"
 
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_NAME"
-msgstr "Opportunity"
+msgstr "機縁"
 
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_TITLE"
-msgstr "Opportunity"
+msgstr "機縁"

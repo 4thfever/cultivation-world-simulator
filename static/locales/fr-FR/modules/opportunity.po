@@ -13,124 +13,124 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "nearby"
-msgstr "nearby"
+msgstr "tout près"
 
 msgid "northeast"
-msgstr "northeast"
+msgstr "nord-est"
 
 msgid "northwest"
-msgstr "northwest"
+msgstr "nord-ouest"
 
 msgid "southeast"
-msgstr "southeast"
+msgstr "sud-est"
 
 msgid "southwest"
-msgstr "southwest"
+msgstr "sud-ouest"
 
 msgid "old city"
-msgstr "old city"
+msgstr "ancienne cité"
 
 msgid "sect territory"
-msgstr "sect territory"
+msgstr "territoire de secte"
 
 msgid "cave dwelling"
-msgstr "cave dwelling"
+msgstr "demeure troglodyte"
 
 msgid "wilderness place"
-msgstr "wilderness place"
+msgstr "lieu sauvage"
 
 msgid "unknown place"
-msgstr "unknown place"
+msgstr "lieu inconnu"
 
 msgid "unknown realm"
-msgstr "unknown realm"
+msgstr "royaume inconnu"
 
 msgid "{realm} cultivator"
-msgstr "{realm} cultivator"
+msgstr "cultivateur du royaume {realm}"
 
 msgid "{realm} {weapon_type} cultivator"
-msgstr "{realm} {weapon_type} cultivator"
+msgstr "cultivateur du royaume {realm} maniant {weapon_type}"
 
 msgid "{realm} sect cultivator"
-msgstr "{realm} sect cultivator"
+msgstr "cultivateur de secte du royaume {realm}"
 
 msgid ""
 "{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a "
 "{region_hint} in the {direction}."
 msgstr ""
-"{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a "
-"{region_hint} in the {direction}."
+"{avatar_name} sentit un frémissement du destin, comme si une occasion était "
+"liée à une {region_hint} vers le {direction}."
 
 msgid ""
 "{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a "
 "{target_hint} in the {direction}."
 msgstr ""
-"{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a "
-"{target_hint} in the {direction}."
+"{avatar_name} sentit un frémissement du destin, comme si une occasion était "
+"liée à un {target_hint} vers le {direction}."
 
 msgid "{avatar_name}'s opportunity sense gradually faded away."
-msgstr "{avatar_name}'s opportunity sense gradually faded away."
+msgstr "L'intuition d'occasion de {avatar_name} se dissipa peu à peu."
 
 msgid "{avatar_name}'s opportunity sense suddenly broke, leaving nowhere to seek."
-msgstr "{avatar_name}'s opportunity sense suddenly broke, leaving nowhere to seek."
+msgstr "L'intuition d'occasion de {avatar_name} se rompit soudain, ne laissant plus aucune piste."
 
 msgid ""
 "{avatar_name} followed the opportunity and found an ancient treasure: "
 "{item_name}."
 msgstr ""
-"{avatar_name} followed the opportunity and found an ancient treasure: "
+"{avatar_name} suivit l'occasion et découvrit un ancien trésor : "
 "{item_name}."
 
 msgid ""
 "{avatar_name} followed the opportunity and obtained {item_name}. "
 "{exchange_text}"
 msgstr ""
-"{avatar_name} followed the opportunity and obtained {item_name}. "
+"{avatar_name} suivit l'occasion et obtint {item_name}. "
 "{exchange_text}"
 
 msgid "{avatar_name} followed the opportunity and gained a boon: {boon_title}."
-msgstr "{avatar_name} followed the opportunity and gained a boon: {boon_title}."
+msgstr "{avatar_name} suivit l'occasion et reçut un bienfait : {boon_title}."
 
 msgid "{avatar_name} followed the opportunity, but the spiritual trace faded away."
-msgstr "{avatar_name} followed the opportunity, but the spiritual trace faded away."
+msgstr "{avatar_name} suivit l'occasion, mais la trace spirituelle s'était dissipée."
 
 msgid ""
 "{avatar_name} followed the feeling, but only found the spiritual trace "
 "already gone."
 msgstr ""
-"{avatar_name} followed the feeling, but only found the spiritual trace "
-"already gone."
+"{avatar_name} suivit son intuition, mais ne trouva qu'une trace spirituelle "
+"déjà dissipée."
 
 msgid ""
 "{avatar_name} followed the opportunity, but suffered backlash and was injured "
 "for {damage} HP."
 msgstr ""
-"{avatar_name} followed the opportunity, but suffered backlash and was injured "
-"for {damage} HP."
+"{avatar_name} suivit l'occasion, mais subit un contrecoup et perdit "
+"{damage} PV."
 
 msgid "{avatar_name} followed the opportunity, but suffered backlash and perished."
-msgstr "{avatar_name} followed the opportunity, but suffered backlash and perished."
+msgstr "{avatar_name} suivit l'occasion, mais subit un contrecoup fatal et périt."
 
 msgid "opportunity_boon"
-msgstr "Opportunity boon"
+msgstr "Bienfait d'occasion"
 
 msgid "opportunity_story_prompt"
-msgstr "Write a short xianxia story around this opportunity resolution, emphasizing heavenly guidance, the character's current situation, and the result itself. Do not rewrite the established facts."
+msgstr "Écris une courte histoire xianxia autour de la résolution de cette occasion, en soulignant la guidance céleste, la situation actuelle du personnage et le résultat lui-même. Ne réécris pas les faits établis."
 
 msgid "{years} years and {months} months"
-msgstr "{years} years and {months} months"
+msgstr "{years} ans et {months} mois"
 
 msgid "{years} years"
-msgstr "{years} years"
+msgstr "{years} ans"
 
 msgid "{months} months"
-msgstr "{months} months"
+msgstr "{months} mois"
 
 msgid "Opportunity sense: {hint} This sense may last about {remaining}."
-msgstr "Opportunity sense: {hint} This sense may last about {remaining}."
+msgstr "Intuition d'occasion : {hint} Cette intuition pourrait durer encore environ {remaining}."
 
 msgid "effect_extra_opportunity_probability"
-msgstr "Opportunity Chance +{value}"
+msgstr "Chance d'occasion +{value}"
 
 msgid "effect_source_opportunity"
-msgstr "Opportunity"
+msgstr "Occasion"

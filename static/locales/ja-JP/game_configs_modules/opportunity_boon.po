@@ -8,25 +8,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "OPPORTUNITY_BOON_LUCK_TITLE"
-msgstr "Heavenly Favor"
+msgstr "天機の加護"
 
 msgid "OPPORTUNITY_BOON_LUCK_DESC"
-msgstr "A thread of heavenly mystery tempers fate, slightly increasing luck."
+msgstr "一筋の天機が命数を洗練し、運気をわずかに高める。"
 
 msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
-msgstr "Longevity Insight"
+msgstr "延寿の霊機"
 
 msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
-msgstr "Spiritual insight enters the body, slightly increasing lifespan."
+msgstr "霊機が身に入り、寿元がわずかに延びる。"
 
 msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
-msgstr "Dao Afterglow"
+msgstr "悟道の余韻"
 
 msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
-msgstr "The mind clears, making cultivation easier for several years."
+msgstr "心神が澄み、数年のあいだ修行が入境しやすくなる。"
 
 msgid "OPPORTUNITY_BOON_BODY_TITLE"
-msgstr "Spiritual Tempering"
+msgstr "霊機淬体"
 
 msgid "OPPORTUNITY_BOON_BODY_DESC"
-msgstr "Spiritual force tempers the body, improving combat strength for several years."
+msgstr "霊機が体魄を鍛え、数年のあいだ戦力を高める。"

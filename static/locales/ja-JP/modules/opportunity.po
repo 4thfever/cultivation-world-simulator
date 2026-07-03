@@ -13,124 +13,118 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "nearby"
-msgstr "nearby"
+msgstr "近く"
 
 msgid "northeast"
-msgstr "northeast"
+msgstr "北東"
 
 msgid "northwest"
-msgstr "northwest"
+msgstr "北西"
 
 msgid "southeast"
-msgstr "southeast"
+msgstr "南東"
 
 msgid "southwest"
-msgstr "southwest"
+msgstr "南西"
 
 msgid "old city"
-msgstr "old city"
+msgstr "古き城邑"
 
 msgid "sect territory"
-msgstr "sect territory"
+msgstr "宗門の地"
 
 msgid "cave dwelling"
-msgstr "cave dwelling"
+msgstr "洞府"
 
 msgid "wilderness place"
-msgstr "wilderness place"
+msgstr "荒れた地"
 
 msgid "unknown place"
-msgstr "unknown place"
+msgstr "未知の地"
 
 msgid "unknown realm"
-msgstr "unknown realm"
+msgstr "未知の境界"
 
 msgid "{realm} cultivator"
-msgstr "{realm} cultivator"
+msgstr "{realm}の修士"
 
 msgid "{realm} {weapon_type} cultivator"
-msgstr "{realm} {weapon_type} cultivator"
+msgstr "{realm}の{weapon_type}修士"
 
 msgid "{realm} sect cultivator"
-msgstr "{realm} sect cultivator"
+msgstr "{realm}の宗門修士"
 
 msgid ""
 "{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a "
 "{region_hint} in the {direction}."
 msgstr ""
-"{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a "
-"{region_hint} in the {direction}."
+"{avatar_name}は天機の揺らぎを感じ、{direction}の{region_hint}に一筋の機縁が結ばれていると悟った。"
 
 msgid ""
 "{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a "
 "{target_hint} in the {direction}."
 msgstr ""
-"{avatar_name} felt a stir of fate, sensing a thread of opportunity tied to a "
-"{target_hint} in the {direction}."
+"{avatar_name}は天機の揺らぎを感じ、{direction}のある{target_hint}に一筋の機縁が結ばれていると悟った。"
 
 msgid "{avatar_name}'s opportunity sense gradually faded away."
-msgstr "{avatar_name}'s opportunity sense gradually faded away."
+msgstr "{avatar_name}の胸中にあった機縁の感応は、次第に薄れていった。"
 
 msgid "{avatar_name}'s opportunity sense suddenly broke, leaving nowhere to seek."
-msgstr "{avatar_name}'s opportunity sense suddenly broke, leaving nowhere to seek."
+msgstr "{avatar_name}の胸中にあった機縁の感応は突如として断たれ、もはや辿るすべはなくなった。"
 
 msgid ""
 "{avatar_name} followed the opportunity and found an ancient treasure: "
 "{item_name}."
 msgstr ""
-"{avatar_name} followed the opportunity and found an ancient treasure: "
-"{item_name}."
+"{avatar_name}は機縁を辿り、古修の遺物を見つけた：{item_name}。"
 
 msgid ""
 "{avatar_name} followed the opportunity and obtained {item_name}. "
 "{exchange_text}"
 msgstr ""
-"{avatar_name} followed the opportunity and obtained {item_name}. "
-"{exchange_text}"
+"{avatar_name}は機縁を辿り、{item_name}を得た。{exchange_text}"
 
 msgid "{avatar_name} followed the opportunity and gained a boon: {boon_title}."
-msgstr "{avatar_name} followed the opportunity and gained a boon: {boon_title}."
+msgstr "{avatar_name}は機縁を辿り、恩恵を得た：{boon_title}。"
 
 msgid "{avatar_name} followed the opportunity, but the spiritual trace faded away."
-msgstr "{avatar_name} followed the opportunity, but the spiritual trace faded away."
+msgstr "{avatar_name}は機縁を辿ったが、霊機の痕跡はすでに消え去っていた。"
 
 msgid ""
 "{avatar_name} followed the feeling, but only found the spiritual trace "
 "already gone."
 msgstr ""
-"{avatar_name} followed the feeling, but only found the spiritual trace "
-"already gone."
+"{avatar_name}は感応を辿ったが、霊機の痕跡はすでに消え去っていた。"
 
 msgid ""
 "{avatar_name} followed the opportunity, but suffered backlash and was injured "
 "for {damage} HP."
 msgstr ""
-"{avatar_name} followed the opportunity, but suffered backlash and was injured "
-"for {damage} HP."
+"{avatar_name}は機縁を辿ったが、残された凶険の反噬を受け、{damage} HPの傷を負った。"
 
 msgid "{avatar_name} followed the opportunity, but suffered backlash and perished."
-msgstr "{avatar_name} followed the opportunity, but suffered backlash and perished."
+msgstr "{avatar_name}は機縁を辿ったが、残された凶険の反噬を受け、身死道消した。"
 
 msgid "opportunity_boon"
-msgstr "Opportunity boon"
+msgstr "機縁の恩恵"
 
 msgid "opportunity_story_prompt"
-msgstr "Write a short xianxia story around this opportunity resolution, emphasizing heavenly guidance, the character's current situation, and the result itself. Do not rewrite the established facts."
+msgstr "この機縁の結末をめぐる短い仙侠風の物語を書いてください。天機の導き、人物の現在の境遇、そして結果そのものを強調し、すでに起きた事実は書き換えないでください。"
 
 msgid "{years} years and {months} months"
-msgstr "{years} years and {months} months"
+msgstr "{years}年{months}か月"
 
 msgid "{years} years"
-msgstr "{years} years"
+msgstr "{years}年"
 
 msgid "{months} months"
-msgstr "{months} months"
+msgstr "{months}か月"
 
 msgid "Opportunity sense: {hint} This sense may last about {remaining}."
-msgstr "Opportunity sense: {hint} This sense may last about {remaining}."
+msgstr "機縁の感応：{hint}この感応はおよそ{remaining}続く。"
 
 msgid "effect_extra_opportunity_probability"
-msgstr "Opportunity Chance +{value}"
+msgstr "機縁確率 +{value}"
 
 msgid "effect_source_opportunity"
-msgstr "Opportunity"
+msgstr "機縁"

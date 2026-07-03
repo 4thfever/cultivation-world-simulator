@@ -8,25 +8,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "OPPORTUNITY_BOON_LUCK_TITLE"
-msgstr "Heavenly Favor"
+msgstr "Thiên Cơ Chiếu Cố"
 
 msgid "OPPORTUNITY_BOON_LUCK_DESC"
-msgstr "A thread of heavenly mystery tempers fate, slightly increasing luck."
+msgstr "Một tia thiên cơ gột rửa mệnh số, khiến khí vận tăng nhẹ."
 
 msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
-msgstr "Longevity Insight"
+msgstr "Linh Cơ Diên Thọ"
 
 msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
-msgstr "Spiritual insight enters the body, slightly increasing lifespan."
+msgstr "Linh cơ nhập thể, khiến thọ nguyên tăng nhẹ."
 
 msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
-msgstr "Dao Afterglow"
+msgstr "Dư Âm Ngộ Đạo"
 
 msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
-msgstr "The mind clears, making cultivation easier for several years."
+msgstr "Tâm thần trong sáng, trong vài năm tu hành dễ nhập cảnh hơn."
 
 msgid "OPPORTUNITY_BOON_BODY_TITLE"
-msgstr "Spiritual Tempering"
+msgstr "Linh Cơ Tôi Thể"
 
 msgid "OPPORTUNITY_BOON_BODY_DESC"
-msgstr "Spiritual force tempers the body, improving combat strength for several years."
+msgstr "Linh cơ tôi luyện thể phách, trong vài năm chiến lực được tăng lên."

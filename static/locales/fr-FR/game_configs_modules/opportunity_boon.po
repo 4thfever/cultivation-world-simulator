@@ -8,25 +8,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "OPPORTUNITY_BOON_LUCK_TITLE"
-msgstr "Heavenly Favor"
+msgstr "Faveur céleste"
 
 msgid "OPPORTUNITY_BOON_LUCK_DESC"
-msgstr "A thread of heavenly mystery tempers fate, slightly increasing luck."
+msgstr "Un fil de mystère céleste polit le destin et augmente légèrement la chance."
 
 msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
-msgstr "Longevity Insight"
+msgstr "Élan de longévité"
 
 msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
-msgstr "Spiritual insight enters the body, slightly increasing lifespan."
+msgstr "Une intuition spirituelle pénètre le corps et prolonge légèrement la durée de vie."
 
 msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
-msgstr "Dao Afterglow"
+msgstr "Rémanence du Dao"
 
 msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
-msgstr "The mind clears, making cultivation easier for several years."
+msgstr "L'esprit s'éclaircit, rendant la cultivation plus aisée pendant plusieurs années."
 
 msgid "OPPORTUNITY_BOON_BODY_TITLE"
-msgstr "Spiritual Tempering"
+msgstr "Trempe spirituelle"
 
 msgid "OPPORTUNITY_BOON_BODY_DESC"
-msgstr "Spiritual force tempers the body, improving combat strength for several years."
+msgstr "Une force spirituelle trempe le corps et améliore la puissance de combat pendant plusieurs années."

@@ -1696,30 +1696,35 @@ msgid "NORMAL_REGION_118_NAME"
 msgstr "Île Perdue de Penglai"
 
 msgid "OPPORTUNITY_BOON_LUCK_TITLE"
-msgstr "Heavenly Favor"
+msgstr "Faveur céleste"
 
 msgid "OPPORTUNITY_BOON_LUCK_DESC"
-msgstr "A thread of heavenly mystery tempers fate, slightly increasing luck."
+msgstr ""
+"Un fil de mystère céleste polit le destin et augmente légèrement la chance."
 
 msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
-msgstr "Longevity Insight"
+msgstr "Élan de longévité"
 
 msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
-msgstr "Spiritual insight enters the body, slightly increasing lifespan."
+msgstr ""
+"Une intuition spirituelle pénètre le corps et prolonge légèrement la durée "
+"de vie."
 
 msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
-msgstr "Dao Afterglow"
+msgstr "Rémanence du Dao"
 
 msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
-msgstr "The mind clears, making cultivation easier for several years."
+msgstr ""
+"L'esprit s'éclaircit, rendant la cultivation plus aisée pendant plusieurs "
+"années."
 
 msgid "OPPORTUNITY_BOON_BODY_TITLE"
-msgstr "Spiritual Tempering"
+msgstr "Trempe spirituelle"
 
 msgid "OPPORTUNITY_BOON_BODY_DESC"
 msgstr ""
-"Spiritual force tempers the body, improving combat strength for several "
-"years."
+"Une force spirituelle trempe le corps et améliore la puissance de combat "
+"pendant plusieurs années."
 
 msgid "ORTHODOXY_BUDDHISM_DESC"
 msgstr ""
@@ -4907,18 +4912,19 @@ msgstr "Formations"
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_DESC"
 msgstr ""
-"Cultivators may occasionally feel a sudden stir of fate, sensing that a "
-"person or place is tied to their own opportunity. If they follow the sense, "
-"they may gain treasure or a boon, return empty-handed, or meet danger; if "
-"they delay too long, the opportunity fades away."
+"Les cultivateurs peuvent parfois sentir un frémissement soudain du destin et"
+" percevoir qu'une personne ou un lieu est lié à leur propre occasion. S'ils "
+"suivent cette intuition, ils peuvent obtenir un trésor ou un bienfait, "
+"revenir les mains vides, ou rencontrer un danger ; s'ils tardent trop, "
+"l'occasion se dissipera d'elle-même."
 
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_NAME"
-msgstr "Opportunity"
+msgstr "Occasion"
 
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_TITLE"
-msgstr "Opportunity"
+msgstr "Occasion"
 
 msgid "PERSONA_1015_NAME"
 msgstr "Bienveillant envers les Autres Espèces"

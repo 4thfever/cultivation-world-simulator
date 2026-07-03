@@ -1636,30 +1636,28 @@ msgid "NORMAL_REGION_118_NAME"
 msgstr "Bồng Lai Di Đảo"
 
 msgid "OPPORTUNITY_BOON_LUCK_TITLE"
-msgstr "Heavenly Favor"
+msgstr "Thiên Cơ Chiếu Cố"
 
 msgid "OPPORTUNITY_BOON_LUCK_DESC"
-msgstr "A thread of heavenly mystery tempers fate, slightly increasing luck."
+msgstr "Một tia thiên cơ gột rửa mệnh số, khiến khí vận tăng nhẹ."
 
 msgid "OPPORTUNITY_BOON_LIFESPAN_TITLE"
-msgstr "Longevity Insight"
+msgstr "Linh Cơ Diên Thọ"
 
 msgid "OPPORTUNITY_BOON_LIFESPAN_DESC"
-msgstr "Spiritual insight enters the body, slightly increasing lifespan."
+msgstr "Linh cơ nhập thể, khiến thọ nguyên tăng nhẹ."
 
 msgid "OPPORTUNITY_BOON_CULTIVATION_TITLE"
-msgstr "Dao Afterglow"
+msgstr "Dư Âm Ngộ Đạo"
 
 msgid "OPPORTUNITY_BOON_CULTIVATION_DESC"
-msgstr "The mind clears, making cultivation easier for several years."
+msgstr "Tâm thần trong sáng, trong vài năm tu hành dễ nhập cảnh hơn."
 
 msgid "OPPORTUNITY_BOON_BODY_TITLE"
-msgstr "Spiritual Tempering"
+msgstr "Linh Cơ Tôi Thể"
 
 msgid "OPPORTUNITY_BOON_BODY_DESC"
-msgstr ""
-"Spiritual force tempers the body, improving combat strength for several "
-"years."
+msgstr "Linh cơ tôi luyện thể phách, trong vài năm chiến lực được tăng lên."
 
 msgid "ORTHODOXY_BUDDHISM_DESC"
 msgstr ""
@@ -4681,18 +4679,18 @@ msgstr "Trận Pháp"
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_DESC"
 msgstr ""
-"Cultivators may occasionally feel a sudden stir of fate, sensing that a "
-"person or place is tied to their own opportunity. If they follow the sense, "
-"they may gain treasure or a boon, return empty-handed, or meet danger; if "
-"they delay too long, the opportunity fades away."
+"Tu sĩ đôi khi phúc chí tâm linh, cảm ứng được một người hoặc một nơi có "
+"duyên pháp liên hệ với bản thân. Nếu lần theo cảm ứng ấy, họ có thể nhận "
+"được bảo vật hoặc trợ ích, cũng có thể tay trắng trở về, thậm chí gặp hung "
+"hiểm; nếu chậm trễ quá lâu, cơ duyên cũng sẽ tự tan đi."
 
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_NAME"
-msgstr "Opportunity"
+msgstr "Cơ Duyên"
 
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_TITLE"
-msgstr "Opportunity"
+msgstr "Cơ Duyên"
 
 msgid "PERSONA_1015_NAME"
 msgstr "Thân Thiện Với Dị Tộc"

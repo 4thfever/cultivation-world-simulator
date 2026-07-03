@@ -298,12 +298,12 @@ msgstr "Trận Pháp"
 
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_DESC"
-msgstr "Cultivators may occasionally feel a sudden stir of fate, sensing that a person or place is tied to their own opportunity. If they follow the sense, they may gain treasure or a boon, return empty-handed, or meet danger; if they delay too long, the opportunity fades away."
+msgstr "Tu sĩ đôi khi phúc chí tâm linh, cảm ứng được một người hoặc một nơi có duyên pháp liên hệ với bản thân. Nếu lần theo cảm ứng ấy, họ có thể nhận được bảo vật hoặc trợ ích, cũng có thể tay trắng trở về, thậm chí gặp hung hiểm; nếu chậm trễ quá lâu, cơ duyên cũng sẽ tự tan đi."
 
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_NAME"
-msgstr "Opportunity"
+msgstr "Cơ Duyên"
 
 #. world_info.csv: 机缘
 msgid "WORLD_INFO_OPPORTUNITY_TITLE"
-msgstr "Opportunity"
+msgstr "Cơ Duyên"
