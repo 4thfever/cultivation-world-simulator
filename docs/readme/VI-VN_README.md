@@ -384,7 +384,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Mệnh cách
 - ✅ Trận pháp
 - ✅ Cổ
-- [ ] Cơ duyên
+- [x] Cơ duyên
 - [ ] Bí mật nhân vật và âm mưu
 - [ ] Hóa thân và phi thăng thượng giới
 - [ ] Bí mật thế giới và pháp tắc thế giới

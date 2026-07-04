@@ -390,7 +390,7 @@ Pour les détails de contribution, consultez [CONTRIBUTORS.md](../../CONTRIBUTOR
 - ✅ Révélation de destin
 - ✅ Formations
 - ✅ Gu
-- [ ] Opportunités fortuites
+- [x] Opportunités fortuites
 - [ ] Secrets et complots de personnages
 - [ ] Incarnations et ascension vers le royaume supérieur
 - [ ] Secrets du monde et lois du monde
