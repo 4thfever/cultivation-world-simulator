@@ -384,7 +384,7 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 - ✅ Fate Revelation
 - ✅ Formations
 - ✅ Gu
-- [x] Fortuitous opportunity
+- ✅ Fortuitous opportunity
 - [ ] Character Secrets & Conspiracies
 - [ ] Incarnations & Ascension to the upper realm
 - [ ] World secrets & World laws
