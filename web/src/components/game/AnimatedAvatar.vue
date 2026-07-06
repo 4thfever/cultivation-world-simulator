@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTextures } from './composables/useTextures'
 import { ref, watch, computed } from 'vue'
-import { Graphics, type TextStyle } from 'pixi.js'
+import { Graphics, Rectangle, type TextStyle } from 'pixi.js'
 import type { AvatarSummary } from '../../types/core'
 import { useSharedTicker } from './composables/useSharedTicker'
 import { avatarIdToColor } from '../../utils/eventHelper'
@@ -123,6 +123,14 @@ const nameStyle = computed<TextStyle>(() => ({
 
 const hoverRingAlpha = computed(() => isHovered.value ? 0.72 : 0)
 const hoverRingScale = computed(() => isHovered.value ? 1.04 : 0.92)
+const interactionHitArea = computed(() =>
+    new Rectangle(
+        -props.tileSize * 1.35,
+        -props.tileSize * 3.9,
+        props.tileSize * 2.7,
+        props.tileSize * 4.55,
+    ),
+)
 
 const drawHoverRing = (g: Graphics) => {
     g.clear()
@@ -200,18 +208,27 @@ const drawEmojiBg = (g: Graphics) => {
     :x="currentX" 
     :y="currentY" 
     :z-index="Math.floor(currentY)"
+    :alpha="isHovered ? 1 : 0.98"
+    :hitArea="interactionHitArea"
     event-mode="static"
     cursor="pointer"
-    :alpha="isHovered ? 1 : 0.98"
+    @pointerenter="isHovered = true"
     @pointerover="isHovered = true"
+    @pointermove="isHovered = true"
+    @mouseenter="isHovered = true"
+    @mouseover="isHovered = true"
+    @pointerleave="isHovered = false"
     @pointerout="isHovered = false"
+    @mouseleave="isHovered = false"
+    @mouseout="isHovered = false"
     @pointertap="handlePointerTap"
   >
     <graphics
       :y="tileSize * 0.18"
       :alpha="hoverRingAlpha"
       :scale="hoverRingScale"
-      @render="drawHoverRing"
+      event-mode="none"
+      @effect="drawHoverRing"
     />
 
     <sprite
@@ -220,11 +237,13 @@ const drawEmojiBg = (g: Graphics) => {
       :anchor-x="0.5"
       :anchor-y="0.9" 
       :scale="getScale()"
+      event-mode="none"
     />
     
     <graphics
       v-else
-      @render="drawFallback"
+      event-mode="none"
+      @effect="drawFallback"
     />
 
     <!-- Emoji Bubble -->
@@ -233,13 +252,15 @@ const drawEmojiBg = (g: Graphics) => {
       :x="tileSize * 0.6"
       :y="(getTexture() ? -tileSize * 3.5 : -tileSize * 1.2) + emojiBob"
       :z-index="100"
+      event-mode="none"
     >
-        <graphics @render="drawEmojiBg" />
+        <graphics event-mode="none" @effect="drawEmojiBg" />
         <text
             :text="avatar.action_emoji"
             :style="emojiStyle"
             :anchor="0.5"
             :scale="1.0"
+            event-mode="none"
         />
     </container>
 
@@ -249,6 +270,7 @@ const drawEmojiBg = (g: Graphics) => {
       :anchor-x="0.5"
       :anchor-y="0"
       :y="10"
+      event-mode="none"
     />
   </container>
 </template>

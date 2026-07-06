@@ -69,6 +69,7 @@ function drawRegionLabelHoverBg(g: Graphics, width: number, height: number) {
   g.fill({ color: 0x19150e, alpha: 0.78 })
   g.stroke({ width: 2, color: 0xf6d68a, alpha: 0.68 })
 }
+
 </script>
 
 <template>
@@ -89,7 +90,7 @@ function drawRegionLabelHoverBg(g: Graphics, width: number, height: number) {
                 v-if="isRegionHovered(r)"
                 event-mode="none"
                 :alpha="hoverLabelBgAlpha"
-                @render="(g: Graphics) => drawRegionLabelHoverBg(g, Math.max(r.displayName.length * 18, 38), 24)"
+                @effect="(g: Graphics) => drawRegionLabelHoverBg(g, Math.max(r.displayName.length * 18, 38), 24)"
             />
             <!-- @vue-ignore -->
             <text
@@ -99,8 +100,15 @@ function drawRegionLabelHoverBg(g: Graphics, width: number, height: number) {
                 :scale="isRegionHovered(r) ? 1.05 : 1"
                 event-mode="static"
                 cursor="pointer"
+                @pointerenter="handleRegionPointerOver(r)"
                 @pointerover="handleRegionPointerOver(r)"
+                @pointermove="handleRegionPointerOver(r)"
+                @mouseenter="handleRegionPointerOver(r)"
+                @mouseover="handleRegionPointerOver(r)"
+                @pointerleave="handleRegionPointerOut(r)"
                 @pointerout="handleRegionPointerOut(r)"
+                @mouseleave="handleRegionPointerOut(r)"
+                @mouseout="handleRegionPointerOut(r)"
                 @pointertap="handleRegionSelect(r)"
             />
         </container>
