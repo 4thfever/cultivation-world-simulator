@@ -60,20 +60,53 @@ const emit = defineEmits(['trigger-click'])
 }
 
 .widget-trigger {
+  position: relative;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-weight: bold;
-  transition: opacity 0.2s, color 0.2s;
+  transition:
+    filter 0.16s ease,
+    outline-color 0.16s ease,
+    transform 0.16s ease;
   white-space: nowrap;
   min-width: 0;
   max-width: 100%;
   flex-shrink: 1;
 }
 
+.widget-trigger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0.72);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
 .widget-trigger:hover {
-  opacity: 0.92;
+  filter: brightness(1.22);
+  transform: translateY(-1px);
+}
+
+.widget-trigger:hover::after {
+  opacity: 0.65;
+  transform: scaleX(1);
+}
+
+.widget-trigger:active {
+  transform: translateY(0);
+  filter: brightness(1.06);
+}
+
+.widget-trigger:focus-visible {
+  outline: 2px solid color-mix(in srgb, currentColor 58%, white);
+  outline-offset: 2px;
 }
 
 .divider {

@@ -56,38 +56,6 @@ function handleSubjectClick(subject: EventSubject) {
       <span class="event-stream-list__date">{{ formatDate(event) }}</span>
       <div class="event-stream-list__body">
         <div class="event-stream-list__main">
-          <div
-            v-if="eventSubjects(event).length > 0"
-            class="event-stream-list__subjects"
-            :title="subjectTitle(event)"
-          >
-            <button
-              v-for="subject in visibleSubjects(event)"
-              :key="`${event.id}-${subject.type}-${subject.id}`"
-              type="button"
-              class="event-stream-list__subject"
-              :class="{
-                'event-stream-list__subject--avatar': subject.type === 'avatar',
-                'event-stream-list__subject--sect': subject.type === 'sect',
-                'event-stream-list__subject--dead': subject.type === 'avatar' && subject.isDead,
-                'clickable-avatar': subject.type === 'avatar',
-                'clickable-sect': subject.type === 'sect',
-              }"
-              :style="subjectStyle(subject)"
-              @click="handleSubjectClick(subject)"
-            >
-              {{ subject.name }}
-            </button>
-            <span
-              v-if="hiddenSubjectCount(event) > 0"
-              class="event-stream-list__subject event-stream-list__subject--more"
-            >
-              +{{ hiddenSubjectCount(event) }}
-            </span>
-          </div>
-          <div v-else class="event-stream-list__subjects">
-            <span class="event-stream-list__subject event-stream-list__subject--world">世界</span>
-          </div>
           <div class="event-stream-list__content">
             <template v-if="renderSegments">
               <template v-for="(segment, index) in renderSegments(event)" :key="`${event.id}-${index}`">
@@ -113,6 +81,38 @@ function handleSubjectClick(subject: EventSubject) {
             <template v-else>
               {{ event.content || event.text }}
             </template>
+            <span
+              v-if="eventSubjects(event).length > 0"
+              class="event-stream-list__subjects"
+              :title="subjectTitle(event)"
+            >
+              <button
+                v-for="subject in visibleSubjects(event)"
+                :key="`${event.id}-${subject.type}-${subject.id}`"
+                type="button"
+                class="event-stream-list__subject"
+                :class="{
+                  'event-stream-list__subject--avatar': subject.type === 'avatar',
+                  'event-stream-list__subject--sect': subject.type === 'sect',
+                  'event-stream-list__subject--dead': subject.type === 'avatar' && subject.isDead,
+                  'clickable-avatar': subject.type === 'avatar',
+                  'clickable-sect': subject.type === 'sect',
+                }"
+                :style="subjectStyle(subject)"
+                @click="handleSubjectClick(subject)"
+              >
+                {{ subject.name }}
+              </button>
+              <span
+                v-if="hiddenSubjectCount(event) > 0"
+                class="event-stream-list__subject event-stream-list__subject--more"
+              >
+                +{{ hiddenSubjectCount(event) }}
+              </span>
+            </span>
+            <span v-else class="event-stream-list__subjects">
+              <span class="event-stream-list__subject event-stream-list__subject--world">世界</span>
+            </span>
           </div>
         </div>
       </div>
@@ -130,7 +130,7 @@ function handleSubjectClick(subject: EventSubject) {
 .event-stream-list__row {
   display: flex;
   gap: 8px;
-  padding: 6px 0;
+  padding: 5px 0;
   border-bottom: 1px solid #2a2a2a;
 }
 
@@ -151,11 +151,7 @@ function handleSubjectClick(subject: EventSubject) {
 }
 
 .event-stream-list__main {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
   min-width: 0;
-  flex-wrap: wrap;
 }
 
 .event-stream-list__subjects {
@@ -163,21 +159,25 @@ function handleSubjectClick(subject: EventSubject) {
   align-items: center;
   gap: 4px;
   max-width: 100%;
-  flex: 0 0 auto;
+  min-width: 0;
+  flex-wrap: wrap;
+  margin-left: 6px;
+  vertical-align: text-bottom;
 }
 
 .event-stream-list__subject {
   display: inline-flex;
   align-items: center;
   max-width: 92px;
-  height: 20px;
-  padding: 0 6px;
+  height: 18px;
+  padding: 0 5px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.06);
   color: #d8d8d8;
   font-size: 12px;
-  line-height: 18px;
+  line-height: 16px;
+  vertical-align: text-bottom;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -210,7 +210,7 @@ button.event-stream-list__subject {
 
 .event-stream-list__content {
   color: #ddd;
-  flex: 1;
+  width: 100%;
   min-width: 0;
   white-space: pre-line;
 }

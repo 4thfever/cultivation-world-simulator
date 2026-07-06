@@ -343,7 +343,12 @@ watch(sidebarWidth, width => {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition:
+    background 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease;
 }
 
 .control-btn-icon {
@@ -362,9 +367,21 @@ watch(sidebarWidth, width => {
 }
 
 .control-btn:hover {
-  background: rgba(0,0,0,0.8);
-  border-color: #666;
+  background: rgba(32, 28, 20, 0.82);
+  border-color: rgba(232, 202, 143, 0.56);
+  box-shadow: 0 0 0 1px rgba(232, 202, 143, 0.1), 0 6px 16px rgba(0, 0, 0, 0.32);
   color: #fff;
+  transform: translateY(-1px);
+}
+
+.control-btn:active {
+  background: rgba(20, 18, 14, 0.9);
+  transform: translateY(0);
+}
+
+.control-btn:focus-visible {
+  outline: 2px solid rgba(232, 202, 143, 0.74);
+  outline-offset: 2px;
 }
 
 .pause-indicator {

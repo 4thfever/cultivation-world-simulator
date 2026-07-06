@@ -206,7 +206,11 @@ function openPanel(panel: StatusBarPanelKey) {
   min-width: 0;
   overflow-x: auto;
   overflow-y: hidden;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+}
+
+.center::-webkit-scrollbar {
+  display: none;
 }
 
 .center :deep(.status-widget) {

@@ -30,6 +30,7 @@ const initialOffsetX = props.offset?.x ?? 0
 const initialOffsetY = props.offset?.y ?? 0
 const currentX = ref((props.avatar.x + initialOffsetX) * props.tileSize + props.tileSize / 2)
 const currentY = ref((props.avatar.y + initialOffsetY) * props.tileSize + props.tileSize / 2)
+const isHovered = ref(false)
 
 // Watch for prop updates (server ticks)
 watch(() => [props.avatar.x, props.avatar.y], ([newX, newY]) => {
@@ -98,9 +99,10 @@ function getScale() {
 
 const drawFallback = (g: Graphics) => {
     g.clear()
-    g.circle(0, 0, props.tileSize * 0.5)
+    const radius = props.tileSize * (isHovered.value ? 0.56 : 0.5)
+    g.circle(0, 0, radius)
     g.fill({ color: props.avatar.gender === 'female' ? 0xffaaaa : 0xaaaaff })
-    g.stroke({ width: 2, color: 0x000000 })
+    g.stroke({ width: isHovered.value ? 4 : 2, color: isHovered.value ? 0xffe2a7 : 0x000000 })
 }
 
 const nameStyle = computed<TextStyle>(() => ({
@@ -118,6 +120,19 @@ const nameStyle = computed<TextStyle>(() => ({
         alpha: 0.8
     }
 }))
+
+const hoverRingAlpha = computed(() => isHovered.value ? 0.72 : 0)
+const hoverRingScale = computed(() => isHovered.value ? 1.04 : 0.92)
+
+const drawHoverRing = (g: Graphics) => {
+    g.clear()
+    if (!isHovered.value) return
+    const radiusX = props.tileSize * 0.82
+    const radiusY = props.tileSize * 0.34
+    g.ellipse(0, 0, radiusX, radiusY)
+    g.fill({ color: 0xf6d68a, alpha: 0.12 })
+    g.stroke({ width: 3, color: 0xf6d68a, alpha: 0.76 })
+}
 
 function handlePointerTap() {
     useAudio().play('select')
@@ -187,8 +202,18 @@ const drawEmojiBg = (g: Graphics) => {
     :z-index="Math.floor(currentY)"
     event-mode="static"
     cursor="pointer"
+    :alpha="isHovered ? 1 : 0.98"
+    @pointerover="isHovered = true"
+    @pointerout="isHovered = false"
     @pointertap="handlePointerTap"
   >
+    <graphics
+      :y="tileSize * 0.18"
+      :alpha="hoverRingAlpha"
+      :scale="hoverRingScale"
+      @render="drawHoverRing"
+    />
+
     <sprite
       v-if="getTexture()"
       :texture="getTexture()"
