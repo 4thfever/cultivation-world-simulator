@@ -356,7 +356,7 @@ def get_world_state(
     recent_events: list[dict[str, Any]] = []
     event_manager = getattr(world, "event_manager", None)
     if event_manager:
-        recent_events = serialize_events_for_client(event_manager.get_recent_events(limit=50))
+        recent_events = serialize_events_for_client(event_manager.get_recent_events(limit=50), world=world)
 
     return {
         "status": "ok",
@@ -519,7 +519,7 @@ def get_events_page(
         limit=limit,
     )
     return {
-        "events": serialize_events_for_client(events),
+        "events": serialize_events_for_client(events, world=world),
         "next_cursor": next_cursor,
         "has_more": has_more,
     }

@@ -18,6 +18,24 @@ export function processNewEvents(rawEvents: EventDTO[], currentYear: number, cur
     timestamp: (e.year ?? currentYear) * 12 + (e.month ?? currentMonth),
     relatedAvatarIds: e.related_avatar_ids || [],
     relatedSects: e.related_sects,
+    subjects: (e.subjects || []).map((subject) => {
+      if (subject.type === 'sect') {
+        return {
+          type: 'sect' as const,
+          id: subject.id,
+          name: subject.name,
+          color: subject.color,
+          isActive: subject.is_active,
+        };
+      }
+      return {
+        type: 'avatar' as const,
+        id: subject.id,
+        name: subject.name,
+        color: subject.color || avatarIdToColor(subject.id),
+        isDead: subject.is_dead,
+      };
+    }),
     isMajor: e.is_major,
     isStory: e.is_story,
     renderKey: e.render_key,

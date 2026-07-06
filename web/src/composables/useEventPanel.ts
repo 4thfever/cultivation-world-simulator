@@ -297,17 +297,7 @@ export function useEventPanel() {
       ? t(`game.event_templates.${event.renderKey}`, event.renderParams ?? {})
       : (event.content || event.text || '')
 
-    if (!event.isStory || event.relatedAvatarIds.length !== 1) {
-      return text
-    }
-
-    const avatarId = event.relatedAvatarIds[0]
-    const avatarName = avatarStore.avatarList.find(item => item.id === avatarId)?.name
-    if (!avatarName || text.includes(avatarName)) {
-      return text
-    }
-
-    return t('game.event_panel.story_subject_prefix', { avatar: avatarName, content: text })
+    return text
   }
 
   function getEventSegmentCacheKey(event: GameEvent, text: string) {

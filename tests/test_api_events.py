@@ -193,6 +193,7 @@ class TestGetEventsAPI:
         assert "month" in event
         assert "month_stamp" in event
         assert "related_avatar_ids" in event
+        assert "subjects" in event
         assert "is_major" in event
         assert "is_story" in event
 

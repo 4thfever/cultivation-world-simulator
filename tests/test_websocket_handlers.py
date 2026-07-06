@@ -496,6 +496,10 @@ class TestSerializeEvents:
         assert serialized["render_params"] == {"avatar_name": "Tester", "nickname": "Crimson Sage"}
         assert "avatar1" in serialized["related_avatar_ids"]
         assert "avatar2" in serialized["related_avatar_ids"]
+        assert serialized["subjects"] == [
+            {"type": "avatar", "id": "avatar1", "name": "avatar1", "is_dead": False},
+            {"type": "avatar", "id": "avatar2", "name": "avatar2", "is_dead": False},
+        ]
 
     def test_serialize_event_without_optional_fields(self):
         """Test serializing event with minimal fields."""
@@ -519,6 +523,43 @@ class TestSerializeEvents:
         assert serialized["is_story"] is False
         assert serialized["render_key"] is None
         assert serialized["render_params"] is None
+        assert serialized["subjects"] == []
+
+    def test_serialize_event_subjects_with_world(self):
+        """Test event display subjects are resolved from the runtime world."""
+        from src.server.main import serialize_events_for_client
+        from src.classes.event import Event
+        from src.systems.time import create_month_stamp, Year, Month
+
+        avatar = MagicMock()
+        avatar.id = "avatar1"
+        avatar.name = "Alice"
+        avatar.is_dead = False
+
+        sect = MagicMock()
+        sect.id = 7
+        sect.name = "Azure Sect"
+        sect.color = "#4DD0E1"
+        sect.is_active = True
+
+        world = MagicMock()
+        world.avatar_manager.get_avatar.return_value = avatar
+        world.sect_context.get_active_sects.return_value = [sect]
+
+        month_stamp = create_month_stamp(Year(100), Month.MARCH)
+        event = Event(
+            month_stamp=month_stamp,
+            content="A structured event.",
+            related_avatars=["avatar1"],
+            related_sects=[7],
+        )
+
+        result = serialize_events_for_client([event], world=world)
+
+        assert result[0]["subjects"] == [
+            {"type": "avatar", "id": "avatar1", "name": "Alice", "is_dead": False},
+            {"type": "sect", "id": 7, "name": "Azure Sect", "color": "#4DD0E1", "is_active": True},
+        ]
 
 
 class TestGameLoopIntegration:

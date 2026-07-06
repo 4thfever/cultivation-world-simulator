@@ -299,6 +299,22 @@ export interface AppSettingsPatchDTO {
 
 // --- Events ---
 
+export type EventSubjectDTO =
+  | {
+      type: 'avatar';
+      id: string;
+      name: string;
+      color?: string | null;
+      is_dead?: boolean;
+    }
+  | {
+      type: 'sect';
+      id: number;
+      name: string;
+      color?: string | null;
+      is_active?: boolean;
+    }
+
 export interface EventDTO {
   id: string;
   text: string;
@@ -308,6 +324,7 @@ export interface EventDTO {
   month_stamp: number;
   related_avatar_ids: string[];
   related_sects?: number[];
+  subjects?: EventSubjectDTO[];
   is_major: boolean;
   is_story: boolean;
   render_key?: string;

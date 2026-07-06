@@ -5,6 +5,122 @@ from typing import Any
 from src.classes.effect import format_effects_to_text
 
 
+def _get_avatar_by_id(world, avatar_id: str):
+    avatar_manager = getattr(world, "avatar_manager", None)
+    if avatar_manager is None:
+        return None
+
+    get_avatar = getattr(avatar_manager, "get_avatar", None)
+    if callable(get_avatar):
+        avatar = get_avatar(avatar_id)
+        if avatar is not None:
+            return avatar
+
+    avatars = getattr(avatar_manager, "avatars", None)
+    if isinstance(avatars, dict):
+        return avatars.get(avatar_id)
+
+    return None
+
+
+def _get_deceased_record_by_id(world, avatar_id: str):
+    deceased_manager = getattr(world, "deceased_manager", None)
+    if deceased_manager is None:
+        return None
+
+    get_record = getattr(deceased_manager, "get_record", None)
+    if callable(get_record):
+        return get_record(avatar_id)
+
+    return None
+
+
+def _get_sect_by_id(world, sect_id: int):
+    sect_context = getattr(world, "sect_context", None)
+    if sect_context is not None:
+        get_active_sects = getattr(sect_context, "get_active_sects", None)
+        if callable(get_active_sects):
+            for sect in get_active_sects():
+                if int(getattr(sect, "id", -1)) == sect_id:
+                    return sect
+
+    for sect in getattr(world, "existed_sects", []) or []:
+        if int(getattr(sect, "id", -1)) == sect_id:
+            return sect
+
+    try:
+        from src.classes.core.sect import sects_by_id
+
+        return sects_by_id.get(sect_id)
+    except Exception:
+        return None
+
+
+def _build_event_subjects(event: Any, world: Any | None) -> list[dict[str, Any]]:
+    """Build display subjects from structured event relations."""
+    subjects: list[dict[str, Any]] = []
+
+    for avatar_id in (getattr(event, "related_avatars", None) or []):
+        avatar_id_str = str(avatar_id)
+        avatar = _get_avatar_by_id(world, avatar_id_str) if world is not None else None
+        if avatar is not None:
+            subjects.append(
+                {
+                    "type": "avatar",
+                    "id": avatar_id_str,
+                    "name": str(getattr(avatar, "name", avatar_id_str)),
+                    "is_dead": bool(getattr(avatar, "is_dead", False)),
+                }
+            )
+            continue
+
+        record = _get_deceased_record_by_id(world, avatar_id_str) if world is not None else None
+        if record is not None:
+            subjects.append(
+                {
+                    "type": "avatar",
+                    "id": avatar_id_str,
+                    "name": str(getattr(record, "name", avatar_id_str)),
+                    "is_dead": True,
+                }
+            )
+            continue
+
+        subjects.append(
+            {
+                "type": "avatar",
+                "id": avatar_id_str,
+                "name": avatar_id_str,
+                "is_dead": False,
+            }
+        )
+
+    for sect_id in (getattr(event, "related_sects", None) or []):
+        sect_id_int = int(sect_id)
+        sect = _get_sect_by_id(world, sect_id_int) if world is not None else None
+        if sect is not None:
+            subjects.append(
+                {
+                    "type": "sect",
+                    "id": sect_id_int,
+                    "name": str(getattr(sect, "name", sect_id_int)),
+                    "color": getattr(sect, "color", None),
+                    "is_active": bool(getattr(sect, "is_active", True)),
+                }
+            )
+            continue
+
+        subjects.append(
+            {
+                "type": "sect",
+                "id": sect_id_int,
+                "name": str(sect_id_int),
+            }
+        )
+
+    return subjects
+
+
 def serialize_active_domains(world) -> list[dict[str, Any]]:
     """Serialize hidden-domain configs for frontend display."""
     domains_data: list[dict[str, Any]] = []
@@ -41,7 +157,7 @@ def serialize_active_domains(world) -> list[dict[str, Any]]:
     return domains_data
 
 
-def serialize_events_for_client(events: list[Any]) -> list[dict[str, Any]]:
+def serialize_events_for_client(events: list[Any], *, world: Any | None = None) -> list[dict[str, Any]]:
     """Convert runtime Event objects into transport-safe JSON dicts."""
     serialized: list[dict[str, Any]] = []
     for idx, event in enumerate(events):
@@ -84,6 +200,7 @@ def serialize_events_for_client(events: list[Any]) -> list[dict[str, Any]]:
                 "month_stamp": stamp_int,
                 "related_avatar_ids": related_avatar_ids,
                 "related_sects": related_sect_ids,
+                "subjects": _build_event_subjects(event, world),
                 "is_major": bool(getattr(event, "is_major", False)),
                 "is_story": bool(getattr(event, "is_story", False)),
                 "render_key": getattr(event, "render_key", None),

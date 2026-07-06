@@ -44,6 +44,7 @@ const createMockEvent = (overrides: Partial<GameEvent> = {}): GameEvent => ({
   timestamp: 1200,
   monthStamp: 1200,
   relatedAvatarIds: ['avatar-1'],
+  subjects: [],
   isMajor: false,
   isStory: false,
   createdAt: '2026-01-01T00:00:00Z',

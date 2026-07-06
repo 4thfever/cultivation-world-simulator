@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GameEvent } from '@/types/core'
+import type { EventSubject, GameEvent } from '@/types/core'
 
 type EventSegment =
   | { type: 'text'; text: string }
@@ -14,6 +14,39 @@ const props = defineProps<{
   onAvatarClick?: (avatarId?: string) => void
   onSectClick?: (sectId?: number) => void
 }>()
+
+const MAX_VISIBLE_SUBJECTS = 3
+
+function visibleSubjects(event: GameEvent): EventSubject[] {
+  return eventSubjects(event).slice(0, MAX_VISIBLE_SUBJECTS)
+}
+
+function hiddenSubjectCount(event: GameEvent): number {
+  return Math.max(0, eventSubjects(event).length - MAX_VISIBLE_SUBJECTS)
+}
+
+function eventSubjects(event: GameEvent): EventSubject[] {
+  return Array.isArray(event.subjects) ? event.subjects : []
+}
+
+function subjectStyle(subject: EventSubject) {
+  if (subject.type === 'avatar') {
+    return { color: subject.color || undefined }
+  }
+  return { color: subject.color || undefined, borderColor: subject.color || undefined }
+}
+
+function subjectTitle(event: GameEvent): string {
+  return eventSubjects(event).map(subject => subject.name).join('、')
+}
+
+function handleSubjectClick(subject: EventSubject) {
+  if (subject.type === 'avatar') {
+    props.onAvatarClick?.(subject.id)
+    return
+  }
+  props.onSectClick?.(subject.id)
+}
 </script>
 
 <template>
@@ -21,31 +54,67 @@ const props = defineProps<{
     <div v-if="events.length === 0" class="event-stream-list__empty">{{ emptyText }}</div>
     <div v-for="event in events" :key="event.id" class="event-stream-list__row">
       <span class="event-stream-list__date">{{ formatDate(event) }}</span>
-      <div class="event-stream-list__content">
-        <template v-if="renderSegments">
-          <template v-for="(segment, index) in renderSegments(event)" :key="`${event.id}-${index}`">
-            <span
-              v-if="segment.type === 'avatar'"
-              class="event-stream-list__link clickable-avatar"
-              :style="{ color: segment.color }"
-              @click="onAvatarClick?.(segment.avatarId)"
+      <div class="event-stream-list__body">
+        <div class="event-stream-list__main">
+          <div
+            v-if="eventSubjects(event).length > 0"
+            class="event-stream-list__subjects"
+            :title="subjectTitle(event)"
+          >
+            <button
+              v-for="subject in visibleSubjects(event)"
+              :key="`${event.id}-${subject.type}-${subject.id}`"
+              type="button"
+              class="event-stream-list__subject"
+              :class="{
+                'event-stream-list__subject--avatar': subject.type === 'avatar',
+                'event-stream-list__subject--sect': subject.type === 'sect',
+                'event-stream-list__subject--dead': subject.type === 'avatar' && subject.isDead,
+                'clickable-avatar': subject.type === 'avatar',
+                'clickable-sect': subject.type === 'sect',
+              }"
+              :style="subjectStyle(subject)"
+              @click="handleSubjectClick(subject)"
             >
-              {{ segment.text }}
-            </span>
+              {{ subject.name }}
+            </button>
             <span
-              v-else-if="segment.type === 'sect'"
-              class="event-stream-list__link clickable-sect"
-              :style="{ color: segment.color }"
-              @click="onSectClick?.(segment.sectId)"
+              v-if="hiddenSubjectCount(event) > 0"
+              class="event-stream-list__subject event-stream-list__subject--more"
             >
-              {{ segment.text }}
+              +{{ hiddenSubjectCount(event) }}
             </span>
-            <span v-else>{{ segment.text }}</span>
-          </template>
-        </template>
-        <template v-else>
-          {{ event.content || event.text }}
-        </template>
+          </div>
+          <div v-else class="event-stream-list__subjects">
+            <span class="event-stream-list__subject event-stream-list__subject--world">世界</span>
+          </div>
+          <div class="event-stream-list__content">
+            <template v-if="renderSegments">
+              <template v-for="(segment, index) in renderSegments(event)" :key="`${event.id}-${index}`">
+                <span
+                  v-if="segment.type === 'avatar'"
+                  class="event-stream-list__link clickable-avatar"
+                  :style="{ color: segment.color }"
+                  @click="onAvatarClick?.(segment.avatarId)"
+                >
+                  {{ segment.text }}
+                </span>
+                <span
+                  v-else-if="segment.type === 'sect'"
+                  class="event-stream-list__link clickable-sect"
+                  :style="{ color: segment.color }"
+                  @click="onSectClick?.(segment.sectId)"
+                >
+                  {{ segment.text }}
+                </span>
+                <span v-else>{{ segment.text }}</span>
+              </template>
+            </template>
+            <template v-else>
+              {{ event.content || event.text }}
+            </template>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -74,6 +143,63 @@ const props = defineProps<{
   font-size: 13px;
   color: #999;
   white-space: nowrap;
+}
+
+.event-stream-list__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.event-stream-list__main {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.event-stream-list__subjects {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  flex: 0 0 auto;
+}
+
+.event-stream-list__subject {
+  display: inline-flex;
+  align-items: center;
+  max-width: 92px;
+  height: 20px;
+  padding: 0 6px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #d8d8d8;
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+button.event-stream-list__subject {
+  font: inherit;
+}
+
+.event-stream-list__subject--sect {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.event-stream-list__subject--dead {
+  opacity: 0.72;
+}
+
+.event-stream-list__subject--more,
+.event-stream-list__subject--world {
+  cursor: default;
+  color: #aaa;
 }
 
 .event-stream-list__content,

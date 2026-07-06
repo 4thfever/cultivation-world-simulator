@@ -450,6 +450,22 @@ export interface AvatarOverview {
 
 // --- 事件 (Events) ---
 
+export type EventSubject =
+  | {
+      type: 'avatar';
+      id: string;
+      name: string;
+      color?: string | null;
+      isDead?: boolean;
+    }
+  | {
+      type: 'sect';
+      id: number;
+      name: string;
+      color?: string | null;
+      isActive?: boolean;
+    }
+
 export interface GameEvent {
   id: string;
   text: string;
@@ -460,6 +476,7 @@ export interface GameEvent {
   timestamp: number; 
   relatedAvatarIds: string[];
   relatedSects?: number[];
+  subjects: EventSubject[];
   isMajor: boolean;
   isStory: boolean;
   renderKey?: string;

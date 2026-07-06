@@ -87,7 +87,7 @@ def build_tick_state(
     world,
     events,
     avatar_updates: list[dict[str, Any]],
-    serialize_events_for_client: Callable[[list[Any]], list[dict[str, Any]]],
+    serialize_events_for_client: Callable[..., list[dict[str, Any]]],
     serialize_phenomenon: Callable[[Any], dict[str, Any] | None],
     serialize_active_domains: Callable[[Any], list[dict[str, Any]]],
 ) -> dict[str, Any]:
@@ -96,7 +96,7 @@ def build_tick_state(
         "type": "tick",
         "year": int(world.month_stamp.get_year()),
         "month": world.month_stamp.get_month().value,
-        "events": serialize_events_for_client(events),
+        "events": serialize_events_for_client(events, world=world),
         "avatars": avatar_updates,
         "phenomenon": serialize_phenomenon(world.current_phenomenon),
         "active_domains": serialize_active_domains(world),

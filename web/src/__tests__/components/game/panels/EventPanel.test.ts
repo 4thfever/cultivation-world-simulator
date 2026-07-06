@@ -326,7 +326,7 @@ describe('EventPanel', () => {
     expect(wrapper.text()).not.toContain('Old fallback content')
   })
 
-  it('prefixes single-avatar story when the story text omits the avatar name', () => {
+  it('renders subject tag when event text omits the avatar name', () => {
     const i18n = createEventPanelI18n()
 
     eventStoreMock.events = [
@@ -338,6 +338,7 @@ describe('EventPanel', () => {
         month: 3,
         timestamp: 15,
         relatedAvatarIds: ['a1'],
+        subjects: [{ type: 'avatar', id: 'a1', name: 'Alice', color: 'hsl(100, 70%, 65%)' }],
         isMajor: false,
         isStory: true,
       },
@@ -347,11 +348,13 @@ describe('EventPanel', () => {
       global: { plugins: [i18n] },
     })
 
-    expect(wrapper.text()).toContain('[Alice] He sat through the night')
-    expect(wrapper.find('.clickable-avatar').text()).toBe('Alice')
+    expect(wrapper.text()).toContain('Alice')
+    expect(wrapper.text()).toContain('He sat through the night')
+    expect(wrapper.text()).not.toContain('[Alice] He sat through the night')
+    expect(wrapper.find('.event-stream-list__subject--avatar').text()).toBe('Alice')
   })
 
-  it('does not prefix single-avatar story when the story text already includes the avatar name', () => {
+  it('renders subject tag without duplicating story text when text already includes the avatar name', () => {
     const i18n = createEventPanelI18n()
 
     eventStoreMock.events = [
@@ -363,6 +366,7 @@ describe('EventPanel', () => {
         month: 3,
         timestamp: 15,
         relatedAvatarIds: ['a1'],
+        subjects: [{ type: 'avatar', id: 'a1', name: 'Alice', color: 'hsl(100, 70%, 65%)' }],
         isMajor: false,
         isStory: true,
       },
@@ -374,9 +378,10 @@ describe('EventPanel', () => {
 
     expect(wrapper.text()).toContain('Alice sat through the night')
     expect(wrapper.text()).not.toContain('[Alice] Alice')
+    expect(wrapper.find('.event-stream-list__subject--avatar').text()).toBe('Alice')
   })
 
-  it('does not prefix multi-avatar story events', () => {
+  it('renders multiple subject tags for multi-avatar story events', () => {
     const i18n = createEventPanelI18n()
 
     eventStoreMock.events = [
@@ -388,6 +393,10 @@ describe('EventPanel', () => {
         month: 3,
         timestamp: 15,
         relatedAvatarIds: ['a1', 'a2'],
+        subjects: [
+          { type: 'avatar', id: 'a1', name: 'Alice', color: 'hsl(100, 70%, 65%)' },
+          { type: 'avatar', id: 'a2', name: 'Bob', color: 'hsl(200, 70%, 65%)' },
+        ],
         isMajor: false,
         isStory: true,
       },
@@ -398,8 +407,72 @@ describe('EventPanel', () => {
     })
 
     expect(wrapper.text()).toContain('They exchanged sword intent below the old gate.')
-    expect(wrapper.text()).not.toContain('[Alice]')
-    expect(wrapper.text()).not.toContain('[Bob]')
+    expect(wrapper.findAll('.event-stream-list__subject--avatar').map(node => node.text())).toEqual(['Alice', 'Bob'])
+  })
+
+  it('clicks structured avatar and sect subject tags', async () => {
+    const i18n = createEventPanelI18n()
+
+    eventStoreMock.events = [
+      {
+        id: 'structured-subjects',
+        text: '',
+        content: 'A quiet event with no names in the body.',
+        year: 1,
+        month: 4,
+        timestamp: 16,
+        relatedAvatarIds: ['a1'],
+        relatedSects: [1],
+        subjects: [
+          { type: 'avatar', id: 'a1', name: 'Alice', color: 'hsl(100, 70%, 65%)' },
+          { type: 'sect', id: 1, name: '青云门', color: '#4DD0E1' },
+        ],
+        isMajor: false,
+        isStory: false,
+      },
+    ]
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] },
+    })
+
+    const avatarSubject = wrapper.find('.event-stream-list__subject--avatar')
+    const sectSubject = wrapper.find('.event-stream-list__subject--sect')
+
+    expect(avatarSubject.text()).toBe('Alice')
+    expect(sectSubject.text()).toBe('青云门')
+
+    await avatarSubject.trigger('click')
+    expect(uiStoreMock.select).toHaveBeenCalledWith('avatar', 'a1')
+
+    await sectSubject.trigger('click')
+    expect(uiStoreMock.select).toHaveBeenCalledWith('sect', '1')
+  })
+
+  it('renders world subject for events without structured subjects', () => {
+    const i18n = createEventPanelI18n()
+
+    eventStoreMock.events = [
+      {
+        id: 'world-event',
+        text: '',
+        content: 'A world event happened.',
+        year: 1,
+        month: 4,
+        timestamp: 16,
+        relatedAvatarIds: [],
+        subjects: [],
+        isMajor: false,
+        isStory: false,
+      },
+    ]
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] },
+    })
+
+    expect(wrapper.find('.event-stream-list__subject--world').text()).toBe('世界')
+    expect(wrapper.text()).toContain('A world event happened.')
   })
 
   it('sect filter options use sect_name as label', () => {
