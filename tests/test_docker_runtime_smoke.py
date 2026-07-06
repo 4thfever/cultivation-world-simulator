@@ -9,6 +9,15 @@ from pathlib import Path
 import pytest
 
 
+def format_process_error(exc: subprocess.CalledProcessError) -> str:
+    return (
+        f"command: {' '.join(str(part) for part in exc.cmd)}\n"
+        f"exit code: {exc.returncode}\n"
+        f"stdout:\n{exc.stdout or ''}\n"
+        f"stderr:\n{exc.stderr or ''}"
+    )
+
+
 def get_project_root() -> Path:
     return Path(__file__).resolve().parents[1]
 
@@ -230,7 +239,7 @@ def test_docker_compose_persists_settings_after_recreate():
             f"compose ps:\n{ps.stdout}\n"
             f"backend logs:\n{logs.stdout}\n"
             f"frontend logs:\n{frontend_logs.stdout}\n"
-            f"original error: {exc!r}"
+            f"original error: {format_process_error(exc) if isinstance(exc, subprocess.CalledProcessError) else repr(exc)}"
         ) from exc
     finally:
         subprocess.run(
