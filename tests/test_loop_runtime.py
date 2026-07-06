@@ -78,7 +78,9 @@ def test_build_tick_state_uses_serializer_hooks():
         world=world,
         events=["evt"],
         avatar_updates=[{"id": "a"}],
-        serialize_events_for_client=lambda events: [{"count": len(events)}],
+        serialize_events_for_client=lambda events, *, world: [
+            {"count": len(events), "has_world": world is not None}
+        ],
         serialize_phenomenon=lambda phenomenon: {"id": phenomenon.id},
         serialize_active_domains=lambda _world: [{"id": "domain"}],
     )
@@ -87,7 +89,7 @@ def test_build_tick_state_uses_serializer_hooks():
         "type": "tick",
         "year": 120,
         "month": 6,
-        "events": [{"count": 1}],
+        "events": [{"count": 1, "has_world": True}],
         "avatars": [{"id": "a"}],
         "phenomenon": {"id": 1},
         "active_domains": [{"id": "domain"}],
