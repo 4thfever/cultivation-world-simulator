@@ -5,6 +5,7 @@ import { logError } from '@/utils/appError'
 
 const PROGRESS_RING_RADIUS = 90
 const PROGRESS_RING_CIRCUMFERENCE = 2 * Math.PI * PROGRESS_RING_RADIUS
+const FAKE_PROGRESS_SECONDS_PER_PERCENT = 2
 
 export function useLoadingOverlayState(status: () => InitStatusDTO | null) {
   const { t, tm } = useI18n()
@@ -79,7 +80,11 @@ export function useLoadingOverlayState(status: () => InitStatusDTO | null) {
       localElapsed.value++
 
       const currentStatus = status()
-      if (currentStatus?.status !== 'in_progress' || displayProgress.value >= 99) return
+      if (
+        currentStatus?.status !== 'in_progress'
+        || displayProgress.value >= 99
+        || localElapsed.value % FAKE_PROGRESS_SECONDS_PER_PERCENT !== 0
+      ) return
 
       const currentPhase = currentStatus.phase ?? 0
       const progressMap: Record<number, number> = { 0: 0, 1: 10, 2: 25, 3: 40, 4: 55, 5: 70, 6: 85 }

@@ -35,7 +35,7 @@ world:
   fortune_probability: 0.005
   misfortune_probability: 0.005
   opportunity:
-    probability: 0.001
+    probability: 0.1
     duration_months: 60
     cooldown_months_after_dissipated: 12
     cooldown_months_after_resolved: 60
@@ -49,7 +49,7 @@ world:
       boon: 35
       empty: 20
       injury: 10
-  fate_revelation_probability: 0.001
+  fate_revelation_probability: 0.1
   random_minor_event_prob: 0.05
   birth_rate_per_month: 0.005
   max_children_per_couple: 2
