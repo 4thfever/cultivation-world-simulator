@@ -84,6 +84,9 @@ def prepare_browser_target(*, is_dev_mode: bool, host: str, port: int) -> str:
 
     free_port = get_free_port(5173)
     os.environ["VITE_PORT"] = str(free_port)
+    proxy_host = "127.0.0.1" if host in {"0.0.0.0", "::"} else host
+    os.environ["VITE_API_TARGET"] = f"http://{proxy_host}:{port}"
+    os.environ["VITE_WS_TARGET"] = f"ws://{proxy_host}:{port}"
     print(f"[Debug] Detected free port for Vite: {free_port}")
     target_url = f"http://localhost:{free_port}"
     print(f"[Debug] Target URL set to: {target_url}")

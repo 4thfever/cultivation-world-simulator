@@ -30,6 +30,11 @@ type LabelPlacement = {
   bounds: LabelBounds;
 };
 
+export type RegionLabelSize = {
+  width: number;
+  height: number;
+};
+
 type AcceptedLabel = {
   label: MapRegionLabel;
   bounds: LabelBounds;
@@ -91,6 +96,24 @@ export function formatRegionDisplayName(name: string, locale: string): string {
   return `${firstLine}\n${secondLine}`;
 }
 
+export function estimateRegionLabelSize(
+  displayName: string,
+  type: string,
+  locale: string
+): RegionLabelSize {
+  const metrics = getRegionTextMetrics(type, locale);
+  const lines = displayName.split('\n');
+  const maxChars = Math.max(...lines.map((line) => line.length), 1);
+  const widthRatio = usesCompactMapLabels(locale)
+    ? AVG_COMPACT_GLYPH_WIDTH_RATIO
+    : AVG_LATIN_GLYPH_WIDTH_RATIO;
+
+  return {
+    width: maxChars * metrics.fontSize * widthRatio + LABEL_BOX_PADDING_X * 2,
+    height: lines.length * metrics.lineHeight + LABEL_BOX_PADDING_Y * 2
+  };
+}
+
 function estimateLabelPlacement(
   region: RegionSummary,
   displayName: string,
@@ -98,14 +121,7 @@ function estimateLabelPlacement(
   offsetX = 0,
   offsetY = 0
 ): LabelPlacement {
-  const metrics = getRegionTextMetrics(region.type, locale);
-  const lines = displayName.split('\n');
-  const maxChars = Math.max(...lines.map((line) => line.length), 1);
-  const widthRatio = usesCompactMapLabels(locale)
-    ? AVG_COMPACT_GLYPH_WIDTH_RATIO
-    : AVG_LATIN_GLYPH_WIDTH_RATIO;
-  const width = maxChars * metrics.fontSize * widthRatio + LABEL_BOX_PADDING_X * 2;
-  const height = lines.length * metrics.lineHeight + LABEL_BOX_PADDING_Y * 2;
+  const { width, height } = estimateRegionLabelSize(displayName, region.type, locale);
   const labelX = region.x * TILE_SIZE + TILE_SIZE / 2 + offsetX;
   const labelY = region.y * TILE_SIZE + TILE_SIZE * 1.5 + offsetY;
 

@@ -97,6 +97,10 @@ function getScale() {
   return (props.tileSize * 4.2) / Math.max(tex.width, tex.height)
 }
 
+function getAvatarSpriteScale() {
+  return getScale() * (isHovered.value ? 1.05 : 1)
+}
+
 const drawFallback = (g: Graphics) => {
     g.clear()
     const radius = props.tileSize * (isHovered.value ? 0.56 : 0.5)
@@ -107,7 +111,7 @@ const drawFallback = (g: Graphics) => {
 
 const nameStyle = computed<TextStyle>(() => ({
     fontFamily: '"Microsoft YaHei", sans-serif',
-    fontSize: 50,
+    fontSize: 56,
     fontWeight: 'bold',
     fill: avatarIdToColor(props.avatar.id),
     stroke: { color: '#000000', width: 4 },
@@ -224,6 +228,8 @@ const drawEmojiBg = (g: Graphics) => {
     @pointertap="handlePointerTap"
   >
     <graphics
+      v-if="isHovered"
+      :key="`${avatar.id}-hover-ring`"
       :y="tileSize * 0.18"
       :alpha="hoverRingAlpha"
       :scale="hoverRingScale"
@@ -233,15 +239,17 @@ const drawEmojiBg = (g: Graphics) => {
 
     <sprite
       v-if="getTexture()"
+      :key="`${avatar.id}-${isHovered ? 'hover' : 'normal'}`"
       :texture="getTexture()"
       :anchor-x="0.5"
       :anchor-y="0.9" 
-      :scale="getScale()"
+      :scale="getAvatarSpriteScale()"
       event-mode="none"
     />
     
     <graphics
       v-else
+      :key="`${avatar.id}-${isHovered ? 'hover-fallback' : 'normal-fallback'}`"
       event-mode="none"
       @effect="drawFallback"
     />
@@ -265,11 +273,12 @@ const drawEmojiBg = (g: Graphics) => {
     </container>
 
     <text
+      :key="`${avatar.id}-name-${isHovered ? 'hover' : 'normal'}`"
       :text="avatar.name"
       :style="nameStyle"
       :anchor-x="0.5"
       :anchor-y="0"
-      :y="10"
+      :y="isHovered ? 6 : 10"
       event-mode="none"
     />
   </container>

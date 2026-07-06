@@ -79,11 +79,26 @@ def test_prepare_browser_target_keeps_backend_url_when_not_dev(monkeypatch):
 def test_prepare_browser_target_sets_vite_port_in_dev(monkeypatch):
     monkeypatch.setattr("src.server.bootstrap.get_free_port", lambda _start_port: 5179)
     monkeypatch.delenv("VITE_PORT", raising=False)
+    monkeypatch.delenv("VITE_API_TARGET", raising=False)
+    monkeypatch.delenv("VITE_WS_TARGET", raising=False)
 
-    target = prepare_browser_target(is_dev_mode=True, host="127.0.0.1", port=8002)
+    target = prepare_browser_target(is_dev_mode=True, host="127.0.0.1", port=8003)
 
     assert target == "http://localhost:5179"
     assert os.environ["VITE_PORT"] == "5179"
+    assert os.environ["VITE_API_TARGET"] == "http://127.0.0.1:8003"
+    assert os.environ["VITE_WS_TARGET"] == "ws://127.0.0.1:8003"
+
+
+def test_prepare_browser_target_uses_loopback_for_wildcard_backend_host(monkeypatch):
+    monkeypatch.setattr("src.server.bootstrap.get_free_port", lambda _start_port: 5180)
+    monkeypatch.delenv("VITE_API_TARGET", raising=False)
+    monkeypatch.delenv("VITE_WS_TARGET", raising=False)
+
+    prepare_browser_target(is_dev_mode=True, host="0.0.0.0", port=9001)
+
+    assert os.environ["VITE_API_TARGET"] == "http://127.0.0.1:9001"
+    assert os.environ["VITE_WS_TARGET"] == "ws://127.0.0.1:9001"
 
 
 def test_utf8_subprocess_env_preserves_explicit_overrides():

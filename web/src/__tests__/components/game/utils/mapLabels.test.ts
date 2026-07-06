@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { buildVisibleRegionLabels, formatRegionDisplayName } from '@/components/game/utils/mapLabels';
+import {
+  buildVisibleRegionLabels,
+  estimateRegionLabelSize,
+  formatRegionDisplayName
+} from '@/components/game/utils/mapLabels';
 import type { RegionSummary } from '@/types/core';
 
 function createRegion(overrides: Partial<RegionSummary>): RegionSummary {
@@ -26,6 +30,16 @@ describe('mapLabels', () => {
 
   it('keeps Chinese labels on a single line', () => {
     expect(formatRegionDisplayName('紫竹幽境', 'zh-CN')).toBe('紫竹幽境');
+  });
+
+  it('estimates label hit size from rendered map text metrics', () => {
+    const compactSize = estimateRegionLabelSize('紫竹幽境', 'normal', 'zh-CN');
+    const latinSize = estimateRegionLabelSize('Purple Bamboo\nSecluded Realm', 'normal', 'en-US');
+
+    expect(compactSize.width).toBeGreaterThan(240);
+    expect(compactSize.height).toBeGreaterThan(70);
+    expect(latinSize.width).toBeGreaterThan(300);
+    expect(latinSize.height).toBeGreaterThan(140);
   });
 
   it('avoids overlaps by moving lower-priority labels', () => {
