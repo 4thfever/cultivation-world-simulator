@@ -195,7 +195,9 @@ createApp({
         const regions = ref([]);
         const savedMap = ref({}); 
         const landmarks = ref({});
+        const regionOverrides = ref({});
         const wildernessTile = ref('plain');
+        const mapId = ref('classic');
         
         const currentTile = ref('plain');
         const currentTileType = ref('tile');
@@ -227,6 +229,11 @@ createApp({
         // Image Cache: name -> Image
         const images = {};
 
+        function getInitialMapId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('mapId') || 'classic';
+        }
+
         // --- Initialization ---
         onMounted(async () => {
             await initData();
@@ -239,17 +246,23 @@ createApp({
 
         async function initData() {
             try {
-                const res = await fetch('/api/init');
+                mapId.value = getInitialMapId();
+                const res = await fetch(`/api/init?mapId=${encodeURIComponent(mapId.value)}`);
                 const data = await res.json();
+                if (data.status === 'error') {
+                    throw new Error(data.message || 'init failed');
+                }
                 tiles.value = data.tiles;
                 sectTiles.value = data.sectTiles;
                 cityTiles.value = data.cityTiles;
                 cityTilesMap.value = data.cityTilesMap;
                 regions.value = data.regions;
+                mapId.value = data.mapId || mapId.value;
                 mapWidth.value = data.width;
                 mapHeight.value = data.height;
                 savedMap.value = data.savedMap || {};
                 landmarks.value = data.landmarks || {};
+                regionOverrides.value = data.regionOverrides || {};
                 wildernessTile.value = data.wildernessTile || 'plain';
                 
                 // Preload images
@@ -630,8 +643,12 @@ createApp({
         // --- Actions ---
         async function saveMap() {
             const payload = {
+                mapId: mapId.value,
+                width: mapWidth.value,
+                height: mapHeight.value,
                 grid: grid,
                 landmarks: landmarks.value,
+                regionOverrides: regionOverrides.value,
                 wildernessTile: wildernessTile.value,
             };
             try {
@@ -653,6 +670,7 @@ createApp({
 
         return {
             loading, mode, tiles, sectTiles, cityTiles, cityTilesMap, regions, 
+            mapId,
             currentTile, currentTileType, currentRegion,
             saveMap,
             hoverX, hoverY, isShiftDown,

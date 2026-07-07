@@ -18,10 +18,12 @@ from src.run.map_source import (  # noqa: E402
     load_region_tile_bindings,
     read_map_source,
 )
+from tools.map_presets.quality_audit import audit_map_source, format_issues  # noqa: E402
 
 
 CONFIG_DIR = PROJECT_ROOT / "static" / "game_configs"
 NORMAL_FRAGMENT_LIMIT = 8
+SOFT_QUALITY_CODES = {"landmark_near_boundary"}
 
 
 def _metadata_region_ids() -> set[int]:
@@ -135,6 +137,13 @@ def _validate_landmarks(preset_id: str, source, coords_by_region: dict[int, set[
             raise AssertionError(f"{preset_id}: landmark {region_id} 2x2 block is out of bounds")
 
 
+def _validate_quality_audit(preset_id: str, source) -> None:
+    issues = audit_map_source(preset_id, source)
+    hard_issues = [issue for issue in issues if issue.code not in SOFT_QUALITY_CODES]
+    if hard_issues:
+        raise AssertionError(format_issues(hard_issues))
+
+
 def validate() -> None:
     presets = list_map_presets()
     if not presets:
@@ -197,6 +206,7 @@ def validate() -> None:
                 raise AssertionError(f"{preset.id}: region {rid} is too fragmented, components={component_count}")
 
         _validate_landmarks(preset.id, source, coords_by_region)
+        _validate_quality_audit(preset.id, source)
 
         game_map = load_cultivation_world_map(preset.id)
         if game_map.width != source.width or game_map.height != source.height:

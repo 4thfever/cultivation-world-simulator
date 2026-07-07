@@ -362,6 +362,12 @@ python tools\map_presets\render_preview.py --all
 python tools\map_presets\export_frontend_previews.py
 ```
 
+需要查看所有软提示时运行：
+
+```powershell
+python tools\map_presets\quality_audit.py
+```
+
 涉及加载、存档、查询或编辑器时，按改动范围运行：
 
 ```powershell
@@ -390,8 +396,17 @@ cd web; npm run test -- --run
 14. city / sect / cultivate region 连续。
 15. normal region 连通块数量不超过阈值。
 16. `region_overrides` 的 region id 必须存在。
+17. `quality_audit.py` 中低误报的结构质量项：
+    - `classic` / `mountain_frontier` 的 `106` 水系连续且接入 `105`。
+    - 不能出现 tiny water / sea component。
+    - normal region 不能出现过小脱离碎片。
+    - 大面积 normal region 不能过度块状。
+    - normal region 不能出现过长内部直边。
+    - landmark 2x2 覆盖不能 poor fit。
 
-语义问题仍需要人工审图或专门脚本辅助。每次大幅调整地图后，应抽查名称、描述、方向词、城市位置、宗门/洞府周边地貌和预览图。
+`landmark_near_boundary` 仍是软提示，只在 `quality_audit.py` 报告中展示，不作为 `validate_presets.py` hard fail。群岛、小岛、港口、洞府等语义经常天然贴边，是否移动应结合预览图人工判断。
+
+审美和叙事语义仍需要人工审图辅助。每次大幅调整地图后，应抽查名称、描述、方向词、城市位置、宗门/洞府周边地貌和预览图。地图质量优化的完整背景见 `docs/specs/map-quality-optimization.md`。
 
 ## 后续留白
 

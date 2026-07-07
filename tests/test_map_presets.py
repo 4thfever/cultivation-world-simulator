@@ -5,6 +5,7 @@ from src.run.map_presets import list_map_presets
 from src.run.map_snapshot import load_map_from_snapshot, serialize_map_snapshot
 from src.run.map_source import derive_tile_rows_from_region_rows, read_map_source
 from src.run.map_source import load_region_tile_bindings
+from tools.map_presets.quality_audit import audit_landmarks, audit_water_region
 from src.classes.core.world import World
 from src.server.runtime.session import GameSessionRuntime, create_default_game_state
 from src.server.services.game_queries import get_world_map
@@ -108,6 +109,25 @@ def test_official_map_visual_shape_guards():
 
     mountain_rows = _read_preset_tile_rows("mountain_frontier")
     assert _max_edge_run(mountain_rows, x=0) <= 20
+
+
+def test_official_map_core_quality_guards():
+    for map_id in ["classic", "mountain_frontier"]:
+        source = read_map_source(PROJECT_ROOT / "static" / "game_configs" / "maps" / map_id / "map.json")
+        issue_codes = {issue.code for issue in audit_water_region(map_id, source.region_rows)}
+
+        assert "disconnected_water_region" not in issue_codes
+        assert "water_region_no_sea_outlet" not in issue_codes
+
+    mountain_source = read_map_source(
+        PROJECT_ROOT / "static" / "game_configs" / "maps" / "mountain_frontier" / "map.json"
+    )
+    landmark_issues = [
+        issue
+        for issue in audit_landmarks("mountain_frontier", mountain_source.region_rows, mountain_source.landmarks)
+        if issue.region_id == 406
+    ]
+    assert "landmark_poor_fit" not in {issue.code for issue in landmark_issues}
 
 
 def test_map_snapshot_round_trip_restores_tiles_and_regions():

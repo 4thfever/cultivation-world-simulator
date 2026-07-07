@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import classicPreview from '@/assets/map-previews/classic.svg'
-import islandSeasPreview from '@/assets/map-previews/island_seas.svg'
-import mountainFrontierPreview from '@/assets/map-previews/mountain_frontier.svg'
-
 const props = defineProps<{
   presetId: string
 }>()
 
-const previewByPreset: Record<string, string> = {
-  classic: classicPreview,
-  island_seas: islandSeasPreview,
-  mountain_frontier: mountainFrontierPreview,
-}
+const previewModules = import.meta.glob('@/assets/map-previews/*.svg', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>
+
+const previewByPreset = Object.fromEntries(
+  Object.entries(previewModules).map(([path, url]) => {
+    const filename = path.split('/').pop() ?? ''
+    return [filename.replace(/\.svg$/u, ''), url]
+  }),
+) as Record<string, string>
 </script>
 
 <template>
