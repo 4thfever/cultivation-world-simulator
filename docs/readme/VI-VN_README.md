@@ -246,18 +246,19 @@ Cảm ơn các contributor đã chia sẻ repo này và các dự án liên quan
     <td align="center"><a href="https://github.com/4thfever"><img src="https://avatars.githubusercontent.com/u/19970391?v=4" width="56" height="56" alt="4thfever" /><br /><sub><b>4thfever</b></sub></a></td>
     <td align="center"><a href="https://github.com/xzhseh"><img src="https://avatars.githubusercontent.com/u/91381303?v=4" width="56" height="56" alt="xzhseh" /><br /><sub><b>xzhseh</b></sub></a></td>
     <td align="center"><a href="https://github.com/teps3105"><img src="https://avatars.githubusercontent.com/u/16871632?v=4" width="56" height="56" alt="teps3105" /><br /><sub><b>teps3105</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Meanliss"><img src="https://avatars.githubusercontent.com/u/117923713?v=4" width="56" height="56" alt="Meanliss" /><br /><sub><b>Meanliss</b></sub></a></td>
+    <td align="center"><a href="https://github.com/octo-patch"><img src="https://avatars.githubusercontent.com/u/266937838?v=4" width="56" height="56" alt="octo-patch" /><br /><sub><b>octo-patch</b></sub></a></td>
     <td align="center"><a href="https://github.com/cooleryu"><img src="https://avatars.githubusercontent.com/u/53998515?v=4" width="56" height="56" alt="cooleryu" /><br /><sub><b>cooleryu</b></sub></a></td>
     <td align="center"><a href="https://github.com/LuckVd"><img src="https://avatars.githubusercontent.com/u/37114923?v=4" width="56" height="56" alt="LuckVd" /><br /><sub><b>LuckVd</b></sub></a></td>
-    <td align="center"><a href="https://github.com/MarkYangKp"><img src="https://avatars.githubusercontent.com/u/42310488?v=4" width="56" height="56" alt="MarkYangKp" /><br /><sub><b>MarkYangKp</b></sub></a></td>
-    <td align="center"><a href="https://github.com/Meanliss"><img src="https://avatars.githubusercontent.com/u/117923713?v=4" width="56" height="56" alt="Meanliss" /><br /><sub><b>Meanliss</b></sub></a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/octo-patch"><img src="https://avatars.githubusercontent.com/u/266937838?v=4" width="56" height="56" alt="octo-patch" /><br /><sub><b>octo-patch</b></sub></a></td>
+    <td align="center"><a href="https://github.com/MarkYangKp"><img src="https://avatars.githubusercontent.com/u/42310488?v=4" width="56" height="56" alt="MarkYangKp" /><br /><sub><b>MarkYangKp</b></sub></a></td>
     <td align="center"><a href="https://github.com/Robinwhliu"><img src="https://avatars.githubusercontent.com/u/86167266?v=4" width="56" height="56" alt="Robinwhliu" /><br /><sub><b>Robinwhliu</b></sub></a></td>
     <td align="center"><a href="https://github.com/Seafoodsz"><img src="https://avatars.githubusercontent.com/u/13925953?v=4" width="56" height="56" alt="Seafoodsz" /><br /><sub><b>Seafoodsz</b></sub></a></td>
     <td align="center"><a href="https://github.com/Tianrant"><img src="https://avatars.githubusercontent.com/u/260025727?v=4" width="56" height="56" alt="Tianrant" /><br /><sub><b>Tianrant</b></sub></a></td>
     <td align="center"><a href="https://github.com/cw1990"><img src="https://avatars.githubusercontent.com/u/10458746?v=4" width="56" height="56" alt="cw1990" /><br /><sub><b>cw1990</b></sub></a></td>
     <td align="center"><a href="https://github.com/RealityError"><img src="https://avatars.githubusercontent.com/u/67266280?v=4" width="56" height="56" alt="RealityError" /><br /><sub><b>RealityError</b></sub></a></td>
+    <td align="center"><a href="https://github.com/mitsuko33000-ops"><img src="https://avatars.githubusercontent.com/u/270795383?v=4" width="56" height="56" alt="mitsuko33000-ops" /><br /><sub><b>mitsuko33000-ops</b></sub></a></td>
   </tr>
 </table>
 
@@ -385,9 +386,9 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Trận pháp
 - ✅ Cổ
 - ✅ Cơ duyên
-- [ ] Bí mật nhân vật và âm mưu
-- [ ] Hóa thân và phi thăng thượng giới
-- [ ] Bí mật thế giới và pháp tắc thế giới
+- [ ] Bí mật thế giới
+- [ ] NPC phông nền
+- [ ] Hóa Thần và phi thăng thượng giới
 - [ ] Tự lập tông môn / trở thành hoàng đế
 
 ### 🔭 Triển Vọng Dài Hạn
