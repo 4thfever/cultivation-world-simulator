@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from tools.map_presets.quality_audit import (
+    audit_map_identity,
     audit_landmarks,
     audit_region_components,
     audit_tile_components,
@@ -16,6 +17,11 @@ class DummyLandmark:
     x: int
     y: int
     asset: str = "city_301"
+
+
+@dataclass(frozen=True)
+class DummyMapSource:
+    wilderness_tile: str
 
 
 def _codes(issues):
@@ -103,6 +109,42 @@ def test_audit_landmarks_flags_poor_fit_and_near_boundary():
 
     assert "landmark_poor_fit" in _codes(issues)
     assert "landmark_near_boundary" in _codes(issues)
+
+
+def test_audit_map_identity_protects_classic_from_becoming_sea_wilderness():
+    rows = [
+        ["sea", "sea", "water"],
+        ["sea", "plain", "plain"],
+        ["sea", "plain", "plain"],
+    ]
+
+    issues = audit_map_identity("classic", DummyMapSource("sea"), rows)
+
+    assert "map_identity_drift" in _codes(issues)
+
+
+def test_audit_map_identity_protects_island_seas_archipelago_shape():
+    rows = [
+        ["sea", "plain", "plain"],
+        ["sea", "plain", "plain"],
+        ["sea", "plain", "plain"],
+    ]
+
+    issues = audit_map_identity("island_seas", DummyMapSource("plain"), rows)
+
+    assert "map_identity_drift" in _codes(issues)
+
+
+def test_audit_map_identity_protects_mountain_frontier_terrain_mix():
+    rows = [
+        ["plain", "plain", "water"],
+        ["forest", "plain", "plain"],
+        ["plain", "farm", "plain"],
+    ]
+
+    issues = audit_map_identity("mountain_frontier", DummyMapSource("plain"), rows)
+
+    assert "map_identity_drift" in _codes(issues)
 
 
 def test_format_issues_includes_codes_and_map_ids():

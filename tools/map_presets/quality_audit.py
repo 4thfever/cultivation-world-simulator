@@ -26,6 +26,7 @@ DEFAULT_BLOCKY_AREA_THRESHOLD = 80
 DEFAULT_BLOCKY_FILL_THRESHOLD = 0.78
 DEFAULT_STRAIGHT_EDGE_THRESHOLD = 10
 DEFAULT_LANDMARK_EDGE_DISTANCE = 0
+MOUNTAIN_IDENTITY_TILES = {"mountain", "snow_mountain", "volcano", "cave", "ruin", "tundra"}
 
 
 @dataclass(frozen=True)
@@ -114,6 +115,25 @@ def coords_by_tile(tile_rows: list[list[str]], tile_names: set[str]) -> set[Coor
         for x, tile_name in enumerate(row)
         if tile_name.lower() in normalized
     }
+
+
+def coords_by_tile_predicate(tile_rows: list[list[str]], predicate) -> set[Coord]:
+    return {
+        (x, y)
+        for y, row in enumerate(tile_rows)
+        for x, tile_name in enumerate(row)
+        if predicate(tile_name.lower())
+    }
+
+
+def tile_fraction(tile_rows: list[list[str]], tile_names: set[str]) -> float:
+    height = len(tile_rows)
+    width = len(tile_rows[0]) if height else 0
+    total = width * height
+    if total <= 0:
+        return 0.0
+    coords = coords_by_tile(tile_rows, tile_names)
+    return len(coords) / total
 
 
 def component_fill_ratio(component: Component) -> float:
@@ -328,6 +348,115 @@ def audit_water_region(
     return issues
 
 
+def audit_map_identity(map_id: str, source, tile_rows: list[list[str]]) -> list[AuditIssue]:
+    issues: list[AuditIssue] = []
+    sea_fraction = tile_fraction(tile_rows, {"sea"})
+    water_fraction = tile_fraction(tile_rows, {"water"})
+    mountain_fraction = tile_fraction(tile_rows, MOUNTAIN_IDENTITY_TILES)
+    land_components = collect_components(
+        coords_by_tile_predicate(tile_rows, lambda tile_name: tile_name not in {"sea", "water"})
+    )
+    land_component_count = len(land_components)
+
+    if map_id == "classic":
+        if str(source.wilderness_tile).lower() == "sea":
+            issues.append(
+                AuditIssue(
+                    map_id=map_id,
+                    code="map_identity_drift",
+                    value=source.wilderness_tile,
+                    threshold="not sea",
+                    message="classic should remain a continental map, not a sea-wilderness archipelago",
+                )
+            )
+        if not 0.12 <= sea_fraction <= 0.35:
+            issues.append(
+                AuditIssue(
+                    map_id=map_id,
+                    code="map_identity_drift",
+                    value=round(sea_fraction, 3),
+                    threshold="0.12..0.35",
+                    message="classic should keep an eastern sea without becoming an island map",
+                )
+            )
+        if water_fraction < 0.02:
+            issues.append(
+                AuditIssue(
+                    map_id=map_id,
+                    code="map_identity_drift",
+                    value=round(water_fraction, 3),
+                    threshold=">=0.02",
+                    message="classic should keep a readable main river as part of its central continent identity",
+                )
+            )
+
+    if map_id == "island_seas":
+        if str(source.wilderness_tile).lower() != "sea":
+            issues.append(
+                AuditIssue(
+                    map_id=map_id,
+                    code="map_identity_drift",
+                    value=source.wilderness_tile,
+                    threshold="sea",
+                    message="island_seas should keep open sea wilderness as its base",
+                )
+            )
+        if sea_fraction < 0.50:
+            issues.append(
+                AuditIssue(
+                    map_id=map_id,
+                    code="map_identity_drift",
+                    value=round(sea_fraction, 3),
+                    threshold=">=0.50",
+                    message="island_seas should remain an open archipelago with sea as the dominant visual mass",
+                )
+            )
+        if land_component_count < 8:
+            issues.append(
+                AuditIssue(
+                    map_id=map_id,
+                    code="map_identity_drift",
+                    value=land_component_count,
+                    threshold=">=8",
+                    message="island_seas should keep multiple separate islands instead of merging into one continent",
+                )
+            )
+
+    if map_id == "mountain_frontier":
+        if str(source.wilderness_tile).lower() == "sea":
+            issues.append(
+                AuditIssue(
+                    map_id=map_id,
+                    code="map_identity_drift",
+                    value=source.wilderness_tile,
+                    threshold="not sea",
+                    message="mountain_frontier should remain a land frontier, not a sea-wilderness map",
+                )
+            )
+        if mountain_fraction < 0.25:
+            issues.append(
+                AuditIssue(
+                    map_id=map_id,
+                    code="map_identity_drift",
+                    value=round(mountain_fraction, 3),
+                    threshold=">=0.25",
+                    message="mountain_frontier should keep mountain, snow, volcanic, cave, ruin, and tundra terrain as its dominant identity",
+                )
+            )
+        if water_fraction < 0.025:
+            issues.append(
+                AuditIssue(
+                    map_id=map_id,
+                    code="map_identity_drift",
+                    value=round(water_fraction, 3),
+                    threshold=">=0.025",
+                    message="mountain_frontier should keep a visible gorge river through the mountain belt",
+                )
+            )
+
+    return issues
+
+
 def audit_landmarks(
     map_id: str,
     region_rows: list[list[int]],
@@ -395,6 +524,7 @@ def audit_map_source(map_id: str, source) -> list[AuditIssue]:
     issues.extend(audit_region_components(map_id, source.region_rows))
     issues.extend(audit_tile_components(map_id, tile_rows))
     issues.extend(audit_water_region(map_id, source.region_rows))
+    issues.extend(audit_map_identity(map_id, source, tile_rows))
     issues.extend(audit_landmarks(map_id, source.region_rows, source.landmarks))
     return issues
 

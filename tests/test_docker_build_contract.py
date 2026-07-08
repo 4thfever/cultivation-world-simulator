@@ -168,6 +168,17 @@ def test_backend_dockerfile_installs_runtime_requirements_only():
     )
 
 
+def test_backend_dockerfile_pins_debian_release_tag():
+    dockerfile = (get_project_root() / "deploy" / "Dockerfile.backend").read_text(encoding="utf-8")
+
+    assert "FROM python:3.12-bookworm" in dockerfile, (
+        "Backend Docker image should pin the Debian release instead of using "
+        "the floating python:3.12-slim tag, which can move between Debian "
+        "releases and make apt installs fragile during mirror syncs."
+    )
+    assert "FROM python:3.12-slim" not in dockerfile
+
+
 def test_runtime_requirements_exclude_test_packages():
     runtime_requirements = (get_project_root() / "requirements-runtime.txt").read_text(encoding="utf-8")
 
