@@ -24,9 +24,35 @@ llm:
     sect_random_event_reason: "fast"
     sect_decider: "normal"
     sect_thinker: "fast"
+    world_lore_style_guide: "normal"
+    world_lore_region_rewrite: "normal"
+    world_lore_sect_group_rewrite: "normal"
+    world_lore_technique_rewrite: "normal"
+    world_lore_weapon_rewrite: "normal"
+    world_lore_auxiliary_rewrite: "normal"
 
 ai:
   max_parse_retries: 3
+
+world_lore:
+  rewrite_items: true
+  total_timeout_seconds: 240
+  task_timeout_seconds: 60
+  min_retry_budget_seconds: 20
+  max_parse_retries: 1
+  max_transport_retries: 0
+  chunk_size:
+    regions: 10
+    sect_groups: 6
+    techniques: 10
+    weapons: 10
+    auxiliaries: 10
+  desc_limits:
+    region: [60, 120]
+    sect: [80, 150]
+    technique: [50, 110]
+    weapon: [45, 100]
+    auxiliary: [45, 100]
 
 world:
   start_year: 100

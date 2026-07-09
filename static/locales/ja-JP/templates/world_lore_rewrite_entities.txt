@@ -1,0 +1,64 @@
+You are a Xianxia world setting editor. Rewrite the input entities' name and desc according to the world lore, style guide, and current map summary.
+
+Rules:
+- Output JSON only. Do not use markdown.
+- You may output a short rewrite_plan, at most 3 sentences, to describe this batch's translation approach. Do not output long-form thinking.
+- Return exactly as many entities as the input contains.
+- Preserve every id exactly.
+- Do not add ids. Do not omit ids.
+- Return only id, name, and desc.
+- Do not mention players, systems, game mechanics, numeric bonuses, percentages, or explicit stat changes.
+- Keep name concise and desc concrete and visual.
+- Preserve each entity's original category and gameplay role.
+- Make the world-lore style visible, but do not repeat the same word in every name.
+- Do not paste the world-lore keyword directly in front of every old name; translate it into concrete motifs such as institutions, terrain, objects, rumors, rituals, fatigue, pressure, or taboos.
+- Vary naming structures within the same batch: replacement, insertion, metaphor, and localized titles are all allowed; do not use one shared prefix or suffix everywhere.
+- If "Previous error" is not "None", fix that error in this response.
+
+World lore:
+{world_lore}
+
+Style guide:
+{style_guide}
+
+Current map summary:
+{map_summary}
+
+Entity category:
+{entity_label}
+
+Rewrite requirements:
+{instructions}
+
+Previous error:
+{previous_error}
+
+Entities:
+{entities_json}
+
+Paired entity category:
+{paired_entity_label}
+
+Paired entities:
+{paired_entities_json}
+
+Return JSON:
+If there are no paired entities:
+{{
+  "rewrite_plan": "At most 3 sentences explaining how this batch translates the world lore while avoiding mechanical repetition",
+  "{result_field}": [
+    {{"id": 1, "name": "...", "desc": "..."}}
+  ]
+}}
+
+If there are paired entities:
+{{
+  "rewrite_plan": "At most 3 sentences explaining how this batch translates the world lore while avoiding mechanical repetition",
+  "{result_field}": [
+    {{"id": 1, "name": "...", "desc": "..."}}
+  ],
+  "{paired_result_field}": [
+    {{"id": 401, "name": "...", "desc": "..."}}
+  ]
+}}
+

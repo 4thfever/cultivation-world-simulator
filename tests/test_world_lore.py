@@ -10,6 +10,9 @@ from src.classes.technique import Technique, TechniqueAttribute, TechniqueGrade
 from src.i18n import reload_translations, t
 from src.classes.world_lore import WorldLore, WorldLoreManager
 from src.classes.world_lore_snapshot import apply_world_lore_snapshot, build_world_lore_snapshot
+from src.systems.world_lore_rewrite import apply_world_lore_rewrite, build_world_lore_context, build_world_lore_jobs
+from src.systems.world_lore_rewrite.models import EntityRewrite, WorldLoreRewriteDraft, WorldLoreRewriteConfig
+from src.systems.world_lore_rewrite.runner import WorldLoreRewriteRunner
 from src.classes.items.auxiliary import auxiliaries_by_id
 from src.classes.items.weapon import weapons_by_id
 from src.classes.core.sect import sects_by_id
@@ -53,7 +56,7 @@ def test_world_lore_static_info_key_is_localized(base_world):
         reload_translations()
 
 
-def test_world_lore_manager_updates_indexes(base_world):
+def test_world_lore_apply_updates_indexes(base_world):
     sect = Sect(
         id=1,
         name="旧宗门",
@@ -80,21 +83,19 @@ def test_world_lore_manager_updates_indexes(base_world):
         desc="旧武器描述",
     )
 
-    manager = WorldLoreManager(base_world)
+    draft = WorldLoreRewriteDraft(
+        sects={1: EntityRewrite(id=1, name="新宗门", desc="新描述")},
+        techniques={1: EntityRewrite(id=1, name="新功法", desc="新功法描述")},
+        weapons={101: EntityRewrite(id=101, name="新灵剑", desc="新武器描述")},
+    )
 
     with patch.dict(sect_module.sects_by_id, {1: sect}, clear=True), \
          patch.dict(sect_module.sects_by_name, {"旧宗门": sect}, clear=True), \
          patch.dict(technique_module.techniques_by_id, {1: technique}, clear=True), \
          patch.dict(technique_module.techniques_by_name, {"旧功法": technique}, clear=True), \
-         patch("src.classes.world_lore.ItemRegistry.get", return_value=weapon), \
+         patch.dict(weapon_module.weapons_by_id, {101: weapon}, clear=True), \
          patch.dict(weapon_module.weapons_by_name, {"旧灵剑": weapon}, clear=True):
-        manager._apply_sect_lore_changes({"sects_change": {"1": {"name": "新宗门", "desc": "新描述"}}})
-        manager._apply_item_lore_changes(
-            {
-                "techniques_change": {"1": {"name": "新功法", "desc": "新功法描述"}},
-                "weapons_change": {"101": {"name": "新灵剑", "desc": "新武器描述"}},
-            }
-        )
+        apply_world_lore_rewrite(base_world, draft)
 
         assert sect.name == "新宗门"
         assert sect.desc == "新描述"
@@ -117,15 +118,15 @@ def test_world_lore_syncs_sect_region_metadata():
         map=load_cultivation_world_map(),
         month_stamp=create_month_stamp(Year(1), Month.JANUARY),
     )
-    manager = WorldLoreManager(world)
     sect = next(iter(sects_by_id.values()))
     region = next(r for r in world.map.sect_regions.values() if getattr(r, "sect_id", None) == sect.id)
 
-    manager._apply_sect_lore_changes(
-        {
-            "sects_change": {str(sect.id): {"name": "太虚宗", "desc": "新的宗门描述"}},
-            "sect_regions_change": {str(region.id): {"name": "太虚天宫", "desc": "新的驻地描述"}},
-        }
+    apply_world_lore_rewrite(
+        world,
+        WorldLoreRewriteDraft(
+            sects={sect.id: EntityRewrite(id=sect.id, name="太虚宗", desc="新的宗门描述")},
+            regions={region.id: EntityRewrite(id=region.id, name="太虚天宫", desc="新的驻地描述")},
+        ),
     )
 
     assert sect.name == "太虚宗"
@@ -136,31 +137,62 @@ def test_world_lore_syncs_sect_region_metadata():
     reload_all_static_data()
 
 
+def test_world_lore_planner_uses_current_map_and_overrides():
+    world = World(
+        map=load_cultivation_world_map("island_seas"),
+        month_stamp=create_month_stamp(Year(1), Month.JANUARY),
+    )
+    context = build_world_lore_context(world, "群岛末法世界")
+    jobs = build_world_lore_jobs(context)
+    region_jobs = [job for job in jobs if job.kind == "regions"]
+
+    assert context.map_summary["map_id"] == "island_seas"
+    assert context.map_summary["wilderness_tile"] == "sea"
+    assert region_jobs
+    all_region_inputs = [entity for job in region_jobs for entity in job.entities]
+    assert {entity["id"] for entity in all_region_inputs} <= set(world.map.regions)
+    assert any(entity["map_override"] for entity in all_region_inputs)
+
+
 @pytest.mark.asyncio
-async def test_apply_world_lore_uses_world_lore_tasks(base_world):
-    manager = WorldLoreManager(base_world)
-    base_world.set_world_lore("旧有 lore 不应混入 world_info")
+async def test_world_lore_runner_uses_rewrite_tasks_and_fallback(base_world):
+    from src.systems.world_lore_rewrite.models import RewriteJob, WorldLoreRewriteContext
+
+    context = WorldLoreRewriteContext(
+        world=base_world,
+        lore_text="末法废土",
+        map_summary={"map_id": "test"},
+        style_guide={},
+        config=WorldLoreRewriteConfig(
+            task_timeout_seconds=5,
+            total_timeout_seconds=10,
+            max_parse_retries=1,
+            min_retry_budget_seconds=1,
+        ),
+    )
+    job = RewriteJob(
+        id="regions#1",
+        kind="regions",
+        task_name="world_lore_region_rewrite",
+        entities=[{"id": 1, "name": "旧城", "desc": "旧描述"}],
+        entity_label="地点",
+        instructions="重写地点",
+        result_field="entities",
+        map_summary=context.map_summary,
+        style_guide=context.style_guide,
+        lore_text=context.lore_text,
+    )
 
     async def fake_call(**kwargs):
-        task_name = kwargs["task_name"]
-        infos = kwargs["infos"]
-        assert infos["world_lore"] == "强调门规与正邪格局的世界观"
-        assert "旧有 lore 不应混入 world_info" not in infos["world_info"]
-        if task_name == "world_lore_map":
-            return {"city_regions_change": {}, "normal_regions_change": {}, "cultivate_regions_change": {}}
-        if task_name == "world_lore_sect":
-            return {"sects_change": {}, "sect_regions_change": {}}
-        if task_name == "world_lore_item":
-            return {"techniques_change": {}, "weapons_change": {}, "auxiliarys_change": {}}
-        raise AssertionError(f"unexpected task: {task_name}")
+        assert kwargs["task_name"] == "world_lore_region_rewrite"
+        return {"entities": [{"id": 1, "name": "新城", "desc": "被风沙与残阳重塑的旧城。"}]}
 
-    with patch("src.classes.world_lore.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
+    with patch("src.systems.world_lore_rewrite.runner.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
         mock_llm.side_effect = fake_call
-        with patch.object(WorldLoreManager, "apply_world_lore", new=_real_apply_world_lore):
-            await manager.apply_world_lore("强调门规与正邪格局的世界观")
+        partial = await WorldLoreRewriteRunner(context)._run_job(job, 9999999999)
 
-    called_task_names = [call.kwargs["task_name"] for call in mock_llm.await_args_list]
-    assert called_task_names == ["world_lore_map", "world_lore_sect", "world_lore_item"]
+    assert partial.regions[1].name == "新城"
+    assert partial.llm_count == 1
 
 
 def test_save_load_preserves_world_lore(base_world, tmp_path):

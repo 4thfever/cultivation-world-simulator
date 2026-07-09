@@ -42,7 +42,8 @@ async def _apply_world_lore_if_needed(
     try:
         world_lore_mgr = world_lore_manager_cls(world)
         await world_lore_mgr.apply_world_lore(world_lore)
-        world.world_lore_snapshot = build_world_lore_snapshot(world)
+        if not getattr(world, "world_lore_snapshot", None):
+            world.world_lore_snapshot = build_world_lore_snapshot(world)
         print("World lore applied")
     except Exception as exc:
         print(f"[Warning] Failed to apply world lore: {exc}")
