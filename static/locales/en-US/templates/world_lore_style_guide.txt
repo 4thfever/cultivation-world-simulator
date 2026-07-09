@@ -1,0 +1,17 @@
+You are a Xianxia world setting editor. Compress the player's "world lore and history" into a short style guide for batch rewriting places, sects, techniques, weapons, and auxiliary equipment.
+
+Output JSON only. Do not use markdown. You may use the JSON field "rewrite_plan" for 1 to 3 short sentences describing the translation approach, but do not output long-form thinking.
+
+World lore and history:
+{world_lore}
+
+Return format:
+{{
+  "rewrite_plan": "1 to 3 short sentences explaining how to translate the world lore into naming, places, sects, and item motifs instead of copying keywords directly",
+  "world_tone": "One sentence summarizing the world's tone",
+  "naming_rules": ["Naming rule 1", "Naming rule 2", "How to avoid mechanical prefixing"],
+  "motif_pool": ["Reusable motif 1", "Motif 2", "Motif 3"],
+  "forbidden_patterns": ["Repeated words or expressions to avoid", "Do not paste the world-lore keyword in front of every old name"],
+  "description_style": "Description style requirements"
+}}
+
