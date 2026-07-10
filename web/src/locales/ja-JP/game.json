@@ -44,6 +44,9 @@
       "sect_war": "宗門戦争",
       "war_active": "現在 {count} 件の宗門戦争が進行中",
       "war_none": "現在宗門戦争はありません"
+    },
+    "world_secret": {
+      "label": "[世界秘密]"
     }
   },
   "world_info": {
@@ -574,5 +577,24 @@
     "back_to_list": "リストに戻る",
     "death_year": "第{year}年{month}月",
     "rogue": "野修"
+  },
+  "world_secret": {
+    "title": "世界の秘密",
+    "option_none": "なし",
+    "caption": "プレイヤーの全知視点: 今回の秘密、断片、各キャラクターの知識を表示します。",
+    "none_desc": "このプレイでは世界の秘密が設定されていないため、秘密断片は発生しません。",
+    "fragment_count": "断片 {count} 件",
+    "public_revealed": "公開済み",
+    "not_public": "未公開",
+    "known_avatars": "キャラクターの知識",
+    "fragments": "秘密断片",
+    "known_by_count": "{count} 人が知る",
+    "no_one_knows": "まだ誰も知りません",
+    "knows_full": "真相を知る",
+    "fragments_only": "断片のみ",
+    "decision_share": "公開済み",
+    "decision_keep": "秘密を保持",
+    "decision_none": "未選択",
+    "empty": "世界秘密データはありません"
   }
 }

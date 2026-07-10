@@ -6,7 +6,8 @@
     "init_npc_num": "初期修士数",
     "sect_num": "有効な宗門数",
     "new_npc_rate": "毎月の新規修士出現率",
-    "world_lore": "世界観と歴史"
+    "world_lore": "世界観と歴史",
+    "world_secret": "世界の秘密"
   },
   "tips": {
     "sect_num": "宗門数は初期修士数の半分未満にしてください。"
@@ -22,5 +23,9 @@
     "load_failed": "設定の読み込みに失敗しました",
     "start_success": "設定を保存しました。世界を初期化しています...",
     "start_failed": "ゲーム開始に失敗しました"
+  },
+  "fallback_map": {
+    "name": "九州中土",
+    "desc": ""
   }
 }

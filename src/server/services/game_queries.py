@@ -258,6 +258,19 @@ def get_deceased_list(runtime) -> dict[str, Any]:
     return {"deceased": [r.to_dict() for r in records]}
 
 
+def get_world_secret_meta() -> dict[str, Any]:
+    from src.systems.world_secret import get_world_secret_options
+
+    return {"options": get_world_secret_options()}
+
+
+def get_world_secret_overview(runtime) -> dict[str, Any]:
+    from src.systems.world_secret import build_world_secret_overview
+
+    world = _require_world(runtime)
+    return build_world_secret_overview(world)
+
+
 def get_avatar_overview(runtime) -> dict[str, Any]:
     """返回角色总览摘要与最近死亡角色。"""
     world = _require_world(runtime)

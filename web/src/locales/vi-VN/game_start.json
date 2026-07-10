@@ -6,7 +6,8 @@
     "init_npc_num": "Số Tu Sĩ Ban Đầu",
     "sect_num": "Số Tông Môn Hoạt Động",
     "new_npc_rate": "Tỷ Lệ Tu Sĩ Mới Mỗi Tháng",
-    "world_lore": "Thế Giới Quan Và Lịch Sử"
+    "world_lore": "Thế Giới Quan Và Lịch Sử",
+    "world_secret": "Bí Mật Thế Giới"
   },
   "tips": {
     "sect_num": "Số lượng tông môn nên nhỏ hơn một nửa số tu sĩ ban đầu."
@@ -22,5 +23,9 @@
     "load_failed": "Tải cấu hình thất bại",
     "start_success": "Đã lưu cấu hình, đang khởi tạo thế giới...",
     "start_failed": "Khởi động trò chơi thất bại"
+  },
+  "fallback_map": {
+    "name": "Cửu Châu Trung Thổ",
+    "desc": ""
   }
 }

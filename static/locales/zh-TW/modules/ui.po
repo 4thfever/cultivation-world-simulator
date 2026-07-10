@@ -18,3 +18,6 @@ msgstr "宗門駐地"
 
 msgid "LLM connection failed"
 msgstr "LLM 連線失敗"
+
+msgid "Random"
+msgstr "隨機"

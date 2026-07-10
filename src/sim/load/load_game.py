@@ -45,6 +45,7 @@ from src.config import get_settings_service
 from src.utils.config import CONFIG
 from src.run.map_snapshot import load_map_from_snapshot
 from src.systems.opportunity import load_opportunities
+from src.systems.world_secret import load_world_secret_from_save, sync_public_world_secret_for_all
 
 
 def get_events_db_path(save_path: Path) -> Path:
@@ -140,6 +141,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         world.world_lore.text = world_lore_data.get("text", "")
         world.world_lore_snapshot = world_data.get("world_lore_snapshot", {}) or {}
         apply_world_lore_snapshot(world, world.world_lore_snapshot)
+        load_world_secret_from_save(world, world_data.get("world_secret"))
         
         # 重建天地灵机
         from src.classes.celestial_phenomenon import celestial_phenomena_by_id
@@ -231,6 +233,8 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 将所有avatar添加到world
         world.avatar_manager.avatars = living_avatars
         world.avatar_manager.dead_avatars = dead_avatars
+        if getattr(world.world_secret, "public_revealed", False):
+            sync_public_world_secret_for_all(world)
         
         # 恢复洞府主人关系
         cultivate_regions_hosts = world_data.get("cultivate_regions_hosts", {})

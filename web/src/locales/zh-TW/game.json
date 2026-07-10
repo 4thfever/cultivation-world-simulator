@@ -44,6 +44,9 @@
       "sect_war": "宗門戰爭",
       "war_active": "當前有 {count} 場宗門戰爭",
       "war_none": "當前無宗門戰爭"
+    },
+    "world_secret": {
+      "label": "[世界秘密]"
     }
   },
   "world_info": {
@@ -574,5 +577,24 @@
     "back_to_list": "返回列表",
     "death_year": "第{year}年{month}月",
     "rogue": "散修"
+  },
+  "world_secret": {
+    "title": "世界秘密",
+    "option_none": "無",
+    "caption": "玩家全知視角：這裡展示本局秘密、碎片，以及各角色分別知悉的部分。",
+    "none_desc": "本局未配入世界秘密，不會觸發秘密碎片。",
+    "fragment_count": "碎片 {count} 條",
+    "public_revealed": "已公開",
+    "not_public": "尚未公開",
+    "known_avatars": "角色知悉情況",
+    "fragments": "秘密碎片",
+    "known_by_count": "{count} 人知悉",
+    "no_one_knows": "暫無角色知悉",
+    "knows_full": "知曉真相",
+    "fragments_only": "僅知碎片",
+    "decision_share": "已公開",
+    "decision_keep": "保守秘密",
+    "decision_none": "未選擇",
+    "empty": "暫無世界秘密資料"
   }
 }

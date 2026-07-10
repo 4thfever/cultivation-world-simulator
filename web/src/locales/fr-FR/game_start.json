@@ -6,7 +6,8 @@
     "init_npc_num": "Cultivateurs",
     "sect_num": "Sectes actives",
     "new_npc_rate": "Éveil mensuel",
-    "world_lore": "Lore du monde"
+    "world_lore": "Lore du monde",
+    "world_secret": "Secret du monde"
   },
   "tips": {
     "sect_num": "Les sectes doivent être moins nombreuses que la moitié des cultivateurs."
@@ -22,5 +23,9 @@
     "load_failed": "Échec du chargement de la configuration",
     "start_success": "Configuration enregistrée, initialisation...",
     "start_failed": "Échec du démarrage de la partie"
+  },
+  "fallback_map": {
+    "name": "Les Neuf Provinces Centrales",
+    "desc": ""
   }
 }

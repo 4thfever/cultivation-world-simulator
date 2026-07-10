@@ -192,6 +192,8 @@ class AvatarLoadMixin:
         avatar.short_term_objective = data.get("short_term_objective", "")
         avatar._action_cd_last_months = data.get("_action_cd_last_months", {})
         avatar.known_regions = set(data.get("known_regions", []))
+        from src.classes.world_secret import deserialize_avatar_world_secret_knowledge
+        avatar.world_secret_knowledge = deserialize_avatar_world_secret_knowledge(data.get("world_secret_knowledge"))
         
         # 加载长期目标
         long_term_objective_data = data.get("long_term_objective")

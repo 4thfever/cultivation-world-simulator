@@ -76,6 +76,12 @@ def _get_fate_oracle_text(avatar: "Avatar") -> str:
     return str(fate.get("oracle_text", "") or "").strip()
 
 
+def _get_world_secret_knowledge_payload(avatar: "Avatar") -> dict | None:
+    from src.systems.world_secret import build_avatar_world_secret_ai_context
+
+    return build_avatar_world_secret_ai_context(avatar)
+
+
 def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     """
     获取 avatar 的信息，返回 dict；根据 detailed 控制信息粒度。
@@ -176,6 +182,9 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     
     if detailed:
         info_dict[t("Current Effects")] = _get_effects_text(avatar)
+        world_secret_knowledge = _get_world_secret_knowledge_payload(avatar)
+        if world_secret_knowledge:
+            info_dict["world_secret_knowledge"] = world_secret_knowledge
         race_behavior_desc = _get_race_behavior_desc(avatar)
         if race_behavior_desc:
             info_dict[t("Race Behavior Priority")] = race_behavior_desc
@@ -471,6 +480,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     effects_text = _get_effects_text(avatar)
     info["current_effects"] = effects_text
     info[t("Current Effects")] = effects_text
+    info["world_secret_knowledge"] = _get_world_secret_knowledge_payload(avatar)
 
     return info
 
@@ -567,6 +577,7 @@ def get_avatar_ai_context(
             "short_term_objective": avatar.short_term_objective,
             "goldfinger": _get_goldfinger_structured_payload(avatar),
             "active_opportunity": get_opportunity_context_text(avatar),
+            "world_secret_knowledge": _get_world_secret_knowledge_payload(avatar),
         },
         "sect_context": sect_context,
         "local_world": {
@@ -630,6 +641,7 @@ def get_avatar_expanded_info(
     info[t("Major Events")] = major_list
     info[t("Recent Events")] = minor_list
     info["goldfinger_context"] = _get_goldfinger_structured_payload(avatar)
+    info["world_secret_knowledge"] = _get_world_secret_knowledge_payload(avatar)
     return info
 
 

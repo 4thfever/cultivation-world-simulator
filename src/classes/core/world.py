@@ -12,6 +12,7 @@ from src.sim.managers.event_manager import EventManager
 from src.classes.circulation import CirculationManager
 from src.classes.gathering.gathering import GatheringManager
 from src.classes.world_lore import WorldLore
+from src.classes.world_secret import WorldSecretRuntime
 from src.utils.df import game_configs
 from src.classes.language import language_manager
 from src.i18n import t
@@ -51,6 +52,8 @@ class World():
     world_lore: "WorldLore" = field(default_factory=WorldLore)
     # 世界观塑形后的静态对象快照，用于存档/读档恢复
     world_lore_snapshot: dict[str, Any] = field(default_factory=dict)
+    # 本局世界秘密运行时状态，独立于 world_lore
+    world_secret: WorldSecretRuntime = field(default_factory=WorldSecretRuntime)
     # 世界开始年份
     start_year: int = 0
     # 榜单管理器

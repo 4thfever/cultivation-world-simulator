@@ -471,6 +471,61 @@ def test_v1_create_avatar_returns_ok_envelope(base_world):
         main.game_instance.update(original)
 
 
+def test_v1_world_secret_meta_uses_ok_envelope():
+    original = _reset_state()
+    try:
+        client = TestClient(main.app)
+        response = client.get("/api/v1/query/meta/world-secrets")
+
+        assert response.status_code == 200
+        payload = response.json()
+        assert payload["ok"] is True
+        assert payload["data"]["options"][0] == {"id": "none", "title": "无"}
+        assert payload["data"]["options"][1] == {"id": "random", "title": "随机"}
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_world_secret_meta_localizes_special_options():
+    original = _reset_state()
+    original_language = str(main.language_manager)
+    try:
+        main.language_manager.set_language("fr-FR")
+        client = TestClient(main.app)
+        response = client.get("/api/v1/query/meta/world-secrets")
+
+        assert response.status_code == 200
+        payload = response.json()
+        assert payload["ok"] is True
+        assert payload["data"]["options"][0] == {"id": "none", "title": "Aucun"}
+        assert payload["data"]["options"][1] == {"id": "random", "title": "Aléatoire"}
+    finally:
+        main.language_manager.set_language(original_language)
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_world_secret_overview_uses_ok_envelope(base_world):
+    original = _reset_state()
+    try:
+        from src.systems.world_secret import initialize_world_secret
+
+        initialize_world_secret(base_world, "none")
+        main.game_instance["world"] = base_world
+        client = TestClient(main.app)
+        response = client.get("/api/v1/query/world-secrets/overview")
+
+        assert response.status_code == 200
+        payload = response.json()
+        assert payload["ok"] is True
+        assert payload["data"]["active_secret"]["id"] == "none"
+        assert payload["data"]["fragments"] == []
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
 def test_v1_map_presets_accepts_ui_locale_without_switching_runtime_language():
     original = _reset_state()
     original_language = str(main.language_manager)

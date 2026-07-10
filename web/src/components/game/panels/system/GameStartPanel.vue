@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { NForm, NFormItem, NInputNumber, NButton, NInput, useMessage } from 'naive-ui'
+import { computed, ref } from 'vue'
+import { NForm, NFormItem, NInputNumber, NButton, NInput, NSelect, useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 
 import { useSettingStore } from '@/stores/setting'
@@ -16,6 +16,10 @@ defineProps<{
 
 const message = useMessage()
 const loading = ref(false)
+const worldSecretSelectOptions = computed(() => settingStore.worldSecretOptions.map(option => ({
+  label: option.title,
+  value: option.id,
+})))
 
 async function startGame() {
   try {
@@ -106,6 +110,14 @@ async function startGame() {
           maxlength="800"
           show-count
           @update:value="(value) => settingStore.updateNewGameDraft({ world_lore: value })"
+        />
+      </n-form-item>
+
+      <n-form-item :label="t('game_start.labels.world_secret')" path="world_secret_id">
+        <n-select
+          :value="settingStore.newGameDraft.world_secret_id ?? 'none'"
+          :options="worldSecretSelectOptions"
+          @update:value="(value) => settingStore.updateNewGameDraft({ world_secret_id: String(value || 'none') })"
         />
       </n-form-item>
 

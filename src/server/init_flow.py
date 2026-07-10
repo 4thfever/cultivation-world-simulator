@@ -271,6 +271,8 @@ async def perform_game_initialization(
         world.avatar_manager.avatars.update(final_avatars)
         world.existed_sects = existed_sects
         world.sect_context.from_existed_sects(existed_sects)
+        from src.systems.world_secret import initialize_world_secret
+        initialize_world_secret(world, getattr(run_config, "world_secret_id", "none"))
         runtime.update({"world": world, "sim": sim})
 
         update_init_progress(5, "preparing_character_profiles")

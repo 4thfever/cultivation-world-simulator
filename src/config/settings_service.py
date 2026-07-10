@@ -80,6 +80,7 @@ class SettingsService:
             sect_num=3,
             npc_awakening_rate_per_month=0.01,
             world_lore="",
+            world_secret_id="none",
         )
 
     def _build_default_llm_seed(self) -> tuple[LLMProfile, str] | None:

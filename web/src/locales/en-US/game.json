@@ -44,6 +44,9 @@
       "sect_war": "Sect Wars",
       "war_active": "{count} sect war(s) currently active",
       "war_none": "No sect wars at the moment"
+    },
+    "world_secret": {
+      "label": "[World Secret]"
     }
   },
   "world_info": {
@@ -574,5 +577,24 @@
     "back_to_list": "Back to List",
     "death_year": "Year {year}, Month {month}",
     "rogue": "Rogue"
+  },
+  "world_secret": {
+    "title": "World Secret",
+    "option_none": "None",
+    "caption": "Omniscient player view: shows this run's secret, fragments, and what each character knows.",
+    "none_desc": "No world secret is configured for this run, so no secret fragments will trigger.",
+    "fragment_count": "{count} fragments",
+    "public_revealed": "Publicly revealed",
+    "not_public": "Not public",
+    "known_avatars": "Character knowledge",
+    "fragments": "Secret fragments",
+    "known_by_count": "Known by {count}",
+    "no_one_knows": "No character knows this yet",
+    "knows_full": "Knows truth",
+    "fragments_only": "Fragments only",
+    "decision_share": "Revealed",
+    "decision_keep": "Kept secret",
+    "decision_none": "No choice",
+    "empty": "No world secret data"
   }
 }

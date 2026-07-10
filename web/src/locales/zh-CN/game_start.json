@@ -6,7 +6,8 @@
     "init_npc_num": "初始修士数量",
     "sect_num": "活跃宗门数量",
     "new_npc_rate": "每月新生修士概率",
-    "world_lore": "世界观与历史"
+    "world_lore": "世界观与历史",
+    "world_secret": "世界秘密"
   },
   "tips": {
     "sect_num": "宗门数量建议少于角色数量的一半"
@@ -22,5 +23,9 @@
     "load_failed": "加载配置失败",
     "start_success": "配置已保存，正在初始化世界...",
     "start_failed": "开始游戏失败"
+  },
+  "fallback_map": {
+    "name": "九州中土",
+    "desc": ""
   }
 }

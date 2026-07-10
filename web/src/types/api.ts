@@ -263,6 +263,51 @@ export interface RunConfigDTO {
   sect_num: number;
   npc_awakening_rate_per_month: number;
   world_lore?: string;
+  world_secret_id?: string;
+}
+
+export interface WorldSecretOptionDTO {
+  id: string;
+  title: string;
+}
+
+export interface WorldSecretMetaResponseDTO {
+  options: WorldSecretOptionDTO[];
+}
+
+export interface WorldSecretAvatarRefDTO {
+  id: string;
+  name: string;
+  is_dead?: boolean;
+}
+
+export interface WorldSecretFragmentOverviewDTO {
+  id: string;
+  order: number;
+  angle: string;
+  text: string;
+  known_by: WorldSecretAvatarRefDTO[];
+}
+
+export interface WorldSecretAvatarOverviewDTO extends WorldSecretAvatarRefDTO {
+  known_fragment_count: number;
+  fragment_count: number;
+  knows_full_secret: boolean;
+  decision?: string | null;
+}
+
+export interface WorldSecretOverviewResponseDTO {
+  active_secret: {
+    id: string;
+    title: string;
+    secret: string;
+    fragment_count: number;
+  };
+  public_revealed: boolean;
+  public_revealed_month?: number | null;
+  public_revealed_by?: WorldSecretAvatarRefDTO | null;
+  fragments: WorldSecretFragmentOverviewDTO[];
+  avatars: WorldSecretAvatarOverviewDTO[];
 }
 
 export interface MapPresetDTO {

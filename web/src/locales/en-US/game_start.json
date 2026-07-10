@@ -6,7 +6,8 @@
     "init_npc_num": "Initial Cultivators",
     "sect_num": "Active Sects",
     "new_npc_rate": "Monthly New Cultivator Rate",
-    "world_lore": "Worldview and History"
+    "world_lore": "Worldview and History",
+    "world_secret": "World Secret"
   },
   "tips": {
     "sect_num": "Sect number should be less than half of initial cultivators."
@@ -22,5 +23,9 @@
     "load_failed": "Failed to load configuration",
     "start_success": "Configuration saved, initializing world...",
     "start_failed": "Failed to start game"
+  },
+  "fallback_map": {
+    "name": "Central Nine Provinces",
+    "desc": ""
   }
 }

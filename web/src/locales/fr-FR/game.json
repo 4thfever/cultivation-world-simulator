@@ -44,6 +44,9 @@
       "sect_war": "Guerres de sectes",
       "war_active": "{count} guerre(s) de sectes actuellement en cours",
       "war_none": "Aucune guerre de sectes pour le moment"
+    },
+    "world_secret": {
+      "label": "[Secret]"
     }
   },
   "world_info": {
@@ -253,7 +256,7 @@
     "earth_first": "1er de la Terre",
     "human_first": "1er des Hommes"
   },
-    "sect_relations": {
+  "sect_relations": {
     "title_short": "Diplomatie",
     "title": "Relations des sectes",
     "sect_a": "Secte A",
@@ -574,5 +577,24 @@
     "back_to_list": "Retour à la liste",
     "death_year": "An {year}, Mois {month}",
     "rogue": "Errant"
+  },
+  "world_secret": {
+    "title": "Secret du monde",
+    "option_none": "Aucun",
+    "caption": "Vue omnisciente: secret de la partie, fragments et savoir de chaque personnage.",
+    "none_desc": "Aucun secret du monde pour cette partie; aucun fragment ne se déclenchera.",
+    "fragment_count": "{count} fragments",
+    "public_revealed": "Révélé",
+    "not_public": "Non révélé",
+    "known_avatars": "Savoirs des personnages",
+    "fragments": "Fragments du secret",
+    "known_by_count": "Connu par {count}",
+    "no_one_knows": "Encore inconnu",
+    "knows_full": "Connaît la vérité",
+    "fragments_only": "Fragments seuls",
+    "decision_share": "Révélé",
+    "decision_keep": "Gardé secret",
+    "decision_none": "Aucun choix",
+    "empty": "Aucune donnée de secret"
   }
 }

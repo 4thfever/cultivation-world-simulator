@@ -8,6 +8,7 @@ export const STATUS_BAR_COLORS = {
   mortal: '#5fbf7a',
   dynasty: '#b8793b',
   hiddenDomain: '#b78a52',
+  worldSecret: '#ba8ad4',
 } as const
 
 export const PHENOMENON_RARITY_COLORS: Record<string, string> = {
@@ -95,5 +96,13 @@ export const SYSTEM_PANEL_THEMES = {
     title: '#e8ccb0',
     empty: '#9b876f',
     border: '#4a3726',
+  },
+  worldSecret: {
+    accent: STATUS_BAR_COLORS.worldSecret,
+    accentStrong: '#d5b5e6',
+    accentSoft: 'rgba(186, 138, 212, 0.14)',
+    title: '#e2c4ef',
+    empty: '#9885a0',
+    border: '#3d2d46',
   },
 } as const

@@ -26,6 +26,9 @@
       "ai_knowledge_note": "修仙者AI关于修仙界的知识",
       "empty": "暂无世界信息"
     },
+    "world_secret": {
+      "label": "[世界秘密]"
+    },
     "avatar_overview": {
       "label": "[角色总览]"
     },
@@ -112,6 +115,25 @@
       "WORLD_INFO_CULTIVATION_ALIAS_NAME": "阶层别名",
       "WORLD_INFO_CULTIVATION_ALIAS_TITLE": "阶层别名"
     }
+  },
+  "world_secret": {
+    "title": "世界秘密",
+    "option_none": "无",
+    "caption": "玩家全知视角：这里展示本局秘密、碎片，以及各角色分别知悉的部分。",
+    "none_desc": "本局未配入世界秘密，不会触发秘密碎片。",
+    "fragment_count": "碎片 {count} 条",
+    "public_revealed": "已公开",
+    "not_public": "尚未公开",
+    "known_avatars": "角色知悉情况",
+    "fragments": "秘密碎片",
+    "known_by_count": "{count} 人知悉",
+    "no_one_knows": "暂无角色知悉",
+    "knows_full": "知晓真相",
+    "fragments_only": "仅知碎片",
+    "decision_share": "已公开",
+    "decision_keep": "保守秘密",
+    "decision_none": "未选择",
+    "empty": "暂无世界秘密数据"
   },
   "controls": {
     "resume": "继续游戏",
@@ -515,11 +537,11 @@
         "lodes": "矿脉分布",
         "market": "坊市交易"
       },
-        "host_meta": "主人",
-        "no_host": "无主（可占据）",
-        "price_meta": "{price}灵石",
-        "formation_remaining": "剩余 {months} 个月"
-      },
+      "host_meta": "主人",
+      "no_host": "无主（可占据）",
+      "price_meta": "{price}灵石",
+      "formation_remaining": "剩余 {months} 个月"
+    },
     "sect": {
       "stats": {
         "alignment": "阵营",

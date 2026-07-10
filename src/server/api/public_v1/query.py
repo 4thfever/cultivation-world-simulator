@@ -31,6 +31,8 @@ def create_public_query_router(
     build_detail: Callable[..., dict],
     build_deceased_list: Callable[[], dict],
     build_roleplay_session: Callable[[], dict],
+    build_world_secret_meta: Callable[[], dict],
+    build_world_secret_overview: Callable[[], dict],
 ) -> APIRouter:
     router = APIRouter()
 
@@ -142,5 +144,13 @@ def create_public_query_router(
     @router.get("/api/v1/query/roleplay/session")
     def get_roleplay_session_v1():
         return ok_response(build_roleplay_session())
+
+    @router.get("/api/v1/query/meta/world-secrets")
+    def get_world_secret_meta_v1():
+        return ok_response(build_world_secret_meta())
+
+    @router.get("/api/v1/query/world-secrets/overview")
+    def get_world_secret_overview_v1():
+        return ok_response(build_world_secret_overview())
 
     return router

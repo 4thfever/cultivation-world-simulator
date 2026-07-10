@@ -58,6 +58,8 @@ from src.server.services.game_queries import (
     get_dynasty_overview as get_dynasty_overview_query,
     get_dynasty_detail as get_dynasty_detail_query,
     get_avatar_overview as get_avatar_overview_query,
+    get_world_secret_meta as get_world_secret_meta_query,
+    get_world_secret_overview as get_world_secret_overview_query,
     get_world_map,
     get_world_state,
 )
@@ -287,6 +289,8 @@ public_query_builders = create_public_query_builders(
     get_avatar_overview_query=get_avatar_overview_query,
     get_deceased_list_query=get_deceased_list,
     get_roleplay_session_query=get_roleplay_session_query,
+    get_world_secret_meta_query=get_world_secret_meta_query,
+    get_world_secret_overview_query=get_world_secret_overview_query,
 )
 
 build_public_world_state = public_query_builders.build_public_world_state
@@ -311,6 +315,8 @@ build_public_dynasty_detail = public_query_builders.build_public_dynasty_detail
 build_public_avatar_overview = public_query_builders.build_public_avatar_overview
 build_public_deceased_list = public_query_builders.build_public_deceased_list
 build_public_roleplay_session = public_query_builders.build_public_roleplay_session
+build_public_world_secret_meta = public_query_builders.build_public_world_secret_meta
+build_public_world_secret_overview = public_query_builders.build_public_world_secret_overview
 
 
 def update_init_progress(phase: int, phase_name: str = ""):
@@ -644,6 +650,8 @@ configure_routes_and_mounts(
     build_detail=build_public_detail,
     build_deceased_list=build_public_deceased_list,
     build_roleplay_session=build_public_roleplay_session,
+    build_world_secret_meta=build_public_world_secret_meta,
+    build_world_secret_overview=build_public_world_secret_overview,
     create_public_command_router=create_public_command_router,
     run_start_game=run_start_game,
     run_reinit_game=run_reinit_game,

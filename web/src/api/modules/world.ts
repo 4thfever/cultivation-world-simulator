@@ -12,6 +12,8 @@ import type {
   DeceasedListResponseDTO,
   AvatarOverviewResponseDTO,
   MapPresetsResponseDTO,
+  WorldSecretMetaResponseDTO,
+  WorldSecretOverviewResponseDTO,
 } from '../../types/api';
 import {
   normalizeInitialState,
@@ -85,5 +87,14 @@ export const worldApi = {
   async fetchAvatarOverview() {
     const data = await httpClient.get<AvatarOverviewResponseDTO>('/api/v1/query/avatars/overview');
     return normalizeAvatarOverview(data);
+  },
+
+  async fetchWorldSecretOptions() {
+    const data = await httpClient.get<WorldSecretMetaResponseDTO>('/api/v1/query/meta/world-secrets');
+    return Array.isArray(data.options) ? data.options : [];
+  },
+
+  fetchWorldSecretOverview() {
+    return httpClient.get<WorldSecretOverviewResponseDTO>('/api/v1/query/world-secrets/overview');
   },
 };

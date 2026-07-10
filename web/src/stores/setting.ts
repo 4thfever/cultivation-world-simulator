@@ -21,6 +21,19 @@ function applyUiLocale(lang: string) {
   document.documentElement.lang = getHtmlLang(lang);
 }
 
+function getFallbackWorldSecretOptions() {
+  return [{ id: 'none', title: i18n.global.t('game.world_secret.option_none') }];
+}
+
+function getFallbackMapPresets() {
+  return [{
+    id: 'classic',
+    name: i18n.global.t('game_start.fallback_map.name'),
+    desc: i18n.global.t('game_start.fallback_map.desc'),
+    size_label: '',
+  }];
+}
+
 export const useSettingStore = defineStore('setting', () => {
   const eventStore = useEventStore();
   const mapStore = useMapStore();
@@ -36,6 +49,7 @@ export const useSettingStore = defineStore('setting', () => {
   const isAutoSave = ref(false);
   const maxAutoSaves = ref(5);
   const mapPresets = ref<Array<{ id: string; name: string; desc: string; size_label?: string }>>([]);
+  const worldSecretOptions = ref<Array<{ id: string; title: string }>>(getFallbackWorldSecretOptions());
   const newGameDraft = ref<RunConfigDTO>({
     content_locale: defaultLocale,
     map_id: 'classic',
@@ -43,6 +57,7 @@ export const useSettingStore = defineStore('setting', () => {
     sect_num: 3,
     npc_awakening_rate_per_month: 0.01,
     world_lore: '',
+    world_secret_id: 'none',
   });
 
   const isReady = computed(() => hydrated.value && !loading.value);
@@ -56,6 +71,7 @@ export const useSettingStore = defineStore('setting', () => {
     newGameDraft.value = {
       ...settings.new_game_defaults,
       map_id: settings.new_game_defaults.map_id ?? 'classic',
+      world_secret_id: settings.new_game_defaults.world_secret_id ?? 'none',
     };
     applyUiLocale(locale.value);
   }
@@ -65,10 +81,22 @@ export const useSettingStore = defineStore('setting', () => {
       const presets = await worldApi.fetchMapPresets(locale.value);
       mapPresets.value = presets.length > 0
         ? presets
-        : [{ id: 'classic', name: '九州中土', desc: '', size_label: '' }];
+        : getFallbackMapPresets();
     } catch (e) {
-      mapPresets.value = [{ id: 'classic', name: '九州中土', desc: '', size_label: '' }];
+      mapPresets.value = getFallbackMapPresets();
       logWarn('SettingStore load map presets', e);
+    }
+  }
+
+  async function loadWorldSecretOptions() {
+    try {
+      const options = await worldApi.fetchWorldSecretOptions();
+      worldSecretOptions.value = options.length > 0
+        ? options
+        : getFallbackWorldSecretOptions();
+    } catch (e) {
+      worldSecretOptions.value = getFallbackWorldSecretOptions();
+      logWarn('SettingStore load world secret options', e);
     }
   }
 
@@ -102,6 +130,7 @@ export const useSettingStore = defineStore('setting', () => {
       const settings = await systemApi.fetchSettings();
       applySettings(settings);
       await loadMapPresets();
+      await loadWorldSecretOptions();
     } catch (e) {
       logWarn('SettingStore hydrate', e);
       applyUiLocale(locale.value);
@@ -129,6 +158,7 @@ export const useSettingStore = defineStore('setting', () => {
       });
       applySettings(settings);
       await loadMapPresets();
+      await loadWorldSecretOptions();
       await refreshLocalizedRuntimeData();
     } catch (e) {
       locale.value = previous;
@@ -221,8 +251,10 @@ export const useSettingStore = defineStore('setting', () => {
     maxAutoSaves,
     newGameDraft,
     mapPresets,
+    worldSecretOptions,
     hydrate,
     loadMapPresets,
+    loadWorldSecretOptions,
     setLocale,
     setSfxVolume,
     setBgmVolume,

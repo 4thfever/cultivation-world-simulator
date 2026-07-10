@@ -7,6 +7,7 @@ const {
   mockPatchSettings,
   mockStartGame,
   mockFetchMapPresets,
+  mockFetchWorldSecretOptions,
   mockMapPreload,
   mockWorldFetchState,
   mockSectRefreshTerritories,
@@ -16,6 +17,7 @@ const {
   mockPatchSettings: vi.fn(),
   mockStartGame: vi.fn(),
   mockFetchMapPresets: vi.fn(),
+  mockFetchWorldSecretOptions: vi.fn(),
   mockMapPreload: vi.fn(),
   mockWorldFetchState: vi.fn(),
   mockSectRefreshTerritories: vi.fn(),
@@ -58,6 +60,7 @@ const baseSettings = {
     sect_num: 3,
     npc_awakening_rate_per_month: 0.01,
     world_lore: '',
+    world_secret_id: 'none',
   },
 }
 
@@ -72,6 +75,12 @@ vi.mock('@/locales', () => ({
       },
       set locale(val) {
         mockI18nLocale = val
+      },
+      t(key: string) {
+        if (key === 'game.world_secret.option_none') return 'None'
+        if (key === 'game_start.fallback_map.name') return 'Central Nine Provinces'
+        if (key === 'game_start.fallback_map.desc') return ''
+        return key
       },
     },
   },
@@ -88,6 +97,7 @@ vi.mock('@/api/modules/system', () => ({
 vi.mock('@/api/modules/world', () => ({
   worldApi: {
     fetchMapPresets: mockFetchMapPresets,
+    fetchWorldSecretOptions: mockFetchWorldSecretOptions,
   },
 }))
 
@@ -131,6 +141,10 @@ describe('useSettingStore', () => {
     mockMapPreload.mockResolvedValue(undefined)
     mockFetchMapPresets.mockResolvedValue([
       { id: 'classic', name: '九州中土', desc: '地貌均衡，适合默认体验。', size_label: '中型' },
+    ])
+    mockFetchWorldSecretOptions.mockResolvedValue([
+      { id: 'none', title: '无' },
+      { id: 'random', title: '随机' },
     ])
     mockWorldFetchState.mockResolvedValue(undefined)
     mockSectRefreshTerritories.mockResolvedValue(undefined)
@@ -177,6 +191,22 @@ describe('useSettingStore', () => {
     expect(store.bgmVolume).toBe(0.5)
     expect(store.newGameDraft.init_npc_num).toBe(9)
     expect(mockFetchMapPresets).toHaveBeenCalledWith(testDefaultLocale)
+  })
+
+  it('uses localized fallback world secret option when meta loading fails', async () => {
+    mockFetchWorldSecretOptions.mockRejectedValueOnce(new Error('network'))
+
+    await store.hydrate()
+
+    expect(store.worldSecretOptions).toEqual([{ id: 'none', title: 'None' }])
+  })
+
+  it('uses localized fallback map preset when map preset loading fails', async () => {
+    mockFetchMapPresets.mockRejectedValueOnce(new Error('network'))
+
+    await store.hydrate()
+
+    expect(store.mapPresets).toEqual([{ id: 'classic', name: 'Central Nine Provinces', desc: '', size_label: '' }])
   })
 
   it('updates i18n locale after hydrate', async () => {
@@ -246,6 +276,7 @@ describe('useSettingStore', () => {
         map_id: 'classic',
         npc_awakening_rate_per_month: 0.01,
         world_lore: '',
+        world_secret_id: 'none',
       },
     })
     expect(mockStartGame).toHaveBeenCalledWith({
@@ -255,6 +286,7 @@ describe('useSettingStore', () => {
       map_id: 'classic',
       npc_awakening_rate_per_month: 0.01,
       world_lore: '',
+      world_secret_id: 'none',
     })
   })
 

@@ -4736,6 +4736,9 @@ msgstr "Sect Headquarters"
 msgid "LLM connection failed"
 msgstr "LLM connection failed"
 
+msgid "Random"
+msgstr "Random"
+
 # Weapon System - Weapons
 msgid ""
 "Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid "
@@ -4771,6 +4774,79 @@ msgstr "Whip"
 
 msgid "zither"
 msgstr "Zither"
+
+msgid ""
+"{avatar} heard a hidden clue in the market rumors of {location}: {fragment}"
+msgstr ""
+"{avatar} heard a hidden clue in the market rumors of {location}: {fragment}"
+
+msgid ""
+"{avatar} glimpsed a corner of the truth through a mysterious insight: "
+"{fragment}"
+msgstr ""
+"{avatar} glimpsed a corner of the truth through a mysterious insight: "
+"{fragment}"
+
+msgid "{avatar} noticed an unusual clue at {location}: {fragment}"
+msgstr "{avatar} noticed an unusual clue at {location}: {fragment}"
+
+msgid ""
+"{avatar} connected scattered clues and finally learned a world secret "
+"capable of shaking this realm's foundations."
+msgstr ""
+"{avatar} connected scattered clues and finally learned a world secret "
+"capable of shaking this realm's foundations."
+
+msgid ""
+"{avatar} has pieced together scattered clues and learned a world secret "
+"capable of shaking this realm's foundations. If revealed, the secret will "
+"become known to all under heaven; if kept silent, only {avatar} will bear "
+"it. Complete secret: {secret}"
+msgstr ""
+"{avatar} has pieced together scattered clues and learned a world secret "
+"capable of shaking this realm's foundations. If revealed, the secret will "
+"become known to all under heaven; if kept silent, only {avatar} will bear "
+"it. Complete secret: {secret}"
+
+msgid "Reveal the world secret?"
+msgstr "Reveal the world secret?"
+
+msgid ""
+"You have learned a secret capable of shaking the world's foundations. Will "
+"you tell all under heaven, or remain silent alone?"
+msgstr ""
+"You have learned a secret capable of shaking the world's foundations. Will "
+"you tell all under heaven, or remain silent alone?"
+
+msgid "Tell everyone"
+msgstr "Tell everyone"
+
+msgid ""
+"Reveal the complete secret so all cultivators under heaven know this realm's"
+" truth."
+msgstr ""
+"Reveal the complete secret so all cultivators under heaven know this realm's"
+" truth."
+
+msgid "Bear it silently"
+msgstr "Bear it silently"
+
+msgid "Do not spread it; bear this truth alone."
+msgstr "Do not spread it; bear this truth alone."
+
+msgid ""
+"{avatar} revealed a world secret to all: '{title}'. From now on, cultivators"
+" under heaven know this realm's truth."
+msgstr ""
+"{avatar} revealed a world secret to all: '{title}'. From now on, cultivators"
+" under heaven know this realm's truth."
+
+msgid ""
+"{avatar} chose silence after learning the truth, pressing this secret deep "
+"into the heart."
+msgstr ""
+"{avatar} chose silence after learning the truth, pressing this secret deep "
+"into the heart."
 
 msgid "rest_action_name"
 msgstr "Rest"

@@ -48,6 +48,7 @@ from src.classes.items.elixir import ConsumedElixir, Elixir
 from src.classes.avatar_metrics import AvatarMetrics
 from src.classes.mortal import Mortal
 from src.classes.gender import Gender
+from src.classes.world_secret import AvatarWorldSecretKnowledge
 
 # Mixin 导入
 from src.classes.effect import EffectsMixin
@@ -131,6 +132,7 @@ class Avatar(
     _action_cd_last_months: dict[str, int] = field(default_factory=dict)
     
     known_regions: set[int] = field(default_factory=set)
+    world_secret_knowledge: dict[str, AvatarWorldSecretKnowledge] = field(default_factory=dict)
 
     # 状态追踪（可选）
     metrics_history: List[AvatarMetrics] = field(default_factory=list)

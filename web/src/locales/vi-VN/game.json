@@ -44,6 +44,9 @@
       "sect_war": "Chien Tranh Tong Mon",
       "war_active": "Hien co {count} cuoc chien tong mon",
       "war_none": "Hien khong co chien tranh tong mon"
+    },
+    "world_secret": {
+      "label": "[Bí Mật]"
     }
   },
   "world_info": {
@@ -574,5 +577,24 @@
     "back_to_list": "Quay lại danh sách",
     "death_year": "Năm {year} tháng {month}",
     "rogue": "Tán tu"
+  },
+  "world_secret": {
+    "title": "Bí Mật Thế Giới",
+    "option_none": "Không",
+    "caption": "Góc nhìn toàn tri của người chơi: hiển thị bí mật, mảnh ghép và điều từng nhân vật biết.",
+    "none_desc": "Ván này không có bí mật thế giới, nên mảnh bí mật sẽ không xuất hiện.",
+    "fragment_count": "{count} mảnh",
+    "public_revealed": "Đã công khai",
+    "not_public": "Chưa công khai",
+    "known_avatars": "Tri thức nhân vật",
+    "fragments": "Mảnh bí mật",
+    "known_by_count": "{count} người biết",
+    "no_one_knows": "Chưa ai biết",
+    "knows_full": "Biết sự thật",
+    "fragments_only": "Chỉ biết mảnh",
+    "decision_share": "Đã công khai",
+    "decision_keep": "Giữ bí mật",
+    "decision_none": "Chưa chọn",
+    "empty": "Chưa có dữ liệu bí mật thế giới"
   }
 }

@@ -19,6 +19,7 @@ from src.utils.config import CONFIG
 from src.utils.born_region import get_born_region_id
 from src.i18n import t
 from src.classes.race import Race, roll_avatar_race
+from src.systems.world_secret import sync_avatar_public_world_secret_knowledge
 
 # 常量
 MIN_AWAKENING_AGE = 16
@@ -65,6 +66,7 @@ def _process_bloodline_awakening(world: World) -> List[Event]:
         # 判定是否觉醒
         if random.random() < BLOODLINE_AWAKENING_RATE:
             avatar = _promote_mortal_to_avatar(world, mortal)
+            sync_avatar_public_world_secret_knowledge(world, avatar)
 
             # 注册 Avatar（若寿元已尽，manager 会归档到 dead_avatars）
             world.avatar_manager.register_avatar(avatar, is_newly_born=True)
@@ -93,6 +95,7 @@ def _process_wild_awakening(world: World) -> Optional[Event]:
     # 构造 Avatar
     born_id = get_born_region_id(world, race=race)
     avatar = _create_simple_avatar(world, name, gender, age_val, parents=[], born_region_id=born_id, race=race)
+    sync_avatar_public_world_secret_knowledge(world, avatar)
     
     # 注册
     world.avatar_manager.register_avatar(avatar, is_newly_born=True)

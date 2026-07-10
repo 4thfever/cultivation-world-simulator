@@ -182,6 +182,7 @@ describe('StatusBar', () => {
         StatusWidget: StatusWidgetStub,
         TimeOverviewModal: true,
         AvatarOverviewModal: true,
+        WorldSecretModal: true,
       },
     },
   }
@@ -304,9 +305,9 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      // time + domain/sect-relations/dynasty/mortal/ranking/tournament/avatar-overview/world-info
+      // time + domain/sect-relations/dynasty/mortal/ranking/tournament/avatar-overview/world-secret/world-info
       const widgets = wrapper.findAll('.status-widget-stub')
-      expect(widgets.length).toBe(9)
+      expect(widgets.length).toBe(10)
     })
 
     it('should place time widget before phenomenon widget and world info widget last', () => {
@@ -316,7 +317,7 @@ describe('StatusBar', () => {
       expect(widgets[0]?.attributes('data-label')).toBe('100common.year5common.month')
       expect(widgets[0]?.attributes('data-icon')).toBeTruthy()
       expect(widgets[1]?.attributes('data-label')).toBe('[Test Phenomenon]')
-      expect(widgets[9]?.attributes('data-label')).toBe('game.status_bar.world_info.label')
+      expect(widgets[10]?.attributes('data-label')).toBe('game.status_bar.world_info.label')
     })
   })
 
@@ -458,8 +459,8 @@ describe('StatusBar', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
     const widgets = wrapper.findAll('.status-widget-stub')
-    // time + currentPhenomenon + domain + sect_relations + dynasty + mortal + ranking + tournament + avatar-overview + world-info
-    expect(widgets.length).toBe(10)
+    // time + currentPhenomenon + domain + sect_relations + dynasty + mortal + ranking + tournament + avatar-overview + world-secret + world-info
+    expect(widgets.length).toBe(11)
     const sectRelationsWidget = widgets[3]
     expect(sectRelationsWidget.attributes('data-label')).toBe('game.sect_relations.title_short')
   })

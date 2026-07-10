@@ -44,6 +44,7 @@ from src.classes.world_lore_snapshot import build_world_lore_snapshot
 from src.sim.load.load_game import get_events_db_path
 from src.run.map_snapshot import serialize_map_snapshot
 from src.systems.opportunity import serialize_opportunities
+from src.systems.world_secret import serialize_world_secret
 
 
 
@@ -216,6 +217,7 @@ def save_game(
                 "text": world.world_lore.text,
             },
             "world_lore_snapshot": getattr(world, "world_lore_snapshot", None) or build_world_lore_snapshot(world),
+            "world_secret": serialize_world_secret(world),
             "sect_runtime_states": sect_runtime_states,
             "sect_relation_modifiers": list(getattr(world, "sect_relation_modifiers", []) or []),
             "sect_wars": list(getattr(world, "sect_wars", []) or []),

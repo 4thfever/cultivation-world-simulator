@@ -52,6 +52,8 @@ def create_public_query_builders(
     get_avatar_overview_query,
     get_deceased_list_query,
     get_roleplay_session_query,
+    get_world_secret_meta_query,
+    get_world_secret_overview_query,
 ):
     def _resolve_avatar_pic_id(avatar):
         return resolve_avatar_pic_id(avatar_assets=avatar_assets, avatar=avatar)
@@ -175,6 +177,12 @@ def create_public_query_builders(
     def build_public_roleplay_session() -> dict:
         return get_roleplay_session_query(runtime)
 
+    def build_public_world_secret_meta() -> dict:
+        return get_world_secret_meta_query()
+
+    def build_public_world_secret_overview() -> dict:
+        return get_world_secret_overview_query(runtime)
+
     return SimpleNamespace(
         build_public_world_state=build_public_world_state,
         build_public_world_map=build_public_world_map,
@@ -198,4 +206,6 @@ def create_public_query_builders(
         build_public_avatar_overview=build_public_avatar_overview,
         build_public_deceased_list=build_public_deceased_list,
         build_public_roleplay_session=build_public_roleplay_session,
+        build_public_world_secret_meta=build_public_world_secret_meta,
+        build_public_world_secret_overview=build_public_world_secret_overview,
     )

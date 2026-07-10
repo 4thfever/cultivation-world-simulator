@@ -52,6 +52,8 @@ class AvatarSaveMixin:
         
         # 序列化planned_actions
         planned_actions_list = [plan.to_dict() for plan in self.planned_actions]
+
+        from src.classes.world_secret import serialize_avatar_world_secret_knowledge
         
         # 序列化spirit_animal
         spirit_animal_dict = None
@@ -123,6 +125,7 @@ class AvatarSaveMixin:
             } if self.long_term_objective else None,
             "_action_cd_last_months": self._action_cd_last_months,
             "known_regions": list(self.known_regions),
+            "world_secret_knowledge": serialize_avatar_world_secret_knowledge(self),
 
             # 状态追踪
             "metrics_history": [

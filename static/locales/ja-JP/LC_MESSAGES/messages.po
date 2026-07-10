@@ -4386,6 +4386,9 @@ msgstr "宗門本部"
 msgid "LLM connection failed"
 msgstr "LLM への接続に失敗しました"
 
+msgid "Random"
+msgstr "ランダム"
+
 # Weapon System - Weapons
 msgid ""
 "Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid "
@@ -4419,6 +4422,63 @@ msgstr "鞭"
 
 msgid "zither"
 msgstr "琴"
+
+msgid ""
+"{avatar} heard a hidden clue in the market rumors of {location}: {fragment}"
+msgstr "{avatar}は{location}の市井の噂の中で、隠された手掛かりを聞いた：{fragment}"
+
+msgid ""
+"{avatar} glimpsed a corner of the truth through a mysterious insight: "
+"{fragment}"
+msgstr "{avatar}は冥冥たる悟りの中で、真相の一端を垣間見た：{fragment}"
+
+msgid "{avatar} noticed an unusual clue at {location}: {fragment}"
+msgstr "{avatar}は{location}で異様な手掛かりに気づいた：{fragment}"
+
+msgid ""
+"{avatar} connected scattered clues and finally learned a world secret "
+"capable of shaking this realm's foundations."
+msgstr "{avatar}は散らばった手掛かりをつなぎ合わせ、ついにこの世界の根幹を揺るがす世界の秘密を知った。"
+
+msgid ""
+"{avatar} has pieced together scattered clues and learned a world secret "
+"capable of shaking this realm's foundations. If revealed, the secret will "
+"become known to all under heaven; if kept silent, only {avatar} will bear "
+"it. Complete secret: {secret}"
+msgstr ""
+"{avatar}は散らばった手掛かりをつなぎ合わせ、この世界の根幹を揺るがす世界の秘密を知った。公開すれば天下の共通認識となり、沈黙すれば{avatar}だけが背負うことになる。完全な秘密：{secret}"
+
+msgid "Reveal the world secret?"
+msgstr "世界の秘密を公開するか"
+
+msgid ""
+"You have learned a secret capable of shaking the world's foundations. Will "
+"you tell all under heaven, or remain silent alone?"
+msgstr "あなたは世界の根幹を揺るがす秘密を知った。天下に告げるか、それとも一人で沈黙するか。"
+
+msgid "Tell everyone"
+msgstr "全員に告げる"
+
+msgid ""
+"Reveal the complete secret so all cultivators under heaven know this realm's"
+" truth."
+msgstr "完全な秘密を公にし、天下の修士にこの世界の真相を知らせる。"
+
+msgid "Bear it silently"
+msgstr "黙って背負う"
+
+msgid "Do not spread it; bear this truth alone."
+msgstr "自ら広めず、この真実を一人で背負う。"
+
+msgid ""
+"{avatar} revealed a world secret to all: '{title}'. From now on, cultivators"
+" under heaven know this realm's truth."
+msgstr "{avatar}は世界の秘密を公にした：「{title}」。これより天下の修士はこの世界の真相を知る。"
+
+msgid ""
+"{avatar} chose silence after learning the truth, pressing this secret deep "
+"into the heart."
+msgstr "{avatar}は真相を知った後に沈黙を選び、この秘密を心の奥深くに押し込めた。"
 
 msgid "rest_action_name"
 msgstr "休息"

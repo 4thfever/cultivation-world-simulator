@@ -13,6 +13,7 @@ const HiddenDomainOverviewModal = defineAsyncComponent(() => import('@/component
 const WorldInfoModal = defineAsyncComponent(() => import('@/components/game/panels/WorldInfoModal.vue'))
 const TimeOverviewModal = defineAsyncComponent(() => import('@/components/game/panels/TimeOverviewModal.vue'))
 const AvatarOverviewModal = defineAsyncComponent(() => import('@/components/game/panels/AvatarOverviewModal.vue'))
+const WorldSecretModal = defineAsyncComponent(() => import('@/components/game/panels/WorldSecretModal.vue'))
 
 type StatusBarPanelKey =
   | 'time'
@@ -25,6 +26,7 @@ type StatusBarPanelKey =
   | 'hiddenDomain'
   | 'phenomenonSelector'
   | 'avatarOverview'
+  | 'worldSecret'
 
 const avatarOverviewStore = useAvatarOverviewStore()
 
@@ -38,6 +40,7 @@ const showMortalOverviewModal = ref(false)
 const showDynastyOverviewModal = ref(false)
 const showHiddenDomainModal = ref(false)
 const showAvatarOverviewModal = ref(false)
+const showWorldSecretModal = ref(false)
 
 async function open(panel: StatusBarPanelKey) {
   if (panel === 'time') showTimeOverviewModal.value = true
@@ -49,6 +52,7 @@ async function open(panel: StatusBarPanelKey) {
   else if (panel === 'dynastyOverview') showDynastyOverviewModal.value = true
   else if (panel === 'hiddenDomain') showHiddenDomainModal.value = true
   else if (panel === 'phenomenonSelector') showPhenomenonSelector.value = true
+  else if (panel === 'worldSecret') showWorldSecretModal.value = true
   else if (panel === 'avatarOverview') {
     if (!avatarOverviewStore.isLoaded) {
       await avatarOverviewStore.refreshOverview()
@@ -71,4 +75,5 @@ defineExpose({ open })
   <DynastyOverviewModal v-if="showDynastyOverviewModal" v-model:show="showDynastyOverviewModal" />
   <PhenomenonSelectorModal v-if="showPhenomenonSelector" v-model:show="showPhenomenonSelector" />
   <AvatarOverviewModal v-if="showAvatarOverviewModal" v-model:show="showAvatarOverviewModal" />
+  <WorldSecretModal v-if="showWorldSecretModal" v-model:show="showWorldSecretModal" />
 </template>
