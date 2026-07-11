@@ -72,6 +72,13 @@ const mockMapPresets = {
   },
 }
 
+const mockWorldSecretMeta = {
+  options: [
+    { id: 'none', title: '无' },
+    { id: 'random', title: '随机' },
+  ],
+}
+
 async function installApiMocks(page: Page) {
   if (!mockApi) return
 
@@ -112,6 +119,14 @@ async function installApiMocks(page: Page) {
       status: 200,
       contentType: 'application/json',
       body: JSON.stringify(mockMapPresets),
+    })
+  })
+
+  await page.route('**/api/v1/query/meta/world-secrets', async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify(mockWorldSecretMeta),
     })
   })
 }
