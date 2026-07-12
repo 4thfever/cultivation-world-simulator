@@ -14,6 +14,31 @@ class GameQueryService:
     def __init__(self, builders: Any):
         self._builders = builders
 
+    @classmethod
+    def from_dependencies(cls, *, static_data: Any, **dependencies: Any) -> "GameQueryService":
+        """Create the service from concrete query dependencies.
+
+        The old builder namespace remains an internal implementation detail,
+        while callers only compose a query service.
+        """
+        from src.server.public_query_builders import create_public_query_builders
+
+        builders = create_public_query_builders(
+            **dependencies,
+            sects_by_id=static_data.sects_by_id,
+            races_by_id=static_data.races_by_id,
+            personas_by_id=static_data.personas_by_id,
+            techniques_by_id=static_data.techniques_by_id,
+            weapons_by_id=static_data.weapons_by_id,
+            auxiliaries_by_id=static_data.auxiliaries_by_id,
+            celestial_phenomena_by_id=static_data.celestial_phenomena_by_id,
+        )
+        return cls(builders)
+
+    @property
+    def builders(self) -> Any:
+        return self._builders
+
     def get_runtime_status(self) -> dict:
         return self._builders.build_public_runtime_status()
 

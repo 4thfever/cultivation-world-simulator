@@ -93,21 +93,14 @@ from src.run.map_presets import get_map_presets_query
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
 from src.systems.dynasty_generator import generate_dynasty, generate_emperor
 from src.utils.config import CONFIG
-from src.classes.core.sect import sects_by_id
-from src.classes.technique import techniques_by_id
-from src.classes.goldfinger import goldfingers_by_id
-from src.classes.items.weapon import weapons_by_id
-from src.classes.items.auxiliary import auxiliaries_by_id
 from src.classes.appearance import get_appearance_by_level
-from src.classes.persona import personas_by_id
-from src.classes.race import races_by_id
 from src.systems.cultivation import REALM_ORDER, Realm
 from src.classes.alignment import Alignment
 from src.classes.event import Event
-from src.classes.celestial_phenomenon import celestial_phenomena_by_id
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
 from src.sim import save_game, list_saves, load_game, get_events_db_path
 from src.utils.llm.client import register_llm_failure_handler, test_connectivity as _test_connectivity
+from src.utils.llm.config import LLMConfig
 from src.run.data_loader import reload_all_static_data
 from src.run.static_data_registry import build_static_game_data_registry
 from src.classes.language import language_manager
@@ -116,7 +109,6 @@ from src.i18n import t
 from src.config import get_settings_service
 from src.config.data_paths import get_data_paths
 from src.i18n.locale_registry import uses_space_separated_names
-from src.utils.llm.config import LLMConfig
 from src.server.runtime import GameSessionRuntime, create_default_game_state
 from src.server.host_runtime import (
     ConnectionManager,
@@ -124,6 +116,7 @@ from src.server.host_runtime import (
     patch_sys_streams,
     trigger_process_shutdown,
 )
+from src.server.app_factory import create_configured_app
 from src.server.app_context import ServerAppContext
 from src.server.auto_save import trigger_auto_save as _trigger_auto_save
 from src.server.bootstrap import (
@@ -133,7 +126,6 @@ from src.server.bootstrap import (
     resolve_runtime_paths,
     resolve_server_binding,
 )
-from src.server.command_handlers import create_command_handlers
 from src.server.dev_runtime import start_frontend_dev_server, stop_frontend_dev_server
 from src.server.host_app import (
     configure_routes_and_mounts,
@@ -155,7 +147,9 @@ from src.server.loop_runtime import (
     run_game_loop_forever,
     should_trigger_auto_save,
 )
-from src.server.public_query_builders import create_public_query_builders
+from src.server.llm_runtime_handlers import create_llm_runtime_handlers
+from src.server.runtime_hooks import create_runtime_hooks
+from src.server.settings_handlers import SettingsServiceProxy, create_settings_handlers
 from src.server.services.game_command_service import GameCommandService
 from src.server.services.game_query_service import GameQueryService
 from src.server.public_helpers import (
@@ -233,8 +227,18 @@ def is_idle_shutdown_enabled() -> bool:
     return raw.strip().lower() not in {"1", "true", "yes", "on"}
 
 manager = ConnectionManager(runtime=runtime, is_idle_shutdown_enabled=is_idle_shutdown_enabled)
+static_data = build_static_game_data_registry()
+sects_by_id = static_data.sects_by_id
+races_by_id = static_data.races_by_id
+personas_by_id = static_data.personas_by_id
+techniques_by_id = static_data.techniques_by_id
+weapons_by_id = static_data.weapons_by_id
+auxiliaries_by_id = static_data.auxiliaries_by_id
+goldfingers_by_id = static_data.goldfingers_by_id
+celestial_phenomena_by_id = static_data.celestial_phenomena_by_id
 
-public_query_builders = create_public_query_builders(
+query_service = GameQueryService.from_dependencies(
+    static_data=static_data,
     runtime=runtime,
     avatar_assets=AVATAR_ASSETS,
     config=CONFIG,
@@ -248,16 +252,10 @@ public_query_builders = create_public_query_builders(
     get_world_state=get_world_state,
     get_world_map=get_world_map,
     get_map_presets_query=get_map_presets_query,
-    sects_by_id=sects_by_id,
     get_runtime_status=get_runtime_status,
     get_events_page=get_events_page,
     get_game_data_query=get_game_data_query,
-    races_by_id=races_by_id,
-    personas_by_id=personas_by_id,
     realm_order=REALM_ORDER,
-    techniques_by_id=techniques_by_id,
-    weapons_by_id=weapons_by_id,
-    auxiliaries_by_id=auxiliaries_by_id,
     alignment_enum=Alignment,
     get_detail_query=get_detail_query,
     build_sect_detail=build_sect_detail,
@@ -266,7 +264,6 @@ public_query_builders = create_public_query_builders(
     get_avatar_assets_meta_query=get_avatar_assets_meta_query,
     get_avatar_list_query=get_avatar_list_query,
     get_phenomena_list_query=get_phenomena_list_query,
-    celestial_phenomena_by_id=celestial_phenomena_by_id,
     get_sect_territories_summary_query=get_sect_territories_summary_query,
     list_saves_query=list_saves_query,
     get_list_saves=lambda: (
@@ -297,6 +294,7 @@ public_query_builders = create_public_query_builders(
     get_world_secret_meta_query=get_world_secret_meta_query,
     get_world_secret_overview_query=get_world_secret_overview_query,
 )
+public_query_builders = query_service.builders
 
 build_public_world_state = public_query_builders.build_public_world_state
 build_public_world_map = public_query_builders.build_public_world_map
@@ -324,12 +322,86 @@ build_public_world_secret_meta = public_query_builders.build_public_world_secret
 build_public_world_secret_overview = public_query_builders.build_public_world_secret_overview
 
 
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+
+WEB_DIST_PATH, ASSETS_PATH = resolve_runtime_paths(
+    server_file=__file__,
+    is_frozen=getattr(sys, "frozen", False),
+    executable=getattr(sys, "executable", None),
+    meipass=getattr(sys, "_MEIPASS", None),
+)
+
+print(f"Runtime mode: {'Frozen/Packaged' if getattr(sys, 'frozen', False) else 'Development'}")
+print(f"Assets path: {ASSETS_PATH}")
+print(f"Web dist path: {WEB_DIST_PATH}")
+
+settings_service = SettingsServiceProxy(get_settings_service)
+settings_handlers = create_settings_handlers(
+    game_state=game_instance,
+    language_manager=language_manager,
+    settings_service=settings_service,
+    model_to_dict=_model_to_dict,
+    apply_runtime_content_locale_impl=_apply_runtime_content_locale,
+)
+apply_runtime_content_locale = settings_handlers.apply_runtime_content_locale
+
+
+def _get_logger():
+    from src.run.log import get_logger
+
+    return get_logger()
+
+
+runtime_hooks = create_runtime_hooks(
+    game_state=game_instance,
+    runtime=runtime,
+    manager=manager,
+    avatar_assets=AVATAR_ASSETS,
+    assets_path=ASSETS_PATH,
+    static_data=static_data,
+    config=CONFIG,
+    update_init_progress_impl=_update_init_progress,
+    perform_game_initialization=perform_game_initialization,
+    trigger_auto_save_impl=_trigger_auto_save,
+    run_game_loop_forever=run_game_loop_forever,
+    build_avatar_updates=build_avatar_updates,
+    build_tick_state=build_tick_state,
+    should_trigger_auto_save=should_trigger_auto_save,
+    build_auto_save_toast=build_auto_save_toast,
+    reset_runtime_custom_content=reset_runtime_custom_content,
+    reload_all_static_data=reload_all_static_data,
+    scan_avatar_assets=scan_avatar_assets,
+    load_cultivation_world_map=load_cultivation_world_map,
+    get_events_db_path=get_events_db_path,
+    get_runtime_run_config=_get_runtime_run_config,
+    world_cls=World,
+    create_month_stamp=create_month_stamp,
+    year_cls=Year,
+    month_enum=Month,
+    generate_dynasty=generate_dynasty,
+    generate_emperor=generate_emperor,
+    event_cls=Event,
+    translate=t,
+    simulator_cls=Simulator,
+    model_to_dict=_model_to_dict,
+    world_lore_manager_cls=WorldLoreManager,
+    build_world_lore_snapshot=build_world_lore_snapshot,
+    make_random_avatars=_new_make_random,
+    check_llm_connectivity=check_llm_connectivity,
+    resolve_avatar_pic_id=resolve_avatar_pic_id,
+    resolve_avatar_action_emoji=resolve_avatar_action_emoji,
+    serialize_events_for_client=serialize_events_for_client,
+    serialize_phenomenon=serialize_phenomenon,
+    serialize_active_domains=serialize_active_domains,
+    get_logger=_get_logger,
+)
 def update_init_progress(phase: int, phase_name: str = ""):
     """兼容保留：更新初始化进度。"""
     _update_init_progress(runtime=runtime, phase=phase, phase_name=phase_name)
 
+
 async def init_game_async():
-    """异步初始化游戏世界，带进度更新。"""
+    """兼容保留：调用时读取 main 模块上的可 patch 依赖。"""
     await perform_game_initialization(
         runtime=runtime,
         avatar_assets=AVATAR_ASSETS,
@@ -360,15 +432,13 @@ async def init_game_async():
     )
 
 
-
 def trigger_auto_save(world, sim):
     """兼容保留：触发当前对局自动存档。"""
     _trigger_auto_save(world=world, sim=sim, sects_by_id=sects_by_id)
 
-async def game_loop():
-    """后台自动运行游戏循环。"""
-    from src.run.log import get_logger
 
+async def game_loop():
+    """兼容保留：后台自动运行游戏循环。"""
     await run_game_loop_forever(
         game_instance=game_instance,
         runtime=runtime,
@@ -392,38 +462,11 @@ async def game_loop():
         should_trigger_auto_save=lambda world: should_trigger_auto_save(world=world),
         trigger_auto_save=trigger_auto_save,
         build_auto_save_toast=build_auto_save_toast,
-        get_logger=get_logger,
+        get_logger=_get_logger,
     )
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-
-lifespan = create_lifespan(
-    endpoint_filter=EndpointFilter,
-    get_settings_view=get_settings_service().get_settings_view,
-    apply_runtime_content_locale=apply_runtime_content_locale,
-    game_instance=game_instance,
-    language_manager=language_manager,
-    game_loop=game_loop,
-    is_dev_mode=IS_DEV_MODE,
-    project_root=PROJECT_ROOT,
-    start_frontend_dev_server=start_frontend_dev_server,
-    stop_frontend_dev_server=stop_frontend_dev_server,
-)
-
-app = create_app(lifespan=lifespan)
-
-WEB_DIST_PATH, ASSETS_PATH = resolve_runtime_paths(
-    server_file=__file__,
-    is_frozen=getattr(sys, "frozen", False),
-    executable=getattr(sys, "executable", None),
-    meipass=getattr(sys, "_MEIPASS", None),
-)
-
-print(f"Runtime mode: {'Frozen/Packaged' if getattr(sys, 'frozen', False) else 'Development'}")
-print(f"Assets path: {ASSETS_PATH}")
-print(f"Web dist path: {WEB_DIST_PATH}")
-
-command_handlers = create_command_handlers(
+command_service = GameCommandService.from_dependencies(
+    static_data=static_data,
     runtime=runtime,
     manager=manager,
     avatar_assets=AVATAR_ASSETS,
@@ -437,10 +480,8 @@ command_handlers = create_command_handlers(
     reinit_game_lifecycle=reinit_game_lifecycle,
     cleanup_events_command=cleanup_events_command,
     set_world_phenomenon=set_world_phenomenon,
-    celestial_phenomena_by_id=celestial_phenomena_by_id,
     create_avatar_in_world=create_avatar_in_world,
     create_avatar_from_request=create_avatar_from_request,
-    sects_by_id=sects_by_id,
     uses_space_separated_names=uses_space_separated_names,
     language_manager=language_manager,
     alignment_from_str=Alignment.from_str,
@@ -479,15 +520,14 @@ command_handlers = create_command_handlers(
     submit_roleplay_conversation_turn=submit_roleplay_conversation_turn_service,
     end_roleplay_conversation=end_roleplay_conversation_service,
 )
-query_service = GameQueryService(public_query_builders)
-command_service = GameCommandService(command_handlers)
+command_handlers = command_service.handlers
 server_context = ServerAppContext(
     runtime=runtime,
     manager=manager,
     game_state=game_instance,
     avatar_assets=AVATAR_ASSETS,
     settings_service=get_settings_service(),
-    static_data=build_static_game_data_registry(),
+    static_data=static_data,
     query_service=query_service,
     command_service=command_service,
     version=str(getattr(CONFIG.meta, "version", "")),
@@ -522,11 +562,11 @@ run_end_roleplay_conversation = command_handlers.run_end_roleplay_conversation
 
 def get_settings() -> dict:
     """兼容保留：返回当前应用设置视图。"""
-    return _model_to_dict(get_settings_service().get_settings_view())
+    return settings_handlers.get_settings()
 
 
 def _patch_settings_model(req):
-    updated = get_settings_service().patch_settings(req)
+    updated = settings_service.patch_settings(req)
     next_locale = str(updated.new_game_defaults.content_locale)
     current_locale = str(language_manager)
 
@@ -546,7 +586,7 @@ def patch_settings(req) -> dict:
 
 
 def _reset_settings_model():
-    updated = get_settings_service().reset_settings()
+    updated = settings_service.reset_settings()
     next_locale = str(updated.new_game_defaults.content_locale)
     current_locale = str(language_manager)
 
@@ -580,6 +620,13 @@ def get_runtime_run_config() -> object:
     return _get_runtime_run_config(runtime)
 
 
+llm_handlers = create_llm_runtime_handlers(
+    game_state=game_instance,
+    manager=manager,
+    settings_service=settings_service,
+    create_llm_updated_handler=create_llm_updated_handler,
+    test_connectivity_impl=_test_connectivity,
+)
 def test_connectivity(config):
     """兼容保留：转发到底层 LLM 连通性测试。"""
     return _test_connectivity(config=config)
@@ -587,7 +634,7 @@ def test_connectivity(config):
 
 def test_llm_connection(req) -> dict:
     """兼容保留：使用当前保存的密钥测试 LLM 配置。"""
-    profile, api_key = get_settings_service().get_llm_test_payload(req)
+    profile, api_key = settings_service.get_llm_test_payload(req)
     success, error_msg = test_connectivity(
         config=LLMConfig(
             base_url=profile.base_url,
@@ -600,56 +647,39 @@ def test_llm_connection(req) -> dict:
         return {"status": "ok", "message": "连接成功"}
     return {"status": "error", "message": error_msg}
 
-handle_llm_updated = create_llm_updated_handler(game_instance=game_instance, manager=manager)
-
-
-async def handle_global_llm_failure(error_message: str) -> None:
-    """Pause the runtime and notify clients that LLM configuration needs attention."""
-    if game_instance.get("llm_check_failed") and game_instance.get("llm_error_message") == error_message:
-        return
-
-    game_instance["llm_check_failed"] = True
-    game_instance["llm_error_message"] = error_message
-    game_instance["is_paused"] = True
-    await manager.broadcast(
-        {
-            "type": "llm_config_required",
-            "error": error_message,
-        }
-    )
-
-
+handle_llm_updated = llm_handlers.handle_llm_updated
+handle_global_llm_failure = llm_handlers.handle_global_llm_failure
+llm_handlers.test_connectivity = lambda *, config: test_connectivity(config)
 register_llm_failure_handler(handle_global_llm_failure)
 
 
 def get_runtime_mode_label() -> str:
     return "Frozen/Packaged" if getattr(sys, "frozen", False) else "Development"
 
-configure_routes_and_mounts(
-    app=app,
+app, lifespan = create_configured_app(
     context=server_context,
+    endpoint_filter=EndpointFilter,
+    apply_runtime_content_locale=apply_runtime_content_locale,
+    language_manager=language_manager,
+    game_loop=game_loop,
+    is_dev_mode=IS_DEV_MODE,
+    project_root=PROJECT_ROOT,
+    start_frontend_dev_server=start_frontend_dev_server,
+    stop_frontend_dev_server=stop_frontend_dev_server,
+    create_lifespan=create_lifespan,
+    create_app=create_app,
+    configure_routes_and_mounts=configure_routes_and_mounts,
     create_websocket_router=create_websocket_router,
     create_settings_router=create_settings_router,
     model_to_dict=_model_to_dict,
-    get_settings_view=get_settings_service().get_settings_view,
-    patch_settings=_patch_settings_model,
-    reset_settings=_reset_settings_model,
-    get_llm_view=get_settings_service().get_llm_view,
-    get_llm_runtime_config=get_settings_service().get_llm_runtime_config,
-    get_llm_failure_state=lambda: (
-        bool(game_instance.get("llm_check_failed", False)),
-        str(game_instance.get("llm_error_message", "") or ""),
-    ),
-    get_llm_test_payload=get_settings_service().get_llm_test_payload,
-    test_connectivity=test_connectivity,
-    update_llm=get_settings_service().update_llm,
-    on_llm_updated=handle_llm_updated,
+    patch_settings_model=_patch_settings_model,
+    reset_settings_model=_reset_settings_model,
+    llm_handlers=llm_handlers,
     create_public_query_router=create_public_query_router,
     create_public_command_router=create_public_command_router,
     trigger_process_shutdown=lambda: trigger_process_shutdown(is_dev_mode=IS_DEV_MODE),
     assets_path=ASSETS_PATH,
     web_dist_path=WEB_DIST_PATH,
-    is_dev_mode=IS_DEV_MODE,
 )
 
 def start():

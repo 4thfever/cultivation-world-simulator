@@ -14,6 +14,26 @@ class GameCommandService:
     def __init__(self, handlers: Any):
         self._handlers = handlers
 
+    @classmethod
+    def from_dependencies(cls, *, static_data: Any, **dependencies: Any) -> "GameCommandService":
+        """Create the service from command dependencies.
+
+        Command handlers stay behind the service boundary so router/app wiring
+        does not keep growing with command-specific dependency lists.
+        """
+        from src.server.command_handlers import create_command_handlers
+
+        handlers = create_command_handlers(
+            **dependencies,
+            sects_by_id=static_data.sects_by_id,
+            celestial_phenomena_by_id=static_data.celestial_phenomena_by_id,
+        )
+        return cls(handlers)
+
+    @property
+    def handlers(self) -> Any:
+        return self._handlers
+
     async def start_game(self, req: Any) -> dict:
         return await self._handlers.run_start_game(req)
 

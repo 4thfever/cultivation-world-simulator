@@ -3,8 +3,9 @@ from __future__ import annotations
 import asyncio
 from typing import Any, Callable
 
-from src.config import get_settings_service
+from src.config.providers import RuntimeConfigProvider
 from src.i18n import t
+from src.server.loop import GameLoopRunner, TickPayloadBuilder
 from src.systems.cultivation_display import build_avatar_cultivation_display
 
 AVATAR_POSITION_UPDATE_LIMIT = 50
@@ -105,7 +106,7 @@ def build_tick_state(
 
 def should_trigger_auto_save(*, world) -> tuple[bool, int, int]:
     """Return whether this tick should create an auto save."""
-    auto_save_enabled = get_settings_service().get_settings().simulation.auto_save_enabled
+    auto_save_enabled = RuntimeConfigProvider().auto_save_enabled()
     year = int(world.month_stamp.get_year())
     month = world.month_stamp.get_month().value
     should_save = auto_save_enabled and year % 10 == 0 and month == 1 and year > world.start_year
@@ -133,44 +134,17 @@ async def run_game_loop_forever(
     get_logger,
 ) -> None:
     """Run the background simulation loop forever once initialization succeeds."""
-    print("Background game loop started, waiting for initialization...")
-
-    while game_instance.get("init_status") not in ("ready", "error"):
-        await asyncio.sleep(0.5)
-
-    if game_instance.get("init_status") == "error":
-        print("[game_loop] Initialization failed, game loop exiting.")
-        return
-
-    print("[game_loop] Initialization completed, starting game loop.")
-
-    while True:
-        await asyncio.sleep(1.0)
-
-        try:
-            if runtime.is_effectively_paused():
-                continue
-            if runtime.get("init_status") != "ready":
-                continue
-
-            sim = runtime.get("sim")
-            world = runtime.get("world")
-            if not sim or not world:
-                continue
-
-            events = await runtime.run_mutation(sim.step)
-            if getattr(runtime, "is_reset_requested", lambda: False)():
-                continue
-            avatar_updates = build_avatar_updates()
-            state = build_tick_state(avatar_updates, events, world)
-            await manager.broadcast(state)
-
-            should_auto_save, year, _month = should_trigger_auto_save(world)
-            if should_auto_save:
-                print(f"[Auto-Save] Triggering auto save for year {year}...")
-                await asyncio.to_thread(trigger_auto_save, world, sim)
-                await manager.broadcast(build_auto_save_toast())
-                print("[Auto-Save] Auto save completed.")
-        except Exception as exc:
-            print(f"Game loop error: {exc}")
-            get_logger().logger.error(f"Game loop error: {exc}", exc_info=True)
+    runner = GameLoopRunner(
+        game_instance=game_instance,
+        runtime=runtime,
+        manager=manager,
+        tick_payload_builder=TickPayloadBuilder(
+            build_avatar_updates=build_avatar_updates,
+            build_tick_state=build_tick_state,
+        ),
+        should_trigger_auto_save=should_trigger_auto_save,
+        trigger_auto_save=trigger_auto_save,
+        build_auto_save_toast=build_auto_save_toast,
+        get_logger=get_logger,
+    )
+    await runner.run_forever()

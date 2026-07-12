@@ -3,8 +3,9 @@ from __future__ import annotations
 from src.classes.ai import llm_ai
 from src.classes.core.avatar import Avatar
 from src.classes.event import Event, is_null_event
+from src.config.providers import StaticConfigProvider
 from src.run.log import get_logger
-from src.utils.config import CONFIG
+from src.server.runtime.capabilities import get_roleplay_gateway_from_world
 
 
 async def phase_decide_actions(world, living_avatars: list[Avatar]) -> None:
@@ -15,10 +16,8 @@ async def phase_decide_actions(world, living_avatars: list[Avatar]) -> None:
     except Exception:
         pass
 
-    controlled_avatar_id = None
-    runtime = getattr(world, "runtime", None)
-    if runtime is not None and hasattr(runtime, "get_roleplay_session"):
-        controlled_avatar_id = str(runtime.get_roleplay_session().get("controlled_avatar_id") or "")
+    gateway = get_roleplay_gateway_from_world(world)
+    controlled_avatar_id = gateway.get_controlled_avatar_id() if gateway is not None else ""
 
     # 只给“既没在执行动作，也没有待执行计划”的角色补决策，
     # 避免 LLM 覆盖已经排好的行动链。
@@ -84,7 +83,7 @@ async def _tick_action_round(avatars: list[Avatar], log_label: str) -> tuple[lis
 
 async def phase_execute_actions(living_avatars: list[Avatar]) -> list[Event]:
     events: list[Event] = []
-    max_local_rounds = CONFIG.world.max_action_rounds_per_turn
+    max_local_rounds = StaticConfigProvider.current().max_action_rounds_per_turn()
 
     # 第一轮先让所有在执行动作的角色各跑一次。
     round_events, avatars_needing_retry = await _tick_action_round(

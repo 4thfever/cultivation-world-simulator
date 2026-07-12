@@ -2,6 +2,7 @@ import pytest
 import random
 import logging
 import sys
+import copy
 from unittest.mock import MagicMock, AsyncMock, patch
 
 from src.classes.environment.map import Map
@@ -127,6 +128,28 @@ def force_chinese_language():
 
     language_manager.set_language(default_locale)
     reload_game_configs()
+
+
+@pytest.fixture(autouse=True)
+def isolate_server_avatar_assets():
+    """
+    Keep src.server.main.AVATAR_ASSETS from leaking between API/save-load tests.
+    Some tests intentionally rescan all race portraits while others assert a
+    narrow patched value, so restore the server cache after each test if loaded.
+    """
+    module = sys.modules.get("src.server.main")
+    original_assets = copy.deepcopy(getattr(module, "AVATAR_ASSETS", None)) if module else None
+
+    yield
+
+    module = sys.modules.get("src.server.main")
+    if module is None or not hasattr(module, "AVATAR_ASSETS"):
+        return
+    module.AVATAR_ASSETS.clear()
+    if original_assets is None:
+        module.AVATAR_ASSETS.update({"human": {"male": [], "female": []}})
+    else:
+        module.AVATAR_ASSETS.update(original_assets)
 from src.classes.environment.tile import TileType, Tile
 from src.classes.core.world import World
 from src.systems.time import Month, Year, create_month_stamp

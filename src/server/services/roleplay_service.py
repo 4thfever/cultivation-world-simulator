@@ -9,9 +9,26 @@ from fastapi import HTTPException
 from src.classes.emotions import EmotionType
 from src.i18n import t
 from src.server.services.roleplay_action_display import build_roleplay_action_chain_display
+from src.server.services.roleplay_conversation_service import (
+    generate_roleplay_conversation_reply as _conversation_reply_service,
+    summarize_roleplay_conversation as _conversation_summary_service,
+)
+from src.server.services.roleplay_history import append_interaction_history as _append_interaction_history
+from src.server.services.roleplay_prompt_builder import build_prompt_context as _build_prompt_context
+from src.server.services.roleplay_state import RoleplayStatus
+from src.server.services.roleplay_state_machine import (
+    ensure_no_pending_request,
+    require_controlled_avatar,
+    require_pending_request,
+    require_status,
+    set_awaiting_choice,
+    set_conversing,
+    set_observing as _set_observing,
+    set_submitting,
+    set_waiting_decision as _set_waiting_decision,
+)
 from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
-from src.utils.strings import to_json_str_with_intent
 
 
 _MAX_INTERACTION_HISTORY = 24
@@ -49,15 +66,9 @@ def get_roleplay_session(runtime) -> dict[str, Any]:
 
 
 def _append_interaction_history(runtime, record: dict[str, Any]) -> None:
-    session = runtime.get_roleplay_session()
-    history = session.get("interaction_history")
-    if not isinstance(history, list):
-        history = []
-        session["interaction_history"] = history
+    from src.server.services.roleplay_history import append_interaction_history
 
-    history.append({"created_at": time.time(), **record})
-    if len(history) > _MAX_INTERACTION_HISTORY:
-        del history[:-_MAX_INTERACTION_HISTORY]
+    append_interaction_history(runtime, record, max_items=_MAX_INTERACTION_HISTORY)
 
 
 def _find_choice_option_text(pending: dict[str, Any], selected_key: str) -> str:
@@ -106,11 +117,12 @@ def is_player_controlled_choice_target(*, avatar) -> bool:
 
 
 def is_player_controlled_avatar(*, avatar) -> bool:
-    runtime = getattr(getattr(avatar, "world", None), "runtime", None)
-    if runtime is None or not hasattr(runtime, "get_roleplay_session"):
+    from src.server.runtime.capabilities import get_roleplay_gateway_from_world
+
+    gateway = get_roleplay_gateway_from_world(getattr(avatar, "world", None))
+    if gateway is None:
         return False
-    session = runtime.get_roleplay_session()
-    return str(session.get("controlled_avatar_id") or "") == str(getattr(avatar, "id", ""))
+    return gateway.controls_avatar(str(getattr(avatar, "id", "")))
 
 
 def _require_world(runtime):
@@ -127,70 +139,6 @@ def _find_avatar_or_raise(world, avatar_id: str):
     return avatar
 
 
-def _make_pending_decision_request(*, avatar) -> dict[str, Any]:
-    return {
-        "request_id": f"roleplay-decision-{avatar.id}-{int(time.time() * 1000)}",
-        "type": "decision",
-        "avatar_id": str(avatar.id),
-        "title": t("{avatar_name} needs a new command", avatar_name=avatar.name),
-        "description": t("World paused and waiting for your roleplay command."),
-        "created_at": time.time(),
-    }
-
-
-def _make_pending_choice_request(
-    *,
-    avatar,
-    request_id: str,
-    title: str,
-    description: str,
-    options: list[dict[str, Any]],
-) -> dict[str, Any]:
-    return {
-        "request_id": request_id,
-        "type": "choice",
-        "avatar_id": str(avatar.id),
-        "title": title,
-        "description": description,
-        "options": options,
-        "created_at": time.time(),
-    }
-
-
-def _make_pending_conversation_request(
-    *,
-    avatar,
-    target_avatar,
-    request_id: str,
-    title: str,
-    description: str,
-    messages: list[dict[str, Any]],
-) -> dict[str, Any]:
-    return {
-        "request_id": request_id,
-        "type": "conversation",
-        "avatar_id": str(avatar.id),
-        "target_avatar_id": str(target_avatar.id),
-        "title": title,
-        "description": description,
-        "messages": list(messages),
-        "can_end": True,
-        "created_at": time.time(),
-    }
-
-
-def _set_observing(runtime, *, avatar_id: str, prompt_context: dict[str, Any] | None = None) -> dict[str, Any]:
-    session = runtime.get_roleplay_session()
-    session["controlled_avatar_id"] = str(avatar_id)
-    session["status"] = "observing"
-    session["pending_request"] = None
-    session["last_prompt_context"] = prompt_context
-    session.pop("_choice_future", None)
-    session.pop("_choice_request_model", None)
-    runtime.set_roleplay_auto_paused(False)
-    return dict(session)
-
-
 def finish_roleplay_choice_wait(runtime, *, avatar_id: str, selected_key: str | None = None) -> dict[str, Any]:
     session = runtime.get_roleplay_session()
     if str(session.get("status") or "") == "inactive":
@@ -205,16 +153,6 @@ def finish_roleplay_choice_wait(runtime, *, avatar_id: str, selected_key: str | 
     return _set_observing(runtime, avatar_id=avatar_id, prompt_context=prompt_context)
 
 
-def _set_waiting_decision(runtime, *, avatar, prompt_context: dict[str, Any]) -> dict[str, Any]:
-    session = runtime.get_roleplay_session()
-    session["controlled_avatar_id"] = str(avatar.id)
-    session["status"] = "awaiting_decision"
-    session["pending_request"] = _make_pending_decision_request(avatar=avatar)
-    session["last_prompt_context"] = prompt_context
-    runtime.set_roleplay_auto_paused(True)
-    return dict(session)
-
-
 def begin_roleplay_choice(
     runtime,
     *,
@@ -222,9 +160,7 @@ def begin_roleplay_choice(
 ) -> asyncio.Future:
     avatar = request.avatar
     session = runtime.get_roleplay_session()
-    pending = session.get("pending_request")
-    if pending is not None:
-        raise HTTPException(status_code=409, detail=t("There is already a pending roleplay request"))
+    ensure_no_pending_request(session)
 
     request_id = str(getattr(request, "request_id", "") or f"roleplay-choice-{avatar.id}-{int(time.time() * 1000)}")
     request.request_id = request_id
@@ -245,18 +181,17 @@ def begin_roleplay_choice(
         "choice_description": request_description,
     }
     choice_future = asyncio.get_running_loop().create_future()
-    session["controlled_avatar_id"] = str(avatar.id)
-    session["status"] = "awaiting_choice"
-    session["pending_request"] = _make_pending_choice_request(
+    set_awaiting_choice(
+        runtime,
         avatar=avatar,
         request_id=request_id,
         title=request_title,
         description=request_description,
         options=options,
+        prompt_context=prompt_context,
+        choice_future=choice_future,
+        request_model=request,
     )
-    session["last_prompt_context"] = prompt_context
-    session["_choice_future"] = choice_future
-    session["_choice_request_model"] = request
     choice_prompt_text = _build_choice_prompt_text(title=request_title, description=request_description)
     if choice_prompt_text:
         _append_interaction_history(
@@ -266,141 +201,29 @@ def begin_roleplay_choice(
                 "text": choice_prompt_text,
             },
         )
-    runtime.set_roleplay_auto_paused(True)
     return choice_future
 
 
-def _build_prompt_context(avatar) -> dict[str, Any]:
-    world = avatar.world
-    observed = world.get_observable_avatars(avatar)
-    return {
-        "avatar_id": str(avatar.id),
-        "avatar_name": avatar.name,
-        "current_action": avatar.current_action_name,
-        "short_term_objective": str(getattr(avatar, "short_term_objective", "") or ""),
-        "thinking": str(getattr(avatar, "thinking", "") or ""),
-        "recent_major_events": [
-            str(getattr(ev, "content", "")) for ev in world.event_manager.get_major_events_by_avatar(avatar.id, limit=4)
-        ],
-        "recent_events": [
-            str(getattr(ev, "content", "")) for ev in world.event_manager.get_minor_events_by_avatar(avatar.id, limit=6)
-        ],
-        "nearby_avatars": [
-            {
-                "id": str(getattr(other, "id", "")),
-                "name": str(getattr(other, "name", "") or ""),
-                "realm": str(getattr(getattr(other, "cultivation_progress", None), "get_info", lambda: "")()),
-            }
-            for other in observed[:8]
-        ],
-    }
-
-
-def _build_conversation_history_payload(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    payload: list[dict[str, Any]] = []
-    for item in messages[-12:]:
-        payload.append(
-            {
-                "role": str(item.get("role", "")),
-                "speaker_name": str(item.get("speaker_name", "")),
-                "content": str(item.get("content", "")),
-            }
-        )
-    return payload
-
-
-def _build_fallback_conversation_reply(*, target_avatar, last_player_message: str) -> tuple[str, str]:
-    if not last_player_message.strip():
-        return t("The other party falls silent for a moment and does not reply immediately."), ""
-    return t("{target_avatar_name} pauses to think and responds to the topic.", target_avatar_name=target_avatar.name), ""
-
-
 async def _generate_roleplay_conversation_reply(*, avatar, target_avatar, messages: list[dict[str, Any]]) -> dict[str, str]:
-    world = avatar.world
-    info = {
-        "avatar_name": avatar.name,
-        "target_avatar_name": target_avatar.name,
-        "world_info": to_json_str_with_intent(world.get_info(avatar=avatar, detailed=True)),
-        "avatar_infos": to_json_str_with_intent(
-            {
-                avatar.name: avatar.get_expanded_info(other_avatar=target_avatar, detailed=True),
-                target_avatar.name: target_avatar.get_info(detailed=True),
-            }
-        ),
-        "conversation_history": to_json_str_with_intent(_build_conversation_history_payload(messages)),
-    }
-    template_path = CONFIG.paths.templates / "roleplay_conversation_turn.txt"
-    try:
-        response = await call_llm_with_task_name("roleplay_conversation_turn", template_path, info)
-        payload = response.get(target_avatar.name, {}) if isinstance(response, dict) else {}
-        reply = str(payload.get("reply_content", payload.get("conversation_content", "")) or "").strip()
-        thinking = str(payload.get("speaker_thinking", payload.get("thinking", "")) or "").strip()
-        if reply:
-            return {"reply_content": reply, "speaker_thinking": thinking}
-    except Exception:
-        pass
-
-    last_player_message = str(messages[-1].get("content", "") if messages else "")
-    fallback_reply, fallback_thinking = _build_fallback_conversation_reply(
+    return await _conversation_reply_service(
+        avatar=avatar,
         target_avatar=target_avatar,
-        last_player_message=last_player_message,
+        messages=messages,
+        call_llm=call_llm_with_task_name,
     )
-    return {
-        "reply_content": fallback_reply,
-        "speaker_thinking": fallback_thinking,
-    }
-
-
-def _build_fallback_conversation_summary(*, avatar, target_avatar, messages: list[dict[str, Any]]) -> dict[str, str]:
-    turns = max(sum(1 for item in messages if item.get("role") == "player"), 1)
-    summary = t(
-        "{avatar_name} and {target_avatar_name} talked for {turns} turns and both gained a new impression of the topic at hand.",
-        avatar_name=avatar.name,
-        target_avatar_name=target_avatar.name,
-        turns=turns,
-    )
-    return {
-        "summary": summary,
-        "relation_hint": "",
-        "story_hint": "",
-    }
 
 
 async def _summarize_roleplay_conversation(*, avatar, target_avatar, messages: list[dict[str, Any]]) -> dict[str, str]:
-    world = avatar.world
-    info = {
-        "avatar_name": avatar.name,
-        "target_avatar_name": target_avatar.name,
-        "world_info": to_json_str_with_intent(world.get_info(avatar=avatar, detailed=True)),
-        "avatar_infos": to_json_str_with_intent(
-            {
-                avatar.name: avatar.get_expanded_info(other_avatar=target_avatar, detailed=True),
-                target_avatar.name: target_avatar.get_info(detailed=True),
-            }
-        ),
-        "conversation_history": to_json_str_with_intent(_build_conversation_history_payload(messages)),
-    }
-    template_path = CONFIG.paths.templates / "roleplay_conversation_summary.txt"
-    try:
-        response = await call_llm_with_task_name("roleplay_conversation_summary", template_path, info)
-        if isinstance(response, dict):
-            summary = str(response.get("summary", "") or "").strip()
-            relation_hint = str(response.get("relation_hint", "") or "").strip()
-            story_hint = str(response.get("story_hint", "") or "").strip()
-            if summary:
-                return {
-                    "summary": summary,
-                    "relation_hint": relation_hint,
-                    "story_hint": story_hint,
-                }
-    except Exception:
-        pass
-    return _build_fallback_conversation_summary(avatar=avatar, target_avatar=target_avatar, messages=messages)
+    return await _conversation_summary_service(
+        avatar=avatar,
+        target_avatar=target_avatar,
+        messages=messages,
+        call_llm=call_llm_with_task_name,
+    )
 
 
 def begin_roleplay_conversation(runtime, *, avatar, target_avatar) -> dict[str, Any]:
     session = runtime.get_roleplay_session()
-    pending = session.get("pending_request")
     existing = session.get("conversation_session")
     if isinstance(existing, dict):
         if (
@@ -409,8 +232,7 @@ def begin_roleplay_conversation(runtime, *, avatar, target_avatar) -> dict[str, 
             and str(existing.get("status") or "") in {"awaiting_player", "awaiting_continue", "completed"}
         ):
             return dict(session)
-    if pending is not None:
-        raise HTTPException(status_code=409, detail=t("There is already a pending roleplay request"))
+    ensure_no_pending_request(session)
 
     request_id = f"roleplay-conversation-{avatar.id}-{target_avatar.id}-{int(time.time() * 1000)}"
     title = t("{avatar_name} is talking with {target_avatar_name}", avatar_name=avatar.name, target_avatar_name=target_avatar.name)
@@ -420,36 +242,21 @@ def begin_roleplay_conversation(runtime, *, avatar, target_avatar) -> dict[str, 
         target_avatar_name=target_avatar.name,
     )
     messages: list[dict[str, Any]] = []
-    session["controlled_avatar_id"] = str(avatar.id)
-    session["status"] = "conversing"
-    session["pending_request"] = _make_pending_conversation_request(
+    return set_conversing(
+        runtime,
         avatar=avatar,
         target_avatar=target_avatar,
         request_id=request_id,
         title=title,
         description=description,
         messages=messages,
+        prompt_context={
+            **_build_prompt_context(avatar),
+            "target_avatar_id": str(target_avatar.id),
+            "target_avatar_name": target_avatar.name,
+            "conversation_title": title,
+        },
     )
-    session["last_prompt_context"] = {
-        **_build_prompt_context(avatar),
-        "target_avatar_id": str(target_avatar.id),
-        "target_avatar_name": target_avatar.name,
-        "conversation_title": title,
-    }
-    session["conversation_session"] = {
-        "session_id": request_id,
-        "request_id": request_id,
-        "avatar_id": str(avatar.id),
-        "target_avatar_id": str(target_avatar.id),
-        "initiator_avatar_id": str(avatar.id),
-        "status": "awaiting_player",
-        "messages": messages,
-        "started_at": time.time(),
-        "last_summary": None,
-        "last_ai_thinking": "",
-    }
-    runtime.set_roleplay_auto_paused(True)
-    return dict(session)
 
 
 def start_roleplay(runtime, *, avatar_id: str) -> dict[str, Any]:
@@ -506,16 +313,13 @@ async def submit_roleplay_decision(runtime, *, avatar_id: str, request_id: str, 
     session = runtime.get_roleplay_session()
     pending = session.get("pending_request") or {}
 
-    if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
-        raise HTTPException(status_code=409, detail=t("Roleplay target does not match"))
-    if str(session.get("status") or "") != "awaiting_decision":
-        raise HTTPException(status_code=409, detail=t("The current request is not waiting for a roleplay command"))
-    if str(pending.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail=t("Roleplay request does not exist or has expired"))
+    require_controlled_avatar(session, avatar_id)
+    require_status(session, RoleplayStatus.AWAITING_DECISION, "The current request is not waiting for a roleplay command")
+    require_pending_request(pending, request_id, "Roleplay request does not exist or has expired")
     if not str(command_text or "").strip():
         raise HTTPException(status_code=400, detail=t("Please enter a roleplay command"))
 
-    session["status"] = "submitting"
+    set_submitting(session)
     command_text = str(command_text).strip()
     _append_interaction_history(
         runtime,
@@ -551,7 +355,7 @@ async def submit_roleplay_decision(runtime, *, avatar_id: str, request_id: str, 
             pairs.append((item["action_name"], item["action_params"] or {}))
 
     if not pairs:
-        session["status"] = "awaiting_decision"
+        session["status"] = RoleplayStatus.AWAITING_DECISION.value
         runtime.set_roleplay_auto_paused(True)
         _append_interaction_history(
             runtime,
@@ -599,12 +403,9 @@ async def submit_roleplay_choice(runtime, *, avatar_id: str, request_id: str, se
     session = runtime.get_roleplay_session()
     pending = session.get("pending_request") or {}
 
-    if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
-        raise HTTPException(status_code=409, detail=t("Roleplay target does not match"))
-    if str(session.get("status") or "") != "awaiting_choice":
-        raise HTTPException(status_code=409, detail=t("The current request is not waiting for a roleplay choice"))
-    if str(pending.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail=t("Roleplay request does not exist or has expired"))
+    require_controlled_avatar(session, avatar_id)
+    require_status(session, RoleplayStatus.AWAITING_CHOICE, "The current request is not waiting for a roleplay choice")
+    require_pending_request(pending, request_id, "Roleplay request does not exist or has expired")
 
     choice_future = session.get("_choice_future")
     if choice_future is None:
@@ -612,7 +413,7 @@ async def submit_roleplay_choice(runtime, *, avatar_id: str, request_id: str, se
     if hasattr(choice_future, "done") and choice_future.done():
         raise HTTPException(status_code=409, detail=t("This roleplay choice has already been handled"))
 
-    session["status"] = "submitting"
+    set_submitting(session)
     _append_interaction_history(
         runtime,
         {
@@ -635,19 +436,16 @@ async def submit_roleplay_conversation_turn(runtime, *, avatar_id: str, request_
     pending = session.get("pending_request") or {}
     conversation_session = session.get("conversation_session") or {}
 
-    if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
-        raise HTTPException(status_code=409, detail=t("Roleplay target does not match"))
-    if str(session.get("status") or "") != "conversing":
-        raise HTTPException(status_code=409, detail=t("The current request is not in a roleplay conversation"))
-    if str(pending.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail=t("Roleplay conversation request does not exist or has expired"))
+    require_controlled_avatar(session, avatar_id)
+    require_status(session, RoleplayStatus.CONVERSING, "The current request is not in a roleplay conversation")
+    require_pending_request(pending, request_id, "Roleplay conversation request does not exist or has expired")
     if str(conversation_session.get("request_id") or "") != str(request_id):
         raise HTTPException(status_code=404, detail=t("Roleplay conversation session does not exist or has expired"))
     if not str(message or "").strip():
         raise HTTPException(status_code=400, detail=t("Please enter dialogue content"))
 
     target_avatar = _find_avatar_or_raise(world, str(conversation_session.get("target_avatar_id") or ""))
-    session["status"] = "submitting"
+    set_submitting(session)
 
     messages = list(conversation_session.get("messages") or [])
     player_message = {
@@ -697,7 +495,7 @@ async def submit_roleplay_conversation_turn(runtime, *, avatar_id: str, request_
     pending["messages"] = list(messages)
     session["pending_request"] = pending
     session["conversation_session"] = conversation_session
-    session["status"] = "conversing"
+    session["status"] = RoleplayStatus.CONVERSING.value
     session["last_prompt_context"] = {
         **(session.get("last_prompt_context") or {}),
         "last_player_message": player_message["content"],
@@ -720,12 +518,9 @@ async def end_roleplay_conversation(runtime, *, avatar_id: str, request_id: str)
     pending = session.get("pending_request") or {}
     conversation_session = session.get("conversation_session") or {}
 
-    if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
-        raise HTTPException(status_code=409, detail=t("Roleplay target does not match"))
-    if str(session.get("status") or "") != "conversing":
-        raise HTTPException(status_code=409, detail=t("The current request is not in a roleplay conversation"))
-    if str(pending.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail=t("Roleplay conversation request does not exist or has expired"))
+    require_controlled_avatar(session, avatar_id)
+    require_status(session, RoleplayStatus.CONVERSING, "The current request is not in a roleplay conversation")
+    require_pending_request(pending, request_id, "Roleplay conversation request does not exist or has expired")
     if str(conversation_session.get("request_id") or "") != str(request_id):
         raise HTTPException(status_code=404, detail=t("Roleplay conversation session does not exist or has expired"))
 
@@ -749,7 +544,7 @@ async def end_roleplay_conversation(runtime, *, avatar_id: str, request_id: str)
     conversation_session["last_summary"] = dict(summary_payload)
     session["conversation_session"] = conversation_session
     session["pending_request"] = None
-    session["status"] = "observing"
+    session["status"] = RoleplayStatus.OBSERVING.value
     session["last_prompt_context"] = {
         **(session.get("last_prompt_context") or {}),
         "last_conversation_summary": summary_text,
