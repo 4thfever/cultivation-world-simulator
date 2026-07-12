@@ -386,7 +386,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Trận pháp
 - ✅ Cổ
 - ✅ Cơ duyên
-- [ ] Bí mật thế giới
+- ✅ Bí mật thế giới
 - [ ] NPC phông nền
 - [ ] Hóa Thần và phi thăng thượng giới
 - [ ] Tự lập tông môn / trở thành hoàng đế

@@ -386,7 +386,7 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 - ✅ Formations
 - ✅ Gu
 - ✅ Fortuitous opportunity
-- [ ] World secrets
+- ✅ World secrets
 - [ ] Background NPCs
 - [ ] Soul Formation & Ascension to the upper realm
 - [ ] Found a sect / Become emperor

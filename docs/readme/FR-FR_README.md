@@ -391,7 +391,7 @@ Pour les détails de contribution, consultez [CONTRIBUTORS.md](../../CONTRIBUTOR
 - ✅ Formations
 - ✅ Gu
 - ✅ Opportunités fortuites
-- [ ] Secrets du monde
+- ✅ Secrets du monde
 - [ ] PNJ d'arrière-plan
 - [ ] Transformation divine et ascension vers le royaume supérieur
 - [ ] Fonder une secte / devenir empereur
