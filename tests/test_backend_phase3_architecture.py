@@ -11,7 +11,7 @@ from src.server.services.game_command_service import GameCommandService
 from src.server.services.game_query_service import GameQueryService
 from src.server.settings_handlers import SettingsServiceProxy, create_settings_handlers
 from src.sim.save.sections import registry
-from src.sim.save.sections.load_restore import restore_loaded_game
+from src.sim.save.sections.load_restore import LOAD_SECTIONS, restore_loaded_game
 
 
 def test_phase3_server_composition_entrypoints_exist():
@@ -19,6 +19,9 @@ def test_phase3_server_composition_entrypoints_exist():
     assert callable(create_runtime_hooks)
     assert callable(create_settings_handlers)
     assert callable(create_llm_runtime_handlers)
+    from src.server.app_context import create_server_context
+
+    assert callable(create_server_context)
     assert callable(GameQueryService.from_dependencies)
     assert callable(GameCommandService.from_dependencies)
 
@@ -39,6 +42,27 @@ def test_save_registry_is_only_section_order_and_dispatch():
     assert "class WorldSection" not in source
     assert "def restore_loaded_game" not in source
     assert registry.restore_loaded_game is restore_loaded_game
+
+
+def test_load_restore_is_section_orchestration_only():
+    import inspect
+    import src.sim.save.sections.load_restore as load_restore
+
+    source = inspect.getsource(load_restore)
+
+    assert "LOAD_SECTIONS" in source
+    assert [section.key for section in LOAD_SECTIONS] == [
+        "run_config",
+        "world_core",
+        "sect_runtime",
+        "avatars",
+        "region_runtime",
+        "membership",
+        "events",
+        "simulator",
+    ]
+    assert "Avatar.from_save_dict" not in source
+    assert "load_opportunities" not in source
 
 
 def test_settings_service_proxy_reads_current_service_each_call():
@@ -71,3 +95,99 @@ def test_static_data_registry_is_shared_phase3_dependency_source():
 
     assert static_data.sects_by_id
     assert static_data.celestial_phenomena_by_id
+
+
+def test_public_query_builder_module_is_legacy_adapter_only():
+    import inspect
+    import src.server.public_query_builders as builders
+
+    source = inspect.getsource(builders)
+
+    assert "Legacy adapter" in source
+    assert "GameQueryService.from_dependencies" in source
+    assert "def build_public_world_state" not in source
+
+
+def test_public_query_builder_legacy_static_args_are_adapted(monkeypatch):
+    import src.server.public_query_builders as builders
+
+    captured = {}
+
+    class Service:
+        def __init__(self, static_data, **dependencies):
+            captured["static_data"] = static_data
+            captured["dependencies"] = dependencies
+            self.builders = object()
+
+        @classmethod
+        def from_dependencies(cls, *, static_data, **dependencies):
+            return cls(static_data, **dependencies)
+
+    monkeypatch.setattr(
+        "src.server.services.game_query_service.GameQueryService",
+        Service,
+    )
+
+    result = builders.create_public_query_builders(
+        runtime=object(),
+        sects_by_id={1: "sect"},
+        races_by_id={"human": "race"},
+        personas_by_id={},
+        techniques_by_id={},
+        weapons_by_id={},
+        auxiliaries_by_id={},
+        celestial_phenomena_by_id={},
+    )
+
+    assert result is captured["static_data"] or result is not None
+    assert captured["static_data"].sects_by_id == {1: "sect"}
+    assert captured["static_data"].races_by_id == {"human": "race"}
+    assert "sects_by_id" not in captured["dependencies"]
+
+
+
+def test_command_handler_module_is_legacy_adapter_only():
+    import inspect
+    import src.server.command_handlers as handlers
+
+    source = inspect.getsource(handlers)
+
+    assert "Legacy adapter" in source
+    assert "GameCommandService.from_dependencies" in source
+    assert "def run_start_game" not in source
+
+
+def test_main_uses_context_factory_and_keeps_legacy_exports_concentrated():
+    import inspect
+    import src.server.main as main
+
+    source = inspect.getsource(main)
+
+    assert "create_server_context(" in source
+    assert "_install_legacy_query_exports(query_service)" in source
+    assert "_install_legacy_command_exports(command_service)" in source
+    assert "from src.server.public_query_builders" not in source
+    assert "from src.server.command_handlers" not in source
+
+
+def test_avatar_init_package_exposes_phase2_boundaries():
+    from src.sim.avatar_init import AvatarFactory, PopulationPlanner, create_avatar_from_request, make_avatars
+    from src.sim.avatar_init.factory import AvatarFactory as FactoryFromModule
+    from src.sim.avatar_init.planning import PopulationPlanner as PlannerFromModule
+    from src.sim.avatar_init.request_parser import create_avatar_from_request as RequestFactory
+
+    assert AvatarFactory is FactoryFromModule
+    assert PopulationPlanner is PlannerFromModule
+    assert create_avatar_from_request is RequestFactory
+    assert callable(make_avatars)
+
+
+def test_opportunity_package_exposes_phase2_boundaries():
+    from src.systems.opportunity import OpportunityManager, OpportunityRecord, phase_check_opportunities
+    from src.systems.opportunity.manager import OpportunityManager as ManagerFromModule
+    from src.systems.opportunity.models import OpportunityRecord as RecordFromModule
+    from src.systems.opportunity.phases import phase_check_opportunities as PhaseFromModule
+
+    assert OpportunityManager is ManagerFromModule
+    assert OpportunityRecord is RecordFromModule
+    assert phase_check_opportunities is PhaseFromModule

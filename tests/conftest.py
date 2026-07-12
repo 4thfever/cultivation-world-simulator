@@ -150,6 +150,30 @@ def isolate_server_avatar_assets():
         module.AVATAR_ASSETS.update({"human": {"male": [], "female": []}})
     else:
         module.AVATAR_ASSETS.update(original_assets)
+
+
+@pytest.fixture(autouse=True)
+def isolate_server_runtime_state():
+    """
+    Keep src.server.main.game_instance from leaking between API/runtime tests.
+    Many historical tests still patch the global dict directly; this fixture
+    restores the same dict object so runtime wrappers and services keep their
+    references while test data is cleaned up.
+    """
+    module = sys.modules.get("src.server.main")
+    original_state = copy.deepcopy(getattr(module, "game_instance", None)) if module else None
+
+    yield
+
+    module = sys.modules.get("src.server.main")
+    if module is None or not hasattr(module, "game_instance"):
+        return
+    if original_state is None:
+        from src.server.runtime import create_default_game_state
+
+        original_state = create_default_game_state()
+    module.game_instance.clear()
+    module.game_instance.update(original_state)
 from src.classes.environment.tile import TileType, Tile
 from src.classes.core.world import World
 from src.systems.time import Month, Year, create_month_stamp

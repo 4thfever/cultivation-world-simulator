@@ -117,7 +117,7 @@ from src.server.host_runtime import (
     trigger_process_shutdown,
 )
 from src.server.app_factory import create_configured_app
-from src.server.app_context import ServerAppContext
+from src.server.app_context import create_server_context
 from src.server.auto_save import trigger_auto_save as _trigger_auto_save
 from src.server.bootstrap import (
     is_browser_auto_open_disabled,
@@ -150,8 +150,6 @@ from src.server.loop_runtime import (
 from src.server.llm_runtime_handlers import create_llm_runtime_handlers
 from src.server.runtime_hooks import create_runtime_hooks
 from src.server.settings_handlers import SettingsServiceProxy, create_settings_handlers
-from src.server.services.game_command_service import GameCommandService
-from src.server.services.game_query_service import GameQueryService
 from src.server.public_helpers import (
     apply_runtime_content_locale as _apply_runtime_content_locale,
     get_runtime_run_config as _get_runtime_run_config,
@@ -237,8 +235,20 @@ auxiliaries_by_id = static_data.auxiliaries_by_id
 goldfingers_by_id = static_data.goldfingers_by_id
 celestial_phenomena_by_id = static_data.celestial_phenomena_by_id
 
-query_service = GameQueryService.from_dependencies(
-    static_data=static_data,
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+
+WEB_DIST_PATH, ASSETS_PATH = resolve_runtime_paths(
+    server_file=__file__,
+    is_frozen=getattr(sys, "frozen", False),
+    executable=getattr(sys, "executable", None),
+    meipass=getattr(sys, "_MEIPASS", None),
+)
+
+print(f"Runtime mode: {'Frozen/Packaged' if getattr(sys, 'frozen', False) else 'Development'}")
+print(f"Assets path: {ASSETS_PATH}")
+print(f"Web dist path: {WEB_DIST_PATH}")
+
+query_dependencies = dict(
     runtime=runtime,
     avatar_assets=AVATAR_ASSETS,
     config=CONFIG,
@@ -294,48 +304,112 @@ query_service = GameQueryService.from_dependencies(
     get_world_secret_meta_query=get_world_secret_meta_query,
     get_world_secret_overview_query=get_world_secret_overview_query,
 )
-public_query_builders = query_service.builders
+settings_service = SettingsServiceProxy(get_settings_service)
 
-build_public_world_state = public_query_builders.build_public_world_state
-build_public_world_map = public_query_builders.build_public_world_map
-build_public_map_presets = public_query_builders.build_public_map_presets
-build_public_runtime_status = public_query_builders.build_public_runtime_status
-build_public_current_run = public_query_builders.build_public_current_run
-build_public_events_page = public_query_builders.build_public_events_page
-build_public_game_data = public_query_builders.build_public_game_data
-build_public_detail = public_query_builders.build_public_detail
-build_public_avatar_adjust_options = public_query_builders.build_public_avatar_adjust_options
-build_public_avatar_meta = public_query_builders.build_public_avatar_meta
-build_public_avatar_list = public_query_builders.build_public_avatar_list
-build_public_phenomena = public_query_builders.build_public_phenomena
-build_public_sect_territories = public_query_builders.build_public_sect_territories
-build_public_saves = public_query_builders.build_public_saves
-build_public_rankings = public_query_builders.build_public_rankings
-build_public_sect_relations = public_query_builders.build_public_sect_relations
-build_public_mortal_overview = public_query_builders.build_public_mortal_overview
-build_public_dynasty_overview = public_query_builders.build_public_dynasty_overview
-build_public_dynasty_detail = public_query_builders.build_public_dynasty_detail
-build_public_avatar_overview = public_query_builders.build_public_avatar_overview
-build_public_deceased_list = public_query_builders.build_public_deceased_list
-build_public_roleplay_session = public_query_builders.build_public_roleplay_session
-build_public_world_secret_meta = public_query_builders.build_public_world_secret_meta
-build_public_world_secret_overview = public_query_builders.build_public_world_secret_overview
-
-
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-
-WEB_DIST_PATH, ASSETS_PATH = resolve_runtime_paths(
-    server_file=__file__,
-    is_frozen=getattr(sys, "frozen", False),
-    executable=getattr(sys, "executable", None),
-    meipass=getattr(sys, "_MEIPASS", None),
+command_dependencies = dict(
+    runtime=runtime,
+    manager=manager,
+    avatar_assets=AVATAR_ASSETS,
+    assets_path=ASSETS_PATH,
+    model_to_dict=_model_to_dict,
+    validate_save_name=validate_save_name,
+    get_init_game_async=lambda: init_game_async,
+    get_apply_runtime_content_locale=lambda: apply_runtime_content_locale,
+    scan_avatar_assets=scan_avatar_assets,
+    start_game_lifecycle=start_game_lifecycle,
+    reinit_game_lifecycle=reinit_game_lifecycle,
+    cleanup_events_command=cleanup_events_command,
+    set_world_phenomenon=set_world_phenomenon,
+    create_avatar_in_world=create_avatar_in_world,
+    create_avatar_from_request=create_avatar_from_request,
+    uses_space_separated_names=uses_space_separated_names,
+    language_manager=language_manager,
+    alignment_from_str=Alignment.from_str,
+    get_appearance_by_level=get_appearance_by_level,
+    resolve_avatar_pic_id=resolve_avatar_pic_id,
+    resolve_avatar_action_emoji=resolve_avatar_action_emoji,
+    delete_avatar_in_world=delete_avatar_in_world,
+    update_avatar_adjustment_in_world=update_avatar_adjustment_in_world,
+    apply_avatar_adjustment=apply_avatar_adjustment,
+    update_avatar_portrait_in_world=update_avatar_portrait_in_world,
+    generate_custom_content_command=generate_custom_content_command,
+    get_generate_custom_goldfinger_draft=lambda: generate_custom_goldfinger_draft,
+    get_generate_custom_content_draft=lambda: generate_custom_content_draft,
+    realm_from_str=Realm.from_str,
+    create_custom_content_command=create_custom_content_command,
+    create_custom_goldfinger_from_draft=create_custom_goldfinger_from_draft,
+    create_custom_content_from_draft=create_custom_content_from_draft,
+    set_long_term_objective_for_avatar=set_long_term_objective_for_avatar,
+    clear_long_term_objective_for_avatar=clear_long_term_objective_for_avatar,
+    set_user_long_term_objective=set_user_long_term_objective,
+    clear_user_long_term_objective=clear_user_long_term_objective,
+    save_current_game=save_current_game,
+    save_game=save_game,
+    delete_save_file=delete_save_file,
+    get_config=get_current_config,
+    get_fallback_saves_dirs=get_fallback_saves_dirs,
+    get_load_game_into_runtime=lambda: load_game_into_runtime,
+    get_load_game=lambda: load_game,
+    get_events_db_path=get_events_db_path,
+    get_roleplay_session=get_roleplay_session_query,
+    clear_roleplay_session=clear_roleplay_session_service,
+    start_roleplay=start_roleplay_service,
+    stop_roleplay=stop_roleplay_service,
+    submit_roleplay_decision=submit_roleplay_decision_service,
+    submit_roleplay_choice=submit_roleplay_choice_service,
+    submit_roleplay_conversation_turn=submit_roleplay_conversation_turn_service,
+    end_roleplay_conversation=end_roleplay_conversation_service,
 )
 
-print(f"Runtime mode: {'Frozen/Packaged' if getattr(sys, 'frozen', False) else 'Development'}")
-print(f"Assets path: {ASSETS_PATH}")
-print(f"Web dist path: {WEB_DIST_PATH}")
+server_context = create_server_context(
+    runtime=runtime,
+    manager=manager,
+    game_state=game_instance,
+    avatar_assets=AVATAR_ASSETS,
+    settings_service=settings_service,
+    static_data=static_data,
+    query_dependencies=query_dependencies,
+    command_dependencies=command_dependencies,
+    version=str(getattr(CONFIG.meta, "version", "")),
+)
+query_service = server_context.query_service
+command_service = server_context.command_service
 
-settings_service = SettingsServiceProxy(get_settings_service)
+def _install_legacy_query_exports(service):
+    """Expose historical query helper names for old tests/imports only."""
+    builders = service.builders
+    globals().update(
+        public_query_builders=builders,
+        build_public_world_state=builders.build_public_world_state,
+        build_public_world_map=builders.build_public_world_map,
+        build_public_map_presets=builders.build_public_map_presets,
+        build_public_runtime_status=builders.build_public_runtime_status,
+        build_public_current_run=builders.build_public_current_run,
+        build_public_events_page=builders.build_public_events_page,
+        build_public_game_data=builders.build_public_game_data,
+        build_public_detail=builders.build_public_detail,
+        build_public_avatar_adjust_options=builders.build_public_avatar_adjust_options,
+        build_public_avatar_meta=builders.build_public_avatar_meta,
+        build_public_avatar_list=builders.build_public_avatar_list,
+        build_public_phenomena=builders.build_public_phenomena,
+        build_public_sect_territories=builders.build_public_sect_territories,
+        build_public_saves=builders.build_public_saves,
+        build_public_rankings=builders.build_public_rankings,
+        build_public_sect_relations=builders.build_public_sect_relations,
+        build_public_mortal_overview=builders.build_public_mortal_overview,
+        build_public_dynasty_overview=builders.build_public_dynasty_overview,
+        build_public_dynasty_detail=builders.build_public_dynasty_detail,
+        build_public_avatar_overview=builders.build_public_avatar_overview,
+        build_public_deceased_list=builders.build_public_deceased_list,
+        build_public_roleplay_session=builders.build_public_roleplay_session,
+        build_public_world_secret_meta=builders.build_public_world_secret_meta,
+        build_public_world_secret_overview=builders.build_public_world_secret_overview,
+    )
+
+
+_install_legacy_query_exports(query_service)
+
+
 settings_handlers = create_settings_handlers(
     game_state=game_instance,
     language_manager=language_manager,
@@ -465,99 +539,40 @@ async def game_loop():
         get_logger=_get_logger,
     )
 
-command_service = GameCommandService.from_dependencies(
-    static_data=static_data,
-    runtime=runtime,
-    manager=manager,
-    avatar_assets=AVATAR_ASSETS,
-    assets_path=ASSETS_PATH,
-    model_to_dict=_model_to_dict,
-    validate_save_name=validate_save_name,
-    get_init_game_async=lambda: init_game_async,
-    get_apply_runtime_content_locale=lambda: apply_runtime_content_locale,
-    scan_avatar_assets=scan_avatar_assets,
-    start_game_lifecycle=start_game_lifecycle,
-    reinit_game_lifecycle=reinit_game_lifecycle,
-    cleanup_events_command=cleanup_events_command,
-    set_world_phenomenon=set_world_phenomenon,
-    create_avatar_in_world=create_avatar_in_world,
-    create_avatar_from_request=create_avatar_from_request,
-    uses_space_separated_names=uses_space_separated_names,
-    language_manager=language_manager,
-    alignment_from_str=Alignment.from_str,
-    get_appearance_by_level=get_appearance_by_level,
-    resolve_avatar_pic_id=resolve_avatar_pic_id,
-    resolve_avatar_action_emoji=resolve_avatar_action_emoji,
-    delete_avatar_in_world=delete_avatar_in_world,
-    update_avatar_adjustment_in_world=update_avatar_adjustment_in_world,
-    apply_avatar_adjustment=apply_avatar_adjustment,
-    update_avatar_portrait_in_world=update_avatar_portrait_in_world,
-    generate_custom_content_command=generate_custom_content_command,
-    get_generate_custom_goldfinger_draft=lambda: generate_custom_goldfinger_draft,
-    get_generate_custom_content_draft=lambda: generate_custom_content_draft,
-    realm_from_str=Realm.from_str,
-    create_custom_content_command=create_custom_content_command,
-    create_custom_goldfinger_from_draft=create_custom_goldfinger_from_draft,
-    create_custom_content_from_draft=create_custom_content_from_draft,
-    set_long_term_objective_for_avatar=set_long_term_objective_for_avatar,
-    clear_long_term_objective_for_avatar=clear_long_term_objective_for_avatar,
-    set_user_long_term_objective=set_user_long_term_objective,
-    clear_user_long_term_objective=clear_user_long_term_objective,
-    save_current_game=save_current_game,
-    save_game=save_game,
-    delete_save_file=delete_save_file,
-    get_config=get_current_config,
-    get_fallback_saves_dirs=get_fallback_saves_dirs,
-    get_load_game_into_runtime=lambda: load_game_into_runtime,
-    get_load_game=lambda: load_game,
-    get_events_db_path=get_events_db_path,
-    get_roleplay_session=get_roleplay_session_query,
-    clear_roleplay_session=clear_roleplay_session_service,
-    start_roleplay=start_roleplay_service,
-    stop_roleplay=stop_roleplay_service,
-    submit_roleplay_decision=submit_roleplay_decision_service,
-    submit_roleplay_choice=submit_roleplay_choice_service,
-    submit_roleplay_conversation_turn=submit_roleplay_conversation_turn_service,
-    end_roleplay_conversation=end_roleplay_conversation_service,
-)
-command_handlers = command_service.handlers
-server_context = ServerAppContext(
-    runtime=runtime,
-    manager=manager,
-    game_state=game_instance,
-    avatar_assets=AVATAR_ASSETS,
-    settings_service=get_settings_service(),
-    static_data=static_data,
-    query_service=query_service,
-    command_service=command_service,
-    version=str(getattr(CONFIG.meta, "version", "")),
-)
+def _install_legacy_command_exports(service):
+    """Expose historical command helper names for old tests/imports only."""
+    handlers = service.handlers
+    globals().update(
+        command_handlers=handlers,
+        run_start_game=handlers.run_start_game,
+        run_reinit_game=handlers.run_reinit_game,
+        run_reset_game=handlers.run_reset_game,
+        run_pause_game=handlers.run_pause_game,
+        run_pause_game_and_drain=handlers.run_pause_game_and_drain,
+        run_resume_game=handlers.run_resume_game,
+        run_cleanup_events=handlers.run_cleanup_events,
+        run_set_phenomenon=handlers.run_set_phenomenon,
+        run_create_avatar=handlers.run_create_avatar,
+        run_delete_avatar=handlers.run_delete_avatar,
+        run_update_avatar_adjustment=handlers.run_update_avatar_adjustment,
+        run_update_avatar_portrait=handlers.run_update_avatar_portrait,
+        run_generate_custom_content=handlers.run_generate_custom_content,
+        run_create_custom_content=handlers.run_create_custom_content,
+        run_set_long_term_objective=handlers.run_set_long_term_objective,
+        run_clear_long_term_objective=handlers.run_clear_long_term_objective,
+        run_save_game=handlers.run_save_game,
+        run_delete_save=handlers.run_delete_save,
+        run_load_game=handlers.run_load_game,
+        run_start_roleplay=handlers.run_start_roleplay,
+        run_stop_roleplay=handlers.run_stop_roleplay,
+        run_submit_roleplay_decision=handlers.run_submit_roleplay_decision,
+        run_submit_roleplay_choice=handlers.run_submit_roleplay_choice,
+        run_send_roleplay_conversation=handlers.run_send_roleplay_conversation,
+        run_end_roleplay_conversation=handlers.run_end_roleplay_conversation,
+    )
 
-run_start_game = command_handlers.run_start_game
-run_reinit_game = command_handlers.run_reinit_game
-run_reset_game = command_handlers.run_reset_game
-run_pause_game = command_handlers.run_pause_game
-run_pause_game_and_drain = command_handlers.run_pause_game_and_drain
-run_resume_game = command_handlers.run_resume_game
-run_cleanup_events = command_handlers.run_cleanup_events
-run_set_phenomenon = command_handlers.run_set_phenomenon
-run_create_avatar = command_handlers.run_create_avatar
-run_delete_avatar = command_handlers.run_delete_avatar
-run_update_avatar_adjustment = command_handlers.run_update_avatar_adjustment
-run_update_avatar_portrait = command_handlers.run_update_avatar_portrait
-run_generate_custom_content = command_handlers.run_generate_custom_content
-run_create_custom_content = command_handlers.run_create_custom_content
-run_set_long_term_objective = command_handlers.run_set_long_term_objective
-run_clear_long_term_objective = command_handlers.run_clear_long_term_objective
-run_save_game = command_handlers.run_save_game
-run_delete_save = command_handlers.run_delete_save
-run_load_game = command_handlers.run_load_game
-run_start_roleplay = command_handlers.run_start_roleplay
-run_stop_roleplay = command_handlers.run_stop_roleplay
-run_submit_roleplay_decision = command_handlers.run_submit_roleplay_decision
-run_submit_roleplay_choice = command_handlers.run_submit_roleplay_choice
-run_send_roleplay_conversation = command_handlers.run_send_roleplay_conversation
-run_end_roleplay_conversation = command_handlers.run_end_roleplay_conversation
+
+_install_legacy_command_exports(command_service)
 
 
 def get_settings() -> dict:

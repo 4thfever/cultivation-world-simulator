@@ -558,7 +558,7 @@ active opportunities 是世界长期状态，应进入存档。
 
 可能位置：
 
-- `src/systems/opportunity.py`
+- `src/systems/opportunity/`
 - `src/systems/opportunity_types.py`
 - `src/systems/opportunity_loader.py`
 - `src/systems/opportunity_service.py`

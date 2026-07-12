@@ -31,6 +31,7 @@ class LoadContext:
     game_map: Any = None
     all_avatars: dict[str, Any] | None = None
     run_config_snapshot: dict[str, Any] | None = None
+    world_data: dict[str, Any] | None = None
 
 
 class SaveSection(Protocol):

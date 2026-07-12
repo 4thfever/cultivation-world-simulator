@@ -295,7 +295,7 @@ EXTRA_OPPORTUNITY_PROBABILITY = "extra_opportunity_probability"
 """
 额外机缘概率
 类型: float
-结算: src/systems/opportunity.py
+结算: src/systems/opportunity/
 说明: 每月触发限时机缘感应的额外概率（绝对值）。
 数值参考:
   - 基础概率通常极低 (<0.01)
@@ -474,7 +474,7 @@ EXTRA_CROSS_RACE_FRIENDLINESS = "extra_cross_race_friendliness"
 """
 跨种族初始好感修正
 类型: int
-结算: src/sim/avatar_init.py
+结算: src/sim/avatar_init/
 说明: 不同种族角色生成初始关系时的好感修正。
 """
 

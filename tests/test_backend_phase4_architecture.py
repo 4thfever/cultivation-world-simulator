@@ -21,7 +21,9 @@ def test_simulation_phase_runner_has_handler_for_every_registered_phase(base_wor
 
     for phase in get_simulation_phases():
         assert phase.handler_name
+        assert callable(phase.handler)
         assert phase.handler_name in runner.handlers
+        assert runner.handlers[phase.handler_name] is phase.handler
 
 
 def test_roleplay_state_machine_rejects_illegal_status():
