@@ -6,11 +6,6 @@ from src.classes.relation.relations import ensure_numeric_relation_state, regres
 from src.systems.time import Month
 
 
-def phase_process_interactions(avatar_manager, events: list[Event]) -> None:
-    # 旧版关系系统使用“按事件累计互动次数”，新版已废弃。
-    return
-
-
 def phase_handle_interactions(
     avatar_manager,
     events: list[Event],

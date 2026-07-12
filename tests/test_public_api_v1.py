@@ -273,8 +273,7 @@ def test_v1_avatar_adjust_options_uses_ok_envelope():
 def test_v1_avatar_meta_uses_ok_envelope():
     original = _reset_state()
     try:
-        main.AVATAR_ASSETS["males"] = [1, 2]
-        main.AVATAR_ASSETS["females"] = [3, 4]
+        main.AVATAR_ASSETS["human"] = {"male": [1, 2], "female": [3, 4]}
         client = TestClient(main.app)
         response = client.get("/api/v1/query/meta/avatars")
 
@@ -491,15 +490,11 @@ def test_v1_world_secret_meta_localizes_special_options():
     original = _reset_state()
     original_language = str(main.language_manager)
     try:
-        main.language_manager.set_language("fr-FR")
-        client = TestClient(main.app)
-        response = client.get("/api/v1/query/meta/world-secrets")
+        main.apply_runtime_content_locale("fr-FR")
+        data = main.build_public_world_secret_meta()
 
-        assert response.status_code == 200
-        payload = response.json()
-        assert payload["ok"] is True
-        assert payload["data"]["options"][0] == {"id": "none", "title": "Aucun"}
-        assert payload["data"]["options"][1] == {"id": "random", "title": "Aléatoire"}
+        assert data["options"][0] == {"id": "none", "title": "Aucun"}
+        assert data["options"][1] == {"id": "random", "title": "Aléatoire"}
     finally:
         main.language_manager.set_language(original_language)
         main.game_instance.clear()

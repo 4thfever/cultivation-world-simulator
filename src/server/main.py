@@ -174,12 +174,13 @@ from src.server.serialization import (
 game_instance = create_default_game_state()
 runtime = GameSessionRuntime(game_instance)
 
-# Cache for avatar IDs
+# Cache for available avatar portrait asset IDs by race and gender.
 AVATAR_ASSETS = {
-    "males": [],
-    "females": []
+    "human": {
+        "male": [],
+        "female": [],
+    }
 }
-# 触发配置重载的标记 (technique.csv updated)
 
 # 简易的命令行参数检查 (不使用 argparse 以避免冲突和时序问题)
 IS_DEV_MODE = "--dev" in sys.argv

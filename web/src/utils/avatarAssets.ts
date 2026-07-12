@@ -1,10 +1,8 @@
 export type AvatarAssetLibrary = { male: number[]; female: number[] }
 
 export type AvatarAssetLibraries = {
-  [raceId: string]: AvatarAssetLibrary | number[] | undefined
+  [raceId: string]: AvatarAssetLibrary | undefined
   human: AvatarAssetLibrary
-  males?: number[]
-  females?: number[]
 }
 
 function toNumberList(value: unknown): number[] {
@@ -38,30 +36,18 @@ export function normalizeAvatarAssetLibraries(raw: unknown): AvatarAssetLibrarie
     : raw
 
   if (!source || typeof source !== 'object' || Array.isArray(source)) {
-    return { human: { male: [], female: [] }, males: [], females: [] }
+    return { human: { male: [], female: [] } }
   }
 
   const record = source as Record<string, unknown>
-  const hasRaceLibraries = Object.values(record).some(
-    value => value && typeof value === 'object' && !Array.isArray(value) && ('male' in value || 'female' in value),
-  )
-
   const normalized: AvatarAssetLibraries = { human: { male: [], female: [] } }
-  if (hasRaceLibraries) {
-    for (const [raceId, library] of Object.entries(record)) {
-      if (raceId === 'males' || raceId === 'females') continue
+  for (const [raceId, library] of Object.entries(record)) {
+    if (library && typeof library === 'object' && !Array.isArray(library)) {
       normalized[raceId] = toLibrary(library)
-    }
-  } else {
-    normalized.human = {
-      male: toNumberList(record.males),
-      female: toNumberList(record.females),
     }
   }
 
   normalized.human = normalized.human || { male: [], female: [] }
-  normalized.males = normalized.human.male
-  normalized.females = normalized.human.female
   return normalized
 }
 
@@ -75,10 +61,6 @@ export function getAvatarAssetIds(
   const genderKey = normalizedGender === 'female' || normalizedGender === '女' ? 'female' : 'male'
   const raceKey = String(race || 'human').trim().toLowerCase() || 'human'
   const candidate = libraries[raceKey]
-  const library = (
-    candidate && !Array.isArray(candidate) && 'male' in candidate
-      ? candidate
-      : libraries.human
-  ) || { male: [], female: [] }
+  const library = candidate || libraries.human || { male: [], female: [] }
   return library[genderKey] || []
 }

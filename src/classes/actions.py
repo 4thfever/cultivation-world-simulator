@@ -56,8 +56,3 @@ def get_action_infos_str(avatar: "Avatar" | None = None) -> str:
     获取JSON格式的动作描述字符串
     """
     return json.dumps(get_action_infos(avatar), ensure_ascii=False, indent=2)
-
-# 为了兼容性保留 ACTION_INFOS_STR，但请注意这可能是旧的（导入时的快照），不会随语言切换更新
-# 建议使用 get_action_infos_str() 获取最新语言的描述
-ACTION_INFOS = get_action_infos()
-ACTION_INFOS_STR = json.dumps(ACTION_INFOS, ensure_ascii=False, indent=2)

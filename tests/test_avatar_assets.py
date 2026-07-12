@@ -23,7 +23,10 @@ def test_scan_avatar_assets_reads_realm_aware_avatar_tree(tmp_path):
 def test_resolve_avatar_pic_id_keeps_custom_index_semantics():
     avatar = SimpleNamespace(custom_pic_id=12, gender=SimpleNamespace(value="female"), id="a-1")
 
-    assert resolve_avatar_pic_id(avatar_assets={"males": [1], "females": [8]}, avatar=avatar) == 12
+    assert resolve_avatar_pic_id(
+        avatar_assets={"human": {"male": [1], "female": [8]}},
+        avatar=avatar,
+    ) == 12
 
 
 def test_resolve_avatar_pic_id_uses_race_specific_library():

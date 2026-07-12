@@ -54,7 +54,7 @@ describe('useTextures', () => {
     texturesInstance.isLoaded.value = false
 
     // Reset available avatars.
-    texturesInstance.availableAvatars.value = { males: [], females: [] }
+    texturesInstance.availableAvatars.value = { human: { male: [], female: [] } }
   })
 
   afterEach(() => {
@@ -76,8 +76,7 @@ describe('useTextures', () => {
     it('should return availableAvatars ref', () => {
       const { availableAvatars } = useTextures()
       expect(availableAvatars).toBeDefined()
-      expect(availableAvatars.value).toHaveProperty('males')
-      expect(availableAvatars.value).toHaveProperty('females')
+      expect(availableAvatars.value).toHaveProperty('human')
     })
 
     it('should return loadBaseTextures function', () => {
@@ -114,8 +113,10 @@ describe('useTextures', () => {
   describe('loadBaseTextures', () => {
     it('should fetch avatar meta', async () => {
       mockFetchAvatarMeta.mockResolvedValue({
-        males: [1, 2, 3],
-        females: [1, 2],
+        human: {
+          male: [1, 2, 3],
+          female: [1, 2],
+        },
       })
 
       const { loadBaseTextures } = useTextures()
@@ -126,8 +127,10 @@ describe('useTextures', () => {
 
     it('should load base tile textures', async () => {
       mockFetchAvatarMeta.mockResolvedValue({
-        males: [],
-        females: [],
+        human: {
+          male: [],
+          female: [],
+        },
       })
 
       const { loadBaseTextures } = useTextures()
@@ -141,8 +144,10 @@ describe('useTextures', () => {
 
     it('should load tile variants', async () => {
       mockFetchAvatarMeta.mockResolvedValue({
-        males: [],
-        females: [],
+        human: {
+          male: [],
+          female: [],
+        },
       })
 
       const { loadBaseTextures } = useTextures()
@@ -155,8 +160,10 @@ describe('useTextures', () => {
 
     it('should load cloud textures', async () => {
       mockFetchAvatarMeta.mockResolvedValue({
-        males: [],
-        females: [],
+        human: {
+          male: [],
+          female: [],
+        },
       })
 
       const { loadBaseTextures } = useTextures()
@@ -168,8 +175,10 @@ describe('useTextures', () => {
 
     it('should lazy-load avatar textures by realm on demand', async () => {
       mockFetchAvatarMeta.mockResolvedValue({
-        males: [1, 5, 10],
-        females: [2, 7],
+        human: {
+          male: [1, 5, 10],
+          female: [2, 7],
+        },
       })
 
       const { loadBaseTextures, ensureAvatarTexture, textures } = useTextures()
@@ -229,16 +238,18 @@ describe('useTextures', () => {
       await loadBaseTextures()
 
       // Should use fallback range.
-      expect(availableAvatars.value.males.length).toBe(48)
-      expect(availableAvatars.value.females.length).toBe(48)
+      expect(availableAvatars.value.human.male.length).toBe(48)
+      expect(availableAvatars.value.human.female.length).toBe(48)
 
       consoleSpy.mockRestore()
     })
 
     it('should set isLoaded to true after loading', async () => {
       mockFetchAvatarMeta.mockResolvedValue({
-        males: [],
-        females: [],
+        human: {
+          male: [],
+          female: [],
+        },
       })
 
       const { loadBaseTextures, isLoaded } = useTextures()
@@ -250,8 +261,10 @@ describe('useTextures', () => {
     it('should handle individual texture load failures gracefully', async () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       mockFetchAvatarMeta.mockResolvedValue({
-        males: [],
-        females: [],
+        human: {
+          male: [],
+          female: [],
+        },
       })
       mockAssetsLoad.mockImplementation((url: string) => {
         if (url.includes('plain')) {
@@ -438,28 +451,32 @@ describe('useTextures', () => {
 
       // First call with initial meta.
       mockFetchAvatarMeta.mockResolvedValueOnce({
-        males: [1, 2],
-        females: [1],
+        human: {
+          male: [1, 2],
+          female: [1],
+        },
       })
 
       const { loadBaseTextures, availableAvatars, isLoaded } = useTextures()
 
       await loadBaseTextures()
 
-      expect(availableAvatars.value.males).toEqual([1, 2])
-      expect(availableAvatars.value.females).toEqual([1])
+      expect(availableAvatars.value.human.male).toEqual([1, 2])
+      expect(availableAvatars.value.human.female).toEqual([1])
 
       // Second call with different meta - reset isLoaded first.
       isLoaded.value = false
       mockFetchAvatarMeta.mockResolvedValueOnce({
-        males: [1, 2, 3],
-        females: [1, 2],
+        human: {
+          male: [1, 2, 3],
+          female: [1, 2],
+        },
       })
 
       await loadBaseTextures()
 
-      expect(availableAvatars.value.males).toEqual([1, 2, 3])
-      expect(availableAvatars.value.females).toEqual([1, 2])
+      expect(availableAvatars.value.human.male).toEqual([1, 2, 3])
+      expect(availableAvatars.value.human.female).toEqual([1, 2])
 
       consoleSpy.mockRestore()
     })

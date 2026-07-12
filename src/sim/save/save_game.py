@@ -10,17 +10,19 @@
 - meta: 版本号、保存时间、游戏时间、事件数据库信息
 - world: 游戏时间戳、本局启用的宗门列表
 - avatars: 所有角色的完整状态（通过AvatarSaveMixin.to_save_dict序列化）
-- events: 最近N条事件历史（仅用于向后兼容迁移，新事件存储在SQLite中）
-- simulator: 模拟器配置（如出生率）
+- run_config: 本局配置快照
+- map_snapshot: 本局地图快照
+- simulator: 模拟器运行状态
+- events: 旧字段，仅用于缺少 SQLite 事件库的旧存档迁移
 
 存档格式：
 - JSON（明文，易于调试）+ SQLite事件数据库
-- 存档位置：assets/saves/ (配置在config.yml中)
+- 存档位置：由当前 data root 派生，运行时通过配置服务读取
 - 事件数据库：{save_name}_events.db（与JSON文件同目录）
 
 注意事项：
 - 不支持跨版本兼容（版本号仅记录，不做检查）
-- 地图本身不保存（因为地图是固定的，只保存宗门总部位置）
+- 地图随存档保存快照，读档时优先恢复本局地图状态
 - relations在Avatar中已转换为id映射，避免循环引用
 - 事件实时写入SQLite，JSON中的events字段仅用于旧存档迁移
 """

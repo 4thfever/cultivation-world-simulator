@@ -90,7 +90,7 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
     info["runtime_effect_items"] = runtime_items
     info["periodic_thinking"] = str(getattr(sect, "periodic_thinking", "") or "")
     info["war_weariness"] = int(getattr(sect, "war_weariness", 0) or 0)
-    # 兼容旧字段，前端迁移完成后可删除。
+    # 前端仍标记为 deprecated 的别名，语义等同 periodic_thinking。
     info["yearly_thinking"] = info["periodic_thinking"]
 
     sect_manager = SectManager(world)
@@ -109,7 +109,7 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
         "tile_count": tile_count,
         "border_tile_count": border_tile_count,
         "border_pressure_ratio": (float(border_tile_count) / float(tile_count)) if tile_count > 0 else 0.0,
-        # 兼容旧字段。
+        # 前端仍标记为 deprecated 的别名，语义等同 border_tile_count。
         "conflict_tile_count": border_tile_count,
         "headquarter_center": snapshot.sect_centers.get(int(sect.id)),
     }

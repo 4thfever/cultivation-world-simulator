@@ -92,12 +92,8 @@ def _get_avatar_asset_bucket(*, avatar_assets: dict, avatar) -> list[int]:
     gender_val = getattr(getattr(avatar, "gender", None), "value", "male") if avatar is not None else "male"
     gender_key = "female" if gender_val == "female" else "male"
 
-    if "human" in avatar_assets:
-        race_assets = avatar_assets.get(race_id) or avatar_assets.get("human", {})
-        return list(race_assets.get(gender_key, []))
-
-    legacy_key = "females" if gender_key == "female" else "males"
-    return list(avatar_assets.get(legacy_key, []))
+    race_assets = avatar_assets.get(race_id) or avatar_assets.get("human", {})
+    return list(race_assets.get(gender_key, []))
 
 
 def resolve_avatar_pic_id(*, avatar_assets: dict, avatar) -> int:

@@ -92,7 +92,7 @@ def load_world_secret_definitions() -> dict[str, WorldSecretDefinition]:
 def get_world_secret_options() -> list[dict[str, str]]:
     definitions = load_world_secret_definitions()
     options = [
-        {"id": WORLD_SECRET_NONE_ID, "title": definitions[WORLD_SECRET_NONE_ID].title or t("None")},
+        {"id": WORLD_SECRET_NONE_ID, "title": t("None")},
         {"id": WORLD_SECRET_RANDOM_ID, "title": t("Random")},
     ]
     for secret in sorted(

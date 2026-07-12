@@ -1,7 +1,7 @@
 """
 事件管理器。
 
-重构后使用 SQLite 存储，提供与旧版兼容的接口。
+提供事件写入和查询 facade，底层优先使用 SQLite storage。
 """
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ class EventManager:
     """
     事件管理器：使用 SQLite 持久化存储。
 
-    保持与旧版兼容的接口：
+    对外提供统一事件接口：
     - add_event: 添加事件
     - get_recent_events: 获取最近事件
     - get_events_by_avatar: 按角色查询
@@ -36,7 +36,7 @@ class EventManager:
             storage: SQLite 存储层。如果为 None，则使用内存模式（仅用于测试）。
         """
         self._storage = storage
-        # 内存后备（仅当 storage 为 None 时使用，用于测试或迁移期间）。
+        # 内存后备，仅当 storage 为 None 时使用，主要用于测试。
         self._memory_events: List["Event"] = []
 
     @classmethod

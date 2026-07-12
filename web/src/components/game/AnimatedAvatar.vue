@@ -75,7 +75,7 @@ function getTexture() {
   if (!pid) {
      const raceKey = String(props.avatar.race || 'human').toLowerCase()
      const library = availableAvatars.value[raceKey] || availableAvatars.value.human
-     const list = Array.isArray(library) ? library : library?.[gender === 'female' ? 'female' : 'male']
+     const list = library?.[gender === 'female' ? 'female' : 'male']
      if (list && list.length > 0) {
          let hash = 0
          const str = props.avatar.id || props.avatar.name || 'default'

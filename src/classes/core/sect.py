@@ -232,7 +232,7 @@ class Sect(SectEffectsMixin):
             "hq_desc": hq.desc,
             "effect_desc": self.effect_desc,
             "techniques": techniques_data,
-            # 兼容旧字段，如果前端还要用的话（建议迁移后废弃）
+            # 领域模型仍以 technique_names 维护配置来源，API 同时提供结构化 techniques。
             "technique_names": self.technique_names,
             "preferred_weapon": str(self.preferred_weapon) if self.preferred_weapon else "",
             "members": members_list,
@@ -247,7 +247,7 @@ class Sect(SectEffectsMixin):
             "rule_desc": self.rule_desc,
             "accept_yao": self.accept_yao,
             "periodic_thinking": self.periodic_thinking,
-            # 兼容旧字段，前后端迁移完成后可删除。
+            # 前端仍标记为 deprecated 的别名，语义等同 periodic_thinking。
             "yearly_thinking": self.periodic_thinking,
         }
 
@@ -645,7 +645,7 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
                     SectRank.OuterDisciple.value: parts[3],
                 }
 
-        # 从 sect_region.csv 中优先取驻地名称/描述；否则兼容旧列或退回宗门名
+        # 从 sect_region.csv 中优先取驻地名称/描述；否则使用行内驻地列或退回宗门名
         csv_hq = hq_by_sect_id.get(sid)
         hq_name_from_csv = (csv_hq[0] if csv_hq else "").strip() if csv_hq else ""
         hq_desc_from_csv = (csv_hq[1] if csv_hq else "").strip() if csv_hq else ""

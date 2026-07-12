@@ -8,12 +8,8 @@ from src.i18n import t
 
 def _available_portrait_ids(avatar_assets: dict, *, race_id: str, gender_value: str) -> set[int]:
     gender_key = "female" if gender_value == "female" else "male"
-    if "human" in avatar_assets:
-        race_assets = avatar_assets.get(race_id) or avatar_assets.get("human", {})
-        return set(race_assets.get(gender_key, []))
-
-    legacy_key = "females" if gender_key == "female" else "males"
-    return set(avatar_assets.get(legacy_key, []))
+    race_assets = avatar_assets.get(race_id) or avatar_assets.get("human", {})
+    return set(race_assets.get(gender_key, []))
 
 
 def set_long_term_objective_for_avatar(runtime, *, avatar_id: str, content: str, setter) -> dict[str, str]:

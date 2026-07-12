@@ -32,8 +32,6 @@ const textures = shallowRef<Record<string, Texture>>({})
 const isLoaded = ref(false)
 const availableAvatars = ref<AvatarAssetLibraries>({
   human: { male: [], female: [] },
-  males: [],
-  females: [],
 })
 let baseTexturesPromise: Promise<void> | null = null
 const sectTexturePromises = new Map<number, Promise<void>>()
@@ -68,7 +66,7 @@ function resolveAvatarPortraitId(
   const genderKey = gender === 'female' || gender === '女' ? 'female' : 'male'
   const raceKey = String(avatar.race || 'human').toLowerCase()
   const library = libraries[raceKey] || libraries.human
-  const list = Array.isArray(library) ? library : library?.[genderKey]
+  const list = library?.[genderKey]
   if (!list || list.length === 0) return 1
 
   let hash = 0
@@ -103,19 +101,11 @@ export function useTextures() {
     } catch (e) {
         logWarn('Textures load avatar meta', e)
         // Fallback: 只有在列表为空时才使用默认值
-        if (!availableAvatars.value.human) {
-            availableAvatars.value.human = {
-              male: availableAvatars.value.males || [],
-              female: availableAvatars.value.females || [],
-            }
-        }
         if (availableAvatars.value.human.male.length === 0) {
             availableAvatars.value.human = {
               male: Array.from({length: 48}, (_, i) => i + 1),
               female: Array.from({length: 48}, (_, i) => i + 1),
             }
-            availableAvatars.value.males = availableAvatars.value.human.male
-            availableAvatars.value.females = availableAvatars.value.human.female
             metaChanged = true
         }
     }

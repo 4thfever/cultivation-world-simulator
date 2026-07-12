@@ -38,7 +38,7 @@ class Map():
         self.regions = {}
         self.sect_regions = {}
         
-        # 分类字典（暂未使用，保留以备兼容）
+        # 分类索引由加载器按需填充；regions 仍是唯一语义真源。
         self.normal_regions = {}
         self.cultivate_regions = {}
         self.city_regions = {}

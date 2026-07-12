@@ -187,13 +187,6 @@ def get_avatar_list(runtime) -> dict[str, Any]:
 
 
 def get_avatar_assets_meta(*, avatar_assets: dict) -> dict[str, Any]:
-    if "human" not in avatar_assets:
-        return {
-            "human": {
-                "male": list(avatar_assets.get("males", [])),
-                "female": list(avatar_assets.get("females", [])),
-            }
-        }
     return {
         str(race_id): {
             "male": list((assets or {}).get("male", [])),

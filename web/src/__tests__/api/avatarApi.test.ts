@@ -150,7 +150,7 @@ describe('avatarApi', () => {
 
   it('fetches avatar meta from /api/v1', async () => {
     const { avatarApi } = await import('@/api/modules/avatar')
-    getMock.mockResolvedValue({ males: [1, 2], females: [3, 4] })
+    getMock.mockResolvedValue({ human: { male: [1, 2], female: [3, 4] } })
 
     await avatarApi.fetchAvatarMeta()
 

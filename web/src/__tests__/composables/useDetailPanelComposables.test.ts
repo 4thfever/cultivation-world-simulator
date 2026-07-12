@@ -141,8 +141,10 @@ describe('detail panel composables', () => {
 
   it('loads and applies avatar portrait changes', async () => {
     vi.mocked(avatarApi.fetchAvatarMeta).mockResolvedValue({
-      males: [1, 2],
-      females: [3, 4],
+      human: {
+        male: [1, 2],
+        female: [3, 4],
+      },
     })
     vi.mocked(avatarApi.updateAvatarPortrait).mockResolvedValue({ success: true })
     const props = reactive({
