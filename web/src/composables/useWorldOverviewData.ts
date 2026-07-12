@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { worldApi } from '@/api/modules/world'
 import type { RankingsDTO, SectRelationDTO } from '@/types/api'
 import { logError } from '@/utils/appError'
@@ -11,24 +11,26 @@ export const createEmptyRankings = (): RankingsDTO => ({
 })
 
 export function useWorldOverviewData(logScope: string) {
-  const loading = ref(false)
+  const rankingsLoading = ref(false)
+  const relationsLoading = ref(false)
+  const loading = computed(() => rankingsLoading.value || relationsLoading.value)
   const rankings = ref<RankingsDTO>(createEmptyRankings())
   const relations = ref<SectRelationDTO[]>([])
 
   const fetchRankings = async () => {
-    loading.value = true
+    rankingsLoading.value = true
     try {
       rankings.value = await worldApi.fetchRankings()
     } catch (error) {
       rankings.value = createEmptyRankings()
       logError(`${logScope} fetch rankings`, error)
     } finally {
-      loading.value = false
+      rankingsLoading.value = false
     }
   }
 
   const fetchRelations = async () => {
-    loading.value = true
+    relationsLoading.value = true
     try {
       const result = await worldApi.fetchSectRelations()
       relations.value = result.relations ?? []
@@ -36,12 +38,13 @@ export function useWorldOverviewData(logScope: string) {
       relations.value = []
       logError(`${logScope} fetch sect relations`, error)
     } finally {
-      loading.value = false
+      relationsLoading.value = false
     }
   }
 
   const fetchRankingsAndRelations = async () => {
-    loading.value = true
+    rankingsLoading.value = true
+    relationsLoading.value = true
     try {
       const [rankingsResult, relationsResult] = await Promise.allSettled([
         worldApi.fetchRankings(),
@@ -62,12 +65,15 @@ export function useWorldOverviewData(logScope: string) {
         logError(`${logScope} fetch sect relations`, relationsResult.reason)
       }
     } finally {
-      loading.value = false
+      rankingsLoading.value = false
+      relationsLoading.value = false
     }
   }
 
   return {
     loading,
+    rankingsLoading,
+    relationsLoading,
     rankings,
     relations,
     fetchRankings,

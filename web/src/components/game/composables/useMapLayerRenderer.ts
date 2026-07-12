@@ -41,6 +41,18 @@ export function useMapLayerRenderer(emit: {
     }
   }
 
+  function clearMapContainer() {
+    const container = mapContainer.value
+    if (!container) return
+
+    const oldChildren = container.removeChildren()
+    oldChildren.forEach(child => {
+      child.destroy({ children: true, texture: false })
+    })
+    seaLayer = null
+    waterLayer = null
+  }
+
   function getWaterSpeed() {
     const configSpeed = mapStore.renderConfig?.water_speed || 'high'
     if (configSpeed === 'none') return 0
@@ -178,7 +190,7 @@ export function useMapLayerRenderer(emit: {
     if (!mapContainer.value || !mapStore.mapData.length) return
 
     cleanupTicker()
-    mapContainer.value.removeChildren()
+    clearMapContainer()
     await preloadRegionTextures(mapStore.regions.values())
 
     if (!mapContainer.value) return

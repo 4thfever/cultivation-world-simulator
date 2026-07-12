@@ -41,7 +41,19 @@ const systemStore = useSystemStore()
 const roleplayStore = useRoleplayStore()
 
 function showClosedMessage() {
-  document.body.innerHTML = `<div style="color:white; display:flex; justify-content:center; align-items:center; height:100vh; background:black; font-size:24px;">${t('game.controls.closed_msg')}</div>`
+  document.body.replaceChildren()
+  const message = document.createElement('div')
+  message.textContent = t('game.controls.closed_msg')
+  Object.assign(message.style, {
+    alignItems: 'center',
+    background: 'black',
+    color: 'white',
+    display: 'flex',
+    fontSize: '24px',
+    height: '100vh',
+    justifyContent: 'center',
+  })
+  document.body.appendChild(message)
 }
 
 // Sidebar resizer 状态

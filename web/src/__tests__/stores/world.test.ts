@@ -78,12 +78,12 @@ describe('useWorldStore', () => {
       expect(store.startYear).toBe(0)
       expect(store.startMonth).toBe(0)
       expect(store.elapsedMonths).toBe(0)
-      expect(store.avatars.size).toBe(0)
-      expect(store.events).toEqual([])
+      expect(avatarStore.avatars.size).toBe(0)
+      expect(eventStore.events).toEqual([])
       expect(store.isLoaded).toBe(false)
-      expect(store.eventsCursor).toBeNull()
-      expect(store.eventsHasMore).toBe(false)
-      expect(store.eventsLoading).toBe(false)
+      expect(eventStore.eventsCursor).toBeNull()
+      expect(eventStore.eventsHasMore).toBe(false)
+      expect(eventStore.eventsLoading).toBe(false)
       expect(store.currentPhenomenon).toBeNull()
     })
   })
@@ -96,9 +96,9 @@ describe('useWorldStore', () => {
       // 直接操作 avatarStore
       avatarStore.avatars = new Map([['a1', avatar1], ['a2', avatar2]])
 
-      expect(store.avatarList).toHaveLength(2)
-      expect(store.avatarList).toContainEqual(avatar1)
-      expect(store.avatarList).toContainEqual(avatar2)
+      expect(avatarStore.avatarList).toHaveLength(2)
+      expect(avatarStore.avatarList).toContainEqual(avatar1)
+      expect(avatarStore.avatarList).toContainEqual(avatar2)
     })
   })
 
@@ -153,7 +153,7 @@ describe('useWorldStore', () => {
 
       store.handleTick(payload)
 
-      expect(store.avatars.get('avatar-1')?.age).toBe(30)
+      expect(avatarStore.avatars.get('avatar-1')?.age).toBe(30)
     })
 
     it('should add new avatars with name', () => {
@@ -170,7 +170,7 @@ describe('useWorldStore', () => {
 
       store.handleTick(payload)
 
-      expect(store.avatars.has('new-1')).toBe(true)
+      expect(avatarStore.avatars.has('new-1')).toBe(true)
     })
 
     it('should add events when loaded', () => {
@@ -186,7 +186,7 @@ describe('useWorldStore', () => {
 
       store.handleTick(payload)
 
-      expect(store.events).toHaveLength(1)
+      expect(eventStore.events).toHaveLength(1)
     })
 
     it('should update phenomenon when provided', () => {
@@ -225,8 +225,8 @@ describe('useWorldStore', () => {
       store.handleTick(payload)
 
       // Only event for a1 should be added.
-      expect(store.events).toHaveLength(1)
-      expect(store.events[0].id).toBe('e1')
+      expect(eventStore.events).toHaveLength(1)
+      expect(eventStore.events[0].id).toBe('e1')
     })
 
     it('should filter events by avatar_id_1 and avatar_id_2 when both are set', () => {
@@ -248,8 +248,8 @@ describe('useWorldStore', () => {
       store.handleTick(payload)
 
       // Only event with both a1 and a2 should be added.
-      expect(store.events).toHaveLength(1)
-      expect(store.events[0].id).toBe('e1')
+      expect(eventStore.events).toHaveLength(1)
+      expect(eventStore.events[0].id).toBe('e1')
     })
 
     it('should handle null avatars in payload', () => {
@@ -268,7 +268,7 @@ describe('useWorldStore', () => {
       store.handleTick(payload)
 
       // Avatars should remain unchanged.
-      expect(store.avatars.size).toBe(1)
+      expect(avatarStore.avatars.size).toBe(1)
     })
 
     it('should handle null events in payload', () => {
@@ -286,7 +286,7 @@ describe('useWorldStore', () => {
       store.handleTick(payload)
 
       // Events should remain unchanged.
-      expect(store.events).toHaveLength(1)
+      expect(eventStore.events).toHaveLength(1)
     })
 
     it('should not update avatars map when no changes occur', () => {
@@ -305,7 +305,7 @@ describe('useWorldStore', () => {
       store.handleTick(payload)
 
       // Should be the same reference since no change.
-      expect(store.avatars).toBe(original)
+      expect(avatarStore.avatars).toBe(original)
     })
 
     it('should ignore avatars without id', () => {
@@ -323,7 +323,7 @@ describe('useWorldStore', () => {
       store.handleTick(payload)
 
       // Should not add avatar without id.
-      expect(store.avatars.size).toBe(0)
+      expect(avatarStore.avatars.size).toBe(0)
     })
 
     it('should handle empty events array', () => {
@@ -341,7 +341,7 @@ describe('useWorldStore', () => {
       store.handleTick(payload)
 
       // Events should remain unchanged.
-      expect(store.events).toHaveLength(1)
+      expect(eventStore.events).toHaveLength(1)
     })
 
     it('should not add events when all are filtered out', () => {
@@ -362,7 +362,7 @@ describe('useWorldStore', () => {
       store.handleTick(payload)
 
       // All events filtered out, should remain empty.
-      expect(store.events).toHaveLength(0)
+      expect(eventStore.events).toHaveLength(0)
     })
   })
 
@@ -380,8 +380,8 @@ describe('useWorldStore', () => {
       expect(store.startYear).toBe(0)
       expect(store.startMonth).toBe(0)
       expect(store.elapsedMonths).toBe(0)
-      expect(store.avatars.size).toBe(0)
-      expect(store.events).toEqual([])
+      expect(avatarStore.avatars.size).toBe(0)
+      expect(eventStore.events).toEqual([])
       expect(store.isLoaded).toBe(false)
       expect(store.currentPhenomenon).toBeNull()
     })
@@ -398,10 +398,10 @@ describe('useWorldStore', () => {
       await store.preloadMap()
 
       // mapStore data should be updated
-      expect(store.mapData).toHaveLength(1)
-      expect(store.regions.size).toBe(1)
-      expect(store.renderConfig.water_speed).toBe('low')
-      expect(store.renderConfig.cloud_frequency).toBe('high')
+      expect(mapStore.mapData).toHaveLength(1)
+      expect(mapStore.regions.size).toBe(1)
+      expect(mapStore.renderConfig.water_speed).toBe('low')
+      expect(mapStore.renderConfig.cloud_frequency).toBe('high')
       // Note: store.isLoaded checks world loaded state, mapStore.isLoaded checks map loaded state.
       // preloadMap only affects mapStore.
       expect(mapStore.isLoaded).toBe(true) 
@@ -433,7 +433,7 @@ describe('useWorldStore', () => {
 
       await store.preloadAvatars()
 
-      expect(store.avatars.size).toBe(1)
+      expect(avatarStore.avatars.size).toBe(1)
       expect(store.year).toBe(100)
       expect(store.month).toBe(3)
     })
@@ -554,7 +554,7 @@ describe('useWorldStore', () => {
       await store.initialize()
 
       expect(eventApi.fetchEvents).toHaveBeenCalledWith({ limit: 100 })
-      expect(store.events.map(event => event.id)).toEqual(['older-from-page', 'recent-only'])
+      expect(eventStore.events.map(event => event.id)).toEqual(['older-from-page', 'recent-only'])
     })
 
     it('should surface initialization errors to the caller', async () => {
@@ -582,7 +582,7 @@ describe('useWorldStore', () => {
       expect(store.month).toBe(8)
       expect(store.startYear).toBe(150)
       expect(store.startMonth).toBe(8)
-      expect(store.avatars.size).toBe(1)
+      expect(avatarStore.avatars.size).toBe(1)
       expect(store.isLoaded).toBe(true)
     })
   })
@@ -597,11 +597,11 @@ describe('useWorldStore', () => {
         hasMore: true,
       })
 
-      await store.loadEvents({})
+      await eventStore.loadEvents({})
 
-      expect(store.events).toHaveLength(1)
-      expect(store.eventsCursor).toBe('cursor-123')
-      expect(store.eventsHasMore).toBe(true)
+      expect(eventStore.events).toHaveLength(1)
+      expect(eventStore.eventsCursor).toBe('cursor-123')
+      expect(eventStore.eventsHasMore).toBe(true)
     })
 
     it('should append events when append=true', async () => {
@@ -616,15 +616,15 @@ describe('useWorldStore', () => {
         hasMore: false,
       })
 
-      await store.loadEvents({}, true)
+      await eventStore.loadEvents({}, true)
 
-      expect(store.events).toHaveLength(2)
+      expect(eventStore.events).toHaveLength(2)
     })
 
     it('should not load if already loading', async () => {
       eventStore.eventsLoading = true
 
-      await store.loadEvents({})
+      await eventStore.loadEvents({})
 
       expect(eventApi.fetchEvents).not.toHaveBeenCalled()
     })
@@ -641,7 +641,7 @@ describe('useWorldStore', () => {
         hasMore: false,
       })
 
-      await store.loadMoreEvents()
+      await eventStore.loadMoreEvents()
 
       expect(eventApi.fetchEvents).toHaveBeenCalled()
     })
@@ -649,7 +649,7 @@ describe('useWorldStore', () => {
     it('should not load if no more events', async () => {
       eventStore.eventsHasMore = false
 
-      await store.loadMoreEvents()
+      await eventStore.loadMoreEvents()
 
       expect(eventApi.fetchEvents).not.toHaveBeenCalled()
     })
@@ -667,9 +667,9 @@ describe('useWorldStore', () => {
         hasMore: false,
       })
 
-      await store.resetEvents({ avatar_id: 'a1' })
+      await eventStore.resetEvents({ avatar_id: 'a1' })
 
-      expect(store.eventsFilter).toEqual({ avatar_id: 'a1' })
+      expect(eventStore.eventsFilter).toEqual({ avatar_id: 'a1' })
       expect(eventApi.fetchEvents).toHaveBeenCalled()
     })
   })
@@ -759,3 +759,4 @@ describe('useWorldStore', () => {
     })
   })
 })
+

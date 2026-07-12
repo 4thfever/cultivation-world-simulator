@@ -3,6 +3,7 @@ import { useSystemStore } from '@/stores/system'
 import { useWorldStore } from '@/stores/world'
 import { useSocketStore } from '@/stores/socket'
 import { useMapStore } from '@/stores/map'
+import { useAvatarStore } from '@/stores/avatar'
 import { GAME_PHASES } from '@/constants/game'
 import { storeToRefs } from 'pinia'
 
@@ -26,6 +27,7 @@ export function useGameInit(options: UseGameInitOptions = {}) {
   const systemStore = useSystemStore()
   const worldStore = useWorldStore()
   const mapStore = useMapStore()
+  const avatarStore = useAvatarStore()
   const socketStore = useSocketStore()
   const { loadBaseTextures, preloadRegionTextures, preloadAvatarTextures } = useTextures()
 
@@ -81,7 +83,7 @@ export function useGameInit(options: UseGameInitOptions = {}) {
         preloadRegionTextures(mapStore.regions.values()),
         loadBaseTextures(),
       ])
-      await preloadAvatarTextures(worldStore.avatarList)
+      await preloadAvatarTextures(avatarStore.avatarList)
 
       systemStore.setInitialized(true)
       initializeDurationMs.value = performance.now() - start

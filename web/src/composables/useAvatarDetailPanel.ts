@@ -152,6 +152,19 @@ export function useAvatarDetailPanel(
     },
   ])
 
+  const currentAdjustItem = computed(() => {
+    const avatar = data()
+    if (adjustCategory.value === 'technique') return avatar.technique ?? null
+    if (adjustCategory.value === 'weapon') return avatar.weapon ?? null
+    if (adjustCategory.value === 'auxiliary') return avatar.auxiliary ?? null
+    if (adjustCategory.value === 'goldfinger') return avatar.goldfinger ?? null
+    return null
+  })
+
+  const currentAdjustPersonas = computed(() => (
+    adjustCategory.value === 'personas' ? data().personas : []
+  ))
+
   const avatarHeaderSubtitle = computed(() => data().sect?.name || t('game.info_panel.avatar.stats.rogue'))
   const avatarRealmText = computed(() => (
     data().cultivation?.display_full_name || formatCultivationText(data().realm, t)
@@ -286,6 +299,8 @@ export function useAvatarDetailPanel(
     parsedCurrentEffects,
     portraitUrl,
     equipmentSlots,
+    currentAdjustItem,
+    currentAdjustPersonas,
     avatarHeaderSubtitle,
     avatarRealmText,
     avatarCanonicalRealmText,

@@ -6,6 +6,7 @@
 // 使用环境变量作为 API 基础路径，如果没有配置则默认为空（相对路径）
 const API_BASE = import.meta.env.VITE_API_TARGET || '';
 const DEFAULT_TIMEOUT_MS = 30000;
+const REQUEST_TIMEOUT_REASON = 'cws-request-timeout';
 
 export interface HttpRequestOptions {
   timeoutMs?: number;
@@ -32,21 +33,38 @@ async function request<T>(
   const url = `${API_BASE}${path}`;
   const controller = new AbortController();
   const timeoutMs = requestOptions.timeoutMs ?? DEFAULT_TIMEOUT_MS;
-  const timeout = globalThis.setTimeout(() => controller.abort(), timeoutMs);
+  let didTimeout = false;
+  const callerSignal = requestOptions.signal ?? options.signal;
+  const abortFromCaller = () => {
+    controller.abort(callerSignal?.reason);
+  };
+  const timeout = globalThis.setTimeout(() => {
+    didTimeout = true;
+    controller.abort(REQUEST_TIMEOUT_REASON);
+  }, timeoutMs);
+
+  if (callerSignal) {
+    if (callerSignal.aborted) {
+      abortFromCaller();
+    } else {
+      callerSignal.addEventListener('abort', abortFromCaller, { once: true });
+    }
+  }
 
   let response: Response;
   try {
     response = await fetch(url, {
       ...options,
-      signal: requestOptions.signal ?? options.signal ?? controller.signal,
+      signal: controller.signal,
     });
   } catch (error) {
-    if (error instanceof DOMException && error.name === 'AbortError') {
+    if (error instanceof DOMException && error.name === 'AbortError' && didTimeout) {
       throw new ApiError(408, `Request timed out after ${Math.round(timeoutMs / 1000)}s`);
     }
     throw error;
   } finally {
     globalThis.clearTimeout(timeout);
+    callerSignal?.removeEventListener('abort', abortFromCaller);
   }
 
   if (!response.ok) {

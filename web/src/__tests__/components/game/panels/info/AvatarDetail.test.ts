@@ -52,6 +52,8 @@ describe('AvatarDetail', () => {
               clear_objective: 'Clear Objective',
               long_term_objective: 'Long-term Objective',
               short_term_objective: 'Short-term Objective',
+              backstory: 'Backstory',
+              fate: 'Fate',
               portrait: {
                 entry: 'Change Portrait',
                 preview_alt: 'Portrait Preview',

@@ -79,4 +79,51 @@ describe('httpClient api', () => {
 
     await expectation
   })
+
+  it('still applies timeout when a caller signal is provided', async () => {
+    vi.useFakeTimers()
+    const callerController = new AbortController()
+    global.fetch = vi.fn((_url: string, init?: RequestInit) => new Promise((_resolve, reject) => {
+      expect(init?.signal).not.toBe(callerController.signal)
+      init?.signal?.addEventListener('abort', () => {
+        reject(new DOMException('Aborted', 'AbortError'))
+      })
+    })) as any
+
+    const requestPromise = httpClient.post(
+      '/slow-with-signal',
+      { data: 1 },
+      { timeoutMs: 5000, signal: callerController.signal },
+    )
+    const expectation = expect(requestPromise).rejects.toMatchObject<ApiError>({
+      status: 408,
+      message: 'Request timed out after 5s',
+    })
+
+    await vi.advanceTimersByTimeAsync(5000)
+
+    await expectation
+  })
+
+  it('does not report caller aborts as request timeouts', async () => {
+    vi.useFakeTimers()
+    const callerController = new AbortController()
+    global.fetch = vi.fn((_url: string, init?: RequestInit) => new Promise((_resolve, reject) => {
+      init?.signal?.addEventListener('abort', () => {
+        reject(new DOMException('Aborted', 'AbortError'))
+      })
+    })) as any
+
+    const requestPromise = httpClient.post(
+      '/caller-abort',
+      { data: 1 },
+      { timeoutMs: 5000, signal: callerController.signal },
+    )
+
+    callerController.abort()
+
+    await expect(requestPromise).rejects.toMatchObject({
+      name: 'AbortError',
+    })
+  })
 })

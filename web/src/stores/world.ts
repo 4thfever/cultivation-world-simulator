@@ -192,23 +192,12 @@ export const useWorldStore = defineStore('world', () => {
     }
   }
 
-  // Backward-compatible proxies (gradually migrated by components/tests).
-  const avatars = computed(() => avatarStore.avatars);
-  const avatarList = computed(() => avatarStore.avatarList);
   const elapsedMonths = computed(() => {
     if (startYear.value <= 0 || startMonth.value <= 0 || year.value <= 0 || month.value <= 0) {
       return 0;
     }
     return Math.max(0, (year.value - startYear.value) * 12 + (month.value - startMonth.value));
   });
-  const mapData = computed(() => mapStore.mapData);
-  const regions = computed(() => mapStore.regions);
-  const renderConfig = computed(() => mapStore.renderConfig);
-  const events = computed(() => eventStore.events);
-  const eventsCursor = computed(() => eventStore.eventsCursor);
-  const eventsHasMore = computed(() => eventStore.eventsHasMore);
-  const eventsLoading = computed(() => eventStore.eventsLoading);
-  const eventsFilter = computed(() => eventStore.eventsFilter);
 
   return {
     // State
@@ -222,18 +211,6 @@ export const useWorldStore = defineStore('world', () => {
     activeDomains,
     isLoaded,
 
-    // Deprecated proxies.
-    avatars,
-    avatarList,
-    mapData,
-    regions,
-    renderConfig,
-    events,
-    eventsCursor,
-    eventsHasMore,
-    eventsLoading,
-    eventsFilter,
-    
     // Actions
     preloadMap,
     preloadAvatars,
@@ -242,11 +219,6 @@ export const useWorldStore = defineStore('world', () => {
     handleTick,
     reset,
     getPhenomenaList,
-    changePhenomenon,
-
-    // Deprecated event proxies.
-    loadEvents: eventStore.loadEvents,
-    loadMoreEvents: eventStore.loadMoreEvents,
-    resetEvents: eventStore.resetEvents
+    changePhenomenon
   };
 });
