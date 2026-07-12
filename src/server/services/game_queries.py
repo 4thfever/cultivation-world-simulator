@@ -164,26 +164,9 @@ def get_avatar_list(runtime) -> dict[str, Any]:
     if not world:
         return {"avatars": []}
 
-    avatars: list[dict[str, Any]] = []
-    for avatar in world.avatar_manager.avatars.values():
-        sect_name = avatar.sect.name if avatar.sect else t("Rogue Cultivator")
-        realm_str = avatar.cultivation_progress.realm.value if hasattr(avatar, "cultivation_progress") else t("Unknown")
-        cultivation_display = build_avatar_cultivation_display(avatar) if hasattr(avatar, "cultivation_progress") else None
-        avatars.append(
-            {
-                "id": str(avatar.id),
-                "name": avatar.name,
-                "sect_name": sect_name,
-                "realm": realm_str,
-                "cultivation": cultivation_display,
-                "cultivation_display": cultivation_display["display_full_name"] if cultivation_display else "",
-                "gender": str(avatar.gender),
-                "race": getattr(getattr(avatar, "race", None), "id", "human"),
-                "age": avatar.age.age,
-            }
-        )
-    avatars.sort(key=lambda item: item["name"])
-    return {"avatars": avatars}
+    from src.server.assemblers.avatar_list import build_avatar_list_payload
+
+    return build_avatar_list_payload(world)
 
 
 def get_avatar_assets_meta(*, avatar_assets: dict) -> dict[str, Any]:
@@ -578,12 +561,14 @@ def get_detail(
     if target_type == "sect":
         return build_sect_detail(target, world, language_manager)
 
-    info = target.get_structured_info()
     if target_type == "region":
+        info = target.get_structured_info()
         from src.systems.formation import get_formation_display_info
 
         info["formation"] = get_formation_display_info(world, getattr(target, "id", None))
+        return info
     if target_type == "avatar":
-        info["pic_id"] = resolve_avatar_pic_id(target)
-        info["realm_id"] = target.cultivation_progress.realm.value
-    return info
+        from src.server.assemblers.avatar_detail import build_avatar_detail
+
+        return build_avatar_detail(target, resolve_avatar_pic_id=resolve_avatar_pic_id)
+    return target.get_structured_info()

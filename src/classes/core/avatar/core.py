@@ -43,7 +43,6 @@ from src.classes.long_term_objective import LongTermObjective
 from src.classes.nickname_data import Nickname
 from src.classes.emotions import EmotionType
 from src.classes.official_rank import OFFICIAL_NONE
-from src.utils.config import CONFIG
 from src.classes.items.elixir import ConsumedElixir, Elixir
 from src.classes.avatar_metrics import AvatarMetrics
 from src.classes.mortal import Mortal
@@ -55,7 +54,10 @@ from src.classes.effect import EffectsMixin
 from src.classes.core.avatar.inventory_mixin import InventoryMixin
 from src.classes.core.avatar.action_mixin import ActionMixin
 
-persona_num = CONFIG.avatar.persona_num
+def _get_persona_num() -> int:
+    from src.utils.config import CONFIG as current_config
+
+    return int(current_config.avatar.persona_num)
 
 
 @dataclass
@@ -646,7 +648,7 @@ class Avatar(
         self.hp = HP(max_hp, max_hp)
         
         if self.personas is None:
-            self.personas = get_random_compatible_personas(persona_num, avatar=self)
+            self.personas = get_random_compatible_personas(_get_persona_num(), avatar=self)
 
         if not isinstance(self.race, Race):
             self.race = get_race(getattr(self.race, "id", self.race))

@@ -489,111 +489,9 @@ def get_avatar_ai_context(
     avatar: "Avatar",
     co_region_avatars: Optional[List["Avatar"]] = None,
 ) -> dict:
-    """
-    为角色动作决策构建聚焦上下文。
-    这里刻意不放宗门总灵石/总战力，只提供战争、门规与局部感知。
-    """
-    from src.i18n import t
-    from src.systems.cultivation_display import build_avatar_cultivation_display
-    from src.systems.opportunity import get_opportunity_context_text
+    from src.classes.core.avatar.prompt_context import build_avatar_prompt_context
 
-    world = avatar.world
-    current_month = int(getattr(world, "month_stamp", 0))
-    region = avatar.tile.region if avatar.tile is not None else None
-    observed = []
-    for other in (co_region_avatars or [])[:8]:
-        observed.append(
-            {
-                "id": str(getattr(other, "id", "")),
-                "name": str(getattr(other, "name", "") or ""),
-                "realm": str(getattr(getattr(other, "cultivation_progress", None), "get_info", lambda: "")()),
-                "sect": str(getattr(getattr(other, "sect", None), "name", "") or t("Rogue Cultivator")),
-            }
-        )
-
-    major_events = world.event_manager.get_major_events_by_avatar(avatar.id, limit=4)
-    minor_events = world.event_manager.get_minor_events_by_avatar(avatar.id, limit=4)
-
-    sect_context = {
-        "has_sect": False,
-        "sect_name": "",
-        "sect_rank": "",
-        "sect_alignment": "",
-        "sect_rule_desc": "",
-        "sect_is_at_war": False,
-        "active_wars": [],
-        "hostile_sects_summary": "",
-        "can_seek_support_from_sect": False,
-    }
-    if avatar.sect is not None:
-        world_sect_context = getattr(world, "sect_context", None)
-        active_sects = world_sect_context.get_active_sects() if world_sect_context is not None else []
-        active_wars = []
-        hostile_names = []
-        for other in active_sects:
-            if other is None or int(getattr(other, "id", 0)) == int(getattr(avatar.sect, "id", 0)):
-                continue
-            state = world.get_sect_diplomacy_state(
-                int(avatar.sect.id),
-                int(other.id),
-                current_month=current_month,
-            )
-            if str(state.get("status", "peace") or "peace") != "war":
-                continue
-            hostile_names.append(str(getattr(other, "name", "") or ""))
-            active_wars.append(
-                {
-                    "other_sect_id": int(other.id),
-                    "other_sect_name": str(getattr(other, "name", "") or ""),
-                    "war_months": int(state.get("war_months", 0) or 0),
-                    "war_reason": str(state.get("reason", "") or ""),
-                    "last_battle_month": state.get("last_battle_month"),
-                }
-            )
-        sect_context = {
-            "has_sect": True,
-            "sect_name": avatar.sect.name,
-            "sect_rank": avatar.get_sect_rank_name(),
-            "sect_alignment": str(avatar.sect.alignment),
-            "sect_rule_desc": str(getattr(avatar.sect, "rule_desc", "") or ""),
-            "sect_is_at_war": bool(active_wars),
-            "active_wars": active_wars,
-            "hostile_sects_summary": "、".join(hostile_names[:4]),
-            "can_seek_support_from_sect": bool(active_wars),
-        }
-
-    return {
-        "self_profile": {
-            "name": avatar.name,
-            "race": _get_race_info(avatar, detailed=True),
-            "race_behavior_priority": _get_race_behavior_desc(avatar),
-            "realm": avatar.cultivation_progress.get_info(),
-            "cultivation": build_avatar_cultivation_display(avatar),
-            "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
-            "magic_stone": int(getattr(getattr(avatar, "magic_stone", None), "value", 0)),
-            "current_action": avatar.current_action_name,
-            "emotion": t(avatar.emotion.value),
-            "long_term_objective": avatar.long_term_objective.content if avatar.long_term_objective else "",
-            "short_term_objective": avatar.short_term_objective,
-            "goldfinger": _get_goldfinger_structured_payload(avatar),
-            "active_opportunity": get_opportunity_context_text(avatar),
-            "world_secret_knowledge": _get_world_secret_knowledge_payload(avatar),
-        },
-        "sect_context": sect_context,
-        "local_world": {
-            "region": region.get_info() if region is not None else t("None"),
-            "nearby_avatars": observed,
-        },
-        "recent_memory": {
-            "major_events": [str(getattr(ev, "content", "")) for ev in major_events],
-            "recent_events": [str(getattr(ev, "content", "")) for ev in minor_events],
-        },
-        "decision_hints": {
-            "should_prioritize_safety": avatar.hp.cur < max(1, avatar.hp.max // 2),
-            "should_prioritize_sect_duty": bool(sect_context["sect_is_at_war"]),
-            "can_seek_support_from_sect": bool(sect_context["can_seek_support_from_sect"]),
-        },
-    }
+    return build_avatar_prompt_context(avatar, co_region_avatars=co_region_avatars)
 
 
 def get_avatar_expanded_info(
@@ -646,95 +544,12 @@ def get_avatar_expanded_info(
 
 
 def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
-    """
-    仅显示几个字段：名字、绰号、境界、关系、宗门、阵营、外貌、功法、武器、辅助装备、HP
-    """
-    from src.i18n import t
-    from src.systems.cultivation_display import build_avatar_cultivation_display
-    nickname = to_avatar.nickname.value if to_avatar.nickname else t("None")
-    sect = to_avatar.sect.name if to_avatar.sect else t("Rogue Cultivator")
-    tech = to_avatar.technique.get_info() if to_avatar.technique else t("None")
-    weapon = to_avatar.weapon.get_info() if to_avatar.weapon else t("None")
-    aux = to_avatar.auxiliary.get_info() if to_avatar.auxiliary else t("None")
-    goldfinger = to_avatar.goldfinger.get_info() if getattr(to_avatar, "goldfinger", None) else t("None")
-    alignment = to_avatar.alignment
-    cultivation = build_avatar_cultivation_display(to_avatar)
-    
-    # 关系可能为空
-    relation_state = from_avatar.get_relation_state(to_avatar)
-    if relation_state is None:
-        relation = t("None")
-    else:
-        labels = []
-        if relation_state.blood_relation is not None:
-            labels.append(get_relation_label(relation_state.blood_relation, from_avatar, to_avatar))
-        labels.extend(
-            get_relation_label(rel, from_avatar, to_avatar)
-            for rel in sorted(relation_state.identity_relations, key=lambda item: item.value)
-        )
-        labels.append(str(from_avatar.get_numeric_relation(to_avatar)))
-        relation = "/".join(labels)
+    from src.classes.core.avatar.text_presenter import build_other_avatar_text
 
-    return t(
-        "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}",
-        name=to_avatar.name,
-        nickname=nickname,
-        race=_get_race_info(to_avatar).get("name", ""),
-        realm=cultivation["display_full_name"],
-        relation=relation,
-        sect=sect,
-        alignment=alignment,
-        appearance=to_avatar.appearance.get_info(),
-        goldfinger=goldfinger,
-        technique=tech,
-        weapon=weapon,
-        aux=aux,
-        hp=to_avatar.hp
-    )
+    return build_other_avatar_text(from_avatar, to_avatar)
 
 
 def get_avatar_desc(avatar: "Avatar", detailed: bool = False) -> str:
-    """
-    获取角色的文本描述。
-    detailed=True 时包含详细的效果来源分析。
-    """
-    from src.i18n import t
-    from src.systems.cultivation_display import build_avatar_cultivation_display
-    
-    born_region_name = t("Unknown")
-    if avatar.born_region_id and avatar.born_region_id != -1:
-         r = avatar.world.map.regions.get(avatar.born_region_id)
-         if r:
-             born_region_name = r.name
+    from src.classes.core.avatar.text_presenter import build_avatar_description_text
 
-    # 基础描述
-    lines = [t("【{name}】 {gender} {age} years old", name=avatar.name, gender=avatar.gender, age=avatar.age)]
-    lines.append(t("Origin: {origin}", origin=born_region_name))
-    lines.append(t("Race: {race}", race=_get_race_info(avatar).get("name", "")))
-    race_behavior_desc = _get_race_behavior_desc(avatar)
-    if detailed and race_behavior_desc:
-        lines.append(t("Race Behavior Priority: {behavior}", behavior=race_behavior_desc))
-    cultivation = build_avatar_cultivation_display(avatar)
-    lines.append(t("Realm: {realm}", realm=cultivation["display_full_name"]))
-    lines.append(t("Current Action: {action}", action=avatar.current_action_name))
-    if avatar.sect:
-        lines.append(t("Identity: {identity}", identity=avatar.get_sect_str()))
-    
-    if detailed:
-        if avatar.backstory:
-            lines.append(t("Backstory: {backstory}", backstory=avatar.backstory))
-        lines.append(t("\n--- Current Effects Detail ---"))
-        breakdown = avatar.get_effect_breakdown()
-        
-        from src.classes.effect import format_effects_to_text
-        
-        if not breakdown:
-            lines.append(t("No additional effects"))
-        else:
-            for source_name, effects in breakdown:
-                # 使用现有的 format_effects_to_text 将字典转为中文描述
-                desc_str = format_effects_to_text(effects)
-                if desc_str:
-                    lines.append(f"[{source_name}]: {desc_str}")
-                
-    return "\n".join(lines)
+    return build_avatar_description_text(avatar, detailed=detailed)

@@ -5,6 +5,9 @@ import inspect
 import time
 from typing import Any, Awaitable, Callable
 
+from src.server.services.public_api_contract import raise_public_error
+from src.server.services.roleplay_state import create_roleplay_session_dict
+
 
 DEFAULT_GAME_STATE: dict[str, Any] = {
     "world": None,
@@ -24,26 +27,12 @@ DEFAULT_GAME_STATE: dict[str, Any] = {
     "llm_check_failed": False,
     "llm_error_message": "",
     "llm_check_pending": False,
-    "roleplay_session": {
-        "controlled_avatar_id": None,
-        "status": "inactive",
-        "pending_request": None,
-        "last_prompt_context": None,
-        "conversation_session": None,
-        "interaction_history": [],
-    },
+    "roleplay_session": create_roleplay_session_dict(),
 }
 
 
 def create_default_roleplay_session() -> dict[str, Any]:
-    return {
-        "controlled_avatar_id": None,
-        "status": "inactive",
-        "pending_request": None,
-        "last_prompt_context": None,
-        "conversation_session": None,
-        "interaction_history": [],
-    }
+    return create_roleplay_session_dict()
 
 
 def create_default_game_state() -> dict[str, Any]:
@@ -76,6 +65,26 @@ class GameSessionRuntime:
 
     def update(self, values: dict[str, Any]) -> None:
         self._state.update(values)
+
+    def get_world(self) -> Any:
+        return self._state.get("world")
+
+    def require_world(self) -> Any:
+        world = self.get_world()
+        if world is None:
+            raise_public_error(
+                status_code=503,
+                code="WORLD_NOT_READY",
+                message="World not initialized",
+            )
+        return world
+
+    def get_simulator(self) -> Any:
+        return self._state.get("sim")
+
+    def set_world_and_sim(self, world: Any, sim: Any) -> None:
+        self._state["world"] = world
+        self._state["sim"] = sim
 
     def replace_with_defaults(self) -> None:
         self._state.clear()
