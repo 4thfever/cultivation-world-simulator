@@ -3,9 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Callable
 
-from src.config import get_settings_service
-
-
 @dataclass(frozen=True, slots=True)
 class StaticConfigProvider:
     get_config: Callable[[], Any]
@@ -36,10 +33,16 @@ class StaticConfigProvider:
 
 @dataclass(frozen=True, slots=True)
 class RuntimeConfigProvider:
-    get_service: Callable[[], Any] = get_settings_service
+    get_service: Callable[[], Any] | None = None
 
     def auto_save_enabled(self) -> bool:
-        return bool(self.get_service().get_settings().simulation.auto_save_enabled)
+        if self.get_service is None:
+            from src.config import get_settings_service
+
+            service = get_settings_service()
+        else:
+            service = self.get_service()
+        return bool(service.get_settings().simulation.auto_save_enabled)
 
 
 @dataclass(frozen=True, slots=True)

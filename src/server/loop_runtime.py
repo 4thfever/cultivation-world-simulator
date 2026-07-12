@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 from typing import Any, Callable
 
+from src.config import get_settings_service
 from src.config.providers import RuntimeConfigProvider
 from src.i18n import t
 from src.server.loop import GameLoopRunner, TickPayloadBuilder
@@ -106,7 +107,7 @@ def build_tick_state(
 
 def should_trigger_auto_save(*, world) -> tuple[bool, int, int]:
     """Return whether this tick should create an auto save."""
-    auto_save_enabled = RuntimeConfigProvider().auto_save_enabled()
+    auto_save_enabled = RuntimeConfigProvider(get_service=get_settings_service).auto_save_enabled()
     year = int(world.month_stamp.get_year())
     month = world.month_stamp.get_month().value
     should_save = auto_save_enabled and year % 10 == 0 and month == 1 and year > world.start_year
