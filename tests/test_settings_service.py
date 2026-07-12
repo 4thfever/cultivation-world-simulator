@@ -336,6 +336,36 @@ def test_llm_status_api_reports_runtime_failure(monkeypatch):
     assert payload["last_failure"] == "身份验证失败"
 
 
+def test_llm_settings_api_updates_config_without_exposing_secret():
+    from src.server import main
+
+    client = TestClient(main.app)
+    response = client.put(
+        "/api/settings/llm",
+        json={
+            "base_url": "https://api.example.com/v1",
+            "api_key": "api-route-secret",
+            "model_name": "model-a",
+            "fast_model_name": "model-b",
+            "mode": "default",
+            "max_concurrent_requests": 4,
+            "clear_api_key": False,
+            "api_format": "openai",
+        },
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["status"] == "ok"
+    assert payload["config"]["base_url"] == "https://api.example.com/v1"
+    assert payload["config"]["has_api_key"] is True
+    assert "api-route-secret" not in response.text
+
+    status_response = client.get("/api/settings/llm/status")
+    assert status_response.status_code == 200
+    assert status_response.json()["configured"] is True
+
+
 def test_llm_api_uses_saved_secret_when_testing(monkeypatch):
     from src.server import main
 

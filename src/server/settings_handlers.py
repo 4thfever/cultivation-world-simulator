@@ -31,8 +31,8 @@ class SettingsServiceProxy:
     def get_llm_test_payload(self, req):
         return self._get_service().get_llm_test_payload(req)
 
-    async def update_llm(self, req):
-        return await self._get_service().update_llm(req)
+    def update_llm(self, req):
+        return self._get_service().update_llm(req)
 
     def __getattr__(self, name: str):
         return getattr(self._get_service(), name)

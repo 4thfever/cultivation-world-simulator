@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from inspect import isawaitable
 from typing import Awaitable, Callable
 
 from fastapi import APIRouter, HTTPException
@@ -19,7 +20,7 @@ def create_settings_router(
     get_llm_failure_state: Callable[[], tuple[bool, str]] | None = None,
     get_llm_test_payload: Callable[[LLMSettingsUpdate], tuple[object, str]],
     test_connectivity: Callable[..., tuple[bool, str]],
-    update_llm: Callable[[LLMSettingsUpdate], object],
+    update_llm: Callable[[LLMSettingsUpdate], object | Awaitable[object]],
     on_llm_updated: Callable[[], Awaitable[None]],
 ) -> APIRouter:
     router = APIRouter()
@@ -79,6 +80,8 @@ def create_settings_router(
     async def save_llm_config(req: LLMSettingsUpdate):
         try:
             updated = update_llm(req)
+            if isawaitable(updated):
+                updated = await updated
             await on_llm_updated()
             return {"status": "ok", "message": "配置已保存", "config": model_to_dict(updated)}
         except Exception as exc:
