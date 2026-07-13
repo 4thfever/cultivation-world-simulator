@@ -558,6 +558,24 @@
       "no_runtime_effect": "有効な宗門ランタイム効果はありません",
       "runtime_effect_meta": "出典: {source} - 残り {months} か月",
       "runtime_effect_meta_permanent": "出典: {source} - 持続: 永続"
+    },
+    "poi": {
+      "sections": {
+        "grave": "墓",
+        "deceased": "故人",
+        "goods": "副葬品"
+      },
+      "location": "位置",
+      "name": "名前",
+      "realm": "境界",
+      "death_reason": "死因",
+      "sect": "宗門",
+      "alignment": "属性",
+      "weapon": "武器",
+      "auxiliary": "補助装備",
+      "rogue": "野修",
+      "unknown": "不明",
+      "empty_goods": "墓に回収できる品は残っていない"
     }
   },
   "deceased": {

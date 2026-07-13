@@ -558,6 +558,24 @@
       "no_runtime_effect": "Không có hiệu ứng runtime của tông môn",
       "runtime_effect_meta": "Nguồn: {source} - Còn lại: {months} tháng",
       "runtime_effect_meta_permanent": "Nguồn: {source} - Thời hạn: Vĩnh viễn"
+    },
+    "poi": {
+      "sections": {
+        "grave": "Mộ",
+        "deceased": "Người đã mất",
+        "goods": "Di vật trong mộ"
+      },
+      "location": "Vị trí",
+      "name": "Tên",
+      "realm": "Cảnh giới",
+      "death_reason": "Nguyên nhân",
+      "sect": "Tông môn",
+      "alignment": "Phe phái",
+      "weapon": "Vũ khí",
+      "auxiliary": "Pháp bảo phụ trợ",
+      "rogue": "Tán tu",
+      "unknown": "Không rõ",
+      "empty_goods": "Trong mộ không còn vật gì có thể lấy"
     }
   },
   "deceased": {

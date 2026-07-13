@@ -113,3 +113,11 @@ msgstr "Equipped newly created {kind} \"{item}\", and sold old equipment \"{old_
 msgid "Equipped newly created {kind} '{item}'"
 msgstr "Equipped newly created {kind} \"{item}\"."
 
+
+# POI discovery
+
+msgid "{avatar} discovered a grave at {location}: {poi}"
+msgstr "{avatar} discovered a grave at {location}: {poi}"
+
+msgid "{avatar} discovered a point of interest at {location}: {poi}"
+msgstr "{avatar} discovered a point of interest at {location}: {poi}"

@@ -558,6 +558,24 @@
       "no_runtime_effect": "暫無當前生效的宗門效果",
       "runtime_effect_meta": "來源：{source} - 剩餘：{months}個月",
       "runtime_effect_meta_permanent": "來源：{source} - 持續：長期"
+    },
+    "poi": {
+      "sections": {
+        "grave": "墓碑",
+        "deceased": "死者",
+        "goods": "墓中遺物"
+      },
+      "location": "位置",
+      "name": "姓名",
+      "realm": "境界",
+      "death_reason": "死因",
+      "sect": "宗門",
+      "alignment": "陣營",
+      "weapon": "武器",
+      "auxiliary": "輔助裝備",
+      "rogue": "散修",
+      "unknown": "未知",
+      "empty_goods": "墓中已無可取之物"
     }
   },
   "deceased": {

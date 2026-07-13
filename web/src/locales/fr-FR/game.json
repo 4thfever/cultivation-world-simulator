@@ -558,6 +558,24 @@
       "no_runtime_effect": "Aucun effet de secte actif",
       "runtime_effect_meta": "Source : {source} - Restant : {months} mois",
       "runtime_effect_meta_permanent": "Source : {source} - Durée : Permanente"
+    },
+    "poi": {
+      "sections": {
+        "grave": "Tombe",
+        "deceased": "Défunt",
+        "goods": "Objets funéraires"
+      },
+      "location": "Lieu",
+      "name": "Nom",
+      "realm": "Royaume",
+      "death_reason": "Cause",
+      "sect": "Secte",
+      "alignment": "Alignement",
+      "weapon": "Arme",
+      "auxiliary": "Accessoire",
+      "rogue": "Errant",
+      "unknown": "Inconnu",
+      "empty_goods": "Aucun objet récupérable ne reste dans la tombe"
     }
   },
   "deceased": {

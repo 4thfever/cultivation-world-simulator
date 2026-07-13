@@ -469,3 +469,44 @@ msgstr "{target}'s {gu_name} took effect, losing {amount} HP."
 msgid ""
 "{target}'s {gu_name} took effect, losing {amount} cultivation experience."
 msgstr "{target}'s {gu_name} took effect, losing {amount} cultivation experience."
+
+# Grave POI action
+
+msgid "dig_grave_action_name"
+msgstr "Dig Grave"
+
+msgid "dig_grave_description"
+msgstr "Attempt to dig up weapon or auxiliary relics from a known grave at the current location. It may fail or cause injury, and slightly reduces luck."
+
+msgid "dig_grave_requirements"
+msgstr "Requires standing at a known grave."
+
+msgid "Cannot resolve grave: {poi}"
+msgstr "Cannot resolve grave: {poi}"
+
+msgid "Grave has expired"
+msgstr "Grave has expired"
+
+msgid "Grave is unknown"
+msgstr "Grave is unknown"
+
+msgid "Must be at the grave to dig"
+msgstr "Must be at the grave to dig"
+
+msgid "{avatar} dug at {grave}, but found no usable relics."
+msgstr "{avatar} dug at {grave}, but found no usable relics."
+
+msgid "{avatar} disturbed {grave}, but the relic inside had already decayed."
+msgstr "{avatar} disturbed {grave}, but the relic inside had already decayed."
+
+msgid "{avatar} failed to dig up useful relics from {grave}."
+msgstr "{avatar} failed to dig up useful relics from {grave}."
+
+msgid "{avatar} triggered lingering grave restrictions at {grave} and was injured for {damage} HP."
+msgstr "{avatar} triggered lingering grave restrictions at {grave} and was injured for {damage} HP."
+
+msgid "{avatar} dug up {item} from {grave}."
+msgstr "{avatar} dug up {item} from {grave}."
+
+msgid "{avatar} dug up {item} from {grave}. {result}"
+msgstr "{avatar} dug up {item} from {grave}. {result}"

@@ -1,5 +1,5 @@
 import type { DetailResponseDTO } from '@/types/api';
-import type { AvatarDetail, RegionDetail, SectDetail } from '@/types/core';
+import type { AvatarDetail, POIDetail, RegionDetail, SectDetail } from '@/types/core';
 import type { SelectionType } from '@/stores/ui';
 
 type DetailDomainByType<T extends SelectionType> =
@@ -7,7 +7,9 @@ type DetailDomainByType<T extends SelectionType> =
     ? AvatarDetail
     : T extends 'region'
       ? RegionDetail
-      : SectDetail;
+      : T extends 'sect'
+        ? SectDetail
+        : POIDetail;
 
 /**
  * 将 /api/v1/query/detail 返回的 DTO 归一化为前端领域模型。
@@ -28,6 +30,10 @@ export function mapDetailDTOToDomain(
   dto: DetailResponseDTO,
   targetType: 'sect',
 ): SectDetail;
+export function mapDetailDTOToDomain(
+  dto: DetailResponseDTO,
+  targetType: 'poi',
+): POIDetail;
 export function mapDetailDTOToDomain<T extends SelectionType>(
   dto: DetailResponseDTO,
   targetType: T,
@@ -35,7 +41,7 @@ export function mapDetailDTOToDomain<T extends SelectionType>(
 export function mapDetailDTOToDomain(
   dto: DetailResponseDTO,
   _targetType: SelectionType,
-): AvatarDetail | RegionDetail | SectDetail {
+): AvatarDetail | RegionDetail | SectDetail | POIDetail {
   return dto;
 }
 

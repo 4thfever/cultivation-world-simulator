@@ -147,3 +147,29 @@ msgstr "{avatar} は {location} で耕作を始めた"
 
 msgid "{avatar} finished planting, earned {stones} Spirit Stones"
 msgstr "{avatar} は耕作を終え、{stones} 霊石を得た"
+
+# POI actions
+
+msgid "move_to_poi_action_name"
+msgstr "地点へ移動"
+
+msgid "move_to_poi_description"
+msgstr "既知の特殊地点へ移動する"
+
+msgid "move_to_poi_requirements"
+msgstr "その地点を知っている必要があります"
+
+msgid "{avatar} begins moving toward {poi}"
+msgstr "{avatar} は {poi} へ向かい始めた"
+
+msgid "Cannot resolve point of interest: {poi}"
+msgstr "特殊地点を特定できません: {poi}"
+
+msgid "Point of interest has expired"
+msgstr "その特殊地点は消滅しています"
+
+msgid "Point of interest is unknown"
+msgstr "未知の特殊地点です"
+
+msgid "Point of interest is out of bounds"
+msgstr "その特殊地点は地図範囲外です"

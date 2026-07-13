@@ -5,6 +5,7 @@ import { useElementSize } from '@vueuse/core'
 import Viewport from './Viewport.vue'
 import MapLayer from './MapLayer.vue'
 import EntityLayer from './EntityLayer.vue'
+import POILayer from './POILayer.vue'
 import PerceptionLayer from './PerceptionLayer.vue'
 import SectInfluenceLayer from './SectInfluenceLayer.vue'
 import CloudLayer from './CloudLayer.vue'
@@ -23,6 +24,7 @@ defineProps<{
 const emit = defineEmits<{
   (e: 'avatarSelected', payload: { type: 'avatar'; id: string; name?: string }): void
   (e: 'regionSelected', payload: { type: 'region'; id: string; name?: string }): void
+  (e: 'poiSelected', payload: { type: 'poi'; id: string; kind: string; name?: string }): void
 }>()
 
 function onMapLoaded(size: { width: number, height: number }) {
@@ -35,6 +37,10 @@ function handleAvatarSelected(payload: { type: 'avatar'; id: string; name?: stri
 
 function handleRegionSelected(payload: { type: 'region'; id: string; name?: string }) {
   emit('regionSelected', payload)
+}
+
+function handlePoiSelected(payload: { type: 'poi'; id: string; kind: string; name?: string }) {
+  emit('poiSelected', payload)
 }
 
 const devicePixelRatio = 1 // 强制为 1，避免像素风游戏在高分屏下的坐标和缩放问题
@@ -79,6 +85,7 @@ onMounted(() => {
           @regionSelected="handleRegionSelected" 
         />
         <SectInfluenceLayer :width="mapSize.width" :height="mapSize.height" />
+        <POILayer @poiSelected="handlePoiSelected" />
         <EntityLayer @avatarSelected="handleAvatarSelected" />
         <PerceptionLayer :width="mapSize.width" :height="mapSize.height" />
         <CloudLayer :width="mapSize.width" :height="mapSize.height" />

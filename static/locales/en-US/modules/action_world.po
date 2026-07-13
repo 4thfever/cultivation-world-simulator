@@ -148,3 +148,29 @@ msgstr "{avatar} begins planting at {location}"
 
 msgid "{avatar} finished planting, earned {stones} Spirit Stones"
 msgstr "{avatar} finished planting, earned {stones} Spirit Stones"
+
+# POI actions
+
+msgid "move_to_poi_action_name"
+msgstr "Move to Location"
+
+msgid "move_to_poi_description"
+msgstr "Move to a known point of interest"
+
+msgid "move_to_poi_requirements"
+msgstr "Requires knowledge of that location"
+
+msgid "{avatar} begins moving toward {poi}"
+msgstr "{avatar} begins moving toward {poi}"
+
+msgid "Cannot resolve point of interest: {poi}"
+msgstr "Cannot resolve point of interest: {poi}"
+
+msgid "Point of interest has expired"
+msgstr "Point of interest has expired"
+
+msgid "Point of interest is unknown"
+msgstr "Point of interest is unknown"
+
+msgid "Point of interest is out of bounds"
+msgstr "Point of interest is out of bounds"

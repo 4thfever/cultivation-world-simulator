@@ -251,6 +251,45 @@ msgstr "目标在交互范围内"
 msgid "succeeded"
 msgstr "成功"
 
+msgid "dig_grave_action_name"
+msgstr "掘墓"
+
+msgid "dig_grave_description"
+msgstr "尝试挖掘当前位置已知墓碑中的兵器或辅助装备，可能失败或受伤，并会轻微折损气运。"
+
+msgid "dig_grave_requirements"
+msgstr "需要位于已知墓碑所在位置。"
+
+msgid "Cannot resolve grave: {poi}"
+msgstr "无法识别墓碑：{poi}"
+
+msgid "Grave has expired"
+msgstr "墓碑已经消失"
+
+msgid "Grave is unknown"
+msgstr "尚不知晓该墓碑"
+
+msgid "Must be at the grave to dig"
+msgstr "必须抵达墓碑所在位置才能掘墓"
+
+msgid "{avatar} dug at {grave}, but found no usable relics."
+msgstr "{avatar} 挖掘了 {grave}，但没有找到可用遗物。"
+
+msgid "{avatar} disturbed {grave}, but the relic inside had already decayed."
+msgstr "{avatar} 惊扰了 {grave}，但墓中遗物已经腐朽。"
+
+msgid "{avatar} failed to dig up useful relics from {grave}."
+msgstr "{avatar} 没能从 {grave} 中挖出有用遗物。"
+
+msgid "{avatar} triggered lingering grave restrictions at {grave} and was injured for {damage} HP."
+msgstr "{avatar} 触动了 {grave} 残留的禁制，受伤 {damage} 点气血。"
+
+msgid "{avatar} dug up {item} from {grave}."
+msgstr "{avatar} 从 {grave} 中挖出了 {item}。"
+
+msgid "{avatar} dug up {item} from {grave}. {result}"
+msgstr "{avatar} 从 {grave} 中挖出了 {item}。{result}"
+
 msgid ""
 "{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
 "vs {target} {def_power})"

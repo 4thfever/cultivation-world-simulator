@@ -123,6 +123,7 @@ class WorldSection:
             "sect_wars": list(getattr(world, "sect_wars", []) or []),
             "opportunities": serialize_opportunities(world),
             "deceased_records": world.deceased_manager.to_save_list(),
+            "pois": world.poi_manager.to_save_list(),
         }
 
 

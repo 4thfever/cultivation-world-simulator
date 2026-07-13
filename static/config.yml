@@ -80,7 +80,7 @@ world:
   birth_rate_per_month: 0.005
   max_children_per_couple: 2
   max_action_rounds_per_turn: 3
-  long_dead_cleanup_years: 20
+  long_dead_cleanup_years: 50
   gathering:
     auction_trigger_count: 5
     sect_teaching_prob: 0.05

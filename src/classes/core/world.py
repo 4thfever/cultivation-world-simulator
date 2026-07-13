@@ -11,6 +11,7 @@ from src.sim.managers.deceased_manager import DeceasedManager
 from src.sim.managers.event_manager import EventManager
 from src.classes.circulation import CirculationManager
 from src.classes.gathering.gathering import GatheringManager
+from src.classes.poi import POIManager
 from src.classes.world_lore import WorldLore
 from src.classes.world_secret import WorldSecretRuntime
 from src.utils.df import game_configs
@@ -38,6 +39,8 @@ class World():
     event_manager: EventManager = field(default_factory=EventManager)
     # 已故角色档案管理器（独立于 AvatarManager，不受 cleanup 影响）
     deceased_manager: DeceasedManager = field(default_factory=DeceasedManager)
+    # 运行时点位兴趣点，如墓碑、未来古碑/阵眼等
+    poi_manager: POIManager = field(default_factory=POIManager)
     # 当前天地灵机（世界级buff/debuff）
     current_phenomenon: Optional["CelestialPhenomenon"] = None
     # 当前王朝（凡人王朝）

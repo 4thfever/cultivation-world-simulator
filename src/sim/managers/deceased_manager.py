@@ -47,3 +47,15 @@ class DeceasedManager:
         for item in data:
             record = DeceasedRecord.from_dict(item)
             self._records[record.id] = record
+
+    def cleanup_expired_records(self, current_time: object, threshold_years: int = 50) -> int:
+        """清理死亡超过阈值的轻量已故档案。"""
+        to_remove: list[str] = []
+        current_month = int(current_time)
+        threshold_months = int(threshold_years) * 12
+        for avatar_id, record in self._records.items():
+            if current_month - int(record.death_time) >= threshold_months:
+                to_remove.append(avatar_id)
+        for avatar_id in to_remove:
+            self._records.pop(avatar_id, None)
+        return len(to_remove)

@@ -99,3 +99,11 @@ msgstr "裝備了新自創的{kind}《{item}》，並賣出舊裝備《{old_item
 msgid "Equipped newly created {kind} '{item}'"
 msgstr "裝備了新自創的{kind}《{item}》。"
 
+
+# POI discovery
+
+msgid "{avatar} discovered a grave at {location}: {poi}"
+msgstr "{avatar} 在 {location} 發現了一座墓碑：{poi}"
+
+msgid "{avatar} discovered a point of interest at {location}: {poi}"
+msgstr "{avatar} 在 {location} 發現了一個特殊地點：{poi}"

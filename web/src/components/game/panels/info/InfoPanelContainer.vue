@@ -10,6 +10,7 @@ const { t } = useI18n();
 import AvatarDetailView from './AvatarDetail.vue';
 import RegionDetailView from './RegionDetail.vue';
 import SectDetailView from './SectDetail.vue';
+import POIDetailView from './POIDetail.vue';
 
 const uiStore = useUiStore();
 const panelRef = ref<HTMLElement | null>(null);
@@ -22,6 +23,7 @@ const currentComponent = computed(() => {
     case 'avatar': return AvatarDetailView;
     case 'region': return RegionDetailView;
     case 'sect': return SectDetailView;
+    case 'poi': return POIDetailView;
     default: return null;
   }
 });

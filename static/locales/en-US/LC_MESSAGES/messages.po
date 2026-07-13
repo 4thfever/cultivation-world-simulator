@@ -493,6 +493,52 @@ msgid ""
 msgstr ""
 "{target}'s {gu_name} took effect, losing {amount} cultivation experience."
 
+# Grave POI action
+msgid "dig_grave_action_name"
+msgstr "Dig Grave"
+
+msgid "dig_grave_description"
+msgstr ""
+"Attempt to dig up weapon or auxiliary relics from a known grave at the "
+"current location. It may fail or cause injury, and slightly reduces luck."
+
+msgid "dig_grave_requirements"
+msgstr "Requires standing at a known grave."
+
+msgid "Cannot resolve grave: {poi}"
+msgstr "Cannot resolve grave: {poi}"
+
+msgid "Grave has expired"
+msgstr "Grave has expired"
+
+msgid "Grave is unknown"
+msgstr "Grave is unknown"
+
+msgid "Must be at the grave to dig"
+msgstr "Must be at the grave to dig"
+
+msgid "{avatar} dug at {grave}, but found no usable relics."
+msgstr "{avatar} dug at {grave}, but found no usable relics."
+
+msgid "{avatar} disturbed {grave}, but the relic inside had already decayed."
+msgstr "{avatar} disturbed {grave}, but the relic inside had already decayed."
+
+msgid "{avatar} failed to dig up useful relics from {grave}."
+msgstr "{avatar} failed to dig up useful relics from {grave}."
+
+msgid ""
+"{avatar} triggered lingering grave restrictions at {grave} and was injured "
+"for {damage} HP."
+msgstr ""
+"{avatar} triggered lingering grave restrictions at {grave} and was injured "
+"for {damage} HP."
+
+msgid "{avatar} dug up {item} from {grave}."
+msgstr "{avatar} dug up {item} from {grave}."
+
+msgid "{avatar} dug up {item} from {grave}. {result}"
+msgstr "{avatar} dug up {item} from {grave}. {result}"
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "Assassinate"
@@ -972,6 +1018,31 @@ msgstr "{avatar} begins planting at {location}"
 
 msgid "{avatar} finished planting, earned {stones} Spirit Stones"
 msgstr "{avatar} finished planting, earned {stones} Spirit Stones"
+
+# POI actions
+msgid "move_to_poi_action_name"
+msgstr "Move to Location"
+
+msgid "move_to_poi_description"
+msgstr "Move to a known point of interest"
+
+msgid "move_to_poi_requirements"
+msgstr "Requires knowledge of that location"
+
+msgid "{avatar} begins moving toward {poi}"
+msgstr "{avatar} begins moving toward {poi}"
+
+msgid "Cannot resolve point of interest: {poi}"
+msgstr "Cannot resolve point of interest: {poi}"
+
+msgid "Point of interest has expired"
+msgstr "Point of interest has expired"
+
+msgid "Point of interest is unknown"
+msgstr "Point of interest is unknown"
+
+msgid "Point of interest is out of bounds"
+msgstr "Point of interest is out of bounds"
 
 # Alignment
 msgid "righteous"
@@ -2288,6 +2359,13 @@ msgstr ""
 
 msgid "Equipped newly created {kind} '{item}'"
 msgstr "Equipped newly created {kind} \"{item}\"."
+
+# POI discovery
+msgid "{avatar} discovered a grave at {location}: {poi}"
+msgstr "{avatar} discovered a grave at {location}: {poi}"
+
+msgid "{avatar} discovered a point of interest at {location}: {poi}"
+msgstr "{avatar} discovered a point of interest at {location}: {poi}"
 
 # Execution Results
 msgid "{avatar_name} {done} {grade} {label}『{item_name}』."

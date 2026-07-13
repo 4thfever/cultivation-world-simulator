@@ -558,6 +558,24 @@
       "no_runtime_effect": "No active sect runtime effects",
       "runtime_effect_meta": "Source: {source} - Remaining: {months} months",
       "runtime_effect_meta_permanent": "Source: {source} - Duration: Permanent"
+    },
+    "poi": {
+      "sections": {
+        "grave": "Grave",
+        "deceased": "Deceased",
+        "goods": "Grave Goods"
+      },
+      "location": "Location",
+      "name": "Name",
+      "realm": "Realm",
+      "death_reason": "Cause",
+      "sect": "Sect",
+      "alignment": "Alignment",
+      "weapon": "Weapon",
+      "auxiliary": "Auxiliary",
+      "rogue": "Rogue",
+      "unknown": "Unknown",
+      "empty_goods": "No retrievable goods remain in the grave"
     }
   },
   "deceased": {

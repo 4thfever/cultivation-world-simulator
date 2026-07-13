@@ -98,3 +98,9 @@ msgstr "装备了新自创的{kind}《{item}》，并卖出旧装备《{old_item
 
 msgid "Equipped newly created {kind} '{item}'"
 msgstr "装备了新自创的{kind}《{item}》。"
+
+msgid "{avatar} discovered a grave at {location}: {poi}"
+msgstr "{avatar} 在 {location} 发现了一座墓碑：{poi}"
+
+msgid "{avatar} discovered a point of interest at {location}: {poi}"
+msgstr "{avatar} 在 {location} 发现了一个特殊地点：{poi}"

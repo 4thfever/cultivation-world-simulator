@@ -473,3 +473,44 @@ msgid ""
 msgstr ""
 "Le {gu_name} de {target} a pris effet, lui faisant perdre {amount} points "
 "d'expérience de cultivation."
+
+# Grave POI action
+
+msgid "dig_grave_action_name"
+msgstr "Fouiller une tombe"
+
+msgid "dig_grave_description"
+msgstr "Tente de déterrer une arme ou un accessoire depuis une tombe connue à l’emplacement actuel. Peut échouer, blesser et réduit légèrement la chance."
+
+msgid "dig_grave_requirements"
+msgstr "Nécessite d’être sur une tombe connue."
+
+msgid "Cannot resolve grave: {poi}"
+msgstr "Tombe introuvable : {poi}"
+
+msgid "Grave has expired"
+msgstr "La tombe a disparu"
+
+msgid "Grave is unknown"
+msgstr "Tombe inconnue"
+
+msgid "Must be at the grave to dig"
+msgstr "Il faut être sur la tombe pour la fouiller"
+
+msgid "{avatar} dug at {grave}, but found no usable relics."
+msgstr "{avatar} a fouillé {grave}, mais n’a trouvé aucun vestige utilisable."
+
+msgid "{avatar} disturbed {grave}, but the relic inside had already decayed."
+msgstr "{avatar} a troublé {grave}, mais le vestige qu’elle contenait était déjà réduit en poussière."
+
+msgid "{avatar} failed to dig up useful relics from {grave}."
+msgstr "{avatar} n’a pas réussi à extraire de vestige utile de {grave}."
+
+msgid "{avatar} triggered lingering grave restrictions at {grave} and was injured for {damage} HP."
+msgstr "{avatar} a déclenché les restrictions résiduelles de {grave} et a perdu {damage} PV."
+
+msgid "{avatar} dug up {item} from {grave}."
+msgstr "{avatar} a déterré {item} de {grave}."
+
+msgid "{avatar} dug up {item} from {grave}. {result}"
+msgstr "{avatar} a déterré {item} de {grave}. {result}"

@@ -11,6 +11,7 @@ import type {
   AvatarDetail,
   RegionDetail,
   SectDetail,
+  POIDetail,
   EffectEntity,
   CultivationDisplay,
 } from './core';
@@ -53,6 +54,7 @@ export interface TickPayloadDTO {
   month: number;
   avatars?: Array<Partial<InitialStateDTO['avatars'] extends (infer U)[] ? U : never>>;
   events?: EventDTO[];
+  poi_updates?: POIUpdateDTO[];
   phenomenon?: CelestialPhenomenon | null;
   active_domains?: HiddenDomainInfo[];
 }
@@ -76,8 +78,35 @@ export interface MapResponseDTO {
     sect_color?: string;
     sub_type?: string;
   }>;
+  pois?: Array<{
+    id: string;
+    kind: string;
+    name: string;
+    x: number;
+    y: number;
+    icon_key?: string;
+    clickable?: boolean;
+  }>;
   render_config?: MapRenderConfigDTO;
 }
+
+export type POIUpdateDTO =
+  | {
+      op: 'upsert';
+      poi: {
+        id: string;
+        kind: string;
+        name: string;
+        x: number;
+        y: number;
+        icon_key?: string;
+        clickable?: boolean;
+      };
+    }
+  | {
+      op: 'remove';
+      id: string;
+    };
 
 // --- Detail 接口 ---
 
@@ -86,11 +115,13 @@ export interface MapResponseDTO {
 export type AvatarDetailDTO = AvatarDetail;
 export type RegionDetailDTO = RegionDetail;
 export type SectDetailDTO = SectDetail;
+export type POIDetailDTO = POIDetail;
 
 export type DetailResponseDTO =
   | AvatarDetailDTO
   | RegionDetailDTO
-  | SectDetailDTO;
+  | SectDetailDTO
+  | POIDetailDTO;
 
 export interface MapRenderConfigDTO {
   water_speed?: 'none' | 'low' | 'medium' | 'high';

@@ -16,6 +16,7 @@ from .registry import register_action
 # 具体动作（按文件拆分）
 from .move import Move
 from .move_to_region import MoveToRegion
+from .move_to_poi import MoveToPOI
 from .move_to_avatar import MoveToAvatar
 from .move_away_from_avatar import MoveAwayFromAvatar
 from .move_away_from_region import MoveAwayFromRegion
@@ -50,6 +51,7 @@ from .plant import Plant
 from .sect_mission import SectMission
 from .inflict_gu import InflictGu
 from .set_formation import SetFormation
+from .dig_grave import DigGrave
 
 # 注册到 ActionRegistry（标注是否为实际可执行动作）
 register_action(actual=False)(Action)
@@ -62,6 +64,7 @@ register_action(actual=False)(TimedAction)
 
 register_action(actual=False)(Move)
 register_action(actual=True)(MoveToRegion)
+register_action(actual=True)(MoveToPOI)
 register_action(actual=True)(MoveToAvatar)
 register_action(actual=True)(MoveAwayFromAvatar)
 register_action(actual=True)(MoveAwayFromRegion)
@@ -99,6 +102,7 @@ register_action(actual=True)(Plant)
 register_action(actual=True)(SectMission)
 register_action(actual=True)(InflictGu)
 register_action(actual=True)(SetFormation)
+register_action(actual=True)(DigGrave)
 # Talk 已移动到 mutual_action 模块，在那里注册
 
 __all__ = [
@@ -114,6 +118,7 @@ __all__ = [
     # 派生类
     "Move",
     "MoveToRegion",
+    "MoveToPOI",
     "MoveToAvatar",
     "MoveAwayFromAvatar",
     "MoveAwayFromRegion",
@@ -151,4 +156,5 @@ __all__ = [
     "SectMission",
     "InflictGu",
     "SetFormation",
+    "DigGrave",
 ]

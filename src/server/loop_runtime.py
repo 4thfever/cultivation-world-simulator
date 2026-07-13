@@ -100,6 +100,7 @@ def build_tick_state(
         "month": world.month_stamp.get_month().value,
         "events": serialize_events_for_client(events, world=world),
         "avatars": avatar_updates,
+        "poi_updates": world.poi_manager.pop_updates() if hasattr(world, "poi_manager") else [],
         "phenomenon": serialize_phenomenon(world.current_phenomenon),
         "active_domains": serialize_active_domains(world),
     }

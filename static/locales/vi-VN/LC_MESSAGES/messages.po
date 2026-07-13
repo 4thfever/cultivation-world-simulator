@@ -490,6 +490,50 @@ msgid ""
 msgstr ""
 "{gu_name} trên {target} phát tác, mất {amount} điểm kinh nghiệm tu vi."
 
+# Grave POI action
+msgid "dig_grave_action_name"
+msgstr "Đào mộ"
+
+msgid "dig_grave_description"
+msgstr ""
+"Thử đào vũ khí hoặc pháp bảo phụ trợ từ ngôi mộ đã biết tại vị trí hiện tại."
+" Có thể thất bại hoặc bị thương, và hơi giảm khí vận."
+
+msgid "dig_grave_requirements"
+msgstr "Cần đứng tại một ngôi mộ đã biết."
+
+msgid "Cannot resolve grave: {poi}"
+msgstr "Không xác định được ngôi mộ: {poi}"
+
+msgid "Grave has expired"
+msgstr "Ngôi mộ đã biến mất"
+
+msgid "Grave is unknown"
+msgstr "Chưa biết ngôi mộ này"
+
+msgid "Must be at the grave to dig"
+msgstr "Phải ở ngay tại ngôi mộ mới có thể đào"
+
+msgid "{avatar} dug at {grave}, but found no usable relics."
+msgstr "{avatar} đào {grave}, nhưng không tìm thấy di vật dùng được."
+
+msgid "{avatar} disturbed {grave}, but the relic inside had already decayed."
+msgstr "{avatar} kinh động {grave}, nhưng di vật bên trong đã mục nát."
+
+msgid "{avatar} failed to dig up useful relics from {grave}."
+msgstr "{avatar} không đào được di vật hữu dụng từ {grave}."
+
+msgid ""
+"{avatar} triggered lingering grave restrictions at {grave} and was injured "
+"for {damage} HP."
+msgstr "{avatar} kích hoạt cấm chế còn sót lại ở {grave} và mất {damage} HP."
+
+msgid "{avatar} dug up {item} from {grave}."
+msgstr "{avatar} đào được {item} từ {grave}."
+
+msgid "{avatar} dug up {item} from {grave}. {result}"
+msgstr "{avatar} đào được {item} từ {grave}. {result}"
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "Ám Sát"
@@ -969,6 +1013,31 @@ msgstr "{avatar} bắt đầu trồng trọt tại {location}"
 
 msgid "{avatar} finished planting, earned {stones} Spirit Stones"
 msgstr "{avatar} hoàn tất trồng trọt, kiếm được {stones} Linh Thạch"
+
+# POI actions
+msgid "move_to_poi_action_name"
+msgstr "Đến địa điểm"
+
+msgid "move_to_poi_description"
+msgstr "Di chuyển đến một điểm đáng chú ý đã biết"
+
+msgid "move_to_poi_requirements"
+msgstr "Cần biết địa điểm đó"
+
+msgid "{avatar} begins moving toward {poi}"
+msgstr "{avatar} bắt đầu đi về phía {poi}"
+
+msgid "Cannot resolve point of interest: {poi}"
+msgstr "Không xác định được điểm đáng chú ý: {poi}"
+
+msgid "Point of interest has expired"
+msgstr "Điểm đáng chú ý này đã biến mất"
+
+msgid "Point of interest is unknown"
+msgstr "Chưa biết điểm đáng chú ý này"
+
+msgid "Point of interest is out of bounds"
+msgstr "Điểm đáng chú ý này nằm ngoài bản đồ"
 
 # Alignment
 msgid "righteous"
@@ -2291,6 +2360,13 @@ msgstr ""
 
 msgid "Equipped newly created {kind} '{item}'"
 msgstr "Đã trang bị {kind} mới tự sáng tạo là \"{item}\"."
+
+# POI discovery
+msgid "{avatar} discovered a grave at {location}: {poi}"
+msgstr "{avatar} phát hiện một ngôi mộ tại {location}: {poi}"
+
+msgid "{avatar} discovered a point of interest at {location}: {poi}"
+msgstr "{avatar} phát hiện một điểm đáng chú ý tại {location}: {poi}"
 
 # Execution Results
 msgid "{avatar_name} {done} {grade} {label}『{item_name}』."

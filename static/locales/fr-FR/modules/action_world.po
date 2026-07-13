@@ -150,3 +150,29 @@ msgstr "{avatar} commence à planter à {location}"
 
 msgid "{avatar} finished planting, earned {stones} Spirit Stones"
 msgstr "{avatar} a terminé la plantation, a gagné {stones} Pierres Spirituelles"
+
+# POI actions
+
+msgid "move_to_poi_action_name"
+msgstr "Aller au lieu"
+
+msgid "move_to_poi_description"
+msgstr "Se déplacer vers un point d’intérêt connu"
+
+msgid "move_to_poi_requirements"
+msgstr "Nécessite de connaître ce lieu"
+
+msgid "{avatar} begins moving toward {poi}"
+msgstr "{avatar} se met en route vers {poi}"
+
+msgid "Cannot resolve point of interest: {poi}"
+msgstr "Point d’intérêt introuvable : {poi}"
+
+msgid "Point of interest has expired"
+msgstr "Ce point d’intérêt a disparu"
+
+msgid "Point of interest is unknown"
+msgstr "Point d’intérêt inconnu"
+
+msgid "Point of interest is out of bounds"
+msgstr "Ce point d’intérêt est hors de la carte"

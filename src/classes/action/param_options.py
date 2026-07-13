@@ -22,6 +22,8 @@ class ParamOptionSource(str, Enum):
     CARDINAL_DIRECTION = "cardinal_direction"
     AVAILABLE_GU_TYPE = "available_gu_type"
     AVAILABLE_FORMATION_TYPE = "available_formation_type"
+    KNOWN_POI_ID = "known_poi_id"
+    KNOWN_GRAVE_POI_ID = "known_grave_poi_id"
 
 
 def build_param_options(action_cls: type, avatar: "Avatar") -> dict[str, list[dict[str, Any]]]:
@@ -92,6 +94,10 @@ def _options_for_source(action_cls: type, avatar: "Avatar", source: ParamOptionS
         return _gu_type_options()
     if source == ParamOptionSource.AVAILABLE_FORMATION_TYPE:
         return _formation_type_options(avatar)
+    if source == ParamOptionSource.KNOWN_POI_ID:
+        return _known_poi_options(avatar)
+    if source == ParamOptionSource.KNOWN_GRAVE_POI_ID:
+        return _known_poi_options(avatar, kind="grave")
     return []
 
 
@@ -320,3 +326,29 @@ def _formation_type_options(avatar: "Avatar") -> list[dict[str, Any]]:
     from src.systems.formation import get_available_formation_type_options
 
     return get_available_formation_type_options(avatar)
+
+
+def _known_poi_options(avatar: "Avatar", *, kind: str | None = None) -> list[dict[str, Any]]:
+    world = getattr(avatar, "world", None)
+    manager = getattr(world, "poi_manager", None)
+    if manager is None:
+        return []
+    current_month = int(getattr(world, "month_stamp", 0))
+    options: list[dict[str, Any]] = []
+    for poi in manager.get_known_by(avatar, kind=kind):
+        if poi.is_expired(current_month):
+            continue
+        distance = abs(int(poi.x) - int(getattr(avatar, "pos_x", 0))) + abs(int(poi.y) - int(getattr(avatar, "pos_y", 0)))
+        options.append(
+            {
+                "value": str(poi.id),
+                "id": str(poi.id),
+                "name": str(poi.name),
+                "type": str(poi.kind),
+                "x": int(poi.x),
+                "y": int(poi.y),
+                "distance": int(distance),
+            }
+        )
+    options.sort(key=lambda option: (int(option["distance"]), str(option["name"])))
+    return _limit_options(options)

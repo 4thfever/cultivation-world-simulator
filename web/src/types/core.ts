@@ -296,6 +296,44 @@ export interface RegionSummary extends EntityBase, Coordinates {
   formation?: RegionFormationInfo | null;
 }
 
+export interface POISummary extends EntityBase, Coordinates {
+  kind: string;
+  icon_key?: string;
+  clickable?: boolean;
+}
+
+export interface POIDetail extends POISummary {
+  desc?: string;
+  deceased?: {
+    id: string;
+    name: string;
+    age_at_death?: number | null;
+    realm_at_death: string;
+    stage_at_death: string;
+    death_reason: string;
+    death_time: number;
+    sect_name_at_death: string;
+    alignment_at_death: string;
+    backstory?: string | null;
+    custom_pic_id?: number | null;
+  };
+  grave_goods?: {
+    weapon?: {
+      kind?: string;
+      item_id?: number;
+      name: string;
+      realm?: string;
+    } | null;
+    auxiliary?: {
+      kind?: string;
+      item_id?: number;
+      name: string;
+      realm?: string;
+    } | null;
+  };
+  dig_attempt_count?: number;
+}
+
 export interface RegionFormationInfo {
   formation_type: string;
   name: string;

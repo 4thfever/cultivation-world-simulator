@@ -20,6 +20,11 @@ def handle_death(world: World, avatar: Avatar, reason: Union[str, DeathReason]) 
     
     # 标记为死亡（软删除）
     avatar.set_dead(reason_str, world.month_stamp)
+
+    # 在死亡坐标生成墓碑。战斗夺宝发生在 handle_death 前，因此这里只保留剩余装备。
+    poi_manager = getattr(world, "poi_manager", None)
+    if poi_manager is not None and hasattr(poi_manager, "create_grave_from_avatar"):
+        poi_manager.create_grave_from_avatar(avatar, current_month=int(world.month_stamp))
     
     # 从管理器中归档（硬移动），并记录变更
     world.avatar_manager.handle_death(avatar.id)

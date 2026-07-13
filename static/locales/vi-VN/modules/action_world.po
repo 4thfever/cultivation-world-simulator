@@ -149,3 +149,29 @@ msgstr "{avatar} bắt đầu trồng trọt tại {location}"
 
 msgid "{avatar} finished planting, earned {stones} Spirit Stones"
 msgstr "{avatar} hoàn tất trồng trọt, kiếm được {stones} Linh Thạch"
+
+# POI actions
+
+msgid "move_to_poi_action_name"
+msgstr "Đến địa điểm"
+
+msgid "move_to_poi_description"
+msgstr "Di chuyển đến một điểm đáng chú ý đã biết"
+
+msgid "move_to_poi_requirements"
+msgstr "Cần biết địa điểm đó"
+
+msgid "{avatar} begins moving toward {poi}"
+msgstr "{avatar} bắt đầu đi về phía {poi}"
+
+msgid "Cannot resolve point of interest: {poi}"
+msgstr "Không xác định được điểm đáng chú ý: {poi}"
+
+msgid "Point of interest has expired"
+msgstr "Điểm đáng chú ý này đã biến mất"
+
+msgid "Point of interest is unknown"
+msgstr "Chưa biết điểm đáng chú ý này"
+
+msgid "Point of interest is out of bounds"
+msgstr "Điểm đáng chú ý này nằm ngoài bản đồ"

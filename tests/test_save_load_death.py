@@ -57,7 +57,7 @@ def test_dead_avatar_stays_dead_after_load(base_world, dummy_avatar):
 
 def test_cleanup_long_dead_avatars(base_world, dummy_avatar):
     """
-    测试清理死亡超过20年的角色逻辑
+    测试清理死亡超过50年的角色逻辑
     """
     # 1. 准备环境
     base_world.avatar_manager.register_avatar(dummy_avatar)
@@ -69,17 +69,17 @@ def test_cleanup_long_dead_avatars(base_world, dummy_avatar):
     
     assert dummy_avatar.id in base_world.avatar_manager.dead_avatars
     
-    # 3. 未满20年，不应清理
-    # Year 20, Month 1 (经过19年)
-    current_time_19y = create_month_stamp(Year(20), Month.JANUARY)
-    cleaned_count = base_world.avatar_manager.cleanup_long_dead_avatars(current_time_19y, threshold_years=20)
+    # 3. 未满50年，不应清理
+    # Year 50, Month 1 (经过49年)
+    current_time_49y = create_month_stamp(Year(50), Month.JANUARY)
+    cleaned_count = base_world.avatar_manager.cleanup_long_dead_avatars(current_time_49y, threshold_years=50)
     assert cleaned_count == 0
     assert dummy_avatar.id in base_world.avatar_manager.dead_avatars
     
-    # 4. 满20年，应清理
-    # Year 21, Month 1 (经过20年)
-    current_time_20y = create_month_stamp(Year(21), Month.JANUARY)
-    cleaned_count = base_world.avatar_manager.cleanup_long_dead_avatars(current_time_20y, threshold_years=20)
+    # 4. 满50年，应清理
+    # Year 51, Month 1 (经过50年)
+    current_time_50y = create_month_stamp(Year(51), Month.JANUARY)
+    cleaned_count = base_world.avatar_manager.cleanup_long_dead_avatars(current_time_50y, threshold_years=50)
     
     assert cleaned_count == 1
     assert dummy_avatar.id not in base_world.avatar_manager.dead_avatars
@@ -160,8 +160,8 @@ def test_cleanup_long_dead_avatar_removes_archived_relation_references(base_worl
     base_world.avatar_manager.handle_death(friend.id)
     assert friend in dummy_avatar.archived_relations
 
-    current_time_20y = create_month_stamp(Year(21), Month.JANUARY)
-    cleaned_count = base_world.avatar_manager.cleanup_long_dead_avatars(current_time_20y, threshold_years=20)
+    current_time_50y = create_month_stamp(Year(51), Month.JANUARY)
+    cleaned_count = base_world.avatar_manager.cleanup_long_dead_avatars(current_time_50y, threshold_years=50)
 
     assert cleaned_count == 1
     assert friend not in dummy_avatar.archived_relations

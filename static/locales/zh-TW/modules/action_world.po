@@ -144,3 +144,29 @@ msgstr "{avatar} 在 {location} 開始種植"
 
 msgid "{avatar} finished planting, earned {stones} Spirit Stones"
 msgstr "{avatar} 完成種植，賺取了 {stones} 塊靈石"
+
+# POI actions
+
+msgid "move_to_poi_action_name"
+msgstr "移動到地點"
+
+msgid "move_to_poi_description"
+msgstr "移動到已知的特殊地點"
+
+msgid "move_to_poi_requirements"
+msgstr "需要知曉該地點"
+
+msgid "{avatar} begins moving toward {poi}"
+msgstr "{avatar} 開始前往 {poi}"
+
+msgid "Cannot resolve point of interest: {poi}"
+msgstr "無法識別特殊地點：{poi}"
+
+msgid "Point of interest has expired"
+msgstr "該特殊地點已經消失"
+
+msgid "Point of interest is unknown"
+msgstr "尚不知曉該特殊地點"
+
+msgid "Point of interest is out of bounds"
+msgstr "該特殊地點不在地圖範圍內"

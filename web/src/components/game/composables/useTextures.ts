@@ -6,6 +6,7 @@ import { getClusteredTileVariant } from '@/utils/procedural'
 import { logError, logWarn } from '@/utils/appError'
 import { getAvatarIndexSlug, getAvatarPortraitUrl, getRealmAssetSlug, getGameAssetUrl } from '@/utils/assetUrls'
 import { normalizeAvatarAssetLibraries, type AvatarAssetLibraries } from '@/utils/avatarAssets'
+import { POI_ICON_URLS } from '@/utils/poiIcons'
 
 // 设置全局纹理缩放模式为 nearest (像素风)
 TextureStyle.defaultOptions.scaleMode = 'nearest'
@@ -37,6 +38,7 @@ let baseTexturesPromise: Promise<void> | null = null
 const sectTexturePromises = new Map<number, Promise<void>>()
 const cityTexturePromises = new Map<number, Promise<void>>()
 const avatarTexturePromises = new Map<string, Promise<void>>()
+const poiTexturePromises = new Map<string, Promise<void>>()
 
 function setTexture(key: string, texture: Texture) {
   textures.value[key] = markRaw(texture)
@@ -318,6 +320,31 @@ export function useTextures() {
     return undefined
   }
 
+  const loadPoiTexture = (iconKey: string): Promise<void> => {
+    const normalizedKey = POI_ICON_URLS[iconKey] ? iconKey : 'fallback_poi'
+    const textureKey = `poi_${normalizedKey}`
+    if (textures.value[textureKey]) return Promise.resolve()
+    const existingPromise = poiTexturePromises.get(textureKey)
+    if (existingPromise) return existingPromise
+
+    const promise = Assets.load(POI_ICON_URLS[normalizedKey])
+      .then(tex => { setTexture(textureKey, tex) })
+      .catch(e => logWarn(`Textures load ${textureKey}`, e))
+      .finally(() => {
+        poiTexturePromises.delete(textureKey)
+      })
+    poiTexturePromises.set(textureKey, promise)
+    return promise
+  }
+
+  const ensurePoiTexture = (iconKey?: string): Texture | undefined => {
+    const normalizedKey = iconKey && POI_ICON_URLS[iconKey] ? iconKey : 'fallback_poi'
+    const textureKey = `poi_${normalizedKey}`
+    if (textures.value[textureKey]) return textures.value[textureKey]
+    void loadPoiTexture(normalizedKey)
+    return undefined
+  }
+
   const preloadAvatarTextures = async (avatars: Iterable<AvatarSummary>) => {
     await loadBaseTextures()
 
@@ -361,6 +388,7 @@ export function useTextures() {
     preloadRegionTextures,
     availableAvatars,
     ensureAvatarTexture,
+    ensurePoiTexture,
     preloadAvatarTextures,
     getTileTexture
   }

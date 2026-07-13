@@ -36,7 +36,7 @@ async def run_annual_maintenance(simulator, ctx) -> None:
     # 2. 更新宗门状态
     # 3. 执行配置驱动的宗门决策周期
     # 4. 生成宗门周期思考
-    # 5. 清理长期死亡角色
+    # 5. 清理长期死亡角色、已故档案与过期 POI
     if not ctx.is_january:
         return
 
@@ -56,6 +56,19 @@ async def run_annual_maintenance(simulator, ctx) -> None:
     )
     if cleaned_count > 0:
         get_logger().logger.info("Cleaned up %s long-dead avatars.", cleaned_count)
+
+    if hasattr(world.deceased_manager, "cleanup_expired_records"):
+        cleaned_records = world.deceased_manager.cleanup_expired_records(
+            world.month_stamp,
+            CONFIG.world.long_dead_cleanup_years,
+        )
+        if cleaned_records > 0:
+            get_logger().logger.info("Cleaned up %s deceased records.", cleaned_records)
+
+    if hasattr(world, "poi_manager"):
+        cleaned_pois = world.poi_manager.cleanup_expired(int(world.month_stamp))
+        if cleaned_pois > 0:
+            get_logger().logger.info("Cleaned up %s expired POIs.", cleaned_pois)
 
 
 async def phase_sect_periodic_decision(simulator) -> list[Event]:

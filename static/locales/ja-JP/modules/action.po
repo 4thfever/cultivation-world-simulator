@@ -433,3 +433,44 @@ msgstr "{target}の{gu_name}が発動し、HPを{amount}失った。"
 msgid ""
 "{target}'s {gu_name} took effect, losing {amount} cultivation experience."
 msgstr "{target}の{gu_name}が発動し、修為経験を{amount}失った。"
+
+# Grave POI action
+
+msgid "dig_grave_action_name"
+msgstr "墓を掘る"
+
+msgid "dig_grave_description"
+msgstr "現在地にある既知の墓から武器や補助装備を掘り出そうとする。失敗や負傷の可能性があり、運がわずかに下がる。"
+
+msgid "dig_grave_requirements"
+msgstr "既知の墓の上にいる必要があります。"
+
+msgid "Cannot resolve grave: {poi}"
+msgstr "墓を特定できません: {poi}"
+
+msgid "Grave has expired"
+msgstr "墓は消滅しています"
+
+msgid "Grave is unknown"
+msgstr "未知の墓です"
+
+msgid "Must be at the grave to dig"
+msgstr "墓を掘るにはその場所にいる必要があります"
+
+msgid "{avatar} dug at {grave}, but found no usable relics."
+msgstr "{avatar} は {grave} を掘ったが、使える遺物は見つからなかった。"
+
+msgid "{avatar} disturbed {grave}, but the relic inside had already decayed."
+msgstr "{avatar} は {grave} を乱したが、中の遺物はすでに朽ちていた。"
+
+msgid "{avatar} failed to dig up useful relics from {grave}."
+msgstr "{avatar} は {grave} から有用な遺物を掘り出せなかった。"
+
+msgid "{avatar} triggered lingering grave restrictions at {grave} and was injured for {damage} HP."
+msgstr "{avatar} は {grave} に残る禁制を発動させ、HPを {damage} 失った。"
+
+msgid "{avatar} dug up {item} from {grave}."
+msgstr "{avatar} は {grave} から {item} を掘り出した。"
+
+msgid "{avatar} dug up {item} from {grave}. {result}"
+msgstr "{avatar} は {grave} から {item} を掘り出した。{result}"

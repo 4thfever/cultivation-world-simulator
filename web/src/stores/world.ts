@@ -70,6 +70,7 @@ export const useWorldStore = defineStore('world', () => {
     setTime(payload.year, payload.month);
 
     if (payload.avatars) avatarStore.updateAvatars(payload.avatars);
+    if (payload.poi_updates) mapStore.applyPoiUpdates(payload.poi_updates);
     if (payload.events) eventStore.addEvents(payload.events, year.value, month.value);
     
     if (payload.phenomenon !== undefined) {

@@ -102,13 +102,13 @@ class AvatarManager:
         """辅助方法：遍历所有角色（活人+死者）"""
         return itertools.chain(self.avatars.values(), self.dead_avatars.values())
 
-    def cleanup_long_dead_avatars(self, current_time: "MonthStamp", threshold_years: int = 20) -> int:
+    def cleanup_long_dead_avatars(self, current_time: "MonthStamp", threshold_years: int = 50) -> int:
         """
         清理长期已故的角色。
         
         Args:
             current_time: 当前时间戳
-            threshold_years: 死亡超过多少年则清理 (默认20年)
+            threshold_years: 死亡超过多少年则清理 (默认50年)
             
         Returns:
             清理的角色数量

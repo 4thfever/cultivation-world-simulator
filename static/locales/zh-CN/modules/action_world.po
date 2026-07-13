@@ -108,6 +108,16 @@ msgstr "移动到某个区域"
 msgid "move_to_region_requirements"
 msgstr "无限制"
 
+# Action: MoveToPOI
+msgid "move_to_poi_action_name"
+msgstr "移动到地点"
+
+msgid "move_to_poi_description"
+msgstr "移动到已知的特殊地点"
+
+msgid "move_to_poi_requirements"
+msgstr "需要知晓该地点"
+
 # Action: Sell
 msgid "sell_action_name"
 msgstr "出售"
@@ -123,6 +133,21 @@ msgstr "荒郊野外"
 
 msgid "{avatar} attempted to move but target is invalid"
 msgstr "{avatar} 试图移动但目标无效"
+
+msgid "{avatar} begins moving toward {poi}"
+msgstr "{avatar} 开始前往 {poi}"
+
+msgid "Cannot resolve point of interest: {poi}"
+msgstr "无法识别特殊地点：{poi}"
+
+msgid "Point of interest has expired"
+msgstr "该特殊地点已经消失"
+
+msgid "Point of interest is unknown"
+msgstr "尚不知晓该特殊地点"
+
+msgid "Point of interest is out of bounds"
+msgstr "该特殊地点不在地图范围内"
 
 msgid "{avatar} begins helping people in town"
 msgstr "{avatar} 在城镇开始救济百姓"

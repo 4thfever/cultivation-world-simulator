@@ -106,3 +106,11 @@ msgstr "新しく作成した{kind}「{item}」を装備し、旧装備「{old_i
 msgid "Equipped newly created {kind} '{item}'"
 msgstr "新しく作成した{kind}「{item}」を装備した。"
 
+
+# POI discovery
+
+msgid "{avatar} discovered a grave at {location}: {poi}"
+msgstr "{avatar} は {location} で墓を発見した: {poi}"
+
+msgid "{avatar} discovered a point of interest at {location}: {poi}"
+msgstr "{avatar} は {location} で特殊地点を発見した: {poi}"

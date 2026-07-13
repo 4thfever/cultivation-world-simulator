@@ -8,7 +8,7 @@ import type {
   RankingSectDTO,
   TournamentSummaryDTO,
 } from '@/types/api'
-import type { AvatarSummary, CelestialPhenomenon, RegionSummary } from '@/types/core'
+import type { AvatarSummary, CelestialPhenomenon, POISummary, RegionSummary } from '@/types/core'
 
 export interface WorldStateSnapshot {
   status: InitialStateDTO['status']
@@ -28,6 +28,7 @@ export interface WorldMapSnapshot {
   height: number
   data: MapResponseDTO['data']
   regions: RegionSummary[]
+  pois: POISummary[]
   renderConfig: MapRenderConfigDTO
 }
 
@@ -67,6 +68,14 @@ export function normalizeMapResponse(input: MapResponseDTO): WorldMapSnapshot {
       ? input.regions.map((region) => ({
           ...region,
           id: String(region.id),
+        }))
+      : [],
+    pois: Array.isArray(input.pois)
+      ? input.pois.map((poi) => ({
+          ...poi,
+          id: String(poi.id),
+          icon_key: poi.icon_key ?? '',
+          clickable: poi.clickable ?? true,
         }))
       : [],
     renderConfig: normalizeMapRenderConfig(input.render_config),

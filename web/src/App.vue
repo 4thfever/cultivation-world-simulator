@@ -135,7 +135,7 @@ function onKeydown(e: KeyboardEvent) {
   controlHandleKeydown(e)
 }
 
-function handleSelection(target: { type: 'avatar' | 'region'; id: string; name?: string }) {
+function handleSelection(target: { type: 'avatar' | 'region' | 'poi'; id: string; name?: string }) {
   uiStore.select(target.type, target.id)
 }
 
@@ -260,6 +260,7 @@ watch(sidebarWidth, width => {
                   :sidebar-width="sidebarWidth"
                   @avatarSelected="handleSelection"
                   @regionSelected="handleSelection"
+                  @poiSelected="handleSelection"
                 />
                 <InfoPanelContainer />
               </div>

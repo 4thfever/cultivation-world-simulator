@@ -442,6 +442,10 @@ def get_world_map(runtime, *, sects_by_id: dict[int, Any], render_config: dict[s
         "height": height,
         "data": map_data,
         "regions": regions_data,
+        "pois": [
+            poi.get_summary_payload()
+            for poi in getattr(world, "poi_manager", None).get_all_active(int(world.month_stamp))
+        ] if getattr(world, "poi_manager", None) is not None else [],
         "render_config": render_config,
     }
 
@@ -544,6 +548,11 @@ def get_detail(
             target = sects_by_id.get(int(target_id))
         except (ValueError, TypeError):
             target = None
+    elif target_type == "poi":
+        manager = getattr(world, "poi_manager", None)
+        target = manager.get(target_id) if manager is not None else None
+        if target is not None and target.is_expired(int(world.month_stamp)):
+            target = None
     else:
         raise_public_error(
             status_code=400,
@@ -571,4 +580,6 @@ def get_detail(
         from src.server.assemblers.avatar_detail import build_avatar_detail
 
         return build_avatar_detail(target, resolve_avatar_pic_id=resolve_avatar_pic_id)
+    if target_type == "poi":
+        return target.get_detail_payload(world)
     return target.get_structured_info()
