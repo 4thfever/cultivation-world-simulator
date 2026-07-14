@@ -392,12 +392,13 @@ Pour les détails de contribution, consultez [CONTRIBUTORS.md](../../CONTRIBUTOR
 - ✅ Gu
 - ✅ Opportunités fortuites
 - ✅ Secrets du monde
+- ✅ POI
 - [ ] PNJ d'arrière-plan
-- [ ] Transformation divine et ascension vers le royaume supérieur
-- [ ] Fonder une secte / devenir empereur
+- [ ] Ascension vers le royaume supérieur
 
 ### 🔭 Perspectives à long terme
 
+- [ ] Fonder une secte / devenir empereur
 - [ ] Romanisation, illustration et vidéo de l'histoire et des événements
 - [ ] Agentification des compétences : les cultivateurs planifient, analysent, appellent des outils et décident seuls
 - [ ] Intégrer votre propre Claw dans le monde de cultivation

@@ -387,11 +387,12 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Cổ
 - ✅ Cơ duyên
 - ✅ Bí mật thế giới
+- ✅ POI
 - [ ] NPC phông nền
-- [ ] Hóa Thần và phi thăng thượng giới
-- [ ] Tự lập tông môn / trở thành hoàng đế
+- [ ] Phi thăng thượng giới
 
 ### 🔭 Triển Vọng Dài Hạn
+- [ ] Tự lập tông môn / trở thành hoàng đế
 - [ ] Tiểu thuyết hóa / hình ảnh hóa / video hóa lịch sử và sự kiện
 - [ ] Agent hóa kỹ năng, để tu sĩ tự quy hoạch, tự phân tích, tự gọi công cụ và tự quyết sách
 - [ ] Tích hợp Claw của chính bạn vào thế giới tu tiên

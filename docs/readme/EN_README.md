@@ -387,11 +387,12 @@ For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS
 - ✅ Gu
 - ✅ Fortuitous opportunity
 - ✅ World secrets
+- ✅ POI
 - [ ] Background NPCs
-- [ ] Soul Formation & Ascension to the upper realm
-- [ ] Found a sect / Become emperor
+- [ ] Ascension to the upper realm
 
 ### 🔭 Long-term Prospects
+- [ ] Found a sect / Become emperor
 - [ ] Novelization & Imaging & Video of history/events
 - [ ] Skill agentification, cultivators independently plan, analyze, call tools, and make decisions
 - [ ] Integrate your own Claw into the cultivation world
