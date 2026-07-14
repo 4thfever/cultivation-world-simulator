@@ -1,0 +1,189 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "BACKGROUND_NPC_ROLE_HERB_VENDOR"
+msgstr "herb vendor"
+
+msgid "BACKGROUND_NPC_ROLE_STORYTELLER"
+msgstr "teahouse storyteller"
+
+msgid "BACKGROUND_NPC_ROLE_PATROL_RUNNER"
+msgstr "street patrol runner"
+
+msgid "BACKGROUND_NPC_ROLE_TIDE_GUIDE"
+msgstr "tide guide"
+
+msgid "BACKGROUND_NPC_ROLE_DOCK_LABORER"
+msgstr "dock laborer"
+
+msgid "BACKGROUND_NPC_ROLE_MOUNTAIN_GUARD"
+msgstr "mountain pass guard"
+
+msgid "BACKGROUND_NPC_ROLE_MINE_SURVIVOR"
+msgstr "mine survivor"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_GATE_CHILD"
+msgstr "sect gate child"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_ERRAND_SERVANT"
+msgstr "outer sect servant"
+
+msgid "BACKGROUND_NPC_ROLE_YAMEN_CLERK"
+msgstr "yamen clerk"
+
+msgid "BACKGROUND_NPC_ROLE_GRAIN_KEEPER"
+msgstr "granary keeper"
+
+msgid "BACKGROUND_NPC_ROLE_BLACK_MARKET_BROKER"
+msgstr "black-market broker"
+
+msgid "BACKGROUND_NPC_ROLE_APPRAISER"
+msgstr "goods appraiser"
+
+msgid "BACKGROUND_NPC_ROLE_MEDICINE_ASSISTANT"
+msgstr "medicine shop assistant"
+
+msgid "BACKGROUND_NPC_ROLE_TEA_SHED_ELDER"
+msgstr "tea shed elder"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_FIELD_FARMER"
+msgstr "sect field farmer"
+
+msgid "BACKGROUND_NPC_ROLE_ALCHEMY_FIREWORKER"
+msgstr "alchemy fireworker"
+
+msgid "BACKGROUND_NPC_ROLE_SCRIPTURE_COPYIST"
+msgstr "scripture copyist"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_TENANT"
+msgstr "sect tenant farmer"
+
+msgid "BACKGROUND_NPC_ROLE_IMMORTAL_SEEKING_PARENT"
+msgstr "immortal-seeking parent"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_BUYER"
+msgstr "sect buyer"
+
+msgid "BACKGROUND_NPC_ROLE_HUNTER"
+msgstr "hunter"
+
+msgid "BACKGROUND_NPC_ROLE_HERB_GATHERER"
+msgstr "herb gatherer"
+
+msgid "BACKGROUND_NPC_ROLE_FERRYMAN"
+msgstr "ferryman"
+
+msgid "BACKGROUND_NPC_ROLE_CARAVAN_MERCHANT"
+msgstr "traveling merchant"
+
+msgid "BACKGROUND_NPC_ROLE_POSTAL_COURIER"
+msgstr "courier"
+
+msgid "BACKGROUND_NPC_ROLE_INNKEEPER"
+msgstr "innkeeper"
+
+msgid "BACKGROUND_NPC_ROLE_BLACKSMITH"
+msgstr "blacksmith"
+
+msgid "BACKGROUND_NPC_ROLE_ARTIFACT_SHOPKEEPER"
+msgstr "artifact shopkeeper"
+
+msgid "BACKGROUND_NPC_ROLE_WEAPON_SHOPKEEPER"
+msgstr "weapon shopkeeper"
+
+msgid "BACKGROUND_NPC_ROLE_PAWNSHOP_CLERK"
+msgstr "pawnshop appraiser"
+
+msgid "BACKGROUND_NPC_ROLE_TAX_COLLECTOR"
+msgstr "tax collector"
+
+msgid "BACKGROUND_NPC_ROLE_CONSTABLE"
+msgstr "constable"
+
+msgid "BACKGROUND_NPC_ROLE_NIGHT_WATCHMAN"
+msgstr "night watchman"
+
+msgid "BACKGROUND_NPC_ROLE_HOUSEHOLD_CLERK"
+msgstr "registry clerk"
+
+msgid "BACKGROUND_NPC_ROLE_NOTICE_CRIER"
+msgstr "notice crier"
+
+msgid "BACKGROUND_NPC_ROLE_RELIEF_OFFICER"
+msgstr "relief officer"
+
+msgid "BACKGROUND_NPC_ROLE_GOVERNMENT_GATEKEEPER"
+msgstr "yamen gatekeeper"
+
+msgid "BACKGROUND_NPC_ROLE_IMPERIAL_COURIER"
+msgstr "imperial courier"
+
+msgid "BACKGROUND_NPC_ROLE_PALACE_ATTENDANT"
+msgstr "palace attendant"
+
+msgid "BACKGROUND_NPC_ROLE_CENSOR_RETAINER"
+msgstr "censor's retainer"
+
+msgid "BACKGROUND_NPC_ROLE_SHIPWRIGHT"
+msgstr "shipwright"
+
+msgid "BACKGROUND_NPC_ROLE_SALT_STEWARD"
+msgstr "salt warehouse steward"
+
+msgid "BACKGROUND_NPC_ROLE_FISHERMAN"
+msgstr "fisherman"
+
+msgid "BACKGROUND_NPC_ROLE_PEARL_DIVER"
+msgstr "pearl diver"
+
+msgid "BACKGROUND_NPC_ROLE_CHART_PEDDLER"
+msgstr "chart peddler"
+
+msgid "BACKGROUND_NPC_ROLE_PORT_TAX_COLLECTOR"
+msgstr "port tax collector"
+
+msgid "BACKGROUND_NPC_ROLE_SHIP_CAPTAIN"
+msgstr "ship captain"
+
+msgid "BACKGROUND_NPC_ROLE_POST_STATION_MASTER"
+msgstr "post station master"
+
+msgid "BACKGROUND_NPC_ROLE_MINE_FOREMAN"
+msgstr "mine foreman"
+
+msgid "BACKGROUND_NPC_ROLE_MINER"
+msgstr "miner"
+
+msgid "BACKGROUND_NPC_ROLE_ORE_APPRAISER"
+msgstr "ore appraiser"
+
+msgid "BACKGROUND_NPC_ROLE_MOUNTAIN_PEDDLER"
+msgstr "mountain peddler"
+
+msgid "BACKGROUND_NPC_ROLE_GINSENG_GATHERER"
+msgstr "ginseng gatherer"
+
+msgid "BACKGROUND_NPC_ROLE_LUMBERJACK"
+msgstr "lumberjack"
+
+msgid "BACKGROUND_NPC_ROLE_BEAST_KEEPER"
+msgstr "spirit beast keeper"
+
+msgid "BACKGROUND_NPC_ROLE_FORGE_ARTISAN"
+msgstr "forge artisan"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_COOK"
+msgstr "sect cook"
+
+msgid "BACKGROUND_NPC_ROLE_SWEEPER_CHILD"
+msgstr "sweeper child"
+
+msgid "BACKGROUND_NPC_ROLE_VASSAL_STEWARD"
+msgstr "vassal steward"
+
+msgid "BACKGROUND_NPC_ROLE_LETTER_SERVANT"
+msgstr "letter servant"

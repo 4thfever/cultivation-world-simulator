@@ -1,0 +1,189 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "BACKGROUND_NPC_ROLE_HERB_VENDOR"
+msgstr "marchand d'herbes"
+
+msgid "BACKGROUND_NPC_ROLE_STORYTELLER"
+msgstr "conteur de maison de the"
+
+msgid "BACKGROUND_NPC_ROLE_PATROL_RUNNER"
+msgstr "patrouilleur des rues"
+
+msgid "BACKGROUND_NPC_ROLE_TIDE_GUIDE"
+msgstr "guide des marees"
+
+msgid "BACKGROUND_NPC_ROLE_DOCK_LABORER"
+msgstr "portefaix du quai"
+
+msgid "BACKGROUND_NPC_ROLE_MOUNTAIN_GUARD"
+msgstr "garde du col"
+
+msgid "BACKGROUND_NPC_ROLE_MINE_SURVIVOR"
+msgstr "survivant de mine"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_GATE_CHILD"
+msgstr "enfant du portail de secte"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_ERRAND_SERVANT"
+msgstr "serviteur externe"
+
+msgid "BACKGROUND_NPC_ROLE_YAMEN_CLERK"
+msgstr "clerc du yamen"
+
+msgid "BACKGROUND_NPC_ROLE_GRAIN_KEEPER"
+msgstr "intendant du grenier"
+
+msgid "BACKGROUND_NPC_ROLE_BLACK_MARKET_BROKER"
+msgstr "courtier du marche noir"
+
+msgid "BACKGROUND_NPC_ROLE_APPRAISER"
+msgstr "expert de marchandises"
+
+msgid "BACKGROUND_NPC_ROLE_MEDICINE_ASSISTANT"
+msgstr "assistant de pharmacie"
+
+msgid "BACKGROUND_NPC_ROLE_TEA_SHED_ELDER"
+msgstr "ancien du kiosque a the"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_FIELD_FARMER"
+msgstr "paysan des champs de secte"
+
+msgid "BACKGROUND_NPC_ROLE_ALCHEMY_FIREWORKER"
+msgstr "chauffeur de salle alchimique"
+
+msgid "BACKGROUND_NPC_ROLE_SCRIPTURE_COPYIST"
+msgstr "copiste des scriptures"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_TENANT"
+msgstr "fermier tenancier de secte"
+
+msgid "BACKGROUND_NPC_ROLE_IMMORTAL_SEEKING_PARENT"
+msgstr "parent en quete d'immortalite"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_BUYER"
+msgstr "acheteur de secte"
+
+msgid "BACKGROUND_NPC_ROLE_HUNTER"
+msgstr "chasseur"
+
+msgid "BACKGROUND_NPC_ROLE_HERB_GATHERER"
+msgstr "cueilleur d'herbes"
+
+msgid "BACKGROUND_NPC_ROLE_FERRYMAN"
+msgstr "passeur"
+
+msgid "BACKGROUND_NPC_ROLE_CARAVAN_MERCHANT"
+msgstr "marchand voyageur"
+
+msgid "BACKGROUND_NPC_ROLE_POSTAL_COURIER"
+msgstr "courrier de relais"
+
+msgid "BACKGROUND_NPC_ROLE_INNKEEPER"
+msgstr "aubergiste"
+
+msgid "BACKGROUND_NPC_ROLE_BLACKSMITH"
+msgstr "forgeron"
+
+msgid "BACKGROUND_NPC_ROLE_ARTIFACT_SHOPKEEPER"
+msgstr "marchand d'artefacts"
+
+msgid "BACKGROUND_NPC_ROLE_WEAPON_SHOPKEEPER"
+msgstr "armurier"
+
+msgid "BACKGROUND_NPC_ROLE_PAWNSHOP_CLERK"
+msgstr "expert du mont-de-piete"
+
+msgid "BACKGROUND_NPC_ROLE_TAX_COLLECTOR"
+msgstr "collecteur d'impots"
+
+msgid "BACKGROUND_NPC_ROLE_CONSTABLE"
+msgstr "agent de justice"
+
+msgid "BACKGROUND_NPC_ROLE_NIGHT_WATCHMAN"
+msgstr "veilleur de nuit"
+
+msgid "BACKGROUND_NPC_ROLE_HOUSEHOLD_CLERK"
+msgstr "greffier des foyers"
+
+msgid "BACKGROUND_NPC_ROLE_NOTICE_CRIER"
+msgstr "crieur d'avis"
+
+msgid "BACKGROUND_NPC_ROLE_RELIEF_OFFICER"
+msgstr "officier de secours"
+
+msgid "BACKGROUND_NPC_ROLE_GOVERNMENT_GATEKEEPER"
+msgstr "portier du yamen"
+
+msgid "BACKGROUND_NPC_ROLE_IMPERIAL_COURIER"
+msgstr "courrier imperial"
+
+msgid "BACKGROUND_NPC_ROLE_PALACE_ATTENDANT"
+msgstr "serviteur du palais"
+
+msgid "BACKGROUND_NPC_ROLE_CENSOR_RETAINER"
+msgstr "suite du censeur"
+
+msgid "BACKGROUND_NPC_ROLE_SHIPWRIGHT"
+msgstr "charpentier naval"
+
+msgid "BACKGROUND_NPC_ROLE_SALT_STEWARD"
+msgstr "intendant du sel"
+
+msgid "BACKGROUND_NPC_ROLE_FISHERMAN"
+msgstr "pecheur"
+
+msgid "BACKGROUND_NPC_ROLE_PEARL_DIVER"
+msgstr "plongeur de perles"
+
+msgid "BACKGROUND_NPC_ROLE_CHART_PEDDLER"
+msgstr "vendeur de cartes marines"
+
+msgid "BACKGROUND_NPC_ROLE_PORT_TAX_COLLECTOR"
+msgstr "taxateur du port"
+
+msgid "BACKGROUND_NPC_ROLE_SHIP_CAPTAIN"
+msgstr "capitaine de navire"
+
+msgid "BACKGROUND_NPC_ROLE_POST_STATION_MASTER"
+msgstr "maitre de relais"
+
+msgid "BACKGROUND_NPC_ROLE_MINE_FOREMAN"
+msgstr "contremaitre de mine"
+
+msgid "BACKGROUND_NPC_ROLE_MINER"
+msgstr "mineur"
+
+msgid "BACKGROUND_NPC_ROLE_ORE_APPRAISER"
+msgstr "expert en minerai"
+
+msgid "BACKGROUND_NPC_ROLE_MOUNTAIN_PEDDLER"
+msgstr "colporteur montagnard"
+
+msgid "BACKGROUND_NPC_ROLE_GINSENG_GATHERER"
+msgstr "cueilleur de ginseng"
+
+msgid "BACKGROUND_NPC_ROLE_LUMBERJACK"
+msgstr "bucheron"
+
+msgid "BACKGROUND_NPC_ROLE_BEAST_KEEPER"
+msgstr "gardien de betes spirituelles"
+
+msgid "BACKGROUND_NPC_ROLE_FORGE_ARTISAN"
+msgstr "artisan de forge rituelle"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_COOK"
+msgstr "cuisinier de secte"
+
+msgid "BACKGROUND_NPC_ROLE_SWEEPER_CHILD"
+msgstr "jeune balayeur"
+
+msgid "BACKGROUND_NPC_ROLE_VASSAL_STEWARD"
+msgstr "intendant vassal"
+
+msgid "BACKGROUND_NPC_ROLE_LETTER_SERVANT"
+msgstr "serviteur messager"

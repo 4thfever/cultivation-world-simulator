@@ -1,0 +1,300 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "BACKGROUND_NPC_EVENT_HERB_VENDOR_MARKET_ARGUMENT"
+msgstr "{region_name}中，药材商和采药人为一捆草药年份争执半日，药铺伙计请来掌柜验货，围观的人群才慢慢散去。"
+
+msgid "BACKGROUND_NPC_EVENT_STORYTELLER_RUMOR_TEAHOUSE"
+msgstr "{region_name}的茶馆里，说书人声称东海有仙府出世，听客喝彩，账房却只记下多卖了三壶茶。"
+
+msgid "BACKGROUND_NPC_EVENT_PATROL_RUNNER_CITY_ORDER"
+msgstr "{region_name}巷口，巡街差役停了片刻，等两个修士走远后，才敢催促围观百姓散开。"
+
+msgid "BACKGROUND_NPC_EVENT_TIDE_GUIDE_WARNS_TIDE"
+msgstr "{region_name}潮声忽急，潮汐引路人劝几艘小船暂缓出海，船老大只抬头看了看云色。"
+
+msgid "BACKGROUND_NPC_EVENT_DOCK_LABORER_NIGHT_CARGO"
+msgstr "{region_name}夜潮初涨，几个码头脚夫把湿透的海兽皮拖进盐仓，账房算盘声混在潮声里。"
+
+msgid "BACKGROUND_NPC_EVENT_MOUNTAIN_GUARD_WATCHES_CLOUD"
+msgstr "{region_name}的山口守卒发现关墙上多了一道焦痕，抬头望向云雾深处，却没有把这事写进值夜簿。"
+
+msgid "BACKGROUND_NPC_EVENT_MINE_SURVIVOR_WHISPERS"
+msgstr "{region_name}茶棚旁，矿洞幸存者低声说深处夜里会传来敲击石壁的声音，听客没人接话。"
+
+msgid "BACKGROUND_NPC_EVENT_SECT_GATE_CHILD_WAITING"
+msgstr "{sect_name}山门外，守童把扫帚靠在石阶旁，看着几户求仙人家从晨雾里慢慢散去。"
+
+msgid "BACKGROUND_NPC_EVENT_YAMEN_CLERK_LATE_RECORDS"
+msgstr "{region_name}衙门书吏连夜重誊案卷，把几处涉及修士的口供轻轻揭过，只在页角添了一个小记。"
+
+msgid "BACKGROUND_NPC_EVENT_BLACK_MARKET_BROKER_HIDDEN_MAP"
+msgstr "{region_name}坊市后巷，黑市掮客把一张残破海图压在袖下，只说图上那处礁影每三十年才露一次。"
+
+msgid "BACKGROUND_NPC_EVENT_MARKET_REACTS_TO_YAO"
+msgstr "{avatar_name}经过{region_name}市集时，几个摊主的吆喝声低了下去，有妇人把孩子往身后拉了拉。"
+
+msgid "BACKGROUND_NPC_EVENT_STORE_REACTS_TO_HIGH_REALM"
+msgstr "{avatar_name}在{region_name}药铺门前停步，掌柜立刻让伙计收起凡药，只把封在玉盒里的灵材摆上柜台。"
+
+msgid "BACKGROUND_NPC_EVENT_YAMEN_REACTS_TO_OFFICIAL"
+msgstr "{avatar_name}入{region_name}后，巡街差役远远行礼，衙门书吏连夜把积压的案卷重新誊了一遍。"
+
+msgid "BACKGROUND_NPC_EVENT_SECT_SERVANT_REACTS_TO_DISCIPLE"
+msgstr "{avatar_name}下山采买时，外门杂役避到石阶旁，等人影过去才继续挑起米袋。"
+
+msgid "BACKGROUND_NPC_EVENT_PATROL_FEARS_EVIL_AVATAR"
+msgstr "{avatar_name}离开{region_name}城巷后，巡街差役在井边站了许久，最后只把那页案册合上。"
+
+msgid "BACKGROUND_NPC_EVENT_HERB_VENDOR_AVATAR_BUY_ECHO"
+msgstr "{avatar_name}在{region_name}挑选灵材时，药铺伙计把柜台擦了又擦，始终不敢催促。"
+
+msgid "BACKGROUND_NPC_EVENT_APPRAISER_AVATAR_SELL_ECHO"
+msgstr "{avatar_name}离开{region_name}寄售行后，鉴货朝奉把那件货物又照了三遍灯，才让账房落笔。"
+
+msgid "BACKGROUND_NPC_EVENT_GRAIN_KEEPER_GOVERN_ECHO"
+msgstr "{avatar_name}处理完{region_name}城中事务后，粮仓管事在账册旁添了一笔，门外排队的人声低了些。"
+
+msgid "BACKGROUND_NPC_EVENT_HEALER_HELP_PEOPLE_ECHO"
+msgstr "{avatar_name}离开{region_name}后，医馆大夫把剩下的止血散送到粥棚，几个流民在廊下低声道谢。"
+
+msgid "BACKGROUND_NPC_EVENT_PATROL_PLUNDER_ECHO"
+msgstr "{avatar_name}离开{region_name}后，城西巷口整夜无人掌灯，巡街差役经过时也放轻了脚步。"
+
+msgid "BACKGROUND_NPC_EVENT_SECT_ERRAND_MISSION_ECHO"
+msgstr "{avatar_name}交付宗门差事后，外门杂役把采买清单重新折好，悄悄松了一口气。"
+
+msgid "BACKGROUND_NPC_EVENT_FERRYMAN_MOVE_REGION_ECHO"
+msgstr "{region_name}渡口边的潮汐引路人望了望水色，提醒{avatar_name}近来夜渡的人少了许多。"
+
+msgid "BACKGROUND_NPC_EVENT_MEDICINE_ASSISTANT_AVATAR_INQUIRY"
+msgstr "{avatar_name}在{region_name}药铺问价，药铺伙计连忙把几味凡药推到一旁，只把尚有灵气的货色摆上案头。"
+
+msgid "BACKGROUND_NPC_EVENT_TEA_SHED_ELDER_AVATAR_PAUSE"
+msgstr "{avatar_name}在{region_name}茶棚前停步，茶棚老人把刚说到一半的仙门轶事咽了回去，改口问要不要添茶。"
+
+msgid "BACKGROUND_NPC_EVENT_MOUNTAIN_GUARD_AVATAR_WARNING"
+msgstr "{avatar_name}路过{region_name}山口，守卒鼓起勇气提醒前方夜里常有怪风，话说完便低头退回关门旁。"
+
+msgid "BACKGROUND_NPC_EVENT_SECT_GATE_CHILD_AVATAR_QUESTION"
+msgstr "{avatar_name}经过{sect_name}山门时，守童小声问是否要向外门递话，问完又立刻把目光垂回石阶。"
+
+msgid "BACKGROUND_NPC_EVENT_SECT_FIELD_FARMER_LEAF_SPOTS"
+msgstr "{sect_name}药田边，药田农夫发现一垄灵草叶尖发黑，赶紧把水桶放下，托人去寻管事。"
+
+msgid "BACKGROUND_NPC_EVENT_ALCHEMY_FIREWORKER_ASHES"
+msgstr "{sect_name}炼丹房后门，火工把一簸箕灰白炉渣筛了又筛，生怕漏掉半点还能回炉的药末。"
+
+msgid "BACKGROUND_NPC_EVENT_SCRIPTURE_COPYIST_WET_PAGES"
+msgstr "{sect_name}藏经阁侧屋，抄书人把受潮的残页摊在竹帘上，压低声音叮嘱童子莫让内门弟子看见。"
+
+msgid "BACKGROUND_NPC_EVENT_SECT_TENANT_GRAIN_CART"
+msgstr "{sect_name}山下佃户推着粮车停在石阶外，管事未到，几个人只敢靠着车辕低声算今年的租谷。"
+
+msgid "BACKGROUND_NPC_EVENT_IMMORTAL_PARENT_WAITS"
+msgstr "{sect_name}山门外，一对求仙父母带着孩子等到日影西斜，守童递来清水，却没有替任何人传话。"
+
+msgid "BACKGROUND_NPC_EVENT_SECT_BUYER_MARKET_LIST"
+msgstr "{sect_name}采买人在山下摊前重核清单，把米粮、炭火和药钵分成三叠，唯独对灵材价格皱了眉。"
+
+msgid "BACKGROUND_NPC_EVENT_SECT_FIELD_FARMER_AVATAR_PATH"
+msgstr "{avatar_name}经过{sect_name}药田小径时，药田农夫停下锄头让到田埂边，等脚步远了才重新俯身拔草。"
+
+msgid "BACKGROUND_NPC_EVENT_SCRIPTURE_COPYIST_AVATAR_SILENCE"
+msgstr "{avatar_name}路过{sect_name}藏经阁侧屋，抄书人立刻收住笔声，等衣袂声远去才敢继续落墨。"
+
+msgid "BACKGROUND_NPC_EVENT_HUNTER_FOREST_SNARE"
+msgstr "{region_name}林边，猎户收起被露水打湿的套索，发现兽蹄印忽然在一块青石前断了。"
+
+msgid "BACKGROUND_NPC_EVENT_HERB_GATHERER_MIST_BASKET"
+msgstr "{region_name}雾气未散，采药人把半篮凡草倒在路边，只留下几片仍带灵光的叶子。"
+
+msgid "BACKGROUND_NPC_EVENT_FERRYMAN_RIVER_ROPE"
+msgstr "{region_name}渡口水声忽低，摆渡人重新系紧缆绳，告诉等船的人今日别问归程。"
+
+msgid "BACKGROUND_NPC_EVENT_CARAVAN_MERCHANT_ROADSIDE_ACCOUNT"
+msgstr "{region_name}路旁，远行商旅把兽骨、盐袋和灵材碎屑分开记账，算盘声敲得很轻。"
+
+msgid "BACKGROUND_NPC_EVENT_POSTAL_COURIER_LATE_SEAL"
+msgstr "{region_name}驿舍灯火未灭，驿卒把一封封泥裂开的急递压在袖中，等城门开锁。"
+
+msgid "BACKGROUND_NPC_EVENT_INNKEEPER_ROOM_SCREEN"
+msgstr "{region_name}客栈里，掌柜让跑堂把最里间的屏风擦净，说近来修士都嫌凡尘气重。"
+
+msgid "BACKGROUND_NPC_EVENT_BLACKSMITH_SPARK_TALISMAN"
+msgstr "{region_name}铁铺炉火溅起青白火星，铁匠停锤看了片刻，才把一张旧符压到砧下。"
+
+msgid "BACKGROUND_NPC_EVENT_ARTIFACT_SHOPKEEPER_SEALED_SHELF"
+msgstr "{region_name}法器铺掌柜给最上层货架重新贴封条，低声叮嘱伙计别让凡客乱碰。"
+
+msgid "BACKGROUND_NPC_EVENT_PAWNSHOP_CLERK_OLD_TOKEN"
+msgstr "{region_name}当铺朝奉在旧匣底摸出半枚玉牌，看清残纹后，立刻把账册合上。"
+
+msgid "BACKGROUND_NPC_EVENT_TAX_COLLECTOR_DAWN_SCALES"
+msgstr "{region_name}晨鼓刚响，税吏把铜秤摆到城门旁，先称米袋，再悄悄称一包灵砂。"
+
+msgid "BACKGROUND_NPC_EVENT_CONSTABLE_CASE_THREAD"
+msgstr "{region_name}捕快在案桌前把几根红线重新挪位，绕开了所有写着修士姓名的木牌。"
+
+msgid "BACKGROUND_NPC_EVENT_NIGHT_WATCHMAN_THIRD_WATCH"
+msgstr "{region_name}三更梆声过后，更夫在巷口停住，听见瓦上有衣袂声，却没敢抬头。"
+
+msgid "BACKGROUND_NPC_EVENT_HOUSEHOLD_CLERK_RED_INK"
+msgstr "{region_name}户籍小吏用朱墨圈出几户迁走的人家，旁边另写“疑随仙门”。"
+
+msgid "BACKGROUND_NPC_EVENT_NOTICE_CRIER_NEW_EDICT"
+msgstr "{region_name}布告官把朝廷新榜贴到墙上，念到供奉仙门四字时，声音不自觉低了些。"
+
+msgid "BACKGROUND_NPC_EVENT_IMPERIAL_COURIER_DUSTY_CASE"
+msgstr "{region_name}驿传官拍去文匣上的尘土，只把最急的一封送入府衙，余下的仍扣在鞍后。"
+
+msgid "BACKGROUND_NPC_EVENT_PALACE_ATTENDANT_OUTER_RUMOR"
+msgstr "{region_name}茶楼后座，宫门内侍只说京中换了几处香案，听客便各自闭了嘴。"
+
+msgid "BACKGROUND_NPC_EVENT_CENSOR_RETAINER_QUIET_INQUIRY"
+msgstr "{region_name}巷尾，御史随员向茶博士打听近月修士过境之事，问完只留下一枚冷硬铜钱。"
+
+msgid "BACKGROUND_NPC_EVENT_SHIPWRIGHT_KEEL_MARK"
+msgstr "{region_name}船坞里，匠人发现新龙骨上多出一道细细水纹，便让学徒暂缓下钉。"
+
+msgid "BACKGROUND_NPC_EVENT_SALT_STEWARD_WET_LEDGER"
+msgstr "{region_name}盐仓管事翻开受潮账册，把几船盐货的亏耗都记成了“潮损”。"
+
+msgid "BACKGROUND_NPC_EVENT_FISHERMAN_RED_TIDE_NET"
+msgstr "{region_name}外港渔民收起染红的网，没敢把网底那片发亮鱼鳞带回家。"
+
+msgid "BACKGROUND_NPC_EVENT_PEARL_DIVER_SHELL_WHISPER"
+msgstr "{region_name}采珠人把一枚空贝贴到耳边，听见里面像有人隔水念经，脸色顿时白了。"
+
+msgid "BACKGROUND_NPC_EVENT_CHART_PEDDLER_HIDDEN_REEF"
+msgstr "{region_name}海图贩子把暗礁位置又描深一笔，却对问价的人说那片水路最好忘了。"
+
+msgid "BACKGROUND_NPC_EVENT_PORT_TAX_COLLECTOR_CARGO_MARK"
+msgstr "{region_name}港口税吏在货箱角上盖下红印，看到箱缝里漏出灵光，便又添了一道封条。"
+
+msgid "BACKGROUND_NPC_EVENT_SHIP_CAPTAIN_STORM_OATH"
+msgstr "{region_name}船老大把酒洒进海里，发誓今夜不追那道逆潮，水手们没人反对。"
+
+msgid "BACKGROUND_NPC_EVENT_POST_STATION_MASTER_TIRED_HORSE"
+msgstr "{region_name}驿丞摸着驿马汗湿的鬃毛，把下一程牌子翻了个面，示意再等半个时辰。"
+
+msgid "BACKGROUND_NPC_EVENT_MINE_FOREMAN_CRACKED_BEAM"
+msgstr "{region_name}矿队管事发现支梁裂出新缝，命苦工先撤半步，自己却把裂痕用泥抹平。"
+
+msgid "BACKGROUND_NPC_EVENT_MINER_LAMP_CIRCLE"
+msgstr "{region_name}矿洞口，几个采矿苦工围着一盏快灭的灯坐着，谁也不愿先说下面听见了什么。"
+
+msgid "BACKGROUND_NPC_EVENT_ORE_APPRAISER_BLUE_VEIN"
+msgstr "{region_name}矿石鉴货人把一块青纹矿敲开半寸，看见蓝光一闪，立刻把价钱压低。"
+
+msgid "BACKGROUND_NPC_EVENT_MOUNTAIN_PEDDLER_PASS_PRICE"
+msgstr "{region_name}山货脚商把干菌和兽筋摆成两堆，听说前路有修士斗法后，又默默加了一成价。"
+
+msgid "BACKGROUND_NPC_EVENT_GINSENG_GATHERER_OLD_ROOT"
+msgstr "{region_name}采参人从土里刨出一截老根，见根须像小手蜷起，赶紧又埋回半寸。"
+
+msgid "BACKGROUND_NPC_EVENT_BEAST_KEEPER_RESTLESS_CAGES"
+msgstr "{sect_name}灵兽园里，饲养人听见几只幼兽同时低鸣，便把夜间巡栏的木牌多挂了一块。"
+
+msgid "BACKGROUND_NPC_EVENT_FORGE_ARTISAN_COLD_ANVIL"
+msgstr "{sect_name}炼器坊内，匠人发现砧面无故结霜，只好把半成的剑胚暂时收进铁匣。"
+
+msgid "BACKGROUND_NPC_EVENT_SECT_COOK_LATE_RICE"
+msgstr "{sect_name}后厨饭甑迟迟不开，厨役数了三遍木牌，才发现多出一份没人认领的斋饭。"
+
+msgid "BACKGROUND_NPC_EVENT_SWEEPER_CHILD_FALLEN_TALISMAN"
+msgstr "{sect_name}石阶下，洒扫童子捡到一角烧焦的符纸，想了想，还是夹进扫帚柄缝里。"
+
+msgid "BACKGROUND_NPC_EVENT_VASSAL_STEWARD_GIFT_BOXES"
+msgstr "{sect_name}山门外，附庸家族管事把礼盒重新排成两列，最贵的一只始终不敢放到最前。"
+
+msgid "BACKGROUND_NPC_EVENT_LETTER_SERVANT_RAIN_MESSAGE"
+msgstr "{sect_name}山雨正急，送信仆役把湿透的竹筒抱在怀里，等值守弟子点头才敢上阶。"
+
+msgid "BACKGROUND_NPC_EVENT_INNKEEPER_AVATAR_ROOM"
+msgstr "{avatar_name}在{region_name}投宿时，客栈掌柜亲自换了净被，又把隔壁凡客悄悄调到楼下。"
+
+msgid "BACKGROUND_NPC_EVENT_BLACKSMITH_AVATAR_WEAPON_GLANCE"
+msgstr "{avatar_name}经过{region_name}铁铺，铁匠看见其兵刃上的灵光，立刻把炉边学徒往后拉了半步。"
+
+msgid "BACKGROUND_NPC_EVENT_ARTIFACT_SHOPKEEPER_AVATAR_BOW"
+msgstr "{avatar_name}踏入{region_name}法器铺时，掌柜绕出柜台行礼，连最会喊价的伙计也安静下来。"
+
+msgid "BACKGROUND_NPC_EVENT_TAX_COLLECTOR_AVATAR_SEAL"
+msgstr "{avatar_name}过{region_name}税卡时，税吏只看了一眼官印，便把待查货册压到最底下。"
+
+msgid "BACKGROUND_NPC_EVENT_CONSTABLE_AVATAR_EVIL_CASE"
+msgstr "{avatar_name}经过{region_name}案房外，捕快把未干的供词倒扣在桌上，装作只是在磨墨。"
+
+msgid "BACKGROUND_NPC_EVENT_POSTAL_COURIER_AVATAR_ROAD"
+msgstr "{avatar_name}行过{region_name}驿道，驿卒把马牵到路旁，等尘土落定才敢重新上鞍。"
+
+msgid "BACKGROUND_NPC_EVENT_SHIP_CAPTAIN_AVATAR_BOARD"
+msgstr "{avatar_name}登上{region_name}渡船时，船老大亲自收起跳板，提醒水手别问客人去处。"
+
+msgid "BACKGROUND_NPC_EVENT_PEARL_DIVER_AVATAR_TIDE"
+msgstr "{avatar_name}停在{region_name}潮线旁，采珠人立刻退开，把刚捞出的贝篓藏到礁石后。"
+
+msgid "BACKGROUND_NPC_EVENT_MINE_FOREMAN_AVATAR_TUNNEL"
+msgstr "{avatar_name}靠近{region_name}矿道时，矿队管事挥手让苦工退到墙边，连咳嗽声都压住了。"
+
+msgid "BACKGROUND_NPC_EVENT_MOUNTAIN_PEDDLER_AVATAR_GOODS"
+msgstr "{avatar_name}在{region_name}山货摊前停步，脚商立刻把凡货往后推，只留下几件带灵气的小物。"
+
+msgid "BACKGROUND_NPC_EVENT_BEAST_KEEPER_AVATAR_HUSH"
+msgstr "{avatar_name}走过{sect_name}灵兽栏外，饲养人连忙做了个噤声手势，生怕幼兽受惊乱鸣。"
+
+msgid "BACKGROUND_NPC_EVENT_FORGE_ARTISAN_AVATAR_PAUSE"
+msgstr "{avatar_name}路过{sect_name}炼器坊时，匠人停住锤声，把烧红的器胚慢慢沉入冷泉。"
+
+msgid "BACKGROUND_NPC_EVENT_SECT_COOK_AVATAR_EXTRA_BOWL"
+msgstr "{avatar_name}经过{sect_name}后厨门口，厨役默默多盛了一碗灵米粥，却不敢开口相请。"
+
+msgid "BACKGROUND_NPC_EVENT_SWEEPER_CHILD_AVATAR_BROOM"
+msgstr "{avatar_name}踏上{sect_name}石阶时，洒扫童子把扫帚横抱在怀里，低头让出正中道路。"
+
+msgid "BACKGROUND_NPC_EVENT_RELIEF_OFFICER_HELP_PEOPLE_ECHO"
+msgstr "{avatar_name}救济过{region_name}百姓后，赈灾官把粥棚名册重新誊写，特意空出最前一行。"
+
+msgid "BACKGROUND_NPC_EVENT_WEAPON_SHOPKEEPER_BUY_ECHO"
+msgstr "{avatar_name}在{region_name}买下兵器后，铺主把剩下的刀剑重新挂齐，半日都没再高声揽客。"
+
+msgid "BACKGROUND_NPC_EVENT_PAWNSHOP_SELL_ECHO"
+msgstr "{avatar_name}离开{region_name}当铺后，朝奉把收来的物件锁进内柜，又让账房少写两笔来历。"
+
+msgid "BACKGROUND_NPC_EVENT_BLACKSMITH_REFINE_ECHO"
+msgstr "{avatar_name}在{region_name}淬炼器物后，铁匠捡起地上几粒冷灰，发现指尖竟有些发麻。"
+
+msgid "BACKGROUND_NPC_EVENT_ARTIFACT_SHOPKEEPER_CAST_ECHO"
+msgstr "{avatar_name}施展法术离开{region_name}后，法器铺掌柜把门帘放下，逐件检查柜中小器。"
+
+msgid "BACKGROUND_NPC_EVENT_HUNTER_HUNT_ECHO"
+msgstr "{avatar_name}在{region_name}狩猎后，猎户沿着断枝走了几步，最后只把旧陷阱全部拆掉。"
+
+msgid "BACKGROUND_NPC_EVENT_HERB_GATHERER_HARVEST_ECHO"
+msgstr "{avatar_name}在{region_name}采收之后，采药人蹲在空地边数了半晌，只敢摘走几株凡草。"
+
+msgid "BACKGROUND_NPC_EVENT_MINER_MINE_ECHO"
+msgstr "{avatar_name}离开{region_name}矿脉后，采矿苦工把新露出的矿纹用布盖住，等管事来验。"
+
+msgid "BACKGROUND_NPC_EVENT_INNKEEPER_REST_ECHO"
+msgstr "{avatar_name}在{region_name}歇息一夜后，客栈掌柜把那间房空了三日，只每日换一炉清香。"
+
+msgid "BACKGROUND_NPC_EVENT_POST_STATION_MOVE_ECHO"
+msgstr "{avatar_name}离开{region_name}驿站后，驿丞把下一程路牌擦干净，默默改了夜行时辰。"
+
+msgid "BACKGROUND_NPC_EVENT_BEAST_KEEPER_SECT_MISSION_ECHO"
+msgstr "{avatar_name}完成宗门差事后，灵兽园饲养人把空笼重新上锁，低声数了一遍幼兽。"
+
+msgid "BACKGROUND_NPC_EVENT_FORGE_ARTISAN_SECT_MISSION_ECHO"
+msgstr "{avatar_name}交回宗门任务后，炼器坊匠人把剩下的边角料收成一包，写上“待复验”。"
+
+msgid "BACKGROUND_NPC_EVENT_CENSOR_RETAINER_GOVERN_ECHO"
+msgstr "{avatar_name}处置完{region_name}政务后，御史随员把旁听札记折成两半，只把前半递入府衙。"
+
+msgid "BACKGROUND_NPC_EVENT_NIGHT_WATCHMAN_PLUNDER_ECHO"
+msgstr "{avatar_name}离开{region_name}夜巷后，更夫把梆子夹在腋下，整晚都没有再报平安。"

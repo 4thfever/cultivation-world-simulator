@@ -87,6 +87,10 @@ async def random_minor_events(simulator, ctx):
     ctx.add_events(await world_phases.phase_random_minor_events(simulator.world, ctx.living_avatars))
 
 
+def background_npc_events(simulator, ctx):
+    ctx.add_events(world_phases.phase_background_npc_events(simulator.world, ctx.living_avatars))
+
+
 async def sect_random_event(simulator, ctx):
     ctx.add_events(await world_phases.phase_sect_random_event(simulator.world))
 
@@ -142,16 +146,17 @@ SIMULATION_PHASES: tuple[SimulationPhase, ...] = (
     SimulationPhase("passive_effects", 15, "passive_effects", passive_effects),
     SimulationPhase("autonomous_custom_creation", 16, "autonomous_custom_creation", autonomous_custom_creation),
     SimulationPhase("random_minor_events", 17, "random_minor_events", random_minor_events),
-    SimulationPhase("sect_random_event", 18, "sect_random_event", sect_random_event),
-    SimulationPhase("sect_wars", 19, "sect_wars", sect_wars),
-    SimulationPhase("nickname_generation", 20, "nickname_generation", nickname_generation),
-    SimulationPhase("update_celestial_phenomenon", 21, "update_celestial_phenomenon", update_celestial_phenomenon),
-    SimulationPhase("update_city_population", 22, "update_city_population", update_city_population),
-    SimulationPhase("update_dynasty_and_officials", 23, "update_dynasty_and_officials", update_dynasty_and_officials),
-    SimulationPhase("handle_interactions_second", 24, "handle_interactions", handle_interactions),
-    SimulationPhase("update_calculated_relations", 25, "update_calculated_relations", update_calculated_relations),
-    SimulationPhase("annual_maintenance", 26, "annual_maintenance", annual_maintenance),
-    SimulationPhase("finalize_step", 27, "finalize_step", finalize_step_phase, reset_check_after=False),
+    SimulationPhase("background_npc_events", 18, "background_npc_events", background_npc_events),
+    SimulationPhase("sect_random_event", 19, "sect_random_event", sect_random_event),
+    SimulationPhase("sect_wars", 20, "sect_wars", sect_wars),
+    SimulationPhase("nickname_generation", 21, "nickname_generation", nickname_generation),
+    SimulationPhase("update_celestial_phenomenon", 22, "update_celestial_phenomenon", update_celestial_phenomenon),
+    SimulationPhase("update_city_population", 23, "update_city_population", update_city_population),
+    SimulationPhase("update_dynasty_and_officials", 24, "update_dynasty_and_officials", update_dynasty_and_officials),
+    SimulationPhase("handle_interactions_second", 25, "handle_interactions", handle_interactions),
+    SimulationPhase("update_calculated_relations", 26, "update_calculated_relations", update_calculated_relations),
+    SimulationPhase("annual_maintenance", 27, "annual_maintenance", annual_maintenance),
+    SimulationPhase("finalize_step", 28, "finalize_step", finalize_step_phase, reset_check_after=False),
 )
 
 

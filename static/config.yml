@@ -61,7 +61,7 @@ world:
   fortune_probability: 0.005
   misfortune_probability: 0.005
   opportunity:
-    probability: 0.1
+    probability: 0.01
     duration_months: 60
     cooldown_months_after_dissipated: 12
     cooldown_months_after_resolved: 60
@@ -75,8 +75,16 @@ world:
       boon: 35
       empty: 20
       injury: 10
-  fate_revelation_probability: 0.1
+  fate_revelation_probability: 0.005
   random_minor_event_prob: 0.05
+  background_npc:
+    enabled: true
+    region_tick_prob: 0.25
+    avatar_witness_prob: 0.03
+    action_echo_prob: 0.15
+    max_region_tick_per_month: 1
+    max_avatar_witness_per_month: 2
+    max_action_echo_per_month: 2
   birth_rate_per_month: 0.005
   max_children_per_couple: 2
   max_action_rounds_per_turn: 3

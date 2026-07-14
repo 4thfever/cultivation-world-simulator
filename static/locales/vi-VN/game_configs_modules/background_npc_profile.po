@@ -1,0 +1,189 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "BACKGROUND_NPC_ROLE_HERB_VENDOR"
+msgstr "thương lái dược liệu"
+
+msgid "BACKGROUND_NPC_ROLE_STORYTELLER"
+msgstr "người kể chuyện quán trà"
+
+msgid "BACKGROUND_NPC_ROLE_PATROL_RUNNER"
+msgstr "sai dịch tuần phố"
+
+msgid "BACKGROUND_NPC_ROLE_TIDE_GUIDE"
+msgstr "người dẫn thủy triều"
+
+msgid "BACKGROUND_NPC_ROLE_DOCK_LABORER"
+msgstr "phu bến cảng"
+
+msgid "BACKGROUND_NPC_ROLE_MOUNTAIN_GUARD"
+msgstr "lính giữ cửa núi"
+
+msgid "BACKGROUND_NPC_ROLE_MINE_SURVIVOR"
+msgstr "người sống sót hầm mỏ"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_GATE_CHILD"
+msgstr "đồng tử giữ sơn môn"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_ERRAND_SERVANT"
+msgstr "tạp dịch ngoại môn"
+
+msgid "BACKGROUND_NPC_ROLE_YAMEN_CLERK"
+msgstr "thư lại nha môn"
+
+msgid "BACKGROUND_NPC_ROLE_GRAIN_KEEPER"
+msgstr "quản sự kho lương"
+
+msgid "BACKGROUND_NPC_ROLE_BLACK_MARKET_BROKER"
+msgstr "môi giới chợ đen"
+
+msgid "BACKGROUND_NPC_ROLE_APPRAISER"
+msgstr "người giám hàng"
+
+msgid "BACKGROUND_NPC_ROLE_MEDICINE_ASSISTANT"
+msgstr "伙计 hiệu thuốc"
+
+msgid "BACKGROUND_NPC_ROLE_TEA_SHED_ELDER"
+msgstr "ông lão quán trà"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_FIELD_FARMER"
+msgstr "nông phu ruộng thuốc"
+
+msgid "BACKGROUND_NPC_ROLE_ALCHEMY_FIREWORKER"
+msgstr "hỏa công phòng luyện đan"
+
+msgid "BACKGROUND_NPC_ROLE_SCRIPTURE_COPYIST"
+msgstr "người chép kinh các"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_TENANT"
+msgstr "tá điền chân núi"
+
+msgid "BACKGROUND_NPC_ROLE_IMMORTAL_SEEKING_PARENT"
+msgstr "cha mẹ cầu tiên"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_BUYER"
+msgstr "người thu mua của tông môn"
+
+msgid "BACKGROUND_NPC_ROLE_HUNTER"
+msgstr "thợ săn"
+
+msgid "BACKGROUND_NPC_ROLE_HERB_GATHERER"
+msgstr "người hái thuốc"
+
+msgid "BACKGROUND_NPC_ROLE_FERRYMAN"
+msgstr "người lái đò"
+
+msgid "BACKGROUND_NPC_ROLE_CARAVAN_MERCHANT"
+msgstr "thương lữ đường xa"
+
+msgid "BACKGROUND_NPC_ROLE_POSTAL_COURIER"
+msgstr "trạm tốt"
+
+msgid "BACKGROUND_NPC_ROLE_INNKEEPER"
+msgstr "chủ quán trọ"
+
+msgid "BACKGROUND_NPC_ROLE_BLACKSMITH"
+msgstr "thợ rèn"
+
+msgid "BACKGROUND_NPC_ROLE_ARTIFACT_SHOPKEEPER"
+msgstr "chủ tiệm pháp khí"
+
+msgid "BACKGROUND_NPC_ROLE_WEAPON_SHOPKEEPER"
+msgstr "chủ tiệm binh khí"
+
+msgid "BACKGROUND_NPC_ROLE_PAWNSHOP_CLERK"
+msgstr "người định giá tiệm cầm đồ"
+
+msgid "BACKGROUND_NPC_ROLE_TAX_COLLECTOR"
+msgstr "thuế lại"
+
+msgid "BACKGROUND_NPC_ROLE_CONSTABLE"
+msgstr "bổ khoái"
+
+msgid "BACKGROUND_NPC_ROLE_NIGHT_WATCHMAN"
+msgstr "người gõ canh"
+
+msgid "BACKGROUND_NPC_ROLE_HOUSEHOLD_CLERK"
+msgstr "tiểu lại hộ tịch"
+
+msgid "BACKGROUND_NPC_ROLE_NOTICE_CRIER"
+msgstr "quan rao bảng"
+
+msgid "BACKGROUND_NPC_ROLE_RELIEF_OFFICER"
+msgstr "quan cứu tế"
+
+msgid "BACKGROUND_NPC_ROLE_GOVERNMENT_GATEKEEPER"
+msgstr "môn lại nha phủ"
+
+msgid "BACKGROUND_NPC_ROLE_IMPERIAL_COURIER"
+msgstr "quan dịch truyền"
+
+msgid "BACKGROUND_NPC_ROLE_PALACE_ATTENDANT"
+msgstr "nội thị cửa cung"
+
+msgid "BACKGROUND_NPC_ROLE_CENSOR_RETAINER"
+msgstr "tùy viên Ngự sử"
+
+msgid "BACKGROUND_NPC_ROLE_SHIPWRIGHT"
+msgstr "thợ đóng thuyền"
+
+msgid "BACKGROUND_NPC_ROLE_SALT_STEWARD"
+msgstr "quản sự kho muối"
+
+msgid "BACKGROUND_NPC_ROLE_FISHERMAN"
+msgstr "ngư dân"
+
+msgid "BACKGROUND_NPC_ROLE_PEARL_DIVER"
+msgstr "người mò ngọc"
+
+msgid "BACKGROUND_NPC_ROLE_CHART_PEDDLER"
+msgstr "người bán hải đồ"
+
+msgid "BACKGROUND_NPC_ROLE_PORT_TAX_COLLECTOR"
+msgstr "thuế lại bến cảng"
+
+msgid "BACKGROUND_NPC_ROLE_SHIP_CAPTAIN"
+msgstr "thuyền lão đại"
+
+msgid "BACKGROUND_NPC_ROLE_POST_STATION_MASTER"
+msgstr "dịch thừa"
+
+msgid "BACKGROUND_NPC_ROLE_MINE_FOREMAN"
+msgstr "quản sự đội mỏ"
+
+msgid "BACKGROUND_NPC_ROLE_MINER"
+msgstr "phu mỏ"
+
+msgid "BACKGROUND_NPC_ROLE_ORE_APPRAISER"
+msgstr "người giám định quặng"
+
+msgid "BACKGROUND_NPC_ROLE_MOUNTAIN_PEDDLER"
+msgstr "lái buôn sơn hóa"
+
+msgid "BACKGROUND_NPC_ROLE_GINSENG_GATHERER"
+msgstr "người hái sâm"
+
+msgid "BACKGROUND_NPC_ROLE_LUMBERJACK"
+msgstr "tiều phu"
+
+msgid "BACKGROUND_NPC_ROLE_BEAST_KEEPER"
+msgstr "người nuôi linh thú"
+
+msgid "BACKGROUND_NPC_ROLE_FORGE_ARTISAN"
+msgstr "thợ phường luyện khí"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_COOK"
+msgstr "tạp dịch nhà bếp tông môn"
+
+msgid "BACKGROUND_NPC_ROLE_SWEEPER_CHILD"
+msgstr "đồng tử quét dọn"
+
+msgid "BACKGROUND_NPC_ROLE_VASSAL_STEWARD"
+msgstr "quản sự gia tộc phụ dung"
+
+msgid "BACKGROUND_NPC_ROLE_LETTER_SERVANT"
+msgstr "người hầu đưa thư"

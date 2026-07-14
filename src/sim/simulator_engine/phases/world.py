@@ -14,6 +14,7 @@ from src.systems.opportunity import phase_check_opportunities, phase_generate_op
 from src.systems.world_secret import phase_world_secret_discovery
 from src.systems.fate_revelation import try_trigger_fate_revelation
 from src.systems.random_minor_event import try_trigger_random_minor_event
+from src.systems.background_npc import try_trigger_background_npc_events
 from src.systems.sect_random_event import try_trigger_sect_random_event
 from src.systems.time import Month
 from src.systems.dynasty_generator import generate_emperor
@@ -116,6 +117,10 @@ async def phase_random_minor_events(world, living_avatars: list[Avatar]) -> list
         *[try_trigger_random_minor_event(avatar, world) for avatar in target_avatars]
     )
     return [event for result in results for event in result]
+
+
+def phase_background_npc_events(world, living_avatars: list[Avatar]) -> list[Event]:
+    return try_trigger_background_npc_events(world, living_avatars)
 
 
 async def phase_autonomous_custom_creation(world, living_avatars: list[Avatar]) -> list[Event]:

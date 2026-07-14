@@ -142,6 +142,24 @@ class ActionMixin:
                 # 允许 finish 直接返回事件（极少用），统一并入 pending
                 for e in finish_events:
                     self._pending_events.append(e)
+            try:
+                from src.systems.background_npc import try_trigger_background_npc_action_echo
+
+                action_echo_events = try_trigger_background_npc_action_echo(
+                    self.world,
+                    self,
+                    action.__class__.__name__,
+                )
+                for event in action_echo_events:
+                    self._pending_events.append(event)
+            except Exception as exc:
+                get_logger().logger.warning(
+                    "背景板NPC动作回声生成失败: Avatar(name=%s,id=%s) action=%s reason=%s",
+                    self.name,
+                    self.id,
+                    action.__class__.__name__,
+                    exc,
+                )
                     
         # 合并动作返回的事件（通常为空）
         if result.events:

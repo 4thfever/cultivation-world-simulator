@@ -1,0 +1,189 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "BACKGROUND_NPC_ROLE_HERB_VENDOR"
+msgstr "藥材商"
+
+msgid "BACKGROUND_NPC_ROLE_STORYTELLER"
+msgstr "茶館說書人"
+
+msgid "BACKGROUND_NPC_ROLE_PATROL_RUNNER"
+msgstr "巡街差役"
+
+msgid "BACKGROUND_NPC_ROLE_TIDE_GUIDE"
+msgstr "潮汐引路人"
+
+msgid "BACKGROUND_NPC_ROLE_DOCK_LABORER"
+msgstr "碼頭腳夫"
+
+msgid "BACKGROUND_NPC_ROLE_MOUNTAIN_GUARD"
+msgstr "山口守卒"
+
+msgid "BACKGROUND_NPC_ROLE_MINE_SURVIVOR"
+msgstr "礦洞倖存者"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_GATE_CHILD"
+msgstr "山門守童"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_ERRAND_SERVANT"
+msgstr "外門雜役"
+
+msgid "BACKGROUND_NPC_ROLE_YAMEN_CLERK"
+msgstr "衙門書吏"
+
+msgid "BACKGROUND_NPC_ROLE_GRAIN_KEEPER"
+msgstr "糧倉管事"
+
+msgid "BACKGROUND_NPC_ROLE_BLACK_MARKET_BROKER"
+msgstr "黑市掮客"
+
+msgid "BACKGROUND_NPC_ROLE_APPRAISER"
+msgstr "鑑貨朝奉"
+
+msgid "BACKGROUND_NPC_ROLE_MEDICINE_ASSISTANT"
+msgstr "藥鋪伙計"
+
+msgid "BACKGROUND_NPC_ROLE_TEA_SHED_ELDER"
+msgstr "茶棚老人"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_FIELD_FARMER"
+msgstr "藥田農夫"
+
+msgid "BACKGROUND_NPC_ROLE_ALCHEMY_FIREWORKER"
+msgstr "煉丹房火工"
+
+msgid "BACKGROUND_NPC_ROLE_SCRIPTURE_COPYIST"
+msgstr "藏經閣抄書人"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_TENANT"
+msgstr "山下佃戶"
+
+msgid "BACKGROUND_NPC_ROLE_IMMORTAL_SEEKING_PARENT"
+msgstr "求仙父母"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_BUYER"
+msgstr "宗門採買人"
+
+msgid "BACKGROUND_NPC_ROLE_HUNTER"
+msgstr "獵戶"
+
+msgid "BACKGROUND_NPC_ROLE_HERB_GATHERER"
+msgstr "採藥人"
+
+msgid "BACKGROUND_NPC_ROLE_FERRYMAN"
+msgstr "擺渡人"
+
+msgid "BACKGROUND_NPC_ROLE_CARAVAN_MERCHANT"
+msgstr "遠行商旅"
+
+msgid "BACKGROUND_NPC_ROLE_POSTAL_COURIER"
+msgstr "驛卒"
+
+msgid "BACKGROUND_NPC_ROLE_INNKEEPER"
+msgstr "客棧掌櫃"
+
+msgid "BACKGROUND_NPC_ROLE_BLACKSMITH"
+msgstr "鐵匠"
+
+msgid "BACKGROUND_NPC_ROLE_ARTIFACT_SHOPKEEPER"
+msgstr "法器鋪掌櫃"
+
+msgid "BACKGROUND_NPC_ROLE_WEAPON_SHOPKEEPER"
+msgstr "兵器鋪老闆"
+
+msgid "BACKGROUND_NPC_ROLE_PAWNSHOP_CLERK"
+msgstr "當鋪朝奉"
+
+msgid "BACKGROUND_NPC_ROLE_TAX_COLLECTOR"
+msgstr "稅吏"
+
+msgid "BACKGROUND_NPC_ROLE_CONSTABLE"
+msgstr "捕快"
+
+msgid "BACKGROUND_NPC_ROLE_NIGHT_WATCHMAN"
+msgstr "更夫"
+
+msgid "BACKGROUND_NPC_ROLE_HOUSEHOLD_CLERK"
+msgstr "戶籍小吏"
+
+msgid "BACKGROUND_NPC_ROLE_NOTICE_CRIER"
+msgstr "布告官"
+
+msgid "BACKGROUND_NPC_ROLE_RELIEF_OFFICER"
+msgstr "賑災官"
+
+msgid "BACKGROUND_NPC_ROLE_GOVERNMENT_GATEKEEPER"
+msgstr "官府門子"
+
+msgid "BACKGROUND_NPC_ROLE_IMPERIAL_COURIER"
+msgstr "驛傳官"
+
+msgid "BACKGROUND_NPC_ROLE_PALACE_ATTENDANT"
+msgstr "宮門內侍"
+
+msgid "BACKGROUND_NPC_ROLE_CENSOR_RETAINER"
+msgstr "御史隨員"
+
+msgid "BACKGROUND_NPC_ROLE_SHIPWRIGHT"
+msgstr "船塢匠人"
+
+msgid "BACKGROUND_NPC_ROLE_SALT_STEWARD"
+msgstr "鹽倉管事"
+
+msgid "BACKGROUND_NPC_ROLE_FISHERMAN"
+msgstr "漁民"
+
+msgid "BACKGROUND_NPC_ROLE_PEARL_DIVER"
+msgstr "採珠人"
+
+msgid "BACKGROUND_NPC_ROLE_CHART_PEDDLER"
+msgstr "海圖販子"
+
+msgid "BACKGROUND_NPC_ROLE_PORT_TAX_COLLECTOR"
+msgstr "港口稅吏"
+
+msgid "BACKGROUND_NPC_ROLE_SHIP_CAPTAIN"
+msgstr "船老大"
+
+msgid "BACKGROUND_NPC_ROLE_POST_STATION_MASTER"
+msgstr "驛丞"
+
+msgid "BACKGROUND_NPC_ROLE_MINE_FOREMAN"
+msgstr "礦隊管事"
+
+msgid "BACKGROUND_NPC_ROLE_MINER"
+msgstr "採礦苦工"
+
+msgid "BACKGROUND_NPC_ROLE_ORE_APPRAISER"
+msgstr "礦石鑑貨人"
+
+msgid "BACKGROUND_NPC_ROLE_MOUNTAIN_PEDDLER"
+msgstr "山貨腳商"
+
+msgid "BACKGROUND_NPC_ROLE_GINSENG_GATHERER"
+msgstr "採參人"
+
+msgid "BACKGROUND_NPC_ROLE_LUMBERJACK"
+msgstr "伐木人"
+
+msgid "BACKGROUND_NPC_ROLE_BEAST_KEEPER"
+msgstr "靈獸園飼養人"
+
+msgid "BACKGROUND_NPC_ROLE_FORGE_ARTISAN"
+msgstr "煉器坊匠人"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_COOK"
+msgstr "宗門廚役"
+
+msgid "BACKGROUND_NPC_ROLE_SWEEPER_CHILD"
+msgstr "灑掃童子"
+
+msgid "BACKGROUND_NPC_ROLE_VASSAL_STEWARD"
+msgstr "附庸家族管事"
+
+msgid "BACKGROUND_NPC_ROLE_LETTER_SERVANT"
+msgstr "送信僕役"

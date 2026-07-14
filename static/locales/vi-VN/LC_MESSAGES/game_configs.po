@@ -425,6 +425,712 @@ msgstr "Nơi mẫu cổ chiếm cứ, có thể thống ngự nhiều loại c�
 msgid "AUXILIARY_2074_NAME"
 msgstr "Sào Mẫu Vạn Cổ"
 
+msgid "BACKGROUND_NPC_EVENT_ALCHEMY_FIREWORKER_ASHES"
+msgstr ""
+"Behind the alchemy room of {sect_name}, a fireworker sifted pale furnace ash"
+" again and again, afraid to miss any powder that could still be returned to "
+"the furnace."
+
+msgid "BACKGROUND_NPC_EVENT_APPRAISER_AVATAR_SELL_ECHO"
+msgstr ""
+"After {avatar_name} left the consignment house in {region_name}, the "
+"appraiser held the item under the lamp three more times before letting the "
+"bookkeeper record it."
+
+msgid "BACKGROUND_NPC_EVENT_BLACK_MARKET_BROKER_HIDDEN_MAP"
+msgstr ""
+"In a back alley of {region_name}, a black-market broker kept a torn sea "
+"chart under his sleeve and said the reef shadow on it appeared only once "
+"every thirty years."
+
+msgid "BACKGROUND_NPC_EVENT_DOCK_LABORER_NIGHT_CARGO"
+msgstr ""
+"As the night tide rose at {region_name}, several dock laborers dragged "
+"soaked sea-beast hides into the salt warehouse."
+
+msgid "BACKGROUND_NPC_EVENT_FERRYMAN_MOVE_REGION_ECHO"
+msgstr ""
+"At the ferry in {region_name}, the tide guide studied the water and warned "
+"{avatar_name} that fewer travelers dared cross at night lately."
+
+msgid "BACKGROUND_NPC_EVENT_GRAIN_KEEPER_GOVERN_ECHO"
+msgstr ""
+"After {avatar_name} finished handling city affairs in {region_name}, the "
+"granary keeper added a line beside the accounts, and the voices outside the "
+"gate softened."
+
+msgid "BACKGROUND_NPC_EVENT_HEALER_HELP_PEOPLE_ECHO"
+msgstr ""
+"After {avatar_name} left {region_name}, the clinic doctor sent the remaining"
+" wound powder to the porridge shed, where several displaced people thanked "
+"them in low voices."
+
+msgid "BACKGROUND_NPC_EVENT_HERB_VENDOR_AVATAR_BUY_ECHO"
+msgstr ""
+"While {avatar_name} chose spirit materials in {region_name}, the medicine "
+"shop assistant wiped the counter again and again, never daring to hurry "
+"them."
+
+msgid "BACKGROUND_NPC_EVENT_HERB_VENDOR_MARKET_ARGUMENT"
+msgstr ""
+"In {region_name}, a herb vendor and a gatherer argued for half a day over "
+"the age of a bundle of herbs before a shop assistant fetched the keeper to "
+"inspect it."
+
+msgid "BACKGROUND_NPC_EVENT_IMMORTAL_PARENT_WAITS"
+msgstr ""
+"Outside the gate of {sect_name}, parents seeking immortality waited with "
+"their child until the sun slanted west; the gate child brought water but "
+"promised no message."
+
+msgid "BACKGROUND_NPC_EVENT_MARKET_REACTS_TO_YAO"
+msgstr ""
+"As {avatar_name} passed through the market in {region_name}, several "
+"stallholders lowered their calls, and a woman drew her child behind her."
+
+msgid "BACKGROUND_NPC_EVENT_MEDICINE_ASSISTANT_AVATAR_INQUIRY"
+msgstr ""
+"When {avatar_name} asked prices in a medicine shop in {region_name}, the "
+"assistant hurriedly pushed aside several mortal herbs and set out only goods"
+" that still held spiritual energy."
+
+msgid "BACKGROUND_NPC_EVENT_MINE_SURVIVOR_WHISPERS"
+msgstr ""
+"Beside a tea shed in {region_name}, a mine survivor whispered that knocking "
+"sounds came from deep underground at night; none of the listeners answered."
+
+msgid "BACKGROUND_NPC_EVENT_MOUNTAIN_GUARD_AVATAR_WARNING"
+msgstr ""
+"As {avatar_name} passed the mountain gate of {region_name}, a guard gathered"
+" his courage to warn that strange winds often rose ahead at night, then "
+"lowered his head and stepped back."
+
+msgid "BACKGROUND_NPC_EVENT_MOUNTAIN_GUARD_WATCHES_CLOUD"
+msgstr ""
+"A mountain pass guard at {region_name} found a new scorch mark on the wall "
+"and looked toward the misty heights, but did not write it into the night "
+"watch book."
+
+msgid "BACKGROUND_NPC_EVENT_PATROL_FEARS_EVIL_AVATAR"
+msgstr ""
+"After {avatar_name} left the alleys of {region_name}, a street patrol runner"
+" stood by the well for a long while, then simply closed that page of the "
+"case book."
+
+msgid "BACKGROUND_NPC_EVENT_PATROL_PLUNDER_ECHO"
+msgstr ""
+"After {avatar_name} left {region_name}, no lamps were lit in the west alley "
+"all night, and even the street patrol runner walked past with lighter steps."
+
+msgid "BACKGROUND_NPC_EVENT_PATROL_RUNNER_CITY_ORDER"
+msgstr ""
+"At an alley mouth in {region_name}, a street patrol runner waited until two "
+"cultivators had gone far away before urging the watching crowd to disperse."
+
+msgid "BACKGROUND_NPC_EVENT_SCRIPTURE_COPYIST_AVATAR_SILENCE"
+msgstr ""
+"When {avatar_name} passed a side room of the scripture library of "
+"{sect_name}, the copyist immediately stilled the brush and resumed writing "
+"only after the rustle of robes faded."
+
+msgid "BACKGROUND_NPC_EVENT_SCRIPTURE_COPYIST_WET_PAGES"
+msgstr ""
+"In a side room of the scripture library of {sect_name}, a copyist spread "
+"damp pages over bamboo screens and warned a child not to let inner disciples"
+" see them."
+
+msgid "BACKGROUND_NPC_EVENT_SECT_BUYER_MARKET_LIST"
+msgstr ""
+"At the stalls below {sect_name}, a sect buyer checked the procurement list "
+"again, separating grain, charcoal, and medicine bowls while frowning at the "
+"price of spirit materials."
+
+msgid "BACKGROUND_NPC_EVENT_SECT_ERRAND_MISSION_ECHO"
+msgstr ""
+"After {avatar_name} handed in the sect errand, an outer sect servant folded "
+"the procurement list again and quietly let out a breath."
+
+msgid "BACKGROUND_NPC_EVENT_SECT_FIELD_FARMER_AVATAR_PATH"
+msgstr ""
+"As {avatar_name} passed the field path of {sect_name}, a field farmer "
+"stopped hoeing and stepped aside on the ridge, returning to the weeds only "
+"after the footsteps faded."
+
+msgid "BACKGROUND_NPC_EVENT_SECT_FIELD_FARMER_LEAF_SPOTS"
+msgstr ""
+"Beside the spirit fields of {sect_name}, a field farmer found blackened tips"
+" on a row of herbs, set down the water bucket, and hurried to find a "
+"steward."
+
+msgid "BACKGROUND_NPC_EVENT_SECT_GATE_CHILD_AVATAR_QUESTION"
+msgstr ""
+"When {avatar_name} passed the gate of {sect_name}, the gate child softly "
+"asked whether a message should be sent to the outer court, then immediately "
+"lowered his eyes to the steps."
+
+msgid "BACKGROUND_NPC_EVENT_SECT_GATE_CHILD_WAITING"
+msgstr ""
+"Outside the gate of {sect_name}, a gate child leaned a broom against the "
+"stone steps and watched several families seeking immortality slowly leave "
+"the morning mist."
+
+msgid "BACKGROUND_NPC_EVENT_SECT_SERVANT_REACTS_TO_DISCIPLE"
+msgstr ""
+"As {avatar_name} went downhill to buy supplies, an outer sect servant "
+"stepped aside by the stone stairs and waited before lifting the rice sacks "
+"again."
+
+msgid "BACKGROUND_NPC_EVENT_SECT_TENANT_GRAIN_CART"
+msgstr ""
+"At the foot of {sect_name}, tenant farmers stopped their grain cart outside "
+"the stone steps and quietly counted this year's rent grain while waiting for"
+" the steward."
+
+msgid "BACKGROUND_NPC_EVENT_STORE_REACTS_TO_HIGH_REALM"
+msgstr ""
+"When {avatar_name} paused before the medicine shop in {region_name}, the "
+"keeper immediately had the assistants put away the mortal herbs and set out "
+"jade boxes of spirit materials."
+
+msgid "BACKGROUND_NPC_EVENT_STORYTELLER_RUMOR_TEAHOUSE"
+msgstr ""
+"In a teahouse in {region_name}, a storyteller claimed an immortal estate had"
+" surfaced in the eastern sea; the listeners cheered, while the bookkeeper "
+"only noted three more pots of tea sold."
+
+msgid "BACKGROUND_NPC_EVENT_TEA_SHED_ELDER_AVATAR_PAUSE"
+msgstr ""
+"When {avatar_name} paused before a tea shed in {region_name}, the elder "
+"swallowed the immortal-sect anecdote he had been telling and asked instead "
+"whether they wanted more tea."
+
+msgid "BACKGROUND_NPC_EVENT_TIDE_GUIDE_WARNS_TIDE"
+msgstr ""
+"The tide at {region_name} suddenly grew rough, and a tide guide advised "
+"several small boats to delay sailing while the captains studied the clouds."
+
+msgid "BACKGROUND_NPC_EVENT_YAMEN_CLERK_LATE_RECORDS"
+msgstr ""
+"A yamen clerk in {region_name} recopied case files late into the night, "
+"lightly passing over the statements involving cultivators and adding only a "
+"small note in the corner."
+
+msgid "BACKGROUND_NPC_EVENT_YAMEN_REACTS_TO_OFFICIAL"
+msgstr ""
+"After {avatar_name} entered {region_name}, street patrols saluted from afar,"
+" and the yamen clerk recopied the piled-up case files overnight."
+
+msgid "BACKGROUND_NPC_EVENT_HUNTER_FOREST_SNARE"
+msgstr ""
+"At the forest edge of {region_name}, a hunter gathered a dew-soaked snare "
+"and found the hoofprints ending before a blue stone."
+
+msgid "BACKGROUND_NPC_EVENT_HERB_GATHERER_MIST_BASKET"
+msgstr ""
+"Before the mist cleared in {region_name}, a herb gatherer tipped aside half "
+"a basket of common plants and kept only a few spirit-lit leaves."
+
+msgid "BACKGROUND_NPC_EVENT_FERRYMAN_RIVER_ROPE"
+msgstr ""
+"At the ferry of {region_name}, the river suddenly quieted; the ferryman "
+"retied the rope and told travelers not to ask about the return trip."
+
+msgid "BACKGROUND_NPC_EVENT_CARAVAN_MERCHANT_ROADSIDE_ACCOUNT"
+msgstr ""
+"Beside the road in {region_name}, traveling merchants entered beast bones, "
+"salt sacks, and spirit-material scraps into separate accounts."
+
+msgid "BACKGROUND_NPC_EVENT_POSTAL_COURIER_LATE_SEAL"
+msgstr ""
+"The post house lamps in {region_name} stayed lit as a courier hid an urgent "
+"letter with cracked seal wax in his sleeve."
+
+msgid "BACKGROUND_NPC_EVENT_INNKEEPER_ROOM_SCREEN"
+msgstr ""
+"In an inn at {region_name}, the keeper had the innermost screen cleaned, "
+"saying cultivators disliked too much mortal dust."
+
+msgid "BACKGROUND_NPC_EVENT_BLACKSMITH_SPARK_TALISMAN"
+msgstr ""
+"Blue-white sparks leapt from the forge in {region_name}; the blacksmith "
+"watched a moment, then pinned an old talisman beneath the anvil."
+
+msgid "BACKGROUND_NPC_EVENT_ARTIFACT_SHOPKEEPER_SEALED_SHELF"
+msgstr ""
+"The artifact shopkeeper in {region_name} resealed the highest shelf and "
+"warned the assistant not to let mortal customers touch it."
+
+msgid "BACKGROUND_NPC_EVENT_PAWNSHOP_CLERK_OLD_TOKEN"
+msgstr ""
+"In {region_name}, a pawnshop appraiser found half a jade token in an old box"
+" and closed the ledger after seeing its broken pattern."
+
+msgid "BACKGROUND_NPC_EVENT_TAX_COLLECTOR_DAWN_SCALES"
+msgstr ""
+"At the first dawn drum in {region_name}, a tax collector weighed rice sacks "
+"by the gate, then quietly weighed a packet of spirit sand."
+
+msgid "BACKGROUND_NPC_EVENT_CONSTABLE_CASE_THREAD"
+msgstr ""
+"At the case table in {region_name}, a constable moved several red strings so"
+" they avoided every wooden tag bearing a cultivator name."
+
+msgid "BACKGROUND_NPC_EVENT_NIGHT_WATCHMAN_THIRD_WATCH"
+msgstr ""
+"After the third-watch clapper in {region_name}, the night watchman heard "
+"robes above the tiles and did not dare look up."
+
+msgid "BACKGROUND_NPC_EVENT_HOUSEHOLD_CLERK_RED_INK"
+msgstr ""
+"In {region_name}, a registry clerk circled several moved households in red "
+"ink and wrote, \"possibly followed an immortal gate.\""
+
+msgid "BACKGROUND_NPC_EVENT_NOTICE_CRIER_NEW_EDICT"
+msgstr ""
+"A notice crier in {region_name} posted a new court proclamation and lowered "
+"his voice at \"offerings to immortal gates.\""
+
+msgid "BACKGROUND_NPC_EVENT_IMPERIAL_COURIER_DUSTY_CASE"
+msgstr ""
+"In {region_name}, an imperial courier delivered only the most urgent letter "
+"to the yamen and left the rest strapped behind the saddle."
+
+msgid "BACKGROUND_NPC_EVENT_PALACE_ATTENDANT_OUTER_RUMOR"
+msgstr ""
+"In the rear seats of a teahouse in {region_name}, a palace attendant "
+"mentioned changed incense tables in the capital, and the listeners fell "
+"silent."
+
+msgid "BACKGROUND_NPC_EVENT_CENSOR_RETAINER_QUIET_INQUIRY"
+msgstr ""
+"At the end of an alley in {region_name}, a censor's retainer asked about "
+"recent cultivators and left only a cold copper coin."
+
+msgid "BACKGROUND_NPC_EVENT_SHIPWRIGHT_KEEL_MARK"
+msgstr ""
+"In the shipyard of {region_name}, a shipwright found a thin water pattern on"
+" a new keel and told the apprentice to hold the nails."
+
+msgid "BACKGROUND_NPC_EVENT_SALT_STEWARD_WET_LEDGER"
+msgstr ""
+"The salt warehouse steward in {region_name} opened a damp ledger and "
+"recorded several salt losses as \"tide damage.\""
+
+msgid "BACKGROUND_NPC_EVENT_FISHERMAN_RED_TIDE_NET"
+msgstr ""
+"Outside the harbor of {region_name}, a fisherman hauled in a red-stained net"
+" and dared not take home the shining scale caught at the bottom."
+
+msgid "BACKGROUND_NPC_EVENT_PEARL_DIVER_SHELL_WHISPER"
+msgstr ""
+"A pearl diver in {region_name} held an empty shell to the ear, heard "
+"something chanting through water, and went pale."
+
+msgid "BACKGROUND_NPC_EVENT_CHART_PEDDLER_HIDDEN_REEF"
+msgstr ""
+"A chart peddler in {region_name} darkened the mark for a hidden reef, then "
+"told a buyer it was best to forget that route."
+
+msgid "BACKGROUND_NPC_EVENT_PORT_TAX_COLLECTOR_CARGO_MARK"
+msgstr ""
+"At {region_name}, the port tax collector stamped a cargo crate, saw spirit "
+"light leak from the seam, and added another seal."
+
+msgid "BACKGROUND_NPC_EVENT_SHIP_CAPTAIN_STORM_OATH"
+msgstr ""
+"At {region_name}, the ship captain poured wine into the sea and swore not to"
+" chase the contrary tide tonight; no sailor objected."
+
+msgid "BACKGROUND_NPC_EVENT_POST_STATION_MASTER_TIRED_HORSE"
+msgstr ""
+"At {region_name}, the post station master touched a sweaty relay horse and "
+"turned the next-route tablet over, signaling a longer wait."
+
+msgid "BACKGROUND_NPC_EVENT_MINE_FOREMAN_CRACKED_BEAM"
+msgstr ""
+"In {region_name}, a mine foreman found a fresh crack in a support beam, "
+"ordered workers back, then smeared mud over the split."
+
+msgid "BACKGROUND_NPC_EVENT_MINER_LAMP_CIRCLE"
+msgstr ""
+"At a mine mouth in {region_name}, several miners sat around a dying lamp, "
+"none willing to say first what they had heard below."
+
+msgid "BACKGROUND_NPC_EVENT_ORE_APPRAISER_BLUE_VEIN"
+msgstr ""
+"An ore appraiser in {region_name} cracked open a green-veined stone, saw "
+"blue light flash, and immediately lowered the quoted price."
+
+msgid "BACKGROUND_NPC_EVENT_MOUNTAIN_PEDDLER_PASS_PRICE"
+msgstr ""
+"A mountain peddler in {region_name} set out dried mushrooms and beast sinew,"
+" then raised the price after hearing of cultivators fighting ahead."
+
+msgid "BACKGROUND_NPC_EVENT_GINSENG_GATHERER_OLD_ROOT"
+msgstr ""
+"In {region_name}, a ginseng gatherer dug up an old root, saw its tendrils "
+"curl like tiny hands, and hurriedly buried it again."
+
+msgid "BACKGROUND_NPC_EVENT_BEAST_KEEPER_RESTLESS_CAGES"
+msgstr ""
+"In the spirit beast garden of {sect_name}, the keeper heard several young "
+"beasts whimper at once and hung an extra night-patrol tablet."
+
+msgid "BACKGROUND_NPC_EVENT_FORGE_ARTISAN_COLD_ANVIL"
+msgstr ""
+"Inside the forge of {sect_name}, an artisan found frost forming on the anvil"
+" and stored the half-made sword blank in an iron case."
+
+msgid "BACKGROUND_NPC_EVENT_SECT_COOK_LATE_RICE"
+msgstr ""
+"In the back kitchen of {sect_name}, the cook counted the meal tablets three "
+"times and found one unclaimed portion."
+
+msgid "BACKGROUND_NPC_EVENT_SWEEPER_CHILD_FALLEN_TALISMAN"
+msgstr ""
+"Below the stone steps of {sect_name}, a sweeper child found a scorched "
+"talisman corner and tucked it into the broom handle."
+
+msgid "BACKGROUND_NPC_EVENT_VASSAL_STEWARD_GIFT_BOXES"
+msgstr ""
+"Outside the gate of {sect_name}, a vassal steward rearranged gift boxes into"
+" two lines, never daring to place the costliest one first."
+
+msgid "BACKGROUND_NPC_EVENT_LETTER_SERVANT_RAIN_MESSAGE"
+msgstr ""
+"As mountain rain fell hard at {sect_name}, a letter servant held a soaked "
+"bamboo tube and waited for the duty disciple's nod."
+
+msgid "BACKGROUND_NPC_EVENT_INNKEEPER_AVATAR_ROOM"
+msgstr ""
+"When {avatar_name} took lodging in {region_name}, the innkeeper changed the "
+"bedding and quietly moved the mortal guests next door downstairs."
+
+msgid "BACKGROUND_NPC_EVENT_BLACKSMITH_AVATAR_WEAPON_GLANCE"
+msgstr ""
+"As {avatar_name} passed the forge in {region_name}, the blacksmith saw "
+"spirit light on the weapon and pulled the apprentice back."
+
+msgid "BACKGROUND_NPC_EVENT_ARTIFACT_SHOPKEEPER_AVATAR_BOW"
+msgstr ""
+"When {avatar_name} entered the artifact shop in {region_name}, the keeper "
+"stepped around the counter to bow, and even the loudest assistant went "
+"quiet."
+
+msgid "BACKGROUND_NPC_EVENT_TAX_COLLECTOR_AVATAR_SEAL"
+msgstr ""
+"When {avatar_name} passed the tax post of {region_name}, the collector "
+"glanced at the official seal and pushed the inspection ledger to the bottom."
+
+msgid "BACKGROUND_NPC_EVENT_CONSTABLE_AVATAR_EVIL_CASE"
+msgstr ""
+"As {avatar_name} passed the case room in {region_name}, a constable turned a"
+" still-wet testimony face down and pretended to grind ink."
+
+msgid "BACKGROUND_NPC_EVENT_POSTAL_COURIER_AVATAR_ROAD"
+msgstr ""
+"As {avatar_name} traveled the post road of {region_name}, a courier led the "
+"horse aside and waited for the dust to settle before mounting again."
+
+msgid "BACKGROUND_NPC_EVENT_SHIP_CAPTAIN_AVATAR_BOARD"
+msgstr ""
+"When {avatar_name} boarded a ferry at {region_name}, the ship captain pulled"
+" in the gangplank and warned the sailors not to ask where the guest was "
+"going."
+
+msgid "BACKGROUND_NPC_EVENT_PEARL_DIVER_AVATAR_TIDE"
+msgstr ""
+"When {avatar_name} stopped by the tide line of {region_name}, a pearl diver "
+"stepped away and hid the basket of fresh shells behind the reef."
+
+msgid "BACKGROUND_NPC_EVENT_MINE_FOREMAN_AVATAR_TUNNEL"
+msgstr ""
+"As {avatar_name} approached a mine tunnel in {region_name}, the foreman "
+"waved the workers to the wall, and even their coughs were stifled."
+
+msgid "BACKGROUND_NPC_EVENT_MOUNTAIN_PEDDLER_AVATAR_GOODS"
+msgstr ""
+"When {avatar_name} stopped before a mountain-goods stall in {region_name}, "
+"the peddler pushed the mortal goods back and left only spirit-touched "
+"trinkets."
+
+msgid "BACKGROUND_NPC_EVENT_BEAST_KEEPER_AVATAR_HUSH"
+msgstr ""
+"As {avatar_name} walked past the spirit beast pens of {sect_name}, the "
+"keeper hurriedly gestured for silence, afraid the young beasts would cry "
+"out."
+
+msgid "BACKGROUND_NPC_EVENT_FORGE_ARTISAN_AVATAR_PAUSE"
+msgstr ""
+"When {avatar_name} passed the forge of {sect_name}, the artisan stopped "
+"hammering and slowly lowered the red-hot blank into a cold spring."
+
+msgid "BACKGROUND_NPC_EVENT_SECT_COOK_AVATAR_EXTRA_BOWL"
+msgstr ""
+"As {avatar_name} passed the back kitchen of {sect_name}, the cook quietly "
+"ladled an extra bowl of spirit-rice porridge but did not dare invite them."
+
+msgid "BACKGROUND_NPC_EVENT_SWEEPER_CHILD_AVATAR_BROOM"
+msgstr ""
+"When {avatar_name} stepped onto the stone stairs of {sect_name}, the sweeper"
+" child held the broom across the chest and cleared the middle path."
+
+msgid "BACKGROUND_NPC_EVENT_RELIEF_OFFICER_HELP_PEOPLE_ECHO"
+msgstr ""
+"After {avatar_name} aided the people of {region_name}, the relief officer "
+"recopied the porridge-shed register and deliberately left the first line "
+"blank."
+
+msgid "BACKGROUND_NPC_EVENT_WEAPON_SHOPKEEPER_BUY_ECHO"
+msgstr ""
+"After {avatar_name} bought a weapon in {region_name}, the shopkeeper rehung "
+"the remaining blades and did not call for customers loudly for half a day."
+
+msgid "BACKGROUND_NPC_EVENT_PAWNSHOP_SELL_ECHO"
+msgstr ""
+"After {avatar_name} left the pawnshop in {region_name}, the appraiser locked"
+" the received item away and had the bookkeeper write less about its origin."
+
+msgid "BACKGROUND_NPC_EVENT_BLACKSMITH_REFINE_ECHO"
+msgstr ""
+"After {avatar_name} refined an item in {region_name}, the blacksmith picked "
+"up a few cold ashes and found the fingertips tingling."
+
+msgid "BACKGROUND_NPC_EVENT_ARTIFACT_SHOPKEEPER_CAST_ECHO"
+msgstr ""
+"After {avatar_name} cast a spell and left {region_name}, the artifact "
+"shopkeeper lowered the curtain and checked each small item in the cabinet."
+
+msgid "BACKGROUND_NPC_EVENT_HUNTER_HUNT_ECHO"
+msgstr ""
+"After {avatar_name} hunted in {region_name}, a hunter followed broken "
+"branches for a few steps, then dismantled every old trap."
+
+msgid "BACKGROUND_NPC_EVENT_HERB_GATHERER_HARVEST_ECHO"
+msgstr ""
+"After {avatar_name} harvested in {region_name}, a herb gatherer crouched by "
+"the clearing and dared take only a few common herbs."
+
+msgid "BACKGROUND_NPC_EVENT_MINER_MINE_ECHO"
+msgstr ""
+"After {avatar_name} left the ore vein in {region_name}, miners covered the "
+"newly exposed pattern with cloth and waited for the foreman."
+
+msgid "BACKGROUND_NPC_EVENT_INNKEEPER_REST_ECHO"
+msgstr ""
+"After {avatar_name} rested one night in {region_name}, the innkeeper left "
+"the room empty for three days and changed only the incense each day."
+
+msgid "BACKGROUND_NPC_EVENT_POST_STATION_MOVE_ECHO"
+msgstr ""
+"After {avatar_name} left the post station of {region_name}, the station "
+"master wiped the next-route tablet and quietly changed the night travel "
+"hour."
+
+msgid "BACKGROUND_NPC_EVENT_BEAST_KEEPER_SECT_MISSION_ECHO"
+msgstr ""
+"After {avatar_name} completed a sect errand, the spirit beast keeper "
+"relocked an empty cage and quietly counted the young beasts again."
+
+msgid "BACKGROUND_NPC_EVENT_FORGE_ARTISAN_SECT_MISSION_ECHO"
+msgstr ""
+"After {avatar_name} turned in a sect mission, the forge artisan bundled the "
+"remaining scraps and marked them \"awaiting reinspection.\""
+
+msgid "BACKGROUND_NPC_EVENT_CENSOR_RETAINER_GOVERN_ECHO"
+msgstr ""
+"After {avatar_name} handled government affairs in {region_name}, the "
+"censor's retainer folded the notes in half and delivered only the first "
+"part."
+
+msgid "BACKGROUND_NPC_EVENT_NIGHT_WATCHMAN_PLUNDER_ECHO"
+msgstr ""
+"After {avatar_name} left the night alleys of {region_name}, the watchman "
+"tucked the clapper under his arm and did not call the peace again."
+
+msgid "BACKGROUND_NPC_ROLE_HERB_VENDOR"
+msgstr "thương lái dược liệu"
+
+msgid "BACKGROUND_NPC_ROLE_STORYTELLER"
+msgstr "người kể chuyện quán trà"
+
+msgid "BACKGROUND_NPC_ROLE_PATROL_RUNNER"
+msgstr "sai dịch tuần phố"
+
+msgid "BACKGROUND_NPC_ROLE_TIDE_GUIDE"
+msgstr "người dẫn thủy triều"
+
+msgid "BACKGROUND_NPC_ROLE_DOCK_LABORER"
+msgstr "phu bến cảng"
+
+msgid "BACKGROUND_NPC_ROLE_MOUNTAIN_GUARD"
+msgstr "lính giữ cửa núi"
+
+msgid "BACKGROUND_NPC_ROLE_MINE_SURVIVOR"
+msgstr "người sống sót hầm mỏ"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_GATE_CHILD"
+msgstr "đồng tử giữ sơn môn"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_ERRAND_SERVANT"
+msgstr "tạp dịch ngoại môn"
+
+msgid "BACKGROUND_NPC_ROLE_YAMEN_CLERK"
+msgstr "thư lại nha môn"
+
+msgid "BACKGROUND_NPC_ROLE_GRAIN_KEEPER"
+msgstr "quản sự kho lương"
+
+msgid "BACKGROUND_NPC_ROLE_BLACK_MARKET_BROKER"
+msgstr "môi giới chợ đen"
+
+msgid "BACKGROUND_NPC_ROLE_APPRAISER"
+msgstr "người giám hàng"
+
+msgid "BACKGROUND_NPC_ROLE_MEDICINE_ASSISTANT"
+msgstr "伙计 hiệu thuốc"
+
+msgid "BACKGROUND_NPC_ROLE_TEA_SHED_ELDER"
+msgstr "ông lão quán trà"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_FIELD_FARMER"
+msgstr "nông phu ruộng thuốc"
+
+msgid "BACKGROUND_NPC_ROLE_ALCHEMY_FIREWORKER"
+msgstr "hỏa công phòng luyện đan"
+
+msgid "BACKGROUND_NPC_ROLE_SCRIPTURE_COPYIST"
+msgstr "người chép kinh các"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_TENANT"
+msgstr "tá điền chân núi"
+
+msgid "BACKGROUND_NPC_ROLE_IMMORTAL_SEEKING_PARENT"
+msgstr "cha mẹ cầu tiên"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_BUYER"
+msgstr "người thu mua của tông môn"
+
+msgid "BACKGROUND_NPC_ROLE_HUNTER"
+msgstr "thợ săn"
+
+msgid "BACKGROUND_NPC_ROLE_HERB_GATHERER"
+msgstr "người hái thuốc"
+
+msgid "BACKGROUND_NPC_ROLE_FERRYMAN"
+msgstr "người lái đò"
+
+msgid "BACKGROUND_NPC_ROLE_CARAVAN_MERCHANT"
+msgstr "thương lữ đường xa"
+
+msgid "BACKGROUND_NPC_ROLE_POSTAL_COURIER"
+msgstr "trạm tốt"
+
+msgid "BACKGROUND_NPC_ROLE_INNKEEPER"
+msgstr "chủ quán trọ"
+
+msgid "BACKGROUND_NPC_ROLE_BLACKSMITH"
+msgstr "thợ rèn"
+
+msgid "BACKGROUND_NPC_ROLE_ARTIFACT_SHOPKEEPER"
+msgstr "chủ tiệm pháp khí"
+
+msgid "BACKGROUND_NPC_ROLE_WEAPON_SHOPKEEPER"
+msgstr "chủ tiệm binh khí"
+
+msgid "BACKGROUND_NPC_ROLE_PAWNSHOP_CLERK"
+msgstr "người định giá tiệm cầm đồ"
+
+msgid "BACKGROUND_NPC_ROLE_TAX_COLLECTOR"
+msgstr "thuế lại"
+
+msgid "BACKGROUND_NPC_ROLE_CONSTABLE"
+msgstr "bổ khoái"
+
+msgid "BACKGROUND_NPC_ROLE_NIGHT_WATCHMAN"
+msgstr "người gõ canh"
+
+msgid "BACKGROUND_NPC_ROLE_HOUSEHOLD_CLERK"
+msgstr "tiểu lại hộ tịch"
+
+msgid "BACKGROUND_NPC_ROLE_NOTICE_CRIER"
+msgstr "quan rao bảng"
+
+msgid "BACKGROUND_NPC_ROLE_RELIEF_OFFICER"
+msgstr "quan cứu tế"
+
+msgid "BACKGROUND_NPC_ROLE_GOVERNMENT_GATEKEEPER"
+msgstr "môn lại nha phủ"
+
+msgid "BACKGROUND_NPC_ROLE_IMPERIAL_COURIER"
+msgstr "quan dịch truyền"
+
+msgid "BACKGROUND_NPC_ROLE_PALACE_ATTENDANT"
+msgstr "nội thị cửa cung"
+
+msgid "BACKGROUND_NPC_ROLE_CENSOR_RETAINER"
+msgstr "tùy viên Ngự sử"
+
+msgid "BACKGROUND_NPC_ROLE_SHIPWRIGHT"
+msgstr "thợ đóng thuyền"
+
+msgid "BACKGROUND_NPC_ROLE_SALT_STEWARD"
+msgstr "quản sự kho muối"
+
+msgid "BACKGROUND_NPC_ROLE_FISHERMAN"
+msgstr "ngư dân"
+
+msgid "BACKGROUND_NPC_ROLE_PEARL_DIVER"
+msgstr "người mò ngọc"
+
+msgid "BACKGROUND_NPC_ROLE_CHART_PEDDLER"
+msgstr "người bán hải đồ"
+
+msgid "BACKGROUND_NPC_ROLE_PORT_TAX_COLLECTOR"
+msgstr "thuế lại bến cảng"
+
+msgid "BACKGROUND_NPC_ROLE_SHIP_CAPTAIN"
+msgstr "thuyền lão đại"
+
+msgid "BACKGROUND_NPC_ROLE_POST_STATION_MASTER"
+msgstr "dịch thừa"
+
+msgid "BACKGROUND_NPC_ROLE_MINE_FOREMAN"
+msgstr "quản sự đội mỏ"
+
+msgid "BACKGROUND_NPC_ROLE_MINER"
+msgstr "phu mỏ"
+
+msgid "BACKGROUND_NPC_ROLE_ORE_APPRAISER"
+msgstr "người giám định quặng"
+
+msgid "BACKGROUND_NPC_ROLE_MOUNTAIN_PEDDLER"
+msgstr "lái buôn sơn hóa"
+
+msgid "BACKGROUND_NPC_ROLE_GINSENG_GATHERER"
+msgstr "người hái sâm"
+
+msgid "BACKGROUND_NPC_ROLE_LUMBERJACK"
+msgstr "tiều phu"
+
+msgid "BACKGROUND_NPC_ROLE_BEAST_KEEPER"
+msgstr "người nuôi linh thú"
+
+msgid "BACKGROUND_NPC_ROLE_FORGE_ARTISAN"
+msgstr "thợ phường luyện khí"
+
+msgid "BACKGROUND_NPC_ROLE_SECT_COOK"
+msgstr "tạp dịch nhà bếp tông môn"
+
+msgid "BACKGROUND_NPC_ROLE_SWEEPER_CHILD"
+msgstr "đồng tử quét dọn"
+
+msgid "BACKGROUND_NPC_ROLE_VASSAL_STEWARD"
+msgstr "quản sự gia tộc phụ dung"
+
+msgid "BACKGROUND_NPC_ROLE_LETTER_SERVANT"
+msgstr "người hầu đưa thư"
+
 #. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
 msgid "CELESTIAL_PHENOMENON_10_DESC"
 msgstr ""
