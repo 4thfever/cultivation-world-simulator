@@ -27,6 +27,7 @@ const {
   modeOptions,
   apiFormatOptions,
   presets,
+  activePresetName,
   applyPreset,
   handleTestAndSave,
   clearSavedApiKey,
@@ -44,6 +45,7 @@ const {
       <LlmPresetSection
         :title="t('llm.sections.quick_fill')"
         :presets="presets"
+        :active-preset-name="activePresetName"
         :badge-label="badge => t(`llm.badges.${badge}`)"
         @apply="applyPreset"
       />

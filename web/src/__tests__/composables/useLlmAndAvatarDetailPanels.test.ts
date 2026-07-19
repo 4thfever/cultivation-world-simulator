@@ -302,6 +302,7 @@ describe('useLlmConfigPanel', () => {
     const presets = Object.fromEntries(panel.presets.value.map(preset => [preset.name, preset]))
 
     expect(presets.OpenAI.model_name).toBe('gpt-5.6-terra')
+    expect(presets.Qwen.fast_model_name).toBe('qwen3.5-flash')
     expect(presets.DeepSeek.model_name).toBe('deepseek-v4-pro')
     expect(presets.Groq.fast_model_name).toBe('openai/gpt-oss-20b')
     expect(presets.Ollama.model_name).toBe('qwen3.5:9b')

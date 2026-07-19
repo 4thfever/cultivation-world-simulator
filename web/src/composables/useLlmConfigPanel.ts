@@ -95,7 +95,7 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
       name: t('llm.presets.qwen'),
       base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
       model_name: 'qwen3.7-plus',
-      fast_model_name: 'qwen3.6-flash',
+      fast_model_name: 'qwen3.5-flash',
       api_format: 'openai',
       badge: 'recommended',
     },
@@ -183,6 +183,16 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
       isLocal: true,
     },
   ])
+
+  const activePresetName = computed(() => {
+    const matched = presets.value.find(preset => (
+      config.value.base_url === preset.base_url
+      && config.value.model_name === preset.model_name
+      && config.value.fast_model_name === preset.fast_model_name
+      && config.value.api_format === preset.api_format
+    ))
+    return matched?.name ?? ''
+  })
 
   async function fetchConfig() {
     loading.value = true
@@ -316,6 +326,7 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     modeOptions,
     apiFormatOptions,
     presets,
+    activePresetName,
     fetchConfig,
     applyPreset,
     handleTestAndSave,

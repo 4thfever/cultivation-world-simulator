@@ -54,7 +54,7 @@ const emit = defineEmits<{
           @blur="emit('api-key-blur')"
         />
         <div v-if="showSavedApiKeyMask" class="saved-key-mask" aria-hidden="true">
-          ********
+          ********************
         </div>
       </div>
       <div v-if="hasSavedApiKey" class="secret-status-row">

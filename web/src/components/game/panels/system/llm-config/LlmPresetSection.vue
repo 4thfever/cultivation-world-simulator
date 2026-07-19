@@ -4,6 +4,7 @@ import type { LlmPreset } from '@/composables/useLlmConfigPanel'
 defineProps<{
   title: string
   presets: LlmPreset[]
+  activePresetName: string
   badgeLabel: (badge: string) => string
 }>()
 
@@ -20,6 +21,8 @@ const emit = defineEmits<{
         v-for="preset in presets"
         :key="preset.name"
         class="preset-btn"
+        :class="{ active: preset.name === activePresetName }"
+        :aria-pressed="preset.name === activePresetName"
         @click="emit('apply', preset)"
       >
         {{ preset.name }}
@@ -67,6 +70,13 @@ const emit = defineEmits<{
   border-color: #666;
 }
 
+.preset-btn.active {
+  background: rgba(74, 158, 255, 0.14);
+  border-color: #4a9eff;
+  box-shadow: 0 0 0 1px rgba(74, 158, 255, 0.32) inset;
+  color: #f2f7ff;
+}
+
 .badge {
   position: absolute;
   top: -0.7em;
@@ -83,7 +93,11 @@ const emit = defineEmits<{
   background: #2f7d32;
 }
 
-.badge.key {
+.badge.recommended {
   background: #b26a00;
+}
+
+.badge.free {
+  background: #1f7a8c;
 }
 </style>
