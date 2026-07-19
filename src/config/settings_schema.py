@@ -44,7 +44,7 @@ class LLMProfile(BaseModel):
     model_name: str = ""
     fast_model_name: str = ""
     mode: str = "default"
-    max_concurrent_requests: int = 10
+    max_concurrent_requests: int = Field(default=10, ge=1, le=50)
     has_api_key: bool = False
     api_format: str = "openai"  # "openai" 或 "anthropic"
 
@@ -67,7 +67,7 @@ class LLMSettingsUpdate(BaseModel):
     model_name: str
     fast_model_name: str
     mode: str
-    max_concurrent_requests: int = 10
+    max_concurrent_requests: int = Field(default=10, ge=1, le=50)
     clear_api_key: bool = False
     api_format: str = "openai"  # "openai" 或 "anthropic"
 

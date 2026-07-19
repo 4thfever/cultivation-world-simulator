@@ -1,6 +1,9 @@
 param(
     [string]$BuildDesc = "",
-    [switch]$SkipNpmInstall
+    [switch]$SkipNpmInstall,
+    [ValidateSet("generic", "epic")][string]$Distribution = "generic",
+    [ValidateSet("dev", "live")][string]$EosEnv = "dev",
+    [switch]$RequireEosRuntime
 )
 
 $ErrorActionPreference = "Stop"
@@ -92,6 +95,96 @@ function Write-DesktopSeedFile {
     return $true
 }
 
+function Write-JsonFile {
+    param(
+        [Parameter(Mandatory = $true)][string]$OutputPath,
+        [Parameter(Mandatory = $true)]$Value
+    )
+
+    $Parent = Split-Path -Parent $OutputPath
+    New-Item -ItemType Directory -Force -Path $Parent | Out-Null
+    $Json = $Value | ConvertTo-Json -Depth 8
+    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+    [System.IO.File]::WriteAllText($OutputPath, $Json, $utf8NoBom)
+}
+
+function Get-EnvValue {
+    param(
+        [Parameter(Mandatory = $true)][string]$Name
+    )
+    return [Environment]::GetEnvironmentVariable($Name)
+}
+
+function Resolve-EosDeploymentId {
+    param(
+        [Parameter(Mandatory = $true)][string]$EnvironmentName
+    )
+
+    $SpecificName = "EPIC_EOS_$($EnvironmentName.ToUpperInvariant())_DEPLOYMENT_ID"
+    $SpecificValue = Get-EnvValue -Name $SpecificName
+    if ($SpecificValue) {
+        return $SpecificValue
+    }
+    return Get-EnvValue -Name "EPIC_EOS_DEPLOYMENT_ID"
+}
+
+function Write-DistributionManifest {
+    param(
+        [Parameter(Mandatory = $true)][string]$OutputPath,
+        [Parameter(Mandatory = $true)][string]$DistributionName,
+        [Parameter(Mandatory = $true)][bool]$EpicEosMetricsEnabled
+    )
+
+    $Manifest = [ordered]@{
+        distribution = $DistributionName
+        features = [ordered]@{
+            epicEosMetrics = $EpicEosMetricsEnabled
+        }
+    }
+    Write-JsonFile -OutputPath $OutputPath -Value $Manifest
+}
+
+function Write-EosRuntimeFile {
+    param(
+        [Parameter(Mandatory = $true)][string]$OutputPath,
+        [Parameter(Mandatory = $true)][string]$EnvironmentName
+    )
+
+    $ProductId = Get-EnvValue -Name "EPIC_EOS_PRODUCT_ID"
+    $SandboxId = Get-EnvValue -Name "EPIC_EOS_SANDBOX_ID"
+    $DeploymentId = Resolve-EosDeploymentId -EnvironmentName $EnvironmentName
+    $ClientId = Get-EnvValue -Name "EPIC_EOS_CLIENT_ID"
+    $ClientSecret = Get-EnvValue -Name "EPIC_EOS_CLIENT_SECRET"
+
+    $Missing = @()
+    if (-not $ProductId) { $Missing += "EPIC_EOS_PRODUCT_ID" }
+    if (-not $DeploymentId) { $Missing += "EPIC_EOS_DEPLOYMENT_ID" }
+    if (-not $ClientId) { $Missing += "EPIC_EOS_CLIENT_ID" }
+    if (-not $ClientSecret) { $Missing += "EPIC_EOS_CLIENT_SECRET" }
+
+    if ($Missing.Count -gt 0) {
+        return @{
+            ok = $false
+            missing = $Missing
+        }
+    }
+
+    $Runtime = [ordered]@{
+        environment = $EnvironmentName
+        productId = $ProductId
+        sandboxId = $SandboxId
+        deploymentId = $DeploymentId
+        clientId = $ClientId
+        clientSecret = $ClientSecret
+    }
+    Write-JsonFile -OutputPath $OutputPath -Value $Runtime
+
+    return @{
+        ok = $true
+        missing = @()
+    }
+}
+
 $tag = Get-GitTag
 if (-not $BuildDesc) {
     $BuildDesc = "$tag-desktop"
@@ -102,12 +195,18 @@ $BackendDistRoot = Join-Path $DistRoot "backend_dist"
 $BackendBuildDir = Join-Path $RepoRoot ("tmp\build\" + $tag + "_desktop_backend")
 $BackendSpecDir = Join-Path $RepoRoot ("tmp\spec\" + $tag + "_desktop_backend")
 $SeedFile = Join-Path $DistRoot "desktop-seed.json"
+$DistributionManifestFile = Join-Path $DistRoot "desktop-distribution.json"
+$EosRuntimeFile = Join-Path $DistRoot "eos-runtime.json"
 $ContentRootFile = Join-Path $RepoRoot "tmp\desktop_content_root.txt"
 
 New-Item -ItemType Directory -Force -Path $DistRoot, $BackendDistRoot, $BackendBuildDir, $BackendSpecDir | Out-Null
 
 Write-Host ">>> Desktop Electron package tag: $tag" -ForegroundColor Cyan
 Write-Host ">>> Build desc: $BuildDesc" -ForegroundColor Cyan
+Write-Host ">>> Distribution: $Distribution" -ForegroundColor Cyan
+if ($Distribution -eq "epic") {
+    Write-Host ">>> EOS environment: $EosEnv" -ForegroundColor Cyan
+}
 
 # Load optional private desktop/LLM settings. This file is ignored by git via *.env rules.
 Import-EnvFile -Path (Join-Path $DesktopSeedDir "desktop_seed.env")
@@ -118,6 +217,47 @@ if ($HasSeed) {
 else {
     Write-Host "i No CWS_DEFAULT_LLM_* seed values found; building without private LLM seed." -ForegroundColor Yellow
 }
+
+$EosMetricsEnabled = $false
+$EosHelperDir = $null
+if ($Distribution -eq "epic") {
+    Import-EnvFile -Path (Join-Path $PackageDir "epic\eos_runtime.env")
+    $EosResult = Write-EosRuntimeFile -OutputPath $EosRuntimeFile -EnvironmentName $EosEnv
+    $ConfiguredHelperDir = Get-EnvValue -Name "EPIC_EOS_HELPER_DIR"
+    if ($ConfiguredHelperDir) {
+        if (-not [System.IO.Path]::IsPathRooted($ConfiguredHelperDir)) {
+            $ConfiguredHelperDir = Join-Path $RepoRoot $ConfiguredHelperDir
+        }
+        $EosHelperDir = $ConfiguredHelperDir
+    }
+    else {
+        $EosHelperDir = Join-Path $RepoRoot "desktop-eos-helper\publish\win-x64"
+    }
+
+    $HelperExe = Join-Path $EosHelperDir "eos-helper.exe"
+    if ($EosResult.ok -and (Test-Path $HelperExe)) {
+        $EosMetricsEnabled = $true
+        Write-Host "[OK] Prepared Epic EOS runtime config and helper." -ForegroundColor Green
+    }
+    else {
+        $Reasons = @()
+        if (-not $EosResult.ok) {
+            $Reasons += "missing runtime values: $($EosResult.missing -join ', ')"
+        }
+        if (-not (Test-Path $HelperExe)) {
+            $Reasons += "helper not found: $HelperExe"
+        }
+        $Message = "Epic EOS Metrics will be disabled for this package ($($Reasons -join '; '))."
+        if ($RequireEosRuntime) {
+            throw $Message
+        }
+        Write-Host $Message -ForegroundColor Yellow
+        if (Test-Path $EosRuntimeFile) {
+            Remove-Item -Path $EosRuntimeFile -Force
+        }
+    }
+}
+Write-DistributionManifest -OutputPath $DistributionManifestFile -DistributionName $Distribution -EpicEosMetricsEnabled $EosMetricsEnabled
 
 # --- Web Frontend Build ---
 $WebDir = Join-Path $RepoRoot "web"
@@ -249,9 +389,14 @@ try {
     }
 
     $env:CWS_DESKTOP_BACKEND_DIR = $BackendExeDir
+    $env:CWS_DESKTOP_DISTRIBUTION_MANIFEST = $DistributionManifestFile
     $env:CSC_IDENTITY_AUTO_DISCOVERY = "false"
     if ($HasSeed) {
         $env:CWS_DESKTOP_SEED_FILE = $SeedFile
+    }
+    if ($EosMetricsEnabled) {
+        $env:CWS_DESKTOP_EOS_RUNTIME_FILE = $EosRuntimeFile
+        $env:CWS_DESKTOP_EOS_HELPER_DIR = $EosHelperDir
     }
 
     Write-Host "Building Electron desktop package..."
@@ -262,7 +407,10 @@ try {
 }
 finally {
     Remove-Item Env:CWS_DESKTOP_BACKEND_DIR -ErrorAction SilentlyContinue
+    Remove-Item Env:CWS_DESKTOP_DISTRIBUTION_MANIFEST -ErrorAction SilentlyContinue
     Remove-Item Env:CWS_DESKTOP_SEED_FILE -ErrorAction SilentlyContinue
+    Remove-Item Env:CWS_DESKTOP_EOS_RUNTIME_FILE -ErrorAction SilentlyContinue
+    Remove-Item Env:CWS_DESKTOP_EOS_HELPER_DIR -ErrorAction SilentlyContinue
     Remove-Item Env:CSC_IDENTITY_AUTO_DISCOVERY -ErrorAction SilentlyContinue
     Pop-Location
 }

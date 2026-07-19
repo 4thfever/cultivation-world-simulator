@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>eos-helper</AssemblyName>
+    <RootNamespace>desktop_eos_helper</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>false</PublishSingleFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>EOS_PLATFORM_WINDOWS_64;$(DefineConstants)</DefineConstants>
+    <EosSdkRoot Condition="'$(EosSdkRoot)' == ''">E:\SDK\EOS\SDK</EosSdkRoot>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(EosSdkRoot)\Source\Core\**">
+      <Link>SDK\Core\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
+    <Compile Include="$(EosSdkRoot)\Source\Generated\**">
+      <Link>SDK\Generated\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
+    <Compile Include="$(EosSdkRoot)\Source\Overrides\**">
+      <Link>SDK\Overrides\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="$(EosSdkRoot)\Bin\EOSSDK-Win64-Shipping.dll">
+      <Link>EOSSDK-Win64-Shipping.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(EosSdkRoot)\Bin\x64\xaudio2_9redist.dll">
+      <Link>xaudio2_9redist.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

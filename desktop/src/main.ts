@@ -7,10 +7,12 @@ import { waitForHealth } from './health.js'
 import { isAllowedAppNavigation, shouldOpenExternally } from './navigation.js'
 import { normalizeHttpUrl, resolvePackagedBackendExe } from './paths.js'
 import { readSeedEnv } from './seed.js'
+import { createFileTelemetryLog, createTelemetryProvider, type TelemetryProvider } from './telemetry.js'
 
 let mainWindow: BrowserWindow | undefined
 let logDir = getDefaultLogDir()
 const backendController = createBackendController()
+let telemetryProvider: TelemetryProvider | undefined
 
 function createWindow(targetUrl: string): BrowserWindow {
   const window = new BrowserWindow({
@@ -66,6 +68,13 @@ async function boot(): Promise<void> {
   backendController.set(backendProcess)
 
   await waitForHealth({ url: `${targetUrl}/api/health`, timeoutMs: 45000 })
+  telemetryProvider = createTelemetryProvider({
+    resourcesPath: process.resourcesPath,
+    logDir,
+    argv: process.argv,
+    log: createFileTelemetryLog(logDir),
+  })
+  await telemetryProvider.beginSession()
   mainWindow = createWindow(targetUrl)
 }
 
@@ -87,6 +96,7 @@ installBackendCleanupHooks({
   app,
   processRef: process,
   cleanup: () => {
+    void telemetryProvider?.shutdown()
     backendController.cleanup()
   },
 })

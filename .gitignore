@@ -190,3 +190,8 @@ web/coverage/
 desktop/node_modules/
 desktop/build/
 desktop/release/
+
+# Local EOS helper build artifacts and SDK binaries
+desktop-eos-helper/bin/
+desktop-eos-helper/obj/
+desktop-eos-helper/publish/

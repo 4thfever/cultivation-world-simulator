@@ -1,6 +1,9 @@
 param(
     [string]$BuildDesc = "",
-    [switch]$SkipNpmInstall
+    [switch]$SkipNpmInstall,
+    [ValidateSet("generic", "epic")][string]$Distribution = "generic",
+    [ValidateSet("dev", "live")][string]$EosEnv = "dev",
+    [switch]$RequireEosRuntime
 )
 
 $ErrorActionPreference = "Stop"
@@ -14,6 +17,11 @@ if ($BuildDesc) {
 }
 if ($SkipNpmInstall) {
     $ArgsList += "-SkipNpmInstall"
+}
+$ArgsList += @("-Distribution", $Distribution)
+$ArgsList += @("-EosEnv", $EosEnv)
+if ($RequireEosRuntime) {
+    $ArgsList += "-RequireEosRuntime"
 }
 
 & powershell -NoProfile -ExecutionPolicy Bypass -File $PackScript @ArgsList

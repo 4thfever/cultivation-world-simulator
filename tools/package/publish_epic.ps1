@@ -4,7 +4,9 @@ param(
     [switch]$NoBuild,
     [string]$ContentRoot = "",
     [switch]$SkipNpmInstall,
-    [switch]$RequireUpload
+    [switch]$RequireUpload,
+    [ValidateSet("dev", "live")][string]$EosEnv = "dev",
+    [switch]$RequireEosRuntime
 )
 
 $ErrorActionPreference = "Stop"
@@ -38,12 +40,20 @@ Write-Host "Build version: $BuildVersion"
 Write-Host "Preview: $Preview"
 Write-Host "NoBuild: $NoBuild"
 Write-Host "Require upload: $RequireUpload"
+Write-Host "EOS env: $EosEnv"
 
 if (-not $NoBuild) {
     $PackScript = Join-Path $ScriptDir "pack_desktop.ps1"
-    $PackArgs = @("-BuildDesc", $BuildVersion)
+    $PackArgs = @(
+        "-BuildDesc", $BuildVersion,
+        "-Distribution", "epic",
+        "-EosEnv", $EosEnv
+    )
     if ($SkipNpmInstall) {
         $PackArgs += "-SkipNpmInstall"
+    }
+    if ($RequireEosRuntime) {
+        $PackArgs += "-RequireEosRuntime"
     }
 
     Write-Host "`n>>> Step 1/3: Building desktop Electron package..." -ForegroundColor Cyan

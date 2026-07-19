@@ -12,7 +12,7 @@
   "preset_extra_key": "请填写 API Key",
   "preset_extra_keep_saved_key": "将继续使用已保存的 API Key；如切换服务商，请填写新的 Key",
   "preset_extra_keep_draft_key": "已保留当前输入的 API Key",
-  "preset_extra_local": "请确保 Ollama 已启动",
+  "preset_extra_local": "本地 Ollama 可不填 API Key，请确保 Ollama 已启动并已拉取模型",
   "clear_key": {
     "title": "清除已保存 API Key?",
     "content": "清除后将无法继续使用当前密钥。之后需要重新填写 API Key 才能连接需要密钥的服务商。",

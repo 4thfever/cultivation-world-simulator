@@ -100,7 +100,7 @@ from src.classes.event import Event
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
 from src.sim import save_game, list_saves, load_game, get_events_db_path
 from src.utils.llm.client import register_llm_failure_handler, test_connectivity as _test_connectivity
-from src.utils.llm.config import LLMConfig
+from src.utils.llm.connectivity import check_llm_profile_connectivity
 from src.run.data_loader import reload_all_static_data
 from src.run.static_data_registry import build_static_game_data_registry
 from src.classes.language import language_manager
@@ -650,13 +650,10 @@ def test_connectivity(config):
 def test_llm_connection(req) -> dict:
     """兼容保留：使用当前保存的密钥测试 LLM 配置。"""
     profile, api_key = settings_service.get_llm_test_payload(req)
-    success, error_msg = test_connectivity(
-        config=LLMConfig(
-            base_url=profile.base_url,
-            api_key=api_key,
-            model_name=profile.model_name,
-            api_format=profile.api_format,
-        )
+    success, error_msg = check_llm_profile_connectivity(
+        profile=profile,
+        api_key=api_key,
+        test_connectivity=lambda *, config: test_connectivity(config),
     )
     if success:
         return {"status": "ok", "message": "连接成功"}

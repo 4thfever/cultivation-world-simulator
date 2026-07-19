@@ -8,7 +8,9 @@ param(
     [string]$BuildVersion = "",
     [string]$ContentRoot = "",
     [string]$Branch = "",
-    [switch]$SkipNpmInstall
+    [switch]$SkipNpmInstall,
+    [ValidateSet("dev", "live")][string]$EosEnv = "dev",
+    [switch]$RequireEosRuntime
 )
 
 $ErrorActionPreference = "Stop"
@@ -76,6 +78,8 @@ elseif ($Action -eq "publish") {
     if ($Branch -and $Target -eq "steam") { $TaskArgs += @("-Branch", $Branch) }
     if ($RequireUpload -and $Target -eq "epic") { $TaskArgs += "-RequireUpload" }
     if ($SkipNpmInstall -and ($Target -eq "steam" -or $Target -eq "epic")) { $TaskArgs += "-SkipNpmInstall" }
+    if ($Target -eq "epic") { $TaskArgs += @("-EosEnv", $EosEnv) }
+    if ($RequireEosRuntime -and $Target -eq "epic") { $TaskArgs += "-RequireEosRuntime" }
 }
 
 $ScriptPath = Join-Path $ScriptDir $ScriptName

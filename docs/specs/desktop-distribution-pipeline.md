@@ -14,6 +14,10 @@ For the short command list, see `docs/packaging.md`.
 3. The resolved content root is written to `tmp/desktop_content_root.txt`.
 4. Store upload scripts must consume that content root instead of rebuilding or
    guessing platform-specific output directories.
+5. Desktop packaging has an explicit distribution flag. Generic builds are the
+   default; Epic publishing calls the same desktop packer with
+   `-Distribution epic` so Epic-only runtime resources stay out of GitHub and
+   generic desktop packages.
 
 ## Desktop Private Seed
 
@@ -32,6 +36,15 @@ desktop package and then calls `tools/package/epic/publish.ps1`, which wraps
 Epic's BuildPatchTool `UploadBinary` mode. The real upload only runs with
 `-RequireUpload`; otherwise the script validates available configuration and
 prints a preview command.
+
+Epic runtime EOS Metrics configuration is separate from BuildPatchTool upload
+configuration. Local EOS runtime values live in ignored
+`tools/package/epic/eos_runtime.env`, copied from
+`tools/package/epic/eos_runtime.env.example`. When the runtime config and a
+prepared `eos-helper.exe` directory are both available, Epic packaging includes
+`desktop-distribution.json`, `eos-runtime.json`, and `eos-helper/` resources.
+Without those pieces, EOS Metrics is disabled for that package unless
+`-RequireEosRuntime` is supplied.
 
 `tools/package/publish_steam.ps1` is the Steam publishing entry. It reuses
 `pack_desktop.ps1` and no longer owns the desktop build layout.
@@ -55,6 +68,7 @@ Publish:
 powershell ./tools/package/publish_github.ps1
 powershell ./tools/package/publish_steam.ps1
 powershell ./tools/package/publish_epic.ps1
+powershell ./tools/package/publish_epic.ps1 -EosEnv live -RequireEosRuntime
 ```
 
 Epic publishing requires a local `tools/package/epic/epic_config.env` copied

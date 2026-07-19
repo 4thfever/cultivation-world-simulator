@@ -33,6 +33,13 @@ def test_desktop_packaging_contract():
     assert "desktop_content_root.txt" in content
     assert "npm run dist:desktop" in content
     assert "Assert-NoSensitiveConfigs" in content
+    assert "[ValidateSet(\"generic\", \"epic\")][string]$Distribution = \"generic\"" in content
+    assert "desktop-distribution.json" in content
+    assert "eos-runtime.json" in content
+    assert "EPIC_EOS_CLIENT_SECRET" in content
+    assert "CWS_DESKTOP_DISTRIBUTION_MANIFEST" in content
+    assert "CWS_DESKTOP_EOS_RUNTIME_FILE" in content
+    assert "CWS_DESKTOP_EOS_HELPER_DIR" in content
     assert "CWS_DEFAULT_LLM_API_KEY" in content
     assert "desktop_seed.env" in content
     assert "AICultivationSimulator_Backend" in content
@@ -43,6 +50,8 @@ def test_desktop_packaging_contract():
     wrapper = project_root / "tools" / "package" / "pack_desktop.ps1"
     wrapper_content = wrapper.read_text(encoding="utf-8")
     assert "desktop\\pack.ps1" in wrapper_content
+    assert "[ValidateSet(\"generic\", \"epic\")][string]$Distribution = \"generic\"" in wrapper_content
+    assert "-Distribution" in wrapper_content
 
 
 def test_steam_frontend_build_avoids_fragile_vendor_chunks():
@@ -86,7 +95,23 @@ def test_publish_epic_placeholder_wraps_desktop_build():
     assert "[switch]$Preview" in content
     assert "[switch]$NoBuild" in content
     assert "[switch]$RequireUpload" in content
+    assert "[ValidateSet(\"dev\", \"live\")][string]$EosEnv = \"dev\"" in content
+    assert "-Distribution\", \"epic\"" in content
+    assert "-EosEnv" in content
     assert not (project_root / "tools" / "package" / "pack_upload_epic.ps1").exists()
+
+
+def test_epic_eos_runtime_example_contains_placeholders_only():
+    project_root = get_project_root()
+    example = project_root / "tools" / "package" / "epic" / "eos_runtime.env.example"
+    content = example.read_text(encoding="utf-8")
+
+    assert "EPIC_EOS_PRODUCT_ID=" in content
+    assert "EPIC_EOS_CLIENT_SECRET=" in content
+    assert "712509d46fa64aa6ab328156929cdafe" not in content
+    assert "xyza7891zYKHr1OV4M9DmHsIGuPTOY3P" not in content
+    assert "2553c1ee5efc43e6bffb221c7d7acb3b" not in content
+    assert "d58d8d54f87a456b83aa7af2a73a1e68" not in content
 
 
 def test_publish_github_wraps_existing_release_pipeline():
@@ -99,6 +124,8 @@ def test_publish_github_wraps_existing_release_pipeline():
     assert "release.ps1" in content
     assert "[switch]$NoBuild" in content
     assert "[switch]$Preview" in content
+    assert "eos_runtime.env" not in content
+    assert "CWS_DESKTOP_EOS" not in content
 
 
 def test_epic_upload_script_wraps_build_patch_tool():

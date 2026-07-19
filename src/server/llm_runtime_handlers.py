@@ -3,7 +3,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 from typing import Any, Callable
 
-from src.utils.llm.config import LLMConfig
+from src.utils.llm.connectivity import check_llm_profile_connectivity
 
 
 def create_llm_runtime_handlers(
@@ -19,13 +19,10 @@ def create_llm_runtime_handlers(
 
     def test_llm_connection(req) -> dict:
         profile, api_key = settings_service.get_llm_test_payload(req)
-        success, error_msg = test_connectivity(
-            config=LLMConfig(
-                base_url=profile.base_url,
-                api_key=api_key,
-                model_name=profile.model_name,
-                api_format=profile.api_format,
-            )
+        success, error_msg = check_llm_profile_connectivity(
+            profile=profile,
+            api_key=api_key,
+            test_connectivity=test_connectivity,
         )
         if success:
             return {"status": "ok", "message": "连接成功"}

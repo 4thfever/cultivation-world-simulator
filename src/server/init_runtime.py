@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
+from src.utils.llm.validation import llm_requires_api_key
 
 
 INIT_PHASE_NAMES = {
@@ -31,10 +32,18 @@ def check_llm_connectivity() -> tuple[bool, str]:
         normal_config = LLMConfig.from_mode(LLMMode.NORMAL)
         fast_config = LLMConfig.from_mode(LLMMode.FAST)
 
-        if not normal_config.api_key or not normal_config.base_url:
-            return False, "LLM 配置不完整：请填写 API Key 和 Base URL"
+        if not normal_config.base_url:
+            return False, "LLM 配置不完整：请填写 Base URL"
         if not normal_config.model_name:
             return False, "LLM 配置不完整：请填写智能模型名称"
+        if (
+            llm_requires_api_key(
+                base_url=normal_config.base_url,
+                api_format=normal_config.api_format,
+            )
+            and not normal_config.api_key
+        ):
+            return False, "LLM 配置不完整：请填写 API Key"
 
         same_model = (
             normal_config.model_name == fast_config.model_name

@@ -26,6 +26,35 @@ const createEmptyConfig = (): LLMConfigDTO => ({
   api_format: 'openai',
 })
 
+const LOCAL_LLM_HOSTS = new Set(['localhost', '127.0.0.1', '::1', '0.0.0.0'])
+
+function getCredentialScope(baseUrl: string): string {
+  const raw = baseUrl.trim()
+  if (!raw) {
+    return ''
+  }
+
+  try {
+    const url = new URL(raw)
+    return url.host.toLowerCase()
+  } catch {
+    return raw.toLowerCase()
+  }
+}
+
+function isLocalOpenAiEndpoint(config: LLMConfigDTO): boolean {
+  if ((config.api_format || 'openai') !== 'openai') {
+    return false
+  }
+
+  try {
+    const url = new URL(config.base_url.trim())
+    return LOCAL_LLM_HOSTS.has(url.hostname.toLowerCase())
+  } catch {
+    return false
+  }
+}
+
 export function useLlmConfigPanel(onConfigSaved: () => void) {
   const { t } = useI18n()
   const message = useMessage()
@@ -37,6 +66,7 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
   const showHelpModal = ref(false)
   const hasSavedApiKey = ref(false)
   const apiKeyFocused = ref(false)
+  const savedCredentialScope = ref('')
   const config = ref<LLMConfigDTO>(createEmptyConfig())
 
   const hasDraftApiKey = computed(() => Boolean(config.value.api_key))
@@ -64,53 +94,53 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     {
       name: t('llm.presets.qwen'),
       base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-      model_name: 'qwen-plus',
-      fast_model_name: 'qwen3.5-flash',
+      model_name: 'qwen3.7-plus',
+      fast_model_name: 'qwen3.6-flash',
       api_format: 'openai',
       badge: 'recommended',
     },
     {
       name: t('llm.presets.gemini'),
       base_url: 'https://generativelanguage.googleapis.com/v1beta/openai/',
-      model_name: 'gemini-3-pro-preview',
-      fast_model_name: 'gemini-3-flash-preview',
+      model_name: 'gemini-3.1-pro-preview',
+      fast_model_name: 'gemini-3.5-flash',
       api_format: 'openai',
       badge: 'recommended',
     },
     {
       name: t('llm.presets.openai'),
       base_url: 'https://api.openai.com/v1',
-      model_name: 'gpt-4o',
-      fast_model_name: 'gpt-4o-mini',
+      model_name: 'gpt-5.6-terra',
+      fast_model_name: 'gpt-5.6-luna',
       api_format: 'openai',
     },
     {
       name: t('llm.presets.anthropic'),
       base_url: 'https://api.anthropic.com',
-      model_name: 'claude-sonnet-4-20250514',
-      fast_model_name: 'claude-haiku-4-20250414',
+      model_name: 'claude-sonnet-5',
+      fast_model_name: 'claude-haiku-4-5',
       api_format: 'anthropic',
     },
     {
       name: t('llm.presets.kimi'),
       base_url: 'https://api.moonshot.cn/v1',
-      model_name: 'kimi-k2.5',
-      fast_model_name: 'kimi-k2-turbo-preview',
+      model_name: 'kimi-k3',
+      fast_model_name: 'kimi-k2.6',
       api_format: 'openai',
     },
     {
       name: t('llm.presets.deepseek'),
       base_url: 'https://api.deepseek.com',
-      model_name: 'deepseek-chat',
-      fast_model_name: 'deepseek-chat',
+      model_name: 'deepseek-v4-pro',
+      fast_model_name: 'deepseek-v4-flash',
       api_format: 'openai',
       badge: 'free',
     },
     {
       name: t('llm.presets.groq'),
       base_url: 'https://api.groq.com/openai/v1',
-      model_name: 'llama-3.3-70b-versatile',
-      fast_model_name: 'llama-3.1-8b-instant',
+      model_name: 'openai/gpt-oss-120b',
+      fast_model_name: 'openai/gpt-oss-20b',
       api_format: 'openai',
       badge: 'free',
     },
@@ -124,30 +154,30 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     {
       name: t('llm.presets.longcat'),
       base_url: 'https://api.longcat.chat/openai',
-      model_name: 'LongCat-2.0-Preview',
-      fast_model_name: 'LongCat-2.0-Preview',
+      model_name: 'LongCat-2.0',
+      fast_model_name: 'LongCat-2.0',
       api_format: 'openai',
       badge: 'free',
     },
     {
       name: t('llm.presets.siliconflow'),
       base_url: 'https://api.siliconflow.cn/v1',
-      model_name: 'Qwen/Qwen2.5-72B-Instruct',
-      fast_model_name: 'Qwen/Qwen2.5-7B-Instruct',
+      model_name: 'Qwen/Qwen3.6-27B',
+      fast_model_name: 'Qwen/Qwen3-8B',
       api_format: 'openai',
     },
     {
       name: t('llm.presets.openrouter'),
       base_url: 'https://openrouter.ai/api/v1',
-      model_name: 'anthropic/claude-3.5-sonnet',
-      fast_model_name: 'google/gemini-3-flash',
+      model_name: 'anthropic/claude-sonnet-5',
+      fast_model_name: 'google/gemini-3.5-flash',
       api_format: 'openai',
     },
     {
       name: t('llm.presets.ollama'),
       base_url: 'http://localhost:11434/v1',
-      model_name: 'qwen2.5:7b',
-      fast_model_name: 'qwen2.5:7b',
+      model_name: 'qwen3.5:9b',
+      fast_model_name: 'qwen3:8b',
       api_format: 'openai',
       badge: 'local',
       isLocal: true,
@@ -159,6 +189,7 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     try {
       const result = await llmApi.fetchConfig()
       hasSavedApiKey.value = result.has_api_key
+      savedCredentialScope.value = getCredentialScope(result.base_url)
       config.value = {
         base_url: result.base_url,
         api_key: '',
@@ -201,10 +232,21 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     testing.value = true
     try {
       const payload = { ...config.value }
+      const shouldClearOldKey = hasSavedApiKey.value
+        && !payload.api_key
+        && (
+          isLocalOpenAiEndpoint(payload)
+          || getCredentialScope(payload.base_url) !== savedCredentialScope.value
+        )
+      if (shouldClearOldKey) {
+        payload.clear_api_key = true
+      }
+
       await llmApi.testConnection(payload)
       message.success(t('llm.test_success'))
       const saved = await llmApi.saveConfig(payload)
       hasSavedApiKey.value = saved.config?.has_api_key ?? Boolean(config.value.api_key || hasSavedApiKey.value)
+      savedCredentialScope.value = getCredentialScope(saved.config?.base_url ?? payload.base_url)
       config.value.api_key = ''
       message.success(t('llm.save_success'))
       uiStore.clearLlmConfigError()

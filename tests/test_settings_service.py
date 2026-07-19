@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import asyncio
 import json
+import pytest
 from unittest.mock import AsyncMock
 
 from fastapi.testclient import TestClient
+from pydantic import ValidationError
 
 from src.config import AppSettingsPatch, LLMSettingsUpdate, get_data_paths, get_settings_service
 from src.config import settings_service as settings_service_module
@@ -88,6 +90,45 @@ def test_settings_service_updates_llm_secret_without_exposing_key():
     assert api_key == "secret-key"
     assert "secret-key" not in get_data_paths().settings_file.read_text(encoding="utf-8")
     assert "secret-key" in get_data_paths().secrets_file.read_text(encoding="utf-8")
+
+
+def test_settings_service_trims_llm_profile_and_secret():
+    service = get_settings_service()
+    service.update_llm(
+        LLMSettingsUpdate(
+            base_url=" https://api.example.com/v1 ",
+            api_key=" secret-key ",
+            model_name=" model-a ",
+            fast_model_name=" model-b ",
+            mode=" default ",
+            max_concurrent_requests=12,
+            clear_api_key=False,
+            api_format=" openai ",
+        )
+    )
+
+    profile, api_key = service.get_llm_runtime_config()
+
+    assert profile.base_url == "https://api.example.com/v1"
+    assert profile.model_name == "model-a"
+    assert profile.fast_model_name == "model-b"
+    assert profile.mode == "default"
+    assert profile.api_format == "openai"
+    assert api_key == "secret-key"
+
+
+def test_llm_settings_update_rejects_invalid_concurrency():
+    with pytest.raises(ValidationError):
+        LLMSettingsUpdate(
+            base_url="https://api.example.com/v1",
+            api_key="secret-key",
+            model_name="model-a",
+            fast_model_name="model-b",
+            mode="default",
+            max_concurrent_requests=0,
+            clear_api_key=False,
+            api_format="openai",
+        )
 
 
 def test_settings_service_applies_default_llm_seed_on_first_create(monkeypatch):
@@ -334,6 +375,56 @@ def test_llm_status_api_reports_runtime_failure(monkeypatch):
     payload = response.json()
     assert payload["requires_config"] is True
     assert payload["last_failure"] == "身份验证失败"
+
+
+def test_llm_status_api_treats_local_openai_endpoint_as_configured_without_key():
+    from src.server import main
+
+    service = get_settings_service()
+    service.update_llm(
+        LLMSettingsUpdate(
+            base_url="http://localhost:11434/v1",
+            api_key="",
+            model_name="qwen3:8b",
+            fast_model_name="qwen3:8b",
+            mode="default",
+            max_concurrent_requests=4,
+            clear_api_key=False,
+            api_format="openai",
+        )
+    )
+
+    client = TestClient(main.app)
+    response = client.get("/api/settings/llm/status")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["configured"] is True
+
+
+def test_llm_status_api_requires_key_for_remote_endpoint():
+    from src.server import main
+
+    service = get_settings_service()
+    service.update_llm(
+        LLMSettingsUpdate(
+            base_url="https://api.example.com/v1",
+            api_key="",
+            model_name="model-a",
+            fast_model_name="model-b",
+            mode="default",
+            max_concurrent_requests=4,
+            clear_api_key=False,
+            api_format="openai",
+        )
+    )
+
+    client = TestClient(main.app)
+    response = client.get("/api/settings/llm/status")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["configured"] is False
 
 
 def test_llm_settings_api_updates_config_without_exposing_secret():

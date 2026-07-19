@@ -21,7 +21,7 @@ backend. This maps to the EOS Metrics interface, especially begin/end player
 session calls. Epic's documentation describes the Metrics interface as the path
 for collecting concurrent online user and retention data:
 
-- https://dev.epicgames.com/docs/game-services/eos-metrics-interface
+- https://dev.epicgames.com/docs/epic-online-services/player-and-game-data/eos-metrics-interface
 - https://dev.epicgames.com/docs/en-US/api-ref/functions/eos-metrics-begin-player-session
 - https://dev.epicgames.com/docs/en-US/api-ref/interfaces/metrics
 

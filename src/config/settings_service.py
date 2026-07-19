@@ -237,24 +237,41 @@ class SettingsService:
     def get_llm_view(self) -> LLMConfigView:
         return LLMConfigView(**_model_to_dict(self.get_settings_view().llm.profile))
 
+    def _normalize_llm_profile_payload(self, update: LLMSettingsUpdate) -> dict[str, Any]:
+        return {
+            "base_url": update.base_url.strip(),
+            "model_name": update.model_name.strip(),
+            "fast_model_name": update.fast_model_name.strip(),
+            "mode": update.mode.strip() or "default",
+            "max_concurrent_requests": update.max_concurrent_requests,
+            "api_format": update.api_format.strip() or "openai",
+        }
+
+    def _normalize_llm_api_key(self, api_key: str | None) -> str | None:
+        if api_key is None:
+            return None
+        return api_key.strip()
+
     def update_llm(self, update: LLMSettingsUpdate) -> LLMConfigView:
         settings = self.get_settings()
         secrets = self.get_secrets()
+        profile_payload = self._normalize_llm_profile_payload(update)
+        candidate_key = self._normalize_llm_api_key(update.api_key)
 
         profile = LLMProfile(
-            base_url=update.base_url,
-            model_name=update.model_name,
-            fast_model_name=update.fast_model_name,
-            mode=update.mode,
-            max_concurrent_requests=update.max_concurrent_requests,
+            base_url=profile_payload["base_url"],
+            model_name=profile_payload["model_name"],
+            fast_model_name=profile_payload["fast_model_name"],
+            mode=profile_payload["mode"],
+            max_concurrent_requests=profile_payload["max_concurrent_requests"],
             has_api_key=settings.llm.profile.has_api_key,
-            api_format=update.api_format,
+            api_format=profile_payload["api_format"],
         )
 
         if update.clear_api_key:
             secrets.api_key = ""
-        elif update.api_key is not None and update.api_key != "":
-            secrets.api_key = update.api_key
+        elif candidate_key:
+            secrets.api_key = candidate_key
 
         profile.has_api_key = bool(secrets.api_key)
         settings.llm.profile = profile
@@ -269,19 +286,21 @@ class SettingsService:
         return settings.llm.profile, secrets.api_key
 
     def get_llm_test_payload(self, update: LLMSettingsUpdate) -> tuple[LLMProfile, str]:
-        settings = self.get_settings()
         secrets = self.get_secrets()
-        candidate_key = update.api_key if update.api_key not in (None, "") else secrets.api_key
+        profile_payload = self._normalize_llm_profile_payload(update)
+        candidate_key = self._normalize_llm_api_key(update.api_key)
+        if not candidate_key:
+            candidate_key = secrets.api_key
         if update.clear_api_key:
             candidate_key = ""
         profile = LLMProfile(
-            base_url=update.base_url,
-            model_name=update.model_name,
-            fast_model_name=update.fast_model_name,
-            mode=update.mode,
-            max_concurrent_requests=update.max_concurrent_requests,
+            base_url=profile_payload["base_url"],
+            model_name=profile_payload["model_name"],
+            fast_model_name=profile_payload["fast_model_name"],
+            mode=profile_payload["mode"],
+            max_concurrent_requests=profile_payload["max_concurrent_requests"],
             has_api_key=bool(candidate_key),
-            api_format=update.api_format,
+            api_format=profile_payload["api_format"],
         )
         return profile, candidate_key
 

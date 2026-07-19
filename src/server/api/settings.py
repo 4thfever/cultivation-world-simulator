@@ -6,7 +6,8 @@ from typing import Awaitable, Callable
 from fastapi import APIRouter, HTTPException
 
 from src.config import AppSettingsPatch, LLMSettingsUpdate
-from src.utils.llm.config import LLMConfig
+from src.utils.llm.connectivity import check_llm_profile_connectivity
+from src.utils.llm.validation import is_llm_runtime_configured
 
 
 def create_settings_router(
@@ -46,7 +47,7 @@ def create_settings_router(
     @router.get("/api/settings/llm/status")
     def get_llm_status():
         profile, api_key = get_llm_runtime_config()
-        configured = bool(profile.base_url and profile.model_name and api_key)
+        configured = is_llm_runtime_configured(profile, api_key)
         requires_config = False
         last_failure = ""
         if get_llm_failure_state is not None:
@@ -61,13 +62,11 @@ def create_settings_router(
     def test_llm_connection(req: LLMSettingsUpdate):
         try:
             profile, api_key = get_llm_test_payload(req)
-            config = LLMConfig(
-                base_url=profile.base_url,
+            success, error_msg = check_llm_profile_connectivity(
+                profile=profile,
                 api_key=api_key,
-                model_name=profile.model_name,
-                api_format=profile.api_format,
+                test_connectivity=test_connectivity,
             )
-            success, error_msg = test_connectivity(config=config)
             if success:
                 return {"status": "ok", "message": "连接成功"}
             raise HTTPException(status_code=400, detail=error_msg)

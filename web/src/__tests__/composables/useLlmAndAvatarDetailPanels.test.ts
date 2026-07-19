@@ -243,6 +243,72 @@ describe('useLlmConfigPanel', () => {
     expect(onSaved).toHaveBeenCalled()
   })
 
+  it('clears saved API key when saving a local preset without a draft key', async () => {
+    vi.mocked(llmApi.saveConfig).mockResolvedValue({
+      status: 'ok',
+      message: 'saved',
+      config: {
+        base_url: 'http://localhost:11434/v1',
+        model_name: 'qwen3.5:9b',
+        fast_model_name: 'qwen3:8b',
+        mode: 'default',
+        max_concurrent_requests: 8,
+        has_api_key: false,
+        api_format: 'openai',
+      },
+    })
+    const panel = mountComposable(() => useLlmConfigPanel(vi.fn()))
+    await settle()
+
+    const ollama = panel.presets.value.find(preset => preset.isLocal)
+    expect(ollama).toBeTruthy()
+    panel.applyPreset(ollama!)
+
+    await panel.handleTestAndSave()
+
+    expect(llmApi.testConnection).toHaveBeenCalledWith(expect.objectContaining({
+      api_key: '',
+      clear_api_key: true,
+      base_url: ollama!.base_url,
+    }))
+    expect(llmApi.saveConfig).toHaveBeenCalledWith(expect.objectContaining({
+      clear_api_key: true,
+      base_url: ollama!.base_url,
+    }))
+    expect(panel.hasSavedApiKey.value).toBe(false)
+  })
+
+  it('clears saved API key when endpoint scope changes without a draft key', async () => {
+    const panel = mountComposable(() => useLlmConfigPanel(vi.fn()))
+    await settle()
+
+    panel.config.value.base_url = 'https://api.other.example/v1'
+    panel.config.value.model_name = 'other-model'
+    panel.config.value.fast_model_name = 'other-fast'
+
+    await panel.handleTestAndSave()
+
+    expect(llmApi.testConnection).toHaveBeenCalledWith(expect.objectContaining({
+      api_key: '',
+      clear_api_key: true,
+      base_url: 'https://api.other.example/v1',
+    }))
+  })
+
+  it('keeps current recommended preset model names from regressing to old aliases', async () => {
+    const panel = mountComposable(() => useLlmConfigPanel(vi.fn()))
+    await settle()
+
+    const presets = Object.fromEntries(panel.presets.value.map(preset => [preset.name, preset]))
+
+    expect(presets.OpenAI.model_name).toBe('gpt-5.6-terra')
+    expect(presets.DeepSeek.model_name).toBe('deepseek-v4-pro')
+    expect(presets.Groq.fast_model_name).toBe('openai/gpt-oss-20b')
+    expect(presets.Ollama.model_name).toBe('qwen3.5:9b')
+    expect(panel.presets.value.map(preset => preset.model_name)).not.toContain('gpt-4o')
+    expect(panel.presets.value.map(preset => preset.model_name)).not.toContain('deepseek-chat')
+  })
+
   it('clears saved API key only after confirmation', async () => {
     const panel = mountComposable(() => useLlmConfigPanel(vi.fn()))
     await settle()
