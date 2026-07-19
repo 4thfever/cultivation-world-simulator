@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import logging
 import os
 import signal
@@ -23,6 +24,8 @@ class EndpointFilter(logging.Filter):
 
 
 class ConnectionManager:
+    BROADCAST_SEND_TIMEOUT_SECONDS = 2.0
+
     def __init__(self, *, runtime=None, is_idle_shutdown_enabled=None):
         self.runtime = runtime
         self.is_idle_shutdown_enabled = is_idle_shutdown_enabled or (lambda: False)
@@ -80,15 +83,24 @@ class ConnectionManager:
         import json
 
         txt = json.dumps(message, default=str)
-        disconnected: list[WebSocket] = []
-        for connection in list(self.active_connections):
+        connections = list(self.active_connections)
+
+        async def send(connection: WebSocket) -> WebSocket | None:
             try:
-                await connection.send_text(txt)
+                await asyncio.wait_for(
+                    connection.send_text(txt),
+                    timeout=self.BROADCAST_SEND_TIMEOUT_SECONDS,
+                )
             except Exception as exc:
-                # A stale connection must not prevent live clients from
-                # receiving a state-changing command delta.
                 print(f"Broadcast error: {exc}")
-                disconnected.append(connection)
+                return connection
+            return None
+
+        disconnected = [
+            connection
+            for connection in await asyncio.gather(*(send(connection) for connection in connections))
+            if connection is not None
+        ]
 
         for connection in disconnected:
             self.disconnect(connection)

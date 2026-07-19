@@ -1,6 +1,6 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useDialog, useMessage } from 'naive-ui'
+import { useDialog, useMessage, type DialogReactive } from 'naive-ui'
 import { avatarApi, type SimpleAvatarDTO } from '@/api'
 import { useAvatarStore } from '@/stores/avatar'
 import { useWorldStore } from '@/stores/world'
@@ -50,8 +50,8 @@ export function useDeleteAvatarPanel(confirmDelete?: ConfirmDelete) {
     }
   }
 
-  async function deleteAvatar(id: string) {
-    if (deletingAvatarId.value) return
+  async function deleteAvatar(id: string): Promise<boolean> {
+    if (deletingAvatarId.value) return false
 
     // Do not let a list request started before this mutation restore the
     // deleted avatar after the command succeeds.
@@ -67,8 +67,10 @@ export function useDeleteAvatarPanel(confirmDelete?: ConfirmDelete) {
         uiStore.clearSelection()
       }
       message.success(t(uiKey('delete_success')))
+      return true
     } catch (error) {
       message.error(toErrorMessage(error, t(uiKey('delete_failed'))))
+      return false
     } finally {
       deletingAvatarId.value = null
     }
@@ -83,11 +85,18 @@ export function useDeleteAvatarPanel(confirmDelete?: ConfirmDelete) {
       return
     }
 
-    dialog.warning({
+    let confirmationDialog: DialogReactive | undefined
+    confirmationDialog = dialog.warning({
       content: confirmation,
       positiveText: t('save_load.delete'),
       negativeText: t('common.cancel'),
-      onPositiveClick: () => deleteAvatar(id),
+      onPositiveClick: async () => {
+        const deleted = await deleteAvatar(id)
+        if (deleted) {
+          confirmationDialog?.destroy()
+        }
+        return deleted
+      },
     })
   }
 

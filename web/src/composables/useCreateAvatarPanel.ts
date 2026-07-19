@@ -5,7 +5,6 @@ import { RelationType } from '@/constants/relations'
 import { avatarApi } from '@/api'
 import type { CreateAvatarParams, GameDataDTO, SimpleAvatarDTO } from '@/types/api'
 import { useAvatarStore } from '@/stores/avatar'
-import { useMapStore } from '@/stores/map'
 import { useWorldStore } from '@/stores/world'
 import { useTextures } from '@/components/game/composables/useTextures'
 import { getAvatarPortraitUrl } from '@/utils/assetUrls'
@@ -48,7 +47,6 @@ const createDefaultForm = (): CreateAvatarParams => ({
 export function useCreateAvatarPanel(onCreated: () => void) {
   const { t } = useI18n()
   const avatarStore = useAvatarStore()
-  const mapStore = useMapStore()
   const worldStore = useWorldStore()
   const { preloadAvatarTextures } = useTextures()
   const message = useMessage()
@@ -198,23 +196,19 @@ export function useCreateAvatarPanel(onCreated: () => void) {
       message.success(t(uiKey('create_success')))
       worldStore.acceptMutationRevision(response.world_revision)
       if (response.avatar) {
-        if (response.avatar.is_dead) {
-          await mapStore.refreshPois()
-        } else {
-          avatarStore.updateAvatars([response.avatar])
-          avatarList.value = [
-            ...avatarList.value.filter(avatar => avatar.id !== response.avatar!.id),
-            {
-              id: response.avatar.id,
-              name: response.avatar.name,
-              sect_name: '',
-              realm: response.avatar.realm ?? 'QI_REFINEMENT',
-              gender: response.avatar.gender ?? 'male',
-              age: payload.age ?? createForm.value.age ?? 16,
-            },
-          ]
-          void preloadAvatarTextures([response.avatar])
-        }
+        avatarStore.updateAvatars([response.avatar])
+        avatarList.value = [
+          ...avatarList.value.filter(avatar => avatar.id !== response.avatar!.id),
+          {
+            id: response.avatar.id,
+            name: response.avatar.name,
+            sect_name: '',
+            realm: response.avatar.realm ?? 'QI_REFINEMENT',
+            gender: response.avatar.gender ?? 'male',
+            age: payload.age ?? createForm.value.age ?? 16,
+          },
+        ]
+        void preloadAvatarTextures([response.avatar])
       }
       createForm.value = {
         ...createDefaultForm(),

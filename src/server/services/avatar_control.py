@@ -4,6 +4,7 @@ from typing import Any
 
 from fastapi import HTTPException
 from src.i18n import t
+from src.sim.avatar_init import ManualAvatarAgeLimitError
 
 
 def _available_portrait_ids(avatar_assets: dict, *, race_id: str, gender_value: str) -> set[int]:
@@ -185,22 +186,33 @@ def create_avatar_in_world(
     if not have_name:
         final_name = None
 
-    avatar = create_avatar_from_request(
-        world,
-        world.month_stamp,
-        name=final_name,
-        gender=req.gender,
-        age=req.age,
-        level=req.level,
-        sect=sect,
-        personas=personas,
-        technique=req.technique_id,
-        weapon=req.weapon_id,
-        auxiliary=req.auxiliary_id,
-        appearance=req.appearance,
-        race=getattr(req, "race", None),
-        relations=req.relations,
-    )
+    try:
+        avatar = create_avatar_from_request(
+            world,
+            world.month_stamp,
+            name=final_name,
+            gender=req.gender,
+            age=req.age,
+            level=req.level,
+            sect=sect,
+            personas=personas,
+            technique=req.technique_id,
+            weapon=req.weapon_id,
+            auxiliary=req.auxiliary_id,
+            appearance=req.appearance,
+            race=getattr(req, "race", None),
+            relations=req.relations,
+        )
+    except ManualAvatarAgeLimitError as exc:
+        raise HTTPException(
+            status_code=400,
+            detail=t(
+                "Age {age} exceeds the maximum {max_age} for {realm}",
+                age=exc.age,
+                max_age=exc.max_age,
+                realm=exc.realm,
+            ),
+        ) from exc
 
     if req.pic_id is not None:
         available_ids = _available_portrait_ids(

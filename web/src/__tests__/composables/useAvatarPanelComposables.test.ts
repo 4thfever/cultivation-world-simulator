@@ -36,7 +36,6 @@ const acceptMutationRevisionMock = vi.fn()
 const avatarDirectoryRevisionMock = ref(0)
 const updateAvatarsMock = vi.fn()
 const removeAvatarMock = vi.fn()
-const refreshPoisMock = vi.fn()
 const clearSelectionMock = vi.fn()
 const uiStoreMock = {
   selectedTarget: null as null | { type: string; id: string },
@@ -60,12 +59,6 @@ vi.mock('@/stores/avatar', () => ({
     removeAvatar: removeAvatarMock,
   }),
 }))
-vi.mock('@/stores/map', () => ({
-  useMapStore: () => ({
-    refreshPois: refreshPoisMock,
-  }),
-}))
-
 vi.mock('@/api', () => ({
   avatarApi: {
     fetchAvatarAdjustOptions: vi.fn(),
@@ -87,6 +80,10 @@ const i18n = createI18n({
     'zh-CN': {
       common: {
         none: '无',
+        cancel: '取消',
+      },
+      save_load: {
+        delete: '删除',
       },
       realms: {
         QI_REFINEMENT: '炼气',
@@ -204,8 +201,6 @@ describe('avatar panel composables', () => {
     uiStoreMock.selectedTarget = null
     updateAvatarsMock.mockReset()
     removeAvatarMock.mockReset()
-    refreshPoisMock.mockReset()
-    refreshPoisMock.mockResolvedValue(undefined)
     preloadAvatarTexturesMock.mockReset()
     preloadAvatarTexturesMock.mockResolvedValue(undefined)
     vi.mocked(avatarApi.fetchAvatarAdjustOptions).mockResolvedValue(adjustCatalog)
@@ -398,34 +393,6 @@ describe('avatar panel composables', () => {
     expect(panel.createForm.value.sect_id).toBeUndefined()
   })
 
-  it('refreshes POIs instead of rendering an avatar created after its lifespan expires', async () => {
-    vi.mocked(avatarApi.createAvatar).mockResolvedValueOnce({
-      status: 'ok',
-      message: 'ok',
-      avatar_id: 'dead-new',
-      avatar: {
-        id: 'dead-new',
-        name: '暮年',
-        x: 1,
-        y: 2,
-        gender: 'male',
-        race: 'human',
-        pic_id: 1,
-        realm: 'QI_REFINEMENT',
-        is_dead: true,
-      },
-      world_revision: 43,
-    })
-    const panel = mountComposable(() => useCreateAvatarPanel(vi.fn()))
-    await settle()
-
-    await panel.handleCreateAvatar()
-
-    expect(refreshPoisMock).toHaveBeenCalledOnce()
-    expect(updateAvatarsMock).not.toHaveBeenCalled()
-    expect(preloadAvatarTexturesMock).not.toHaveBeenCalled()
-  })
-
   it('does not expose hardcoded Chinese race labels in create avatar options', () => {
     const chinesePattern = /[\u4e00-\u9fff]/
 
@@ -494,6 +461,19 @@ describe('avatar panel composables', () => {
     expect(fetchStateMock).not.toHaveBeenCalled()
     expect(acceptMutationRevisionMock).toHaveBeenCalledWith(43)
     expect(panel.filteredAvatars.value).toHaveLength(0)
+  })
+
+  it('closes the confirmation dialog after a successful deletion', async () => {
+    const destroy = vi.fn()
+    dialogMock.warning.mockReturnValue({ destroy })
+    const panel = mountComposable(() => useDeleteAvatarPanel())
+    await settle()
+
+    panel.handleDeleteAvatar('a1', '李青')
+    const dialogOptions = dialogMock.warning.mock.calls[0][0]
+    await dialogOptions.onPositiveClick()
+
+    expect(destroy).toHaveBeenCalledOnce()
   })
 
   it('refreshes the deletion list after a remote character directory delta', async () => {

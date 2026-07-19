@@ -13,6 +13,7 @@ from src.sim.avatar_init import (
     create_avatar_from_request,
     get_manual_avatar_age_limits,
     make_avatars,
+    ManualAvatarAgeLimitError,
 )
 from src.systems.cultivation import CultivationProgress, Realm
 from src.classes.goldfinger import goldfingers_by_id
@@ -60,16 +61,39 @@ class TestAgeLifespanInitialization:
         assert realm_label in breakdown
         assert "extra_max_lifespan" in breakdown[realm_label]
 
-    def test_manual_creation_age_limits_allow_old_age_testing_and_high_realm_ages(self):
+    def test_manual_creation_age_limits_keep_qi_refinement_young(self):
         assert get_manual_avatar_age_limits() == {
             "min": 16,
             "max_by_realm": {
-                "QI_REFINEMENT": 100,
+                "QI_REFINEMENT": 65,
                 "FOUNDATION_ESTABLISHMENT": 109,
                 "CORE_FORMATION": 159,
                 "NASCENT_SOUL": 459,
             },
         }
+
+    def test_manual_qi_refinement_avatar_is_alive_at_maximum_age(self, base_world):
+        avatar = create_avatar_from_request(
+            base_world,
+            base_world.month_stamp,
+            name="老成",
+            age=65,
+            level=1,
+        )
+
+        assert avatar.age.age == 65
+        assert avatar.age.max_lifespan > avatar.age.age
+        assert avatar.is_dead is False
+
+    def test_manual_qi_refinement_avatar_rejects_age_above_limit(self, base_world):
+        with pytest.raises(ManualAvatarAgeLimitError):
+            create_avatar_from_request(
+                base_world,
+                base_world.month_stamp,
+                name="越界",
+                age=66,
+                level=1,
+            )
 
 
 class TestInitialOfficialStatus:

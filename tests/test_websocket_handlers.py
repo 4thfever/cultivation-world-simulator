@@ -41,8 +41,10 @@ Tests for WebSocket handlers and connection management.
 Uses FastAPI TestClient with WebSocket support.
 """
 
-import pytest
 import json
+import asyncio
+import time
+import pytest
 from unittest.mock import patch, MagicMock, AsyncMock
 
 from fastapi.testclient import TestClient
@@ -207,6 +209,23 @@ class TestConnectionManager:
         ws1.send_text.assert_called_once()
         ws3.send_text.assert_called_once()
         assert ws2 not in fresh_manager.active_connections
+
+    @pytest.mark.asyncio
+    async def test_broadcast_does_not_wait_for_a_slow_connection(self, fresh_manager):
+        async def block_send(_message):
+            await asyncio.Event().wait()
+
+        fast = AsyncMock()
+        slow = AsyncMock()
+        slow.send_text.side_effect = block_send
+        fresh_manager.active_connections.extend([fast, slow])
+
+        started_at = time.perf_counter()
+        await fresh_manager.broadcast({"type": "test"})
+
+        assert time.perf_counter() - started_at < 3
+        fast.send_text.assert_called_once()
+        assert slow not in fresh_manager.active_connections
 
     @pytest.mark.asyncio
     async def test_broadcast_empty_connections(self, fresh_manager):

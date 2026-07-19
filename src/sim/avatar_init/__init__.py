@@ -80,6 +80,10 @@ INITIAL_AGE_MAX_BY_REALM: dict[Realm, int] = {
     Realm.Nascent_Soul: 150,
 }
 
+# Manual creation intentionally keeps Qi Refinement characters young enough to
+# avoid the old-age/grave workflow in the character-creation UI.
+MANUAL_QI_REFINEMENT_AGE_MAX = 65
+
 INITIAL_COURT_REPUTATION_CHANCE_BY_ORTHODOXY: dict[str, float] = {
     "confucianism": 0.70,
 }
@@ -266,6 +270,16 @@ def _create_random_innate_lifespan() -> int:
     return Age.roll_innate_max_lifespan()
 
 
+class ManualAvatarAgeLimitError(ValueError):
+    """Raised when an API-created avatar exceeds its realm age limit."""
+
+    def __init__(self, *, age: int, max_age: int, realm: Realm):
+        self.age = age
+        self.max_age = max_age
+        self.realm = realm
+        super().__init__(f"Age {age} exceeds the maximum {max_age} for {realm.value}")
+
+
 def _mark_dead_if_lifespan_exhausted(avatar: Avatar, current_month_stamp: MonthStamp) -> None:
     if avatar.age.age < avatar.age.max_lifespan:
         return
@@ -276,25 +290,28 @@ def _get_initial_age_max_for_realm(realm: Realm) -> int:
     return INITIAL_AGE_MAX_BY_REALM.get(realm, AGE_MAX)
 
 
-def get_manual_avatar_age_limits() -> dict[str, object]:
-    """Return UI/API limits for manual character creation.
+def get_manual_avatar_age_max(realm: Realm) -> int:
+    if realm is Realm.Qi_Refinement:
+        return MANUAL_QI_REFINEMENT_AGE_MAX
+    return Age.INITIAL_MAX_LIFESPAN_MIN + realm_max_lifespan_effect_by_realm[realm] - 1
 
-    Qi Refinement deliberately permits age 100 so old-age death and grave
-    creation can be exercised from the character-management UI. Higher realms
-    follow their lifespan bonus and remain available beyond age 100.
-    """
+
+def get_manual_avatar_age_limits() -> dict[str, object]:
+    """Return the single source of truth for manual-character age limits."""
     return {
         "min": AGE_MIN,
         "max_by_realm": {
-            realm.value: max(
-                100,
-                Age.INITIAL_MAX_LIFESPAN_MIN
-                + realm_max_lifespan_effect_by_realm[realm]
-                - 1,
-            )
+            realm.value: get_manual_avatar_age_max(realm)
             for realm in REALM_ORDER
         },
     }
+
+
+def _create_manual_innate_lifespan(age_years: int, realm: Realm) -> int:
+    """Roll an innate lifespan that keeps a supported manual avatar alive."""
+    realm_bonus = realm_max_lifespan_effect_by_realm[realm]
+    minimum = max(Age.INITIAL_MAX_LIFESPAN_MIN, age_years + 1 - realm_bonus)
+    return random.randint(minimum, Age.INITIAL_MAX_LIFESPAN_MAX)
 
 
 def _get_initial_official_chance(avatar: Avatar) -> float:
@@ -1384,7 +1401,7 @@ def create_avatar_from_request(
     elif isinstance(age, int):
         age_years = max(AGE_MIN, age)
     else:
-        age_years = _create_random_age()
+        age_years = AGE_MIN
 
     tmp_age_for_plan = Age(
         age_years,
@@ -1422,13 +1439,20 @@ def create_avatar_from_request(
 
     # 根据最终等级推导境界，再构造 Age
     final_realm = CultivationProgress(plan.level).realm
+    max_age = get_manual_avatar_age_max(final_realm)
+    if age_years > max_age:
+        raise ManualAvatarAgeLimitError(
+            age=age_years,
+            max_age=max_age,
+            realm=final_realm,
+        )
     final_age = Age(
         age_years,
         final_realm,
         innate_max_lifespan=(
             age.innate_max_lifespan
             if isinstance(age, Age)
-            else _create_random_innate_lifespan()
+            else _create_manual_innate_lifespan(age_years, final_realm)
         ),
     )
 
