@@ -3541,6 +3541,9 @@ msgstr "pic_id không hợp lệ với giới tính đã chọn"
 msgid "Created avatar {avatar_name}"
 msgstr "Đã tạo nhân vật {avatar_name}"
 
+msgid "Age {age} exceeds the maximum {max_age} for {realm}"
+msgstr "Tuổi {age} vượt quá tuổi tối đa {max_age} của {realm}"
+
 msgid "Phenomenon not found"
 msgstr "Không tìm thấy thiên tượng"
 

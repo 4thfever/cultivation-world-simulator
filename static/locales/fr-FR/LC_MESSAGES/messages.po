@@ -3637,6 +3637,9 @@ msgstr "pic_id invalide pour le genre sélectionné"
 msgid "Created avatar {avatar_name}"
 msgstr "Personnage créé {avatar_name}"
 
+msgid "Age {age} exceeds the maximum {max_age} for {realm}"
+msgstr "L'âge {age} dépasse l'âge maximal {max_age} pour {realm}"
+
 msgid "Phenomenon not found"
 msgstr "Phénomène non trouvé"
 

@@ -3313,6 +3313,9 @@ msgstr "選択した性別では使用できない pic_id です"
 msgid "Created avatar {avatar_name}"
 msgstr "キャラクター {avatar_name} を作成しました"
 
+msgid "Age {age} exceeds the maximum {max_age} for {realm}"
+msgstr "{realm}の最大年齢{max_age}歳を超えています（{age}歳）"
+
 msgid "Phenomenon not found"
 msgstr "天象が見つかりません"
 

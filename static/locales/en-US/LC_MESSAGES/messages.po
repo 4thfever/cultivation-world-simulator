@@ -3538,6 +3538,9 @@ msgstr "Invalid pic_id for selected gender"
 msgid "Created avatar {avatar_name}"
 msgstr "Created avatar {avatar_name}"
 
+msgid "Age {age} exceeds the maximum {max_age} for {realm}"
+msgstr "Age {age} exceeds the maximum {max_age} for {realm}"
+
 msgid "Phenomenon not found"
 msgstr "Phenomenon not found"
 

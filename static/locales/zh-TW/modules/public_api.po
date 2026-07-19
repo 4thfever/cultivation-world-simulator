@@ -39,6 +39,9 @@ msgstr "所選頭像不適用於目前性別"
 msgid "Created avatar {avatar_name}"
 msgstr "已建立角色：{avatar_name}"
 
+msgid "Age {age} exceeds the maximum {max_age} for {realm}"
+msgstr "{realm}最大年齡為 {max_age}，無法建立 {age} 歲角色"
+
 msgid "Phenomenon not found"
 msgstr "未找到該天象"
 
