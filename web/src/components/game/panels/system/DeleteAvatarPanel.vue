@@ -8,7 +8,8 @@ import trashIcon from '@/assets/icons/ui/lucide/trash-2.svg'
 const { t } = useI18n()
 
 const {
-  loading,
+  isFetchingList,
+  deletingAvatarId,
   avatarSearch,
   filteredAvatars,
   uiKey,
@@ -26,7 +27,7 @@ const {
       </n-input>
     </div>
     <div class="avatar-list">
-      <div v-if="loading" class="loading">{{ t('common.loading') }}</div>
+      <div v-if="isFetchingList && filteredAvatars.length === 0" class="loading">{{ t('common.loading') }}</div>
       <div v-else-if="filteredAvatars.length === 0" class="empty">{{ t(uiKey('empty')) }}</div>
       <div 
         v-for="avatar in filteredAvatars" 
@@ -39,7 +40,13 @@ const {
               {{ avatar.gender }} | {{ avatar.age }} {{ t(uiKey('age_unit')) }} | {{ t('realms.' + avatar.realm) }} | {{ avatar.sect_name }}
            </div>
          </div>
-         <n-button type="error" size="small" @click="handleDeleteAvatar(avatar.id, avatar.name)">
+         <n-button
+           type="error"
+           size="small"
+           :loading="deletingAvatarId === avatar.id"
+           :disabled="isFetchingList || deletingAvatarId !== null"
+           @click="handleDeleteAvatar(avatar.id, avatar.name)"
+         >
            <span class="button-icon" :style="{ '--icon-url': `url(${trashIcon})` }" aria-hidden="true"></span>
            {{ t('save_load.delete') }}
          </n-button>

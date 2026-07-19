@@ -91,9 +91,6 @@ export const useWorldStore = defineStore('world', () => {
     startYear.value = stateRes.year;
     startMonth.value = stateRes.month;
     avatarStore.setAvatarsFromState(stateRes);
-    
-    // Reset events via store
-    eventStore.reset();
 
     currentPhenomenon.value = stateRes.phenomenon;
     activeDomains.value = stateRes.activeDomains;
@@ -126,11 +123,11 @@ export const useWorldStore = defineStore('world', () => {
           mapStore.preloadMap() // This handles mapRes internally
         ]);
         applyStateSnapshot(stateRes);
-      } else {
-        // Map already loaded
-        const stateRes = await worldApi.fetchInitialState();
-        applyStateSnapshot(stateRes);
-      }
+    } else {
+      // Map already loaded
+      const stateRes = await worldApi.fetchInitialState();
+      applyStateSnapshot(stateRes);
+    }
 
       // Load initial events
       await eventStore.resetEvents({});

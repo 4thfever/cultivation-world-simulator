@@ -4,8 +4,8 @@ import { useMessage } from 'naive-ui'
 import { RelationType } from '@/constants/relations'
 import { avatarApi } from '@/api'
 import type { CreateAvatarParams, GameDataDTO, SimpleAvatarDTO } from '@/types/api'
-import { useWorldStore } from '@/stores/world'
 import { useAvatarStore } from '@/stores/avatar'
+import { useTextures } from '@/components/game/composables/useTextures'
 import { getAvatarPortraitUrl } from '@/utils/assetUrls'
 import { getAvatarAssetIds, normalizeAvatarAssetLibraries } from '@/utils/avatarAssets'
 import { formatEntityGrade } from '@/utils/cultivationText'
@@ -45,8 +45,8 @@ const createDefaultForm = (): CreateAvatarParams => ({
 
 export function useCreateAvatarPanel(onCreated: () => void) {
   const { t } = useI18n()
-  const worldStore = useWorldStore()
   const avatarStore = useAvatarStore()
+  const { preloadAvatarTextures } = useTextures()
   const message = useMessage()
   const loading = ref(false)
   const gameData = ref<GameDataDTO | null>(null)
@@ -178,9 +178,9 @@ export function useCreateAvatarPanel(onCreated: () => void) {
 
       const response = await avatarApi.createAvatar(payload)
       message.success(t(uiKey('create_success')))
-      await worldStore.fetchState?.()
       if (response.avatar) {
         avatarStore.updateAvatars([response.avatar])
+        void preloadAvatarTextures([response.avatar])
       }
       createForm.value = {
         ...createDefaultForm(),

@@ -163,6 +163,40 @@ def test_v1_game_pause_and_resume_use_ok_envelope():
         main.game_instance.update(original)
 
 
+def test_v1_world_state_returns_every_living_avatar():
+    original = _reset_state()
+    try:
+        avatars = {}
+        for index in range(51):
+            avatar = MagicMock()
+            avatar.id = f"avatar-{index}"
+            avatar.name = f"Avatar {index}"
+            avatar.pos_x = index
+            avatar.pos_y = index + 1
+            avatar.gender.value = "male"
+            avatar.current_action = None
+            avatars[avatar.id] = avatar
+
+        mock_world = MagicMock()
+        mock_world.month_stamp.get_year.return_value = 100
+        mock_world.month_stamp.get_month.return_value = MagicMock(value=2)
+        mock_world.avatar_manager.avatars = avatars
+        mock_world.event_manager = None
+        mock_world.current_phenomenon = None
+        main.game_instance["world"] = mock_world
+
+        client = TestClient(main.app)
+        with patch.object(main, "resolve_avatar_pic_id", return_value=1):
+            response = client.get("/api/v1/query/world/state")
+
+        assert response.status_code == 200
+        returned_ids = {avatar["id"] for avatar in response.json()["data"]["avatars"]}
+        assert returned_ids == set(avatars)
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
 def test_v1_game_pause_and_drain_use_ok_envelope():
     original = _reset_state()
     try:

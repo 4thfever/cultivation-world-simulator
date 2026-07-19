@@ -318,7 +318,10 @@ def get_world_state(
         )
 
     avatars: list[dict[str, Any]] = []
-    for avatar in list(world.avatar_manager.avatars.values())[:50]:
+    # The world-state snapshot is the authoritative source for the map and
+    # avatar-based UI. Returning only a prefix makes the client silently lose
+    # valid avatars whenever it rebuilds its local store.
+    for avatar in world.avatar_manager.avatars.values():
         cultivation_display = build_avatar_cultivation_display(avatar)
         action_name = "unknown"
         curr = getattr(avatar, "current_action", None)

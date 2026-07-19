@@ -12,12 +12,28 @@ const messageMock = {
   error: vi.fn(),
 }
 
+const dialogMock = {
+  warning: vi.fn(),
+}
+
+const { preloadAvatarTexturesMock } = vi.hoisted(() => ({
+  preloadAvatarTexturesMock: vi.fn(),
+}))
+
 vi.mock('naive-ui', () => ({
   useMessage: () => messageMock,
+  useDialog: () => dialogMock,
+}))
+
+vi.mock('@/components/game/composables/useTextures', () => ({
+  useTextures: () => ({
+    preloadAvatarTextures: preloadAvatarTexturesMock,
+  }),
 }))
 
 const fetchStateMock = vi.fn()
 const updateAvatarsMock = vi.fn()
+const removeAvatarMock = vi.fn()
 vi.mock('@/stores/world', () => ({
   useWorldStore: () => ({
     fetchState: fetchStateMock,
@@ -26,6 +42,7 @@ vi.mock('@/stores/world', () => ({
 vi.mock('@/stores/avatar', () => ({
   useAvatarStore: () => ({
     updateAvatars: updateAvatarsMock,
+    removeAvatar: removeAvatarMock,
   }),
 }))
 
@@ -163,6 +180,10 @@ const adjustCatalog = {
 describe('avatar panel composables', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    updateAvatarsMock.mockReset()
+    removeAvatarMock.mockReset()
+    preloadAvatarTexturesMock.mockReset()
+    preloadAvatarTexturesMock.mockResolvedValue(undefined)
     vi.mocked(avatarApi.fetchAvatarAdjustOptions).mockResolvedValue(adjustCatalog)
     vi.mocked(avatarApi.updateAvatarAdjustment).mockResolvedValue({ status: 'ok', message: 'ok' })
     vi.mocked(avatarApi.generateCustomContent).mockResolvedValue({
@@ -301,7 +322,11 @@ describe('avatar panel composables', () => {
       id: 'new',
       name: '李青',
     })])
-    expect(fetchStateMock).toHaveBeenCalled()
+    expect(preloadAvatarTexturesMock).toHaveBeenCalledWith([expect.objectContaining({
+      id: 'new',
+      pic_id: 1,
+    })])
+    expect(fetchStateMock).not.toHaveBeenCalled()
     expect(onCreated).toHaveBeenCalled()
   })
 
@@ -370,7 +395,23 @@ describe('avatar panel composables', () => {
 
     await panel.handleDeleteAvatar('a1', '李青')
     expect(avatarApi.deleteAvatar).toHaveBeenCalledWith('a1')
-    expect(fetchStateMock).toHaveBeenCalled()
+    expect(fetchStateMock).not.toHaveBeenCalled()
+    expect(panel.filteredAvatars.value).toHaveLength(0)
+  })
+
+  it('ignores a stale list response after deleting an avatar', async () => {
+    let resolveList!: (avatars: Array<{ id: string; name: string; sect_name: string; realm: string; gender: string; age: number }>) => void
+    vi.mocked(avatarApi.fetchAvatarList).mockReturnValueOnce(new Promise(resolve => {
+      resolveList = resolve
+    }))
+    const panel = mountComposable(() => useDeleteAvatarPanel(() => true))
+
+    await panel.handleDeleteAvatar('a1', '李青')
+    resolveList([{ id: 'a1', name: '李青', sect_name: '青云宗', realm: 'QI_REFINEMENT', gender: '男', age: 18 }])
+    await settle()
+
+    expect(panel.filteredAvatars.value).toHaveLength(0)
+    expect(panel.isFetchingList.value).toBe(false)
   })
 
   it('does not delete when confirmation is cancelled', async () => {

@@ -585,6 +585,21 @@ describe('useWorldStore', () => {
       expect(avatarStore.avatars.size).toBe(1)
       expect(store.isLoaded).toBe(true)
     })
+
+    it('should preserve existing events when refreshing a snapshot', async () => {
+      eventStore.events = [createMockEvent({ id: 'e1' })]
+      vi.mocked(worldApi.fetchInitialState).mockResolvedValue({
+        year: 150,
+        month: 8,
+        avatars: [createMockAvatar({ id: 'a1' })],
+        events: [],
+      })
+
+      await store.fetchState()
+
+      expect(eventStore.events).toHaveLength(1)
+      expect(eventStore.events[0].id).toBe('e1')
+    })
   })
 
   describe('loadEvents', () => {

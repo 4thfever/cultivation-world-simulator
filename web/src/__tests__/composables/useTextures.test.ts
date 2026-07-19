@@ -184,12 +184,14 @@ describe('useTextures', () => {
       const { loadBaseTextures, ensureAvatarTexture, textures } = useTextures()
       await loadBaseTextures()
 
+      const cacheBeforeAvatarLoad = textures.value
       ensureAvatarTexture('male', 5, 'FOUNDATION_ESTABLISHMENT')
       await Promise.resolve()
 
       expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/avatars/male/005/foundation.png')
       await Promise.resolve()
       expect(textures.value['male_005_foundation']).toBeDefined()
+      expect(textures.value).not.toBe(cacheBeforeAvatarLoad)
     })
 
     it('should preload current avatar textures before render', async () => {

@@ -27,4 +27,30 @@ describe('useAvatarStore', () => {
       pic_id: 9,
     })
   })
+
+  it('removes an avatar summary by id', () => {
+    const store = useAvatarStore()
+
+    store.updateAvatars([
+      {
+        id: 'avatar-1',
+        name: 'Test Avatar',
+        x: 3,
+        y: 4,
+        gender: 'male',
+      },
+      {
+        id: 'avatar-2',
+        name: 'Other Avatar',
+        x: 8,
+        y: 9,
+        gender: 'female',
+      },
+    ])
+
+    store.removeAvatar('avatar-1')
+
+    expect(store.avatars.has('avatar-1')).toBe(false)
+    expect(store.avatars.has('avatar-2')).toBe(true)
+  })
 })

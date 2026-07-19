@@ -46,6 +46,13 @@ export const useAvatarStore = defineStore('avatar', () => {
     });
   }
 
+  function removeAvatar(id: string) {
+    if (!avatars.value.has(id)) return;
+    const next = new Map(avatars.value);
+    next.delete(id);
+    avatars.value = next;
+  }
+
   async function preloadAvatars() {
     try {
       const stateRes = await worldApi.fetchInitialState();
@@ -75,6 +82,7 @@ export const useAvatarStore = defineStore('avatar', () => {
     avatarList,
     updateAvatars,
     updateAvatarSummary,
+    removeAvatar,
     preloadAvatars,
     setAvatarsFromState,
     reset

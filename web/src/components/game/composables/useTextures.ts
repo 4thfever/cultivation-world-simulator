@@ -41,7 +41,13 @@ const avatarTexturePromises = new Map<string, Promise<void>>()
 const poiTexturePromises = new Map<string, Promise<void>>()
 
 function setTexture(key: string, texture: Texture) {
-  textures.value[key] = markRaw(texture)
+  // `textures` is shallow so Pixi instances remain outside Vue's deep
+  // reactivity. Replace the cache object to notify render consumers when an
+  // on-demand texture finishes loading.
+  textures.value = {
+    ...textures.value,
+    [key]: markRaw(texture),
+  }
 }
 
 function getAvatarTextureKey(
