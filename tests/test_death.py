@@ -199,6 +199,7 @@ def test_registering_an_already_dead_avatar_creates_a_grave(base_world, dummy_av
     graves = base_world.poi_manager.get_all_active(int(base_world.month_stamp))
     assert len(graves) == 1
     assert graves[0].deceased_avatar_id == dummy_avatar.id
+    assert graves[0].get_summary_payload()["deceased_avatar_id"] == dummy_avatar.id
     assert str(dummy_avatar.id) in manager.pop_newly_dead()
 
 @pytest.mark.asyncio

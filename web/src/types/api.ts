@@ -97,6 +97,7 @@ export interface MapResponseDTO {
     y: number;
     icon_key?: string;
     clickable?: boolean;
+    deceased_avatar_id?: string;
   }>;
   render_config?: MapRenderConfigDTO;
 }
@@ -112,6 +113,7 @@ export type POIUpdateDTO =
         y: number;
         icon_key?: string;
         clickable?: boolean;
+        deceased_avatar_id?: string;
       };
     }
   | {

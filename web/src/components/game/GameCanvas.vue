@@ -24,7 +24,7 @@ defineProps<{
 const emit = defineEmits<{
   (e: 'avatarSelected', payload: { type: 'avatar'; id: string; name?: string }): void
   (e: 'regionSelected', payload: { type: 'region'; id: string; name?: string }): void
-  (e: 'poiSelected', payload: { type: 'poi'; id: string; kind: string; name?: string }): void
+  (e: 'poiSelected', payload: { type: 'avatar' | 'poi'; id: string; kind?: string; name?: string }): void
 }>()
 
 function onMapLoaded(size: { width: number, height: number }) {
@@ -39,7 +39,7 @@ function handleRegionSelected(payload: { type: 'region'; id: string; name?: stri
   emit('regionSelected', payload)
 }
 
-function handlePoiSelected(payload: { type: 'poi'; id: string; kind: string; name?: string }) {
+function handlePoiSelected(payload: { type: 'avatar' | 'poi'; id: string; kind?: string; name?: string }) {
   emit('poiSelected', payload)
 }
 

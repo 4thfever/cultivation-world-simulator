@@ -394,6 +394,7 @@ export function useTextures() {
     preloadRegionTextures,
     availableAvatars,
     ensureAvatarTexture,
+    loadPoiTexture,
     ensurePoiTexture,
     preloadAvatarTextures,
     getTileTexture

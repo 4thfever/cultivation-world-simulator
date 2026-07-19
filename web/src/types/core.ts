@@ -300,6 +300,7 @@ export interface POISummary extends EntityBase, Coordinates {
   kind: string;
   icon_key?: string;
   clickable?: boolean;
+  deceased_avatar_id?: string;
 }
 
 export interface POIDetail extends POISummary {

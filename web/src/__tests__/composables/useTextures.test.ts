@@ -104,6 +104,11 @@ describe('useTextures', () => {
       expect(typeof ensureAvatarTexture).toBe('function')
     })
 
+    it('should return loadPoiTexture function', () => {
+      const { loadPoiTexture } = useTextures()
+      expect(typeof loadPoiTexture).toBe('function')
+    })
+
     it('should return preloadAvatarTextures function', () => {
       const { preloadAvatarTextures } = useTextures()
       expect(typeof preloadAvatarTextures).toBe('function')
@@ -444,6 +449,17 @@ describe('useTextures', () => {
 
       // Both should reference the same isLoaded.
       expect(instance1.isLoaded).toBe(instance2.isLoaded)
+    })
+  })
+
+  describe('loadPoiTexture', () => {
+    it('loads a grave icon into the shared texture cache', async () => {
+      const { loadPoiTexture, textures } = useTextures()
+
+      await loadPoiTexture('grave_01')
+
+      expect(mockAssetsLoad).toHaveBeenCalledWith(expect.stringContaining('grave_01.png'))
+      expect(textures.value.poi_grave_01).toEqual({ valid: true })
     })
   })
 

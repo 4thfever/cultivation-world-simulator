@@ -85,7 +85,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <container ref="containerRef">
+  <container ref="containerRef" sortable-children>
     <slot />
   </container>
 </template>

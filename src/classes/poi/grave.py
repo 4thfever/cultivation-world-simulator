@@ -79,6 +79,11 @@ class GravePOI(PointOfInterest):
     auxiliary_looted: bool = False
     dig_attempt_count: int = 0
 
+    def get_summary_payload(self) -> dict[str, Any]:
+        payload = super().get_summary_payload()
+        payload["deceased_avatar_id"] = self.deceased_avatar_id
+        return payload
+
     @classmethod
     def from_avatar(cls, avatar: Any, current_month: int) -> "GravePOI":
         death_info = getattr(avatar, "death_info", None) or {}
