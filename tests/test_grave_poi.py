@@ -3,6 +3,7 @@ from __future__ import annotations
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason, DeathType
 from src.classes.poi import GravePOI
+from src.server.init_flow import _resolve_initially_dead_avatars
 from src.systems.time import Month, Year, create_month_stamp
 
 
@@ -33,6 +34,23 @@ def test_death_creates_grave_poi_with_equipment_snapshot(base_world, dummy_avata
     }
     assert grave.auxiliary_payload["kind"] == "auxiliary"
     assert not hasattr(grave, "technique_payload")
+
+
+def test_initially_expired_avatar_is_archived_as_a_grave(base_world, dummy_avatar):
+    dummy_avatar.set_dead(str(DeathReason(DeathType.OLD_AGE)), base_world.month_stamp)
+    base_world.avatar_manager.avatars[dummy_avatar.id] = dummy_avatar
+
+    _resolve_initially_dead_avatars(
+        world=base_world,
+        avatars={dummy_avatar.id: dummy_avatar},
+    )
+
+    assert dummy_avatar.id not in base_world.avatar_manager.avatars
+    assert dummy_avatar.id in base_world.avatar_manager.dead_avatars
+    assert base_world.deceased_manager.get_record(dummy_avatar.id) is not None
+    graves = base_world.poi_manager.get_all_active(int(base_world.month_stamp))
+    assert len(graves) == 1
+    assert graves[0].deceased_avatar_id == dummy_avatar.id
 
 
 def test_grave_poi_save_load_and_cleanup(base_world, dummy_avatar, mock_item_data):

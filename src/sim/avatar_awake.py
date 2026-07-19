@@ -11,6 +11,7 @@ from src.classes.relation.relation import Relation
 from src.classes.root import Root
 from src.classes.items.magic_stone import MagicStone
 from src.classes.death_reason import DeathReason, DeathType
+from src.classes.death import handle_death
 from src.classes.event import Event
 from src.utils.id_generator import get_avatar_id
 from src.classes.technique import attribute_to_root
@@ -28,11 +29,15 @@ BLOODLINE_AWAKENING_RATE = 0.05 # 每个符合条件的凡人每月的觉醒概�
 WILD_AWAKENING_RATE_BASE = 0.1 # 基础野生觉醒率 (如果没有配置)
 
 
-def _mark_dead_if_lifespan_exhausted(avatar: Avatar, current_month_stamp: MonthStamp) -> bool:
-    if avatar.age.age < avatar.age.max_lifespan:
-        return False
-    avatar.set_dead(str(DeathReason(DeathType.OLD_AGE)), current_month_stamp)
-    return True
+def _register_avatar_and_resolve_lifespan(world: World, avatar: Avatar) -> None:
+    """Register a newly awakened avatar, then resolve an immediately expired lifespan.
+
+    Registration must happen before death resolution so the usual death path
+    can archive the avatar, create a grave POI, and emit client deltas.
+    """
+    world.avatar_manager.register_avatar(avatar, is_newly_born=True)
+    if avatar.age.age >= avatar.age.max_lifespan:
+        handle_death(world, avatar, DeathReason(DeathType.OLD_AGE))
 
 def process_awakening(world: World) -> List[Event]:
     events = []
@@ -68,8 +73,7 @@ def _process_bloodline_awakening(world: World) -> List[Event]:
             avatar = _promote_mortal_to_avatar(world, mortal)
             sync_avatar_public_world_secret_knowledge(world, avatar)
 
-            # 注册 Avatar（若寿元已尽，manager 会归档到 dead_avatars）
-            world.avatar_manager.register_avatar(avatar, is_newly_born=True)
+            _register_avatar_and_resolve_lifespan(world, avatar)
 
             # 移除 Mortal
             world.mortal_manager.remove_mortal(mortal.id)
@@ -97,8 +101,7 @@ def _process_wild_awakening(world: World) -> Optional[Event]:
     avatar = _create_simple_avatar(world, name, gender, age_val, parents=[], born_region_id=born_id, race=race)
     sync_avatar_public_world_secret_knowledge(world, avatar)
     
-    # 注册
-    world.avatar_manager.register_avatar(avatar, is_newly_born=True)
+    _register_avatar_and_resolve_lifespan(world, avatar)
 
     if avatar.is_dead:
         desc = t("A rogue cultivator {name} appeared, but their lifespan was already exhausted.", name=avatar.name)
@@ -193,7 +196,5 @@ def _create_simple_avatar(
             # 建立关系 (Parent -> Child)
             # 语义：Parent 认 Avatar 为子
             parent.acknowledge_child(avatar)
-
-    _mark_dead_if_lifespan_exhausted(avatar, world.month_stamp)
 
     return avatar

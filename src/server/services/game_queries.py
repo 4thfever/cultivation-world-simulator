@@ -96,7 +96,12 @@ def get_game_data(
     alignment_enum,
 ) -> dict[str, Any]:
     sects_list = [
-        {"id": sect.id, "name": sect.name, "alignment": sect.alignment.value}
+        {
+            "id": sect.id,
+            "name": sect.name,
+            "alignment": sect.alignment.value,
+            "accepts_yao": bool(sect.accept_yao),
+        }
         for sect in sects_by_id.values()
     ]
     personas_list = [
@@ -112,6 +117,7 @@ def get_game_data(
         {
             "id": race.id,
             "label": race.get_info().get("name", race.id),
+            "is_yao": bool(race.is_yao),
         }
         for race in races_by_id.values()
     ]
@@ -147,6 +153,8 @@ def get_game_data(
         {"value": align.value, "label": str(align)}
         for align in alignment_enum
     ]
+    from src.sim.avatar_init import get_manual_avatar_age_limits
+
     return {
         "sects": sects_list,
         "races": races_list,
@@ -156,6 +164,7 @@ def get_game_data(
         "weapons": weapons_list,
         "auxiliaries": auxiliaries_list,
         "alignments": alignments_list,
+        "avatar_creation": {"age": get_manual_avatar_age_limits()},
     }
 
 
@@ -342,6 +351,7 @@ def get_world_state(
                 "realm": getattr(getattr(getattr(avatar, "cultivation_progress", None), "realm", None), "value", ""),
                 "cultivation": cultivation_display,
                 "cultivation_display": cultivation_display["display_full_name"],
+                "is_dead": bool(getattr(avatar, "is_dead", False)),
             }
         )
 

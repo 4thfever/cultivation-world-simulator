@@ -160,14 +160,20 @@ export interface SaveFileDTO {
 // --- Game Data Metadata ---
 
 export interface GameDataDTO {
-  sects: Array<{ id: number; name: string; alignment: string }>;
-  races?: Array<{ id: string; label: string }>;
+  sects: Array<{ id: number; name: string; alignment: string; accepts_yao: boolean }>;
+  races?: Array<{ id: string; label: string; is_yao: boolean }>;
   personas: Array<{ id: number; name: string; desc: string; rarity: string }>;
   realms: string[];
   techniques: Array<{ id: number; name: string; grade: string; attribute: string; sect: string | null }>;
   weapons: Array<{ id: number; name: string; grade: string; type: string }>;
   auxiliaries: Array<{ id: number; name: string; grade: string }>;
   alignments: Array<{ value: string; label: string }>;
+  avatar_creation: {
+    age: {
+      min: number;
+      max_by_realm: Record<string, number>;
+    };
+  };
 }
 
 export interface SimpleAvatarDTO {

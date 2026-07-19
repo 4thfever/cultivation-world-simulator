@@ -20,6 +20,18 @@ def phase_resolve_death(world, living_avatars: list[Avatar]) -> list[Event]:
     dead_avatars: list[Avatar] = []
 
     for avatar in living_avatars:
+        # Repair worlds created before all creation paths used handle_death().
+        # They may contain an already-dead avatar in the active collection,
+        # which otherwise leaves an avatar portrait on the map with no grave.
+        if avatar.is_dead:
+            handle_death(
+                world,
+                avatar,
+                str((getattr(avatar, "death_info", None) or {}).get("reason") or DeathReason(DeathType.OLD_AGE)),
+            )
+            dead_avatars.append(avatar)
+            continue
+
         is_dead = False
         death_reason: DeathReason | None = None
 

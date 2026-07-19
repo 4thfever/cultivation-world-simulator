@@ -282,6 +282,15 @@ def test_v1_meta_game_data_uses_ok_envelope():
         assert "sects" in payload["data"]
         assert "personas" in payload["data"]
         assert "realms" in payload["data"]
+        assert payload["data"]["avatar_creation"]["age"] == {
+            "min": 16,
+            "max_by_realm": {
+                "QI_REFINEMENT": 100,
+                "FOUNDATION_ESTABLISHMENT": 109,
+                "CORE_FORMATION": 159,
+                "NASCENT_SOUL": 459,
+            },
+        }
     finally:
         main.game_instance.clear()
         main.game_instance.update(original)
@@ -499,6 +508,31 @@ def test_v1_create_avatar_returns_ok_envelope(base_world):
             "realm": "QI_REFINEMENT",
             "is_dead": False,
         }
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_create_expired_avatar_returns_dead_avatar_and_creates_grave(base_world):
+    original = _reset_state()
+    try:
+        main.game_instance["world"] = base_world
+        client = TestClient(main.app)
+
+        response = client.post(
+            "/api/v1/command/avatar/create",
+            json={"given_name": "暮年", "gender": "男", "age": 100, "level": 1},
+        )
+
+        assert response.status_code == 200
+        payload = response.json()["data"]
+        assert payload["avatar"]["is_dead"] is True
+        avatar_id = payload["avatar_id"]
+        assert avatar_id not in base_world.avatar_manager.avatars
+        assert avatar_id in base_world.avatar_manager.dead_avatars
+        graves = base_world.poi_manager.get_all_active(int(base_world.month_stamp))
+        assert len(graves) == 1
+        assert graves[0].deceased_avatar_id == avatar_id
     finally:
         main.game_instance.clear()
         main.game_instance.update(original)

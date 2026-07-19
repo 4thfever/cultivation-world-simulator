@@ -8,7 +8,12 @@ from src.classes.appearance import get_appearance_by_level
 from src.systems.time import MonthStamp
 from src.classes.environment.region import Region
 from src.utils.resolution import resolve_query
-from src.systems.cultivation import CultivationProgress, Realm
+from src.systems.cultivation import (
+    CultivationProgress,
+    Realm,
+    REALM_ORDER,
+    realm_max_lifespan_effect_by_realm,
+)
 from src.classes.root import Root
 from src.classes.age import Age
 from src.utils.name_generator import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname, get_random_name_for_race
@@ -269,6 +274,27 @@ def _mark_dead_if_lifespan_exhausted(avatar: Avatar, current_month_stamp: MonthS
 
 def _get_initial_age_max_for_realm(realm: Realm) -> int:
     return INITIAL_AGE_MAX_BY_REALM.get(realm, AGE_MAX)
+
+
+def get_manual_avatar_age_limits() -> dict[str, object]:
+    """Return UI/API limits for manual character creation.
+
+    Qi Refinement deliberately permits age 100 so old-age death and grave
+    creation can be exercised from the character-management UI. Higher realms
+    follow their lifespan bonus and remain available beyond age 100.
+    """
+    return {
+        "min": AGE_MIN,
+        "max_by_realm": {
+            realm.value: max(
+                100,
+                Age.INITIAL_MAX_LIFESPAN_MIN
+                + realm_max_lifespan_effect_by_realm[realm]
+                - 1,
+            )
+            for realm in REALM_ORDER
+        },
+    }
 
 
 def _get_initial_official_chance(avatar: Avatar) -> float:

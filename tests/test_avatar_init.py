@@ -11,6 +11,7 @@ from src.sim.avatar_init import (
     _assign_initial_official_status,
     _get_initial_official_chance,
     create_avatar_from_request,
+    get_manual_avatar_age_limits,
     make_avatars,
 )
 from src.systems.cultivation import CultivationProgress, Realm
@@ -58,6 +59,17 @@ class TestAgeLifespanInitialization:
         realm_label = t("effect_source_cultivation_realm")
         assert realm_label in breakdown
         assert "extra_max_lifespan" in breakdown[realm_label]
+
+    def test_manual_creation_age_limits_allow_old_age_testing_and_high_realm_ages(self):
+        assert get_manual_avatar_age_limits() == {
+            "min": 16,
+            "max_by_realm": {
+                "QI_REFINEMENT": 100,
+                "FOUNDATION_ESTABLISHMENT": 109,
+                "CORE_FORMATION": 159,
+                "NASCENT_SOUL": 459,
+            },
+        }
 
 
 class TestInitialOfficialStatus:

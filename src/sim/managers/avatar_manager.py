@@ -27,14 +27,27 @@ class AvatarManager:
             avatar: 角色对象
             is_newly_born: 是否为新出生的角色（若是，则加入变更缓冲供前端同步）
         """
+        aid = str(avatar.id)
         if getattr(avatar, "is_dead", False):
-            self.dead_avatars[str(avatar.id)] = avatar
-            self.avatars.pop(str(avatar.id), None)
+            if aid in self.dead_avatars:
+                return
+
+            # Factories may detect an exhausted lifespan before registration.
+            # Put the avatar under manager ownership first, then use the sole
+            # death entry point so it receives a grave, archive record, and
+            # client death delta just like every other death.
+            self.avatars[aid] = avatar
+            from src.classes.death import handle_death
+            from src.classes.death_reason import DeathReason, DeathType
+
+            death_info = getattr(avatar, "death_info", None) or {}
+            reason = death_info.get("reason") or DeathReason(DeathType.OLD_AGE)
+            handle_death(avatar.world, avatar, reason)
             return
 
-        self.avatars[str(avatar.id)] = avatar
+        self.avatars[aid] = avatar
         if is_newly_born:
-            self._newly_born_buffer.append(str(avatar.id))
+            self._newly_born_buffer.append(aid)
 
     def pop_newly_dead(self) -> List[str]:
         """获取并清空本帧刚死亡的角色ID列表"""

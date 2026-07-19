@@ -237,6 +237,6 @@ def create_avatar_in_world(
             "race": getattr(getattr(avatar, "race", None), "id", "human"),
             "pic_id": resolve_avatar_pic_id(avatar),
             "realm": getattr(getattr(getattr(avatar, "cultivation_progress", None), "realm", None), "value", ""),
-            "is_dead": False,
+            "is_dead": bool(getattr(avatar, "is_dead", False)),
         },
     }

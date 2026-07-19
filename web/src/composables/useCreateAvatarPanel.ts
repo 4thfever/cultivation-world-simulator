@@ -5,6 +5,7 @@ import { RelationType } from '@/constants/relations'
 import { avatarApi } from '@/api'
 import type { CreateAvatarParams, GameDataDTO, SimpleAvatarDTO } from '@/types/api'
 import { useAvatarStore } from '@/stores/avatar'
+import { useMapStore } from '@/stores/map'
 import { useWorldStore } from '@/stores/world'
 import { useTextures } from '@/components/game/composables/useTextures'
 import { getAvatarPortraitUrl } from '@/utils/assetUrls'
@@ -40,13 +41,14 @@ const createDefaultForm = (): CreateAvatarParams => ({
   weapon_id: undefined,
   auxiliary_id: undefined,
   alignment: undefined,
-  appearance: 7,
+  appearance: 5,
   relations: [],
 })
 
 export function useCreateAvatarPanel(onCreated: () => void) {
   const { t } = useI18n()
   const avatarStore = useAvatarStore()
+  const mapStore = useMapStore()
   const worldStore = useWorldStore()
   const { preloadAvatarTextures } = useTextures()
   const message = useMessage()
@@ -80,10 +82,17 @@ export function useCreateAvatarPanel(onCreated: () => void) {
     }))
   })
 
-  const sectOptions = computed(() => gameData.value?.sects.map(sect => ({
-    label: sect.name,
-    value: sect.id,
-  })) ?? [])
+  const selectedRaceIsYao = computed(() => {
+    const selectedRace = gameData.value?.races?.find(race => race.id === createForm.value.race)
+    return selectedRace?.is_yao ?? createForm.value.race !== 'human'
+  })
+
+  const sectOptions = computed(() => gameData.value?.sects
+    .filter(sect => sect.accepts_yao || !selectedRaceIsYao.value)
+    .map(sect => ({
+      label: sect.name,
+      value: sect.id,
+    })) ?? [])
 
   const personaOptions = computed(() => gameData.value?.personas.map(persona => ({
     label: `${persona.name} (${persona.desc})`,
@@ -124,6 +133,13 @@ export function useCreateAvatarPanel(onCreated: () => void) {
     if (!level || !gameData.value?.realms.length) return 'QI_REFINEMENT'
     const index = Math.max(0, Math.min(gameData.value.realms.length - 1, Math.floor((level - 1) / 30)))
     return gameData.value.realms[index]
+  })
+
+  const ageLimits = computed(() => {
+    const ageRules = gameData.value?.avatar_creation.age
+    const min = ageRules?.min ?? 16
+    const max = ageRules?.max_by_realm[selectedRealm.value] ?? min
+    return { min, max: Math.max(min, max) }
   })
 
   const currentAvatarUrl = computed(() => (
@@ -182,19 +198,23 @@ export function useCreateAvatarPanel(onCreated: () => void) {
       message.success(t(uiKey('create_success')))
       worldStore.acceptMutationRevision(response.world_revision)
       if (response.avatar) {
-        avatarStore.updateAvatars([response.avatar])
-        avatarList.value = [
-          ...avatarList.value.filter(avatar => avatar.id !== response.avatar!.id),
-          {
-            id: response.avatar.id,
-            name: response.avatar.name,
-            sect_name: '',
-            realm: response.avatar.realm ?? 'QI_REFINEMENT',
-            gender: response.avatar.gender ?? 'male',
-            age: payload.age ?? createForm.value.age ?? 16,
-          },
-        ]
-        void preloadAvatarTextures([response.avatar])
+        if (response.avatar.is_dead) {
+          await mapStore.refreshPois()
+        } else {
+          avatarStore.updateAvatars([response.avatar])
+          avatarList.value = [
+            ...avatarList.value.filter(avatar => avatar.id !== response.avatar!.id),
+            {
+              id: response.avatar.id,
+              name: response.avatar.name,
+              sect_name: '',
+              realm: response.avatar.realm ?? 'QI_REFINEMENT',
+              gender: response.avatar.gender ?? 'male',
+              age: payload.age ?? createForm.value.age ?? 16,
+            },
+          ]
+          void preloadAvatarTextures([response.avatar])
+        }
       }
       createForm.value = {
         ...createDefaultForm(),
@@ -220,6 +240,25 @@ export function useCreateAvatarPanel(onCreated: () => void) {
     () => {
       createForm.value.pic_id = undefined
     },
+  )
+
+  watch(
+    ageLimits,
+    ({ min, max }) => {
+      const age = createForm.value.age ?? min
+      createForm.value.age = Math.min(max, Math.max(min, age))
+    },
+    { immediate: true },
+  )
+
+  watch(
+    sectOptions,
+    options => {
+      if (!options.some(option => option.value === createForm.value.sect_id)) {
+        createForm.value.sect_id = undefined
+      }
+    },
+    { immediate: true },
   )
 
   watch(
@@ -255,6 +294,7 @@ export function useCreateAvatarPanel(onCreated: () => void) {
     availableAvatars,
     currentAvatarUrl,
     selectedRealm,
+    ageLimits,
     avatarOptions,
     uiKey,
     fetchData,

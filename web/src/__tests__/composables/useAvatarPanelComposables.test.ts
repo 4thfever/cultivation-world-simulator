@@ -36,6 +36,7 @@ const acceptMutationRevisionMock = vi.fn()
 const avatarDirectoryRevisionMock = ref(0)
 const updateAvatarsMock = vi.fn()
 const removeAvatarMock = vi.fn()
+const refreshPoisMock = vi.fn()
 const clearSelectionMock = vi.fn()
 const uiStoreMock = {
   selectedTarget: null as null | { type: string; id: string },
@@ -57,6 +58,11 @@ vi.mock('@/stores/avatar', () => ({
   useAvatarStore: () => ({
     updateAvatars: updateAvatarsMock,
     removeAvatar: removeAvatarMock,
+  }),
+}))
+vi.mock('@/stores/map', () => ({
+  useMapStore: () => ({
+    refreshPois: refreshPoisMock,
   }),
 }))
 
@@ -198,6 +204,8 @@ describe('avatar panel composables', () => {
     uiStoreMock.selectedTarget = null
     updateAvatarsMock.mockReset()
     removeAvatarMock.mockReset()
+    refreshPoisMock.mockReset()
+    refreshPoisMock.mockResolvedValue(undefined)
     preloadAvatarTexturesMock.mockReset()
     preloadAvatarTexturesMock.mockResolvedValue(undefined)
     vi.mocked(avatarApi.fetchAvatarAdjustOptions).mockResolvedValue(adjustCatalog)
@@ -217,10 +225,13 @@ describe('avatar panel composables', () => {
       item: { id: '9', name: '自创功法', desc: '测试' },
     })
     vi.mocked(avatarApi.fetchGameData).mockResolvedValue({
-      sects: [{ id: 1, name: '青云宗', alignment: 'GOOD' }],
+      sects: [
+        { id: 1, name: '青云宗', alignment: 'GOOD', accepts_yao: true },
+        { id: 2, name: '浩然书院', alignment: 'GOOD', accepts_yao: false },
+      ],
       races: [
-        { id: 'human', label: '人族' },
-        { id: 'fox', label: '狐族' },
+        { id: 'human', label: '人族', is_yao: false },
+        { id: 'fox', label: '狐族', is_yao: true },
       ],
       personas: [{ id: 2, name: '沉稳', desc: '冷静', rarity: 'common' }],
       realms: ['QI_REFINEMENT', 'FOUNDATION_ESTABLISHMENT'],
@@ -228,6 +239,17 @@ describe('avatar panel composables', () => {
       weapons: [{ id: 4, name: '青锋剑', grade: 'high', type: 'sword' }],
       auxiliaries: [{ id: 5, name: '炼丹术', grade: 'high' }],
       alignments: [{ value: 'GOOD', label: '正道' }],
+      avatar_creation: {
+        age: {
+          min: 16,
+          max_by_realm: {
+            QI_REFINEMENT: 100,
+            FOUNDATION_ESTABLISHMENT: 109,
+            CORE_FORMATION: 159,
+            NASCENT_SOUL: 459,
+          },
+        },
+      },
     })
     vi.mocked(avatarApi.fetchAvatarMeta).mockResolvedValue({
       human: { male: [1], female: [2] },
@@ -325,6 +347,7 @@ describe('avatar panel composables', () => {
     await settle()
     expect(panel.realmOptions.value[0]).toEqual({ label: '炼气', value: 1 })
     expect(panel.createForm.value.level).toBe(1)
+    expect(panel.createForm.value.appearance).toBe(5)
 
     panel.createForm.value.surname = '李'
     panel.createForm.value.given_name = '青'
@@ -346,6 +369,61 @@ describe('avatar panel composables', () => {
     expect(fetchStateMock).not.toHaveBeenCalled()
     expect(acceptMutationRevisionMock).toHaveBeenCalledWith(42)
     expect(onCreated).toHaveBeenCalled()
+  })
+
+  it('uses realm-specific age limits and clamps age after lowering the realm', async () => {
+    const panel = mountComposable(() => useCreateAvatarPanel(vi.fn()))
+    await settle()
+
+    expect(panel.ageLimits.value).toEqual({ min: 16, max: 100 })
+    panel.createForm.value.level = 31
+    await nextTick()
+    expect(panel.ageLimits.value).toEqual({ min: 16, max: 109 })
+
+    panel.createForm.value.age = 109
+    panel.createForm.value.level = 1
+    await nextTick()
+    expect(panel.createForm.value.age).toBe(100)
+  })
+
+  it('filters sects that do not accept the selected yao race', async () => {
+    const panel = mountComposable(() => useCreateAvatarPanel(vi.fn()))
+    await settle()
+
+    panel.createForm.value.sect_id = 2
+    panel.createForm.value.race = 'fox'
+    await nextTick()
+
+    expect(panel.sectOptions.value).toEqual([{ label: '青云宗', value: 1 }])
+    expect(panel.createForm.value.sect_id).toBeUndefined()
+  })
+
+  it('refreshes POIs instead of rendering an avatar created after its lifespan expires', async () => {
+    vi.mocked(avatarApi.createAvatar).mockResolvedValueOnce({
+      status: 'ok',
+      message: 'ok',
+      avatar_id: 'dead-new',
+      avatar: {
+        id: 'dead-new',
+        name: '暮年',
+        x: 1,
+        y: 2,
+        gender: 'male',
+        race: 'human',
+        pic_id: 1,
+        realm: 'QI_REFINEMENT',
+        is_dead: true,
+      },
+      world_revision: 43,
+    })
+    const panel = mountComposable(() => useCreateAvatarPanel(vi.fn()))
+    await settle()
+
+    await panel.handleCreateAvatar()
+
+    expect(refreshPoisMock).toHaveBeenCalledOnce()
+    expect(updateAvatarsMock).not.toHaveBeenCalled()
+    expect(preloadAvatarTexturesMock).not.toHaveBeenCalled()
   })
 
   it('does not expose hardcoded Chinese race labels in create avatar options', () => {

@@ -28,6 +28,7 @@ const {
   currentAvatarUrl,
   selectedRealm,
   avatarOptions,
+  ageLimits,
   uiKey,
   addRelation,
   removeRelation,
@@ -58,7 +59,7 @@ const {
             <n-select v-model:value="createForm.race" :options="raceOptions" />
           </n-form-item>
           <n-form-item :label="t(uiKey('labels.age'))">
-            <n-slider v-model:value="createForm.age" :min="16" :max="100" :step="1" />
+            <n-slider v-model:value="createForm.age" :min="ageLimits.min" :max="ageLimits.max" :step="1" />
             <span style="margin-left: 0.8em; width: 4.8em">{{ createForm.age }} {{ t(uiKey('age_unit')) }}</span>
           </n-form-item>
           <n-form-item :label="t(uiKey('labels.initial_realm'))">
@@ -82,7 +83,7 @@ const {
                 :step="1"
                 style="flex: 1; min-width: 0;"
               />
-              <span>{{ createForm.appearance || 1 }}</span>
+              <span>{{ createForm.appearance ?? 5 }}</span>
             </div>
           </n-form-item>
           <n-form-item :label="t(uiKey('labels.technique'))">

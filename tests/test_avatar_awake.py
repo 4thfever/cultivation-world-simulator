@@ -6,7 +6,12 @@ from src.classes.mortal import Mortal
 from src.classes.core.avatar import Avatar, Gender
 from src.systems.time import MonthStamp
 from src.classes.relation.relation import Relation
-from src.sim.avatar_awake import process_awakening, _process_bloodline_awakening, _process_wild_awakening
+from src.sim.avatar_awake import (
+    _process_bloodline_awakening,
+    _process_wild_awakening,
+    _register_avatar_and_resolve_lifespan,
+    process_awakening,
+)
 from src.utils.config import CONFIG
 from src.classes.race import get_race
 
@@ -88,6 +93,19 @@ def test_process_wild_awakening(mock_world):
     assert avatar is not None
     assert avatar.sect is None # 散修
     assert avatar.race.id == "snake"
+
+
+def test_lifespan_exhausted_awakening_creates_grave(mock_world, dummy_avatar):
+    dummy_avatar.age.max_lifespan = dummy_avatar.age.age
+
+    _register_avatar_and_resolve_lifespan(mock_world, dummy_avatar)
+
+    assert dummy_avatar.id not in mock_world.avatar_manager.avatars
+    assert dummy_avatar.id in mock_world.avatar_manager.dead_avatars
+    assert mock_world.deceased_manager.get_record(dummy_avatar.id) is not None
+    graves = mock_world.poi_manager.get_all_active(int(mock_world.month_stamp))
+    assert len(graves) == 1
+    assert graves[0].deceased_avatar_id == dummy_avatar.id
 
 def test_awakening_integration(mock_world):
     """测试 process_awakening 集成调用"""

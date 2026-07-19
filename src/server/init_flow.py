@@ -73,6 +73,21 @@ async def _generate_initial_avatars(
     return random_avatars
 
 
+def _resolve_initially_dead_avatars(*, world, avatars: dict[Any, Any]) -> None:
+    """Move pre-generated dead avatars through the normal death pipeline.
+
+    Avatar generation can determine that an NPC's rolled lifespan is already
+    exhausted.  At this point the NPC has not yet been registered, so the
+    generator cannot create its world-facing death artifacts itself.
+    """
+    from src.classes.death import handle_death
+    from src.classes.death_reason import DeathReason, DeathType
+
+    for avatar in avatars.values():
+        if getattr(avatar, "is_dead", False):
+            handle_death(world, avatar, DeathReason(DeathType.OLD_AGE))
+
+
 async def _prepare_initial_character_profiles(*, world) -> None:
     from src.sim.simulator_engine.phases import lifecycle
 
@@ -269,6 +284,7 @@ async def perform_game_initialization(
         )
 
         world.avatar_manager.avatars.update(final_avatars)
+        _resolve_initially_dead_avatars(world=world, avatars=final_avatars)
         world.existed_sects = existed_sects
         world.sect_context.from_existed_sects(existed_sects)
         from src.systems.world_secret import initialize_world_secret

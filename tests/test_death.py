@@ -186,6 +186,21 @@ def test_avatar_manager_archive_death(base_world, dummy_avatar):
     # 验证 buffer
     assert str(dummy_avatar.id) in manager.pop_newly_dead()
 
+
+def test_registering_an_already_dead_avatar_creates_a_grave(base_world, dummy_avatar):
+    manager = base_world.avatar_manager
+    dummy_avatar.set_dead("寿元耗尽而亡", base_world.month_stamp)
+
+    manager.register_avatar(dummy_avatar, is_newly_born=True)
+
+    assert dummy_avatar.id not in manager.avatars
+    assert dummy_avatar.id in manager.dead_avatars
+    assert base_world.deceased_manager.get_record(dummy_avatar.id) is not None
+    graves = base_world.poi_manager.get_all_active(int(base_world.month_stamp))
+    assert len(graves) == 1
+    assert graves[0].deceased_avatar_id == dummy_avatar.id
+    assert str(dummy_avatar.id) in manager.pop_newly_dead()
+
 @pytest.mark.asyncio
 async def test_simulator_resolve_death(base_world, dummy_avatar):
     """测试模拟器的死亡结算阶段"""
@@ -207,3 +222,19 @@ async def test_simulator_resolve_death(base_world, dummy_avatar):
     # 验证已被自动归档（因为 handle_death 现在会调用 manager.handle_death）
     assert dummy_avatar.id in base_world.avatar_manager.dead_avatars
     assert str(dummy_avatar.id) in base_world.avatar_manager.pop_newly_dead()
+
+
+def test_death_phase_repairs_previously_marked_dead_avatar(base_world, dummy_avatar):
+    from src.sim.simulator_engine.phases.lifecycle import phase_resolve_death
+
+    dummy_avatar.set_dead("旧存档死亡状态", base_world.month_stamp)
+    base_world.avatar_manager.avatars[dummy_avatar.id] = dummy_avatar
+
+    events = phase_resolve_death(base_world, [dummy_avatar])
+
+    assert events == []
+    assert dummy_avatar.id not in base_world.avatar_manager.avatars
+    assert dummy_avatar.id in base_world.avatar_manager.dead_avatars
+    graves = base_world.poi_manager.get_all_active(int(base_world.month_stamp))
+    assert len(graves) == 1
+    assert graves[0].deceased_avatar_id == dummy_avatar.id

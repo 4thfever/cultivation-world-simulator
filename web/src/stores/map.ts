@@ -53,6 +53,13 @@ export const useMapStore = defineStore('map', () => {
     return preloadMapPromise;
   }
 
+  async function refreshPois() {
+    const mapRes = await worldApi.fetchMap();
+    const poiMap = new Map<string, POISummary>();
+    (mapRes.pois ?? []).forEach(poi => poiMap.set(poi.id, poi));
+    pois.value = poiMap;
+  }
+
   function reset() {
     preloadMapRequestId++;
     preloadMapPromise = null;
@@ -94,6 +101,7 @@ export const useMapStore = defineStore('map', () => {
     presetVersion,
     isLoaded,
     preloadMap,
+    refreshPois,
     applyPoiUpdates,
     reset
   };
