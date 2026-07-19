@@ -59,7 +59,7 @@ export const avatarApi = {
   },
 
   createAvatar(params: CreateAvatarParams) {
-    return httpClient.post<{ status: string; message: string; avatar_id: string; avatar?: AvatarSummary }>('/api/v1/command/avatar/create', params);
+    return httpClient.post<{ status: string; message: string; avatar_id: string; avatar?: AvatarSummary; world_revision?: number; timing?: { lock_wait_ms: number; execution_ms: number } }>('/api/v1/command/avatar/create', params);
   },
 
   updateAvatarAdjustment(params: UpdateAvatarAdjustmentParams) {
@@ -83,7 +83,7 @@ export const avatarApi = {
   },
 
   deleteAvatar(avatarId: string) {
-    return httpClient.post<{ status: string; message: string }>('/api/v1/command/avatar/delete', { avatar_id: avatarId });
+    return httpClient.post<{ status: string; message: string; removed_avatar_id: string; world_revision?: number; timing?: { lock_wait_ms: number; execution_ms: number } }>('/api/v1/command/avatar/delete', { avatar_id: avatarId });
   },
 
   fetchRoleplaySession() {

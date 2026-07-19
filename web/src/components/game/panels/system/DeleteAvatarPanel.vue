@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { NInput, NButton } from 'naive-ui'
+import { NInput, NButton, NTooltip } from 'naive-ui'
 import { useDeleteAvatarPanel } from '@/composables/useDeleteAvatarPanel'
 import searchIcon from '@/assets/icons/ui/lucide/search.svg'
 import trashIcon from '@/assets/icons/ui/lucide/trash-2.svg'
+import refreshIcon from '@/assets/icons/ui/lucide/refresh-cw.svg'
 
 const { t } = useI18n()
 
@@ -13,18 +14,35 @@ const {
   avatarSearch,
   filteredAvatars,
   uiKey,
+  fetchAvatarList,
   handleDeleteAvatar,
 } = useDeleteAvatarPanel()
 </script>
 
 <template>
   <div class="delete-panel">
-    <div class="search-bar">
+    <div class="delete-toolbar">
+      <div class="search-bar">
       <n-input v-model:value="avatarSearch" :placeholder="t(uiKey('search_placeholder'))">
         <template #prefix>
           <span class="input-icon" :style="{ '--icon-url': `url(${searchIcon})` }" aria-hidden="true"></span>
         </template>
       </n-input>
+      </div>
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button
+            circle
+            size="small"
+            :loading="isFetchingList"
+            :aria-label="t('common.refresh')"
+            @click="fetchAvatarList"
+          >
+            <span class="button-icon" :style="{ '--icon-url': `url(${refreshIcon})` }" aria-hidden="true"></span>
+          </n-button>
+        </template>
+        {{ t('common.refresh') }}
+      </n-tooltip>
     </div>
     <div class="avatar-list">
       <div v-if="isFetchingList && filteredAvatars.length === 0" class="loading">{{ t('common.loading') }}</div>
@@ -65,8 +83,16 @@ const {
   width: 100%;
 }
 
+.delete-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1em;
+}
+
 .search-bar {
-    margin-bottom: 1em;
+  flex: 1;
+  min-width: 0;
 }
 
 .loading {

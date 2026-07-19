@@ -60,15 +60,17 @@ def _build_event_subjects(event: Any, world: Any | None) -> list[dict[str, Any]]
     """Build display subjects from structured event relations."""
     subjects: list[dict[str, Any]] = []
 
+    snapshots = getattr(event, "subject_snapshots", None) or {}
     for avatar_id in (getattr(event, "related_avatars", None) or []):
         avatar_id_str = str(avatar_id)
+        snapshot_name = str(snapshots.get(avatar_id_str) or "")
         avatar = _get_avatar_by_id(world, avatar_id_str) if world is not None else None
         if avatar is not None:
             subjects.append(
                 {
                     "type": "avatar",
                     "id": avatar_id_str,
-                    "name": str(getattr(avatar, "name", avatar_id_str)),
+                    "name": snapshot_name or str(getattr(avatar, "name", avatar_id_str)),
                     "is_dead": bool(getattr(avatar, "is_dead", False)),
                 }
             )
@@ -80,7 +82,7 @@ def _build_event_subjects(event: Any, world: Any | None) -> list[dict[str, Any]]
                 {
                     "type": "avatar",
                     "id": avatar_id_str,
-                    "name": str(getattr(record, "name", avatar_id_str)),
+                    "name": snapshot_name or str(getattr(record, "name", avatar_id_str)),
                     "is_dead": True,
                 }
             )
@@ -90,7 +92,7 @@ def _build_event_subjects(event: Any, world: Any | None) -> list[dict[str, Any]]
             {
                 "type": "avatar",
                 "id": avatar_id_str,
-                "name": avatar_id_str,
+                "name": snapshot_name or avatar_id_str,
                 "is_dead": False,
             }
         )

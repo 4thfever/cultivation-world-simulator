@@ -532,6 +532,7 @@ async def game_loop():
             serialize_events_for_client=serialize_events_for_client,
             serialize_phenomenon=serialize_phenomenon,
             serialize_active_domains=serialize_active_domains,
+            world_revision=runtime.world_revision,
         ),
         should_trigger_auto_save=lambda world: should_trigger_auto_save(world=world),
         trigger_auto_save=trigger_auto_save,

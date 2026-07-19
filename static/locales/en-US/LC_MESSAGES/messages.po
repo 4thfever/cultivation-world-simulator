@@ -3526,6 +3526,9 @@ msgstr "Avatar portrait updated"
 msgid "Avatar deleted"
 msgstr "Avatar deleted"
 
+msgid "Finish the active roleplay before deleting this avatar"
+msgstr "Finish the active roleplay before deleting this avatar"
+
 msgid "Avatar adjustment applied"
 msgstr "Avatar adjustment applied"
 

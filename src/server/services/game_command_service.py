@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import inspect
 from types import SimpleNamespace
 from typing import Any
 
@@ -169,7 +170,7 @@ class GameCommandService:
         )
 
     async def create_avatar(self, req: Any) -> dict:
-        return await self._deps.runtime.run_mutation(
+        result, timing = await self._deps.runtime.run_mutation_measured(
             self._deps.create_avatar_in_world,
             self._deps.runtime,
             req=req,
@@ -186,13 +187,42 @@ class GameCommandService:
             ),
             resolve_avatar_action_emoji=self._deps.resolve_avatar_action_emoji,
         )
+        result["world_revision"] = self._deps.runtime.world_revision
+        result["timing"] = timing
+        await self._broadcast_avatar_delta(avatars=[result["avatar"]])
+        return result
 
     async def delete_avatar(self, *, avatar_id: str) -> dict:
-        return await self._deps.runtime.run_mutation(
+        result, timing = await self._deps.runtime.run_mutation_measured(
             self._deps.delete_avatar_in_world,
             self._deps.runtime,
             avatar_id=avatar_id,
         )
+        result["world_revision"] = self._deps.runtime.world_revision
+        result["timing"] = timing
+        await self._broadcast_avatar_delta(removed_avatar_ids=[result["removed_avatar_id"]])
+        return result
+
+    async def _broadcast_avatar_delta(
+        self,
+        *,
+        avatars: list[dict[str, Any]] | None = None,
+        removed_avatar_ids: list[str] | None = None,
+    ) -> None:
+        broadcast = getattr(self._deps.manager, "broadcast", None)
+        if not callable(broadcast):
+            return
+
+        result = broadcast(
+            {
+                "type": "avatar_delta",
+                "avatars": avatars or [],
+                "removed_avatar_ids": removed_avatar_ids or [],
+                "world_revision": self._deps.runtime.world_revision,
+            }
+        )
+        if inspect.isawaitable(result):
+            await result
 
     async def update_avatar_adjustment(self, req: Any) -> dict:
         self._deps.runtime.set_paused(True)

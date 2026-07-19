@@ -192,11 +192,12 @@ class TestConnectionManager:
 
     @pytest.mark.asyncio
     async def test_broadcast_handles_errors_gracefully(self, fresh_manager):
-        """Test broadcast() doesn't crash on send errors."""
+        """Test a stale connection cannot block later live clients."""
         ws1 = AsyncMock()
         ws2 = AsyncMock()
+        ws3 = AsyncMock()
         ws2.send_text.side_effect = Exception("Connection closed")
-        fresh_manager.active_connections.extend([ws1, ws2])
+        fresh_manager.active_connections.extend([ws1, ws2, ws3])
 
         # Should not raise.
         message = {"type": "test"}
@@ -204,6 +205,8 @@ class TestConnectionManager:
 
         # ws1 should still have been called.
         ws1.send_text.assert_called_once()
+        ws3.send_text.assert_called_once()
+        assert ws2 not in fresh_manager.active_connections
 
     @pytest.mark.asyncio
     async def test_broadcast_empty_connections(self, fresh_manager):
@@ -524,6 +527,24 @@ class TestSerializeEvents:
         assert serialized["render_key"] is None
         assert serialized["render_params"] is None
         assert serialized["subjects"] == []
+
+    def test_serialize_event_uses_persisted_subject_snapshot_without_world(self):
+        from src.server.main import serialize_events_for_client
+        from src.classes.event import Event
+        from src.systems.time import create_month_stamp, Year, Month
+
+        event = Event(
+            month_stamp=create_month_stamp(Year(100), Month.MARCH),
+            content="Alice acted.",
+            related_avatars=["avatar-1"],
+            subject_snapshots={"avatar-1": "Alice"},
+        )
+
+        result = serialize_events_for_client([event])
+
+        assert result[0]["subjects"] == [
+            {"type": "avatar", "id": "avatar-1", "name": "Alice", "is_dead": False},
+        ]
 
     def test_serialize_event_subjects_with_world(self):
         """Test event display subjects are resolved from the runtime world."""

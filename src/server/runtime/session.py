@@ -54,6 +54,7 @@ class GameSessionRuntime:
     def __init__(self, state: dict[str, Any]):
         self._state = state
         self._mutation_lock = asyncio.Lock()
+        self._world_revision = 0
         self._ensure_owned_roleplay_session()
 
     @property
@@ -224,12 +225,32 @@ class GameSessionRuntime:
         """
         Serialize world mutations and simulator stepping through one lock.
         """
+        result, _ = await self.run_mutation_measured(operation, *args, **kwargs)
+        return result
+
+    @property
+    def world_revision(self) -> int:
+        return self._world_revision
+
+    async def run_mutation_measured(
+        self,
+        operation: Callable[..., Any] | Awaitable[Any],
+        *args: Any,
+        **kwargs: Any,
+    ) -> tuple[Any, dict[str, int]]:
+        requested_at = time.perf_counter()
         async with self._mutation_lock:
+            acquired_at = time.perf_counter()
             if callable(operation):
                 result = operation(*args, **kwargs)
             else:
                 result = operation
 
             if inspect.isawaitable(result):
-                return await result
-            return result
+                result = await result
+            completed_at = time.perf_counter()
+            self._world_revision += 1
+            return result, {
+                "lock_wait_ms": round((acquired_at - requested_at) * 1000),
+                "execution_ms": round((completed_at - acquired_at) * 1000),
+            }

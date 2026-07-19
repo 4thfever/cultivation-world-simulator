@@ -27,6 +27,9 @@ msgstr "キャラクターの立ち絵を更新しました"
 msgid "Avatar deleted"
 msgstr "キャラクターを削除しました"
 
+msgid "Finish the active roleplay before deleting this avatar"
+msgstr "このキャラクターを削除する前に、進行中のロールプレイを終了してください"
+
 msgid "Avatar adjustment applied"
 msgstr "キャラクター調整を適用しました"
 

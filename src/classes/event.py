@@ -29,6 +29,8 @@ class Event:
     render_key: Optional[str] = None
     # 前端模板渲染参数
     render_params: Optional[dict[str, Any]] = None
+    # 事件发生时的主体显示快照。角色被手动删除或长期清理后，事件栏仍可展示名称。
+    subject_snapshots: dict[str, str] = field(default_factory=dict)
     # 唯一ID，用于去重
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     # 创建时间戳 (Unix timestamp float)
@@ -51,6 +53,7 @@ class Event:
             "event_type": self.event_type,
             "render_key": self.render_key,
             "render_params": self.render_params,
+            "subject_snapshots": self.subject_snapshots,
             "id": self.id,
             "created_at": self.created_at
         }
@@ -68,6 +71,7 @@ class Event:
             event_type=data.get("event_type", ""),
             render_key=data.get("render_key"),
             render_params=data.get("render_params"),
+            subject_snapshots=dict(data.get("subject_snapshots") or {}),
             id=data.get("id", str(uuid.uuid4())),
             created_at=data.get("created_at", time.time())
         )
@@ -114,6 +118,7 @@ class NullEvent:
             "event_type": self.event_type,
             "render_key": self.render_key,
             "render_params": self.render_params,
+            "subject_snapshots": {},
             "id": self.id,
         }
 

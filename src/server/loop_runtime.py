@@ -92,6 +92,7 @@ def build_tick_state(
     serialize_events_for_client: Callable[..., list[dict[str, Any]]],
     serialize_phenomenon: Callable[[Any], dict[str, Any] | None],
     serialize_active_domains: Callable[[Any], list[dict[str, Any]]],
+    world_revision: int = 0,
 ) -> dict[str, Any]:
     """Build the websocket tick payload from current runtime state."""
     return {
@@ -100,6 +101,12 @@ def build_tick_state(
         "month": world.month_stamp.get_month().value,
         "events": serialize_events_for_client(events, world=world),
         "avatars": avatar_updates,
+        "removed_avatar_ids": (
+            world.avatar_manager.pop_removed()
+            if hasattr(getattr(world, "avatar_manager", None), "pop_removed")
+            else []
+        ),
+        "world_revision": world_revision,
         "poi_updates": world.poi_manager.pop_updates() if hasattr(world, "poi_manager") else [],
         "phenomenon": serialize_phenomenon(world.current_phenomenon),
         "active_domains": serialize_active_domains(world),

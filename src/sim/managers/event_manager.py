@@ -6,7 +6,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import List, Optional, TYPE_CHECKING
+from typing import Callable, List, Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from src.classes.event import Event
@@ -36,6 +36,7 @@ class EventManager:
             storage: SQLite 存储层。如果为 None，则使用内存模式（仅用于测试）。
         """
         self._storage = storage
+        self._subject_resolver: Callable[[str], object | None] | None = None
         # 内存后备，仅当 storage 为 None 时使用，主要用于测试。
         self._memory_events: List["Event"] = []
 
@@ -64,6 +65,23 @@ class EventManager:
         """
         return cls(storage=None)
 
+    def set_subject_resolver(self, resolver: Callable[[str], object | None]) -> None:
+        self._subject_resolver = resolver
+
+    def _capture_subject_snapshots(self, event: "Event") -> None:
+        if self._subject_resolver is None:
+            return
+        snapshots = dict(getattr(event, "subject_snapshots", {}) or {})
+        for avatar_id in getattr(event, "related_avatars", None) or []:
+            avatar_id_str = str(avatar_id)
+            if avatar_id_str in snapshots:
+                continue
+            avatar = self._subject_resolver(avatar_id_str)
+            name = getattr(avatar, "name", None) if avatar is not None else None
+            if name:
+                snapshots[avatar_id_str] = str(name)
+        event.subject_snapshots = snapshots
+
     def add_event(self, event: "Event") -> None:
         """
         添加事件。
@@ -75,6 +93,8 @@ class EventManager:
         from src.classes.event import is_null_event
         if is_null_event(event):
             return
+
+        self._capture_subject_snapshots(event)
 
         if self._storage:
             self._storage.add_event(event)

@@ -5,6 +5,7 @@
   "load_game": "ゲーム読込",
   "save_game": "ゲーム保存",
   "create_character": "キャラクター作成",
+  "character_management": "キャラクター管理",
   "create_alignment_placeholder": "属性を選択（空欄なら中立）",
   "delete_character": "キャラクター削除",
   "settings": "設定",

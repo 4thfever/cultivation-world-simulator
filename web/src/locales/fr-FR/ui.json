@@ -5,6 +5,7 @@
   "load_game": "Charger",
   "save_game": "Sauver",
   "create_character": "Créer",
+  "character_management": "Gestion des personnages",
   "create_alignment_placeholder": "Choisir un alignement (laisser vide pour Neutre)",
   "delete_character": "Supprimer",
   "settings": "Paramètres",

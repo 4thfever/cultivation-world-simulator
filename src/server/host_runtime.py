@@ -79,12 +79,19 @@ class ConnectionManager:
     async def broadcast(self, message: dict):
         import json
 
-        try:
-            txt = json.dumps(message, default=str)
-            for connection in self.active_connections:
+        txt = json.dumps(message, default=str)
+        disconnected: list[WebSocket] = []
+        for connection in list(self.active_connections):
+            try:
                 await connection.send_text(txt)
-        except Exception as exc:
-            print(f"Broadcast error: {exc}")
+            except Exception as exc:
+                # A stale connection must not prevent live clients from
+                # receiving a state-changing command delta.
+                print(f"Broadcast error: {exc}")
+                disconnected.append(connection)
+
+        for connection in disconnected:
+            self.disconnect(connection)
 
 
 def trigger_process_shutdown(*, is_dev_mode: bool) -> dict[str, str]:

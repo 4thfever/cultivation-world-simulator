@@ -3,6 +3,7 @@ import { logError, logWarn } from '@/utils/appError'
 import i18n from '@/locales'
 import type {
   TickPayloadDTO,
+  AvatarDeltaSocketMessage,
   ToastSocketMessage,
   LLMConfigRequiredSocketMessage,
   GameReinitializedSocketMessage,
@@ -41,6 +42,17 @@ function handleLlmConfigRequired(data: LLMConfigRequiredSocketMessage, deps: Soc
   message.error(errorMessage)
 }
 
+function handleAvatarDeltaMessage(payload: AvatarDeltaSocketMessage, deps: SocketRouterDeps) {
+  if (!deps.worldStore.applyAvatarDelta(payload, { directoryChanged: true })) return
+
+  const selectedTarget = deps.uiStore.selectedTarget
+  if (selectedTarget?.type === 'avatar' && payload.removed_avatar_ids?.includes(selectedTarget.id)) {
+    deps.uiStore.clearSelection()
+  } else if (selectedTarget) {
+    deps.uiStore.refreshDetail()
+  }
+}
+
 function handleGameReinitialized(data: GameReinitializedSocketMessage, deps: SocketRouterDeps) {
   Promise.resolve(deps.worldStore.initialize()).catch((e) =>
     logError('SocketRouter reinitialize world', e),
@@ -52,6 +64,9 @@ export function routeSocketMessage(data: SocketMessageDTO, deps: SocketRouterDep
   switch (data.type) {
     case 'tick':
       handleTickMessage(data, deps)
+      break
+    case 'avatar_delta':
+      handleAvatarDeltaMessage(data, deps)
       break
     case 'toast':
       handleToastMessage(data)

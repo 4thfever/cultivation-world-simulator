@@ -6,7 +6,6 @@ import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
 import folderOpenIcon from '@/assets/icons/ui/lucide/folder-open.svg'
 import saveIcon from '@/assets/icons/ui/lucide/save.svg'
 import userPlusIcon from '@/assets/icons/ui/lucide/user-plus.svg'
-import trashIcon from '@/assets/icons/ui/lucide/trash-2.svg'
 import botIcon from '@/assets/icons/ui/lucide/bot.svg'
 import settingsIcon from '@/assets/icons/ui/lucide/settings.svg'
 import infoIcon from '@/assets/icons/ui/lucide/info.svg'
@@ -31,8 +30,7 @@ const tabs = computed((): Array<{ key: SystemMenuTab; label: string; disabled: b
   { key: 'start', label: t('ui.start_game'), disabled: false, icon: sparklesIcon },
   { key: 'load', label: t('ui.load_game'), disabled: false, icon: folderOpenIcon },
   { key: 'save', label: t('ui.save_game'), disabled: !props.gameInitialized, icon: saveIcon },
-  { key: 'create', label: t('ui.create_character'), disabled: !props.gameInitialized, icon: userPlusIcon },
-  { key: 'delete', label: t('ui.delete_character'), disabled: !props.gameInitialized, icon: trashIcon },
+  { key: 'characters', label: t('ui.character_management'), disabled: !props.gameInitialized, icon: userPlusIcon },
   { key: 'llm', label: t('ui.llm_settings'), disabled: false, icon: botIcon },
   { key: 'settings', label: t('ui.settings'), disabled: false, icon: settingsIcon },
   { key: 'about', label: t('ui.about'), disabled: false, icon: infoIcon },

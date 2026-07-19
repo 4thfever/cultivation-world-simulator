@@ -7,6 +7,7 @@
   "version": "Version",
   "confirm": "Confirm",
   "cancel": "Cancel",
+  "refresh": "Refresh",
   "error": "Error",
   "success": "Success"
 }

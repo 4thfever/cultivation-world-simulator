@@ -18,6 +18,7 @@ export interface WorldStateSnapshot {
   events: NonNullable<InitialStateDTO['events']>
   phenomenon: CelestialPhenomenon | null
   activeDomains: NonNullable<InitialStateDTO['active_domains']>
+  worldRevision: number
 }
 
 export interface WorldMapSnapshot {
@@ -53,6 +54,7 @@ export function normalizeInitialState(input: InitialStateDTO): WorldStateSnapsho
     events: Array.isArray(input.events) ? input.events : [],
     phenomenon: input.phenomenon ?? null,
     activeDomains: Array.isArray(input.active_domains) ? input.active_domains : [],
+    worldRevision: input.world_revision ?? 0,
   }
 }
 

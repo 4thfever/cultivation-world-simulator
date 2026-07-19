@@ -70,6 +70,12 @@ class World():
     # 宗门上下文（惰性初始化），用于统一本局启用宗门作用域
     _sect_context: Any = field(default=None, init=False, repr=False)
 
+    def __post_init__(self) -> None:
+        if hasattr(self.event_manager, "set_subject_resolver"):
+            self.event_manager.set_subject_resolver(
+                lambda avatar_id: self.avatar_manager.get_avatar(str(avatar_id))
+            )
+
     def get_info(self, detailed: bool = False, avatar: Optional["Avatar"] = None) -> dict:
         """
         返回世界信息（dict），其中包含地图信息（dict）。

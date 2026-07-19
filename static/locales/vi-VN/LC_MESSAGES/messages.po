@@ -3529,6 +3529,9 @@ msgstr "Đã cập nhật chân dung nhân vật"
 msgid "Avatar deleted"
 msgstr "Đã xóa nhân vật"
 
+msgid "Finish the active roleplay before deleting this avatar"
+msgstr "Hãy kết thúc nhập vai đang diễn ra trước khi xóa nhân vật này"
+
 msgid "Avatar adjustment applied"
 msgstr "Đã áp dụng chỉnh sửa nhân vật"
 

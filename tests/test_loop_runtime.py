@@ -91,6 +91,8 @@ def test_build_tick_state_uses_serializer_hooks():
         "month": 6,
         "events": [{"count": 1, "has_world": True}],
         "avatars": [{"id": "a"}],
+        "removed_avatar_ids": [],
+        "world_revision": 0,
         "poi_updates": [],
         "phenomenon": {"id": 1},
         "active_domains": [{"id": "domain"}],

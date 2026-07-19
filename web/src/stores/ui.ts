@@ -14,8 +14,7 @@ export interface Selection {
 export type SystemMenuTab =
   | 'save'
   | 'load'
-  | 'create'
-  | 'delete'
+  | 'characters'
   | 'llm'
   | 'start'
   | 'settings'

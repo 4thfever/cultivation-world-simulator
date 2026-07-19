@@ -1,4 +1,4 @@
-import { defineComponent, nextTick } from 'vue'
+import { defineComponent, nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
@@ -32,12 +32,26 @@ vi.mock('@/components/game/composables/useTextures', () => ({
 }))
 
 const fetchStateMock = vi.fn()
+const acceptMutationRevisionMock = vi.fn()
+const avatarDirectoryRevisionMock = ref(0)
 const updateAvatarsMock = vi.fn()
 const removeAvatarMock = vi.fn()
+const clearSelectionMock = vi.fn()
+const uiStoreMock = {
+  selectedTarget: null as null | { type: string; id: string },
+  clearSelection: clearSelectionMock,
+}
 vi.mock('@/stores/world', () => ({
   useWorldStore: () => ({
     fetchState: fetchStateMock,
+    acceptMutationRevision: acceptMutationRevisionMock,
+    get avatarDirectoryRevision() {
+      return avatarDirectoryRevisionMock.value
+    },
   }),
+}))
+vi.mock('@/stores/ui', () => ({
+  useUiStore: () => uiStoreMock,
 }))
 vi.mock('@/stores/avatar', () => ({
   useAvatarStore: () => ({
@@ -180,6 +194,8 @@ const adjustCatalog = {
 describe('avatar panel composables', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    avatarDirectoryRevisionMock.value = 0
+    uiStoreMock.selectedTarget = null
     updateAvatarsMock.mockReset()
     removeAvatarMock.mockReset()
     preloadAvatarTexturesMock.mockReset()
@@ -235,8 +251,9 @@ describe('avatar panel composables', () => {
         realm: 'QI_REFINEMENT',
         is_dead: false,
       },
+      world_revision: 42,
     })
-    vi.mocked(avatarApi.deleteAvatar).mockResolvedValue({ status: 'ok', message: 'ok' })
+    vi.mocked(avatarApi.deleteAvatar).mockResolvedValue({ status: 'ok', message: 'ok', removed_avatar_id: 'a1', world_revision: 43 })
     fetchStateMock.mockResolvedValue(undefined)
   })
 
@@ -327,6 +344,7 @@ describe('avatar panel composables', () => {
       pic_id: 1,
     })])
     expect(fetchStateMock).not.toHaveBeenCalled()
+    expect(acceptMutationRevisionMock).toHaveBeenCalledWith(42)
     expect(onCreated).toHaveBeenCalled()
   })
 
@@ -396,7 +414,20 @@ describe('avatar panel composables', () => {
     await panel.handleDeleteAvatar('a1', '李青')
     expect(avatarApi.deleteAvatar).toHaveBeenCalledWith('a1')
     expect(fetchStateMock).not.toHaveBeenCalled()
+    expect(acceptMutationRevisionMock).toHaveBeenCalledWith(43)
     expect(panel.filteredAvatars.value).toHaveLength(0)
+  })
+
+  it('refreshes the deletion list after a remote character directory delta', async () => {
+    const panel = mountComposable(() => useDeleteAvatarPanel(() => true))
+    await settle()
+    vi.mocked(avatarApi.fetchAvatarList).mockClear()
+
+    avatarDirectoryRevisionMock.value += 1
+    await settle()
+
+    expect(avatarApi.fetchAvatarList).toHaveBeenCalled()
+    expect(panel.filteredAvatars.value).toHaveLength(1)
   })
 
   it('ignores a stale list response after deleting an avatar', async () => {

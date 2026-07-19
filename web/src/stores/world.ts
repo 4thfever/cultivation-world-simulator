@@ -50,6 +50,8 @@ export const useWorldStore = defineStore('world', () => {
   const currentPhenomenon = ref<CelestialPhenomenon | null>(null);
   const phenomenaList = shallowRef<CelestialPhenomenon[]>([]);
   const activeDomains = shallowRef<HiddenDomainInfo[]>([]);
+  const lastWorldRevision = ref(0);
+  const avatarDirectoryRevision = ref(0);
   
   // Is world loaded (map + initial state)
   const isLoaded = ref(false);
@@ -66,10 +68,10 @@ export const useWorldStore = defineStore('world', () => {
 
   function handleTick(payload: TickPayloadDTO) {
     if (!isLoaded.value) return;
+    if (!applyAvatarDelta(payload)) return;
     
     setTime(payload.year, payload.month);
 
-    if (payload.avatars) avatarStore.updateAvatars(payload.avatars);
     if (payload.poi_updates) mapStore.applyPoiUpdates(payload.poi_updates);
     if (payload.events) eventStore.addEvents(payload.events, year.value, month.value);
     
@@ -94,6 +96,7 @@ export const useWorldStore = defineStore('world', () => {
 
     currentPhenomenon.value = stateRes.phenomenon;
     activeDomains.value = stateRes.activeDomains;
+    lastWorldRevision.value = stateRes.worldRevision;
     isLoaded.value = true;
   }
 
@@ -159,6 +162,8 @@ export const useWorldStore = defineStore('world', () => {
     startMonth.value = 0;
     currentPhenomenon.value = null;
     activeDomains.value = [];
+    lastWorldRevision.value = 0;
+    avatarDirectoryRevision.value = 0;
     isLoaded.value = false;
     
     avatarStore.reset();
@@ -168,6 +173,31 @@ export const useWorldStore = defineStore('world', () => {
     dynastyStore.reset();
     avatarOverviewStore.reset();
     mapStore.reset();
+  }
+
+  function acceptMutationRevision(revision?: number) {
+    if (revision != null) {
+      lastWorldRevision.value = Math.max(lastWorldRevision.value, revision);
+    }
+  }
+
+  function applyAvatarDelta(
+    payload: Pick<TickPayloadDTO, 'avatars' | 'removed_avatar_ids' | 'world_revision'>,
+    options?: { directoryChanged?: boolean },
+  ) {
+    if (!isLoaded.value) return false;
+    if (payload.world_revision != null && payload.world_revision < lastWorldRevision.value) return false;
+    if (payload.world_revision != null) {
+      lastWorldRevision.value = payload.world_revision;
+    }
+    for (const avatarId of payload.removed_avatar_ids ?? []) {
+      avatarStore.removeAvatar(avatarId);
+    }
+    if (payload.avatars) avatarStore.updateAvatars(payload.avatars);
+    if (options?.directoryChanged) {
+      avatarDirectoryRevision.value += 1;
+    }
+    return true;
   }
 
   async function getPhenomenaList() {
@@ -207,6 +237,8 @@ export const useWorldStore = defineStore('world', () => {
     currentPhenomenon,
     phenomenaList,
     activeDomains,
+    lastWorldRevision,
+    avatarDirectoryRevision,
     isLoaded,
 
     // Actions
@@ -215,6 +247,8 @@ export const useWorldStore = defineStore('world', () => {
     initialize,
     fetchState,
     handleTick,
+    acceptMutationRevision,
+    applyAvatarDelta,
     reset,
     getPhenomenaList,
     changePhenomenon

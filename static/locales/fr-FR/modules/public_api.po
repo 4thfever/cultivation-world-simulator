@@ -27,6 +27,9 @@ msgstr "Portrait du personnage mis à jour"
 msgid "Avatar deleted"
 msgstr "Personnage supprimé"
 
+msgid "Finish the active roleplay before deleting this avatar"
+msgstr "Terminez le jeu de rôle en cours avant de supprimer ce personnage"
+
 msgid "Avatar adjustment applied"
 msgstr "Ajustement du personnage appliqué"
 

@@ -18,6 +18,7 @@ class AvatarManager:
     # --- 变更缓冲区 (不参与序列化) ---
     _newly_dead_buffer: List[str] = field(default_factory=list, init=False)
     _newly_born_buffer: List[str] = field(default_factory=list, init=False)
+    _removed_buffer: List[str] = field(default_factory=list, init=False)
 
     def register_avatar(self, avatar: "Avatar", is_newly_born: bool = False) -> None:
         """
@@ -45,6 +46,12 @@ class AvatarManager:
         """获取并清空本帧刚出生的角色ID列表"""
         res = list(self._newly_born_buffer)
         self._newly_born_buffer.clear()
+        return res
+
+    def pop_removed(self) -> List[str]:
+        """Return manually removed avatar IDs since the last client delta."""
+        res = list(self._removed_buffer)
+        self._removed_buffer.clear()
         return res
 
     def get_avatar(self, avatar_id: str) -> "Avatar | None":
@@ -184,6 +191,9 @@ class AvatarManager:
         # 5. 移除自身
         self.avatars.pop(aid, None)
         self.dead_avatars.pop(aid, None)
+        self._newly_born_buffer = [item for item in self._newly_born_buffer if item != aid]
+        self._newly_dead_buffer = [item for item in self._newly_dead_buffer if item != aid]
+        self._removed_buffer.append(aid)
 
     def remove_avatars(self, avatar_ids: List[str]) -> None:
         """

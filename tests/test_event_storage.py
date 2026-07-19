@@ -9,6 +9,7 @@ Covers:
 
 import pytest
 import tempfile
+from types import SimpleNamespace
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from unittest.mock import MagicMock
@@ -121,6 +122,15 @@ class TestEventStorageBasic:
 
         assert result is True
         assert event_storage.count() == 1
+
+    def test_subject_snapshots_round_trip(self, event_storage):
+        event = make_event(100, 5, "Alice acted", ["avatar_1"])
+        event.subject_snapshots = {"avatar_1": "Alice"}
+
+        event_storage.add_event(event)
+        events, _ = event_storage.get_events()
+
+        assert events[0].subject_snapshots == {"avatar_1": "Alice"}
 
     def test_count(self, event_storage):
         """Test event counting."""
@@ -548,6 +558,17 @@ class TestEventManagerWithStorage:
         event_manager.add_event(event)
 
         assert event_manager.count() == 1
+
+    def test_add_event_captures_subject_name_from_world_resolver(self, event_manager):
+        event_manager.set_subject_resolver(
+            lambda avatar_id: SimpleNamespace(name="Alice") if avatar_id == "a1" else None
+        )
+        event = make_event(100, 5, "Alice acted", ["a1"])
+
+        event_manager.add_event(event)
+        events = event_manager.get_recent_events()
+
+        assert events[0].subject_snapshots == {"a1": "Alice"}
 
     def test_add_null_event_ignored(self, event_manager):
         """Test that NULL_EVENT is ignored."""

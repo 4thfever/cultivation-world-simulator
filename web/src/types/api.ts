@@ -46,6 +46,8 @@ export interface InitialStateDTO {
   events?: EventDTO[];
   phenomenon?: CelestialPhenomenon | null;
   active_domains?: HiddenDomainInfo[];
+  world_revision?: number;
+  is_paused?: boolean;
 }
 
 export interface TickPayloadDTO {
@@ -53,10 +55,19 @@ export interface TickPayloadDTO {
   year: number;
   month: number;
   avatars?: Array<Partial<InitialStateDTO['avatars'] extends (infer U)[] ? U : never>>;
+  removed_avatar_ids?: string[];
+  world_revision?: number;
   events?: EventDTO[];
   poi_updates?: POIUpdateDTO[];
   phenomenon?: CelestialPhenomenon | null;
   active_domains?: HiddenDomainInfo[];
+}
+
+export interface AvatarDeltaSocketMessage {
+  type: 'avatar_delta';
+  avatars?: TickPayloadDTO['avatars'];
+  removed_avatar_ids?: string[];
+  world_revision: number;
 }
 
 export interface MapResponseDTO {
@@ -743,6 +754,7 @@ export interface PongSocketMessage {
 
 export type SocketMessageDTO =
   | TickPayloadDTO
+  | AvatarDeltaSocketMessage
   | ToastSocketMessage
   | LLMConfigRequiredSocketMessage
   | GameReinitializedSocketMessage;

@@ -6,8 +6,7 @@ import SystemMenuShell from '@/components/SystemMenuShell.vue'
 const SystemMenuStartTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuStartTab.vue'))
 const SystemMenuLoadTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuLoadTab.vue'))
 const SystemMenuSaveTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuSaveTab.vue'))
-const SystemMenuCreateTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuCreateTab.vue'))
-const SystemMenuDeleteTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuDeleteTab.vue'))
+const SystemMenuCharactersTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuCharactersTab.vue'))
 const SystemMenuLlmTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuLlmTab.vue'))
 const SystemMenuSettingsTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuSettingsTab.vue'))
 const SystemMenuAboutTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuAboutTab.vue'))
@@ -66,8 +65,7 @@ watch(() => props.visible, (val) => {
       @close="emit('close')"
     />
 
-    <SystemMenuCreateTab v-else-if="activeTab === 'create'" />
-    <SystemMenuDeleteTab v-else-if="activeTab === 'delete'" />
+    <SystemMenuCharactersTab v-else-if="activeTab === 'characters'" />
 
     <SystemMenuLlmTab
       v-else-if="activeTab === 'llm'"

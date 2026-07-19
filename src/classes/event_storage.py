@@ -88,6 +88,7 @@ class EventStorage:
                         event_type TEXT DEFAULT '',
                         render_key TEXT,
                         render_params TEXT,
+                        subject_snapshots TEXT,
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     );
 
@@ -138,6 +139,12 @@ class EventStorage:
                     CREATE INDEX IF NOT EXISTS idx_event_observations_subject_avatar_id
                         ON event_observations(subject_avatar_id);
                 """)
+                columns = {
+                    row["name"]
+                    for row in self._conn.execute("PRAGMA table_info(events)").fetchall()
+                }
+                if "subject_snapshots" not in columns:
+                    self._conn.execute("ALTER TABLE events ADD COLUMN subject_snapshots TEXT")
                 self._conn.commit()
             self._logger.info(f"EventStorage initialized: {self._db_path}")
         except Exception as e:
@@ -177,9 +184,9 @@ class EventStorage:
                 self._conn.execute(
                     """
                     INSERT OR IGNORE INTO events (
-                        id, month_stamp, content, is_major, is_story, event_type, render_key, render_params, created_at
+                        id, month_stamp, content, is_major, is_story, event_type, render_key, render_params, subject_snapshots, created_at
                     )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         event.id,
@@ -190,6 +197,7 @@ class EventStorage:
                         event.event_type,
                         event.render_key,
                         json.dumps(event.render_params, ensure_ascii=False) if event.render_params is not None else None,
+                        json.dumps(getattr(event, "subject_snapshots", {}), ensure_ascii=False),
                         _format_time(event.created_at),
                     )
                 )
@@ -342,6 +350,7 @@ class EventStorage:
         else:
             related_sects = sect_map.get(row["id"], [])
 
+        snapshot_json = row["subject_snapshots"] if "subject_snapshots" in row.keys() else None
         return Event(
             month_stamp=MonthStamp(row["month_stamp"]),
             content=row["content"],
@@ -352,6 +361,7 @@ class EventStorage:
             event_type=row["event_type"] or "",
             render_key=row["render_key"],
             render_params=json.loads(row["render_params"]) if row["render_params"] else None,
+            subject_snapshots=json.loads(snapshot_json) if snapshot_json else {},
             id=row["id"],
             created_at=_parse_time(row["created_at"]),
         )
@@ -438,7 +448,7 @@ class EventStorage:
                     base_query = """
                         SELECT DISTINCT
                             e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
-                            e.event_type, e.render_key, e.render_params, e.created_at
+                            e.event_type, e.render_key, e.render_params, e.subject_snapshots, e.created_at
                         FROM events e
                         JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
                         JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
@@ -449,7 +459,7 @@ class EventStorage:
                     base_query = """
                         SELECT DISTINCT
                             e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
-                            e.event_type, e.render_key, e.render_params, e.created_at
+                            e.event_type, e.render_key, e.render_params, e.subject_snapshots, e.created_at
                         FROM events e
                         JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
                     """
@@ -459,7 +469,7 @@ class EventStorage:
                     base_query = """
                         SELECT DISTINCT
                             e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
-                            e.event_type, e.render_key, e.render_params, e.created_at
+                            e.event_type, e.render_key, e.render_params, e.subject_snapshots, e.created_at
                         FROM events e
                         JOIN event_sects es ON e.id = es.event_id AND es.sect_id = ?
                     """
@@ -469,7 +479,7 @@ class EventStorage:
                     base_query = """
                         SELECT
                             rowid, id, month_stamp, content, is_major, is_story,
-                            event_type, render_key, render_params, e.created_at
+                            event_type, render_key, render_params, e.subject_snapshots, e.created_at
                         FROM events e
                     """
 
@@ -558,7 +568,7 @@ class EventStorage:
         query = """
                 SELECT DISTINCT
                     e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type,
-                    e.created_at, e.render_key, e.render_params, eo.propagation_kind,
+                    e.created_at, e.render_key, e.render_params, e.subject_snapshots, eo.propagation_kind,
                     eo.observer_avatar_id, eo.subject_avatar_id, eo.relation_type, eo.id AS observation_id
                 FROM events e
                 JOIN event_observations eo ON e.id = eo.event_id AND eo.observer_avatar_id = ?
@@ -597,7 +607,7 @@ class EventStorage:
         query = """
                 SELECT DISTINCT
                     e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type,
-                    e.created_at, e.render_key, e.render_params, eo.propagation_kind,
+                    e.created_at, e.render_key, e.render_params, e.subject_snapshots, eo.propagation_kind,
                     eo.observer_avatar_id, eo.subject_avatar_id, eo.relation_type, eo.id AS observation_id
                 FROM events e
                 JOIN event_observations eo ON e.id = eo.event_id AND eo.observer_avatar_id = ?
@@ -635,7 +645,7 @@ class EventStorage:
 
         query = """
                 SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type, e.created_at
-                , e.render_key, e.render_params
+                , e.render_key, e.render_params, e.subject_snapshots
                 FROM events e
                 JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
                 JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
@@ -670,7 +680,7 @@ class EventStorage:
 
         query = """
                 SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type, e.created_at
-                , e.render_key, e.render_params
+                , e.render_key, e.render_params, e.subject_snapshots
                 FROM events e
                 JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
                 JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?

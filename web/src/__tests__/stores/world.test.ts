@@ -689,6 +689,80 @@ describe('useWorldStore', () => {
     })
   })
 
+  describe('world revision deltas', () => {
+    it('accepts an immediate directory delta while the simulation is paused', () => {
+      store.isLoaded = true
+
+      const applied = store.applyAvatarDelta(
+        {
+          avatars: [createMockAvatar({ id: 'created-1' })],
+          removed_avatar_ids: [],
+          world_revision: 7,
+        },
+        { directoryChanged: true },
+      )
+
+      expect(applied).toBe(true)
+      expect(avatarStore.avatars.has('created-1')).toBe(true)
+      expect(store.avatarDirectoryRevision).toBe(1)
+      expect(store.lastWorldRevision).toBe(7)
+    })
+
+    it('does not publish a stale directory delta', () => {
+      store.isLoaded = true
+      store.acceptMutationRevision(7)
+
+      const applied = store.applyAvatarDelta(
+        {
+          avatars: [createMockAvatar({ id: 'stale-1' })],
+          removed_avatar_ids: [],
+          world_revision: 6,
+        },
+        { directoryChanged: true },
+      )
+
+      expect(applied).toBe(false)
+      expect(avatarStore.avatars.has('stale-1')).toBe(false)
+      expect(store.avatarDirectoryRevision).toBe(0)
+    })
+
+    it('drops an older tick after a successful deletion revision', () => {
+      store.isLoaded = true
+      avatarStore.avatars = new Map()
+      store.acceptMutationRevision(5)
+
+      store.handleTick({
+        type: 'tick',
+        year: 101,
+        month: 1,
+        world_revision: 4,
+        avatars: [createMockAvatar()],
+        events: [],
+      })
+
+      expect(avatarStore.avatars.has('avatar-1')).toBe(false)
+      expect(store.lastWorldRevision).toBe(5)
+    })
+
+    it('applies deletion deltas before avatar updates for the current revision', () => {
+      store.isLoaded = true
+      avatarStore.avatars = new Map([['avatar-1', createMockAvatar()]])
+
+      store.handleTick({
+        type: 'tick',
+        year: 101,
+        month: 1,
+        world_revision: 6,
+        removed_avatar_ids: ['avatar-1'],
+        avatars: [],
+        events: [],
+      })
+
+      expect(avatarStore.avatars.has('avatar-1')).toBe(false)
+      expect(store.lastWorldRevision).toBe(6)
+    })
+  })
+
   describe('getPhenomenaList', () => {
     it('should fetch phenomena list if not cached', async () => {
       vi.mocked(worldApi.fetchPhenomenaList).mockResolvedValue([

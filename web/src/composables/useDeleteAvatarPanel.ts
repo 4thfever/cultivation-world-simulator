@@ -1,13 +1,18 @@
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useDialog, useMessage } from 'naive-ui'
 import { avatarApi, type SimpleAvatarDTO } from '@/api'
 import { useAvatarStore } from '@/stores/avatar'
+import { useWorldStore } from '@/stores/world'
+import { useUiStore } from '@/stores/ui'
+import { toErrorMessage } from '@/utils/appError'
 
 type ConfirmDelete = (message: string) => boolean
 
 export function useDeleteAvatarPanel(confirmDelete?: ConfirmDelete) {
   const avatarStore = useAvatarStore()
+  const worldStore = useWorldStore()
+  const uiStore = useUiStore()
   const message = useMessage()
   const dialog = useDialog()
   const { t } = useI18n()
@@ -54,12 +59,16 @@ export function useDeleteAvatarPanel(confirmDelete?: ConfirmDelete) {
     isFetchingList.value = false
     deletingAvatarId.value = id
     try {
-      await avatarApi.deleteAvatar(id)
+      const response = await avatarApi.deleteAvatar(id)
+      worldStore.acceptMutationRevision(response.world_revision)
       avatarStore.removeAvatar(id)
       avatarList.value = avatarList.value.filter(avatar => avatar.id !== id)
+      if (uiStore.selectedTarget?.type === 'avatar' && uiStore.selectedTarget.id === id) {
+        uiStore.clearSelection()
+      }
       message.success(t(uiKey('delete_success')))
-    } catch {
-      message.error(t(uiKey('delete_failed')))
+    } catch (error) {
+      message.error(toErrorMessage(error, t(uiKey('delete_failed'))))
     } finally {
       deletingAvatarId.value = null
     }
@@ -85,6 +94,13 @@ export function useDeleteAvatarPanel(confirmDelete?: ConfirmDelete) {
   onMounted(() => {
     void fetchAvatarList()
   })
+
+  watch(
+    () => worldStore.avatarDirectoryRevision,
+    () => {
+      void fetchAvatarList()
+    },
+  )
 
   return {
     isFetchingList,

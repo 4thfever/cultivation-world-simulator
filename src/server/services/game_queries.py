@@ -355,6 +355,7 @@ def get_world_state(
         "year": year,
         "month": month,
         "avatar_count": len(world.avatar_manager.avatars),
+        "world_revision": getattr(runtime, "world_revision", 0),
         "avatars": avatars,
         "events": recent_events,
         "active_domains": serialize_active_domains(world),

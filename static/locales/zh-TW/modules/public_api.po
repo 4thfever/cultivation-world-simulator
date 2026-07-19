@@ -27,6 +27,9 @@ msgstr "角色頭像已更新"
 msgid "Avatar deleted"
 msgstr "角色已刪除"
 
+msgid "Finish the active roleplay before deleting this avatar"
+msgstr "請先結束涉及該角色的扮演或對話，再執行刪除"
+
 msgid "Avatar adjustment applied"
 msgstr "角色調整已套用"
 

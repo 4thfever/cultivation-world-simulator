@@ -76,8 +76,39 @@ def delete_avatar_in_world(runtime, *, avatar_id: str) -> dict[str, str]:
     if avatar_id not in world.avatar_manager.avatars:
         raise HTTPException(status_code=404, detail=t("Avatar not found"))
 
+    session = runtime.get_roleplay_session() if hasattr(runtime, "get_roleplay_session") else None
+    if _roleplay_session_references_avatar(session, avatar_id):
+        raise HTTPException(
+            status_code=409,
+            detail=t("Finish the active roleplay before deleting this avatar"),
+        )
+
     world.avatar_manager.remove_avatar(avatar_id)
-    return {"status": "ok", "message": t("Avatar deleted")}
+    return {
+        "status": "ok",
+        "message": t("Avatar deleted"),
+        "removed_avatar_id": str(avatar_id),
+    }
+
+
+def _roleplay_session_references_avatar(session: Any, avatar_id: str) -> bool:
+    if not isinstance(session, dict):
+        return False
+
+    avatar_id = str(avatar_id)
+    if str(session.get("controlled_avatar_id") or "") == avatar_id:
+        return True
+
+    for key in ("pending_request", "conversation_session"):
+        value = session.get(key)
+        if not isinstance(value, dict):
+            continue
+        if any(
+            str(value.get(field) or "") == avatar_id
+            for field in ("avatar_id", "target_avatar_id", "initiator_avatar_id")
+        ):
+            return True
+    return False
 
 
 def update_avatar_adjustment_in_world(
