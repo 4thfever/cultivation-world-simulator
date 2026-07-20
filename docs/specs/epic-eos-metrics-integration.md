@@ -100,8 +100,8 @@ credentials are distributed with the Epic desktop package, so policy scope still
 matters even if the game code does not call unused EOS interfaces.
 
 Before depending on this for long-term Live operation, reevaluate whether to
-replace it with a custom minimal policy that allows only the actions needed for
-Auth/Connect and Metrics.
+replace it with a custom minimal policy that allows only the Metrics actions
+needed by this integration.
 
 ## Architecture
 
@@ -121,8 +121,8 @@ desktop Electron main process
   |-- optional eos-helper.exe sidecar
         |
         |-- EOS SDK C# wrapper / native EOS runtime dll
-        |-- authenticate from Epic Launcher exchange code when available
-        |-- begin/end EOS Metrics player session
+        |-- create or load a local anonymous installation ID
+        |-- begin/end EOS Metrics session using that External account ID
 ```
 
 The core game backend remains unaware of EOS. Vue remains unaware of EOS. Save
@@ -137,11 +137,14 @@ On desktop startup:
 3. If the manifest does not enable Epic EOS Metrics, use
    `NullTelemetryProvider`.
 4. If Epic EOS Metrics is enabled, create `EpicEosTelemetryProvider`.
-5. The Epic provider reads Epic Launcher command-line arguments first.
-6. If launcher arguments are missing, it falls back to packaged runtime config.
+5. The Epic provider may use Epic Launcher deployment/sandbox arguments to
+   override the packaged runtime fallback.
+6. It uses the packaged runtime config for the remaining EOS values.
 7. If required values are still missing, it logs and disables EOS.
 8. If configured, it starts `eos-helper.exe`.
-9. The helper authenticates and calls the EOS Metrics begin-session operation.
+9. The helper loads or creates a stable local anonymous installation ID and
+   calls the EOS Metrics begin-session operation with it as an External account
+   ID. It does not perform Epic Account Services authentication.
 10. On window close or app shutdown, Electron asks the helper to end the
     session and exits even if helper cleanup fails.
 
@@ -158,12 +161,25 @@ Relevant launcher arguments include values such as:
 ```text
 -epicdeploymentid
 -epicsandboxid
--AUTH_LOGIN
--AUTH_PASSWORD
--AUTH_TYPE=exchangecode
 ```
 
-The implementation must not require these arguments for non-Epic builds.
+`AUTH_*` launcher arguments are not forwarded to the helper. The implementation
+must not require launcher arguments for non-Epic builds. The packaged runtime
+config must include Product ID, Deployment ID, runtime Client ID, and runtime
+Client Secret. Sandbox ID is an optional packaged fallback because the Epic
+Games Launcher provides it for store launches.
+
+## Metrics Identity
+
+The first Metrics implementation deliberately uses the `External` account ID
+variant supported by EOS Metrics rather than an Epic Account ID. On first use,
+the helper creates a random `cws-install-<uuid>` value under the local app data
+directory and reuses it for later sessions on that installation.
+
+This permits CCU and session reporting without Epic Account Services OAuth,
+overlay, user consent, an EAS Application, a verified website domain, or a
+privacy-policy URL. It does not identify a player across installations and
+does not enable Epic-account profile, friends, or account-level analytics.
 
 ## Helper Implementation Choice
 
@@ -298,8 +314,7 @@ export interface TelemetryProvider {
 
 1. Never throw from public lifecycle methods in a way that prevents app startup.
 2. Log enough diagnostic information to the desktop log directory.
-3. Avoid logging client secret, exchange code, auth password, or raw launcher
-   auth arguments.
+3. Avoid logging client secret or raw launcher authentication arguments.
 4. Time out helper startup.
 5. Treat missing helper files as disabled EOS.
 
@@ -329,7 +344,7 @@ The helper should return structured status messages:
 ```json
 {"type":"status","state":"starting"}
 {"type":"status","state":"session_active"}
-{"type":"error","code":"missing_exchange_code"}
+{"type":"error","code":"eos_metrics_begin_failed"}
 {"type":"status","state":"session_ended"}
 ```
 
@@ -339,7 +354,7 @@ Errors are diagnostic only. The game remains playable.
 
 1. Never commit real `.env` files.
 2. Never commit client secrets.
-3. Never log client secrets or Epic exchange codes.
+3. Never log client secrets or raw Epic launcher authentication arguments.
 4. Do not reuse BuildPatchTool upload credentials as runtime credentials.
 5. Do not expose EOS credentials to Vue.
 6. Do not store EOS runtime state in save data.
@@ -354,12 +369,9 @@ EOS must disable itself silently, with logs, in these cases:
 2. Missing manifest.
 3. Missing `eos-runtime.json`.
 4. Missing helper executable or EOS dll.
-5. Missing launcher auth arguments.
-6. Offline Epic Launcher or missing exchange code.
-7. SDK initialization failure.
-8. Auth failure.
-9. Metrics begin-session failure.
-10. Metrics end-session failure during shutdown.
+5. SDK initialization failure.
+6. Metrics begin-session failure.
+7. Metrics end-session failure during shutdown.
 
 User-facing UI should not change for the first phase.
 
@@ -381,7 +393,7 @@ Electron unit tests:
 1. Missing manifest creates `NullTelemetryProvider`.
 2. Generic manifest creates `NullTelemetryProvider`.
 3. Epic manifest with missing helper logs and disables EOS.
-4. Epic provider masks sensitive command-line values in logs.
+4. Epic provider does not forward Launcher `AUTH_*` values to the helper.
 5. Provider shutdown tolerates helper process exit/failure.
 
 Manual Epic Dev test:
@@ -389,12 +401,11 @@ Manual Epic Dev test:
 1. Package an Epic Dev build.
 2. Upload it through the existing Epic BuildPatchTool flow.
 3. Add the Dev artifact to an Epic library with a test key if needed.
-4. Launch from Epic Games Launcher.
-5. Confirm launcher args include the expected deployment id.
-6. Confirm helper reports an active session.
-7. Quit the game.
-8. Confirm helper ends the session.
-9. Check Epic backend Metrics/Analytics for Dev session activity after the
+4. Launch the packaged game.
+5. Confirm helper reports an active session.
+6. Quit the game.
+7. Confirm helper ends the session.
+8. Check Epic backend Metrics/Analytics for Dev session activity after the
    expected reporting delay.
 
 Manual Live checklist:
@@ -432,15 +443,16 @@ Manual Live checklist:
 
 1. Add helper project.
 2. Integrate local EOS C# SDK.
-3. Implement SDK initialization, auth, begin session, tick loop, end session.
+3. Implement SDK initialization, External-account Metrics begin/end session,
+   tick loop, and a stable anonymous installation ID.
 4. Publish self-contained Windows helper.
 5. Package helper only in Epic builds.
 
 ### Phase 5: Dev Launcher Validation
 
 1. Upload a Dev Epic build.
-2. Launch through Epic Games Launcher.
-3. Validate exchange-code auth and Metrics session reporting.
+2. Launch through Epic Games Launcher or the packaged executable.
+3. Validate External-account Metrics session reporting.
 4. Iterate on logs and failure messages.
 
 ### Phase 6: Live Rollout
@@ -452,13 +464,11 @@ Manual Live checklist:
 
 ## Open Questions
 
-1. Whether the C# helper requires Epic Account Auth only, Connect only, or both
-   for the chosen Metrics call path.
-2. Whether the packaged runtime config should include a sandbox id fallback or
+1. Whether the packaged runtime config should include a sandbox id fallback or
    rely entirely on launcher arguments plus deployment id.
-3. Whether helper logs should be surfaced in a developer-only diagnostics
+2. Whether helper logs should be surfaced in a developer-only diagnostics
    command later.
-4. Whether a custom minimal client policy should replace `GameClient` before
+3. Whether a custom minimal client policy should replace `GameClient` before
    Live metrics become long-term operational data.
 
 ## References

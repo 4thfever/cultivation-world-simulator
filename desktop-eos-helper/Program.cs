@@ -1,7 +1,6 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Epic.OnlineServices;
-using Epic.OnlineServices.Auth;
 using Epic.OnlineServices.Logging;
 using Epic.OnlineServices.Metrics;
 using Epic.OnlineServices.Platform;
@@ -27,7 +26,7 @@ while (Console.ReadLine() is { } line)
     {
         if (message?.Type == "begin-session")
         {
-            helper.BeginSession(message.Config, message.LauncherArgs);
+            helper.BeginSession(message.Config);
             continue;
         }
 
@@ -55,13 +54,13 @@ internal sealed class EosMetricsSession : IDisposable
 {
     private readonly object sync = new();
     private PlatformInterface? platform;
-    private EpicAccountId? localUserId;
+    private string? externalAccountId;
     private CancellationTokenSource? tickLoopStop;
     private Task? tickLoopTask;
     private bool sdkInitialized;
     private bool sessionActive;
 
-    public void BeginSession(HelperRuntimeConfig? config, HelperLauncherArgs? launcherArgs)
+    public void BeginSession(HelperRuntimeConfig? config)
     {
         if (sessionActive)
         {
@@ -69,7 +68,7 @@ internal sealed class EosMetricsSession : IDisposable
             return;
         }
 
-        ValidateBeginSessionInput(config, launcherArgs);
+        ValidateBeginSessionInput(config);
 
         try
         {
@@ -85,13 +84,8 @@ internal sealed class EosMetricsSession : IDisposable
                 throw new HelperError("eos_platform_create_failed");
             }
 
-            localUserId = LoginWithExchangeCode(launcherArgs!.AuthPassword!);
-            if (localUserId == null || !localUserId.IsValid())
-            {
-                throw new HelperError("eos_login_no_user");
-            }
-
-            BeginMetricsSession(launcherArgs.AuthLogin);
+            externalAccountId = InstallationIdentity.GetOrCreate();
+            BeginMetricsSession();
             StartTickLoop();
 
             sessionActive = true;
@@ -109,13 +103,13 @@ internal sealed class EosMetricsSession : IDisposable
     {
         StopTickLoop();
 
-        if (platform != null && localUserId != null && sessionActive)
+        if (platform != null && externalAccountId != null && sessionActive)
         {
             lock (sync)
             {
                 var options = new EndPlayerSessionOptions
                 {
-                    AccountId = localUserId,
+                    AccountId = externalAccountId,
                 };
                 var result = platform.GetMetricsInterface().EndPlayerSession(ref options);
                 if (result != Result.Success)
@@ -135,7 +129,7 @@ internal sealed class EosMetricsSession : IDisposable
         ReleaseSdk();
     }
 
-    private static void ValidateBeginSessionInput(HelperRuntimeConfig? config, HelperLauncherArgs? launcherArgs)
+    private static void ValidateBeginSessionInput(HelperRuntimeConfig? config)
     {
         if (config == null)
         {
@@ -144,7 +138,6 @@ internal sealed class EosMetricsSession : IDisposable
 
         var missing = new List<string>();
         if (StringTools.IsBlank(config.ProductId)) missing.Add("productId");
-        if (StringTools.IsBlank(config.SandboxId)) missing.Add("sandboxId");
         if (StringTools.IsBlank(config.DeploymentId)) missing.Add("deploymentId");
         if (StringTools.IsBlank(config.ClientId)) missing.Add("clientId");
         if (StringTools.IsBlank(config.ClientSecret)) missing.Add("clientSecret");
@@ -153,16 +146,6 @@ internal sealed class EosMetricsSession : IDisposable
             throw new HelperError("missing_config_fields", string.Join(",", missing));
         }
 
-        if (launcherArgs == null || StringTools.IsBlank(launcherArgs.AuthPassword))
-        {
-            throw new HelperError("missing_exchange_code", "Launch from Epic Games Launcher to receive AUTH_PASSWORD.");
-        }
-
-        if (!StringTools.IsBlank(launcherArgs.AuthType)
-            && !string.Equals(launcherArgs.AuthType, "exchangecode", StringComparison.OrdinalIgnoreCase))
-        {
-            throw new HelperError("unsupported_auth_type", launcherArgs.AuthType);
-        }
     }
 
     private Result InitializeSdk()
@@ -215,57 +198,13 @@ internal sealed class EosMetricsSession : IDisposable
         return PlatformInterface.Create(ref options);
     }
 
-    private EpicAccountId? LoginWithExchangeCode(string exchangeCode)
-    {
-        var auth = platform!.GetAuthInterface();
-        var completion = new TaskCompletionSource<LoginCallbackInfo>(
-            TaskCreationOptions.RunContinuationsAsynchronously
-        );
-        var options = new LoginOptions
-        {
-            Credentials = new Credentials
-            {
-                Id = null,
-                Token = exchangeCode,
-                Type = LoginCredentialType.ExchangeCode,
-            },
-            ScopeFlags = AuthScopeFlags.BasicProfile,
-        };
-
-        auth.Login(ref options, null!, (ref LoginCallbackInfo info) =>
-        {
-            completion.TrySetResult(info);
-        });
-
-        var deadline = DateTimeOffset.UtcNow.AddSeconds(30);
-        while (!completion.Task.IsCompleted && DateTimeOffset.UtcNow < deadline)
-        {
-            TickOnce();
-            Thread.Sleep(16);
-        }
-
-        if (!completion.Task.IsCompleted)
-        {
-            throw new HelperError("eos_login_timeout");
-        }
-
-        var result = completion.Task.GetAwaiter().GetResult();
-        if (result.ResultCode != Result.Success)
-        {
-            throw new HelperError("eos_login_failed", result.ResultCode.ToString());
-        }
-
-        return result.LocalUserId;
-    }
-
-    private void BeginMetricsSession(string? authLogin)
+    private void BeginMetricsSession()
     {
         var gameSessionId = $"cws-{DateTimeOffset.UtcNow:yyyyMMddHHmmss}-{Environment.ProcessId}";
-        var displayName = StringTools.IsBlank(authLogin) ? "Cultivation World Player" : "Epic Player";
         var options = new BeginPlayerSessionOptions
         {
-            AccountId = localUserId!,
-            DisplayName = displayName,
+            AccountId = externalAccountId!,
+            DisplayName = "Cultivation World Player",
             ControllerType = UserControllerType.MouseKeyboard,
             ServerIp = null,
             GameSessionId = gameSessionId,
@@ -337,7 +276,7 @@ internal sealed class EosMetricsSession : IDisposable
             }
         }
 
-        localUserId = null;
+        externalAccountId = null;
         sessionActive = false;
 
         if (sdkInitialized)
@@ -370,6 +309,38 @@ internal static class Json
 internal static class StringTools
 {
     public static bool IsBlank(string? value) => string.IsNullOrWhiteSpace(value);
+}
+
+internal static class InstallationIdentity
+{
+    private const string FileName = "eos-metrics-installation-id.txt";
+
+    public static string GetOrCreate()
+    {
+        var directory = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "CultivationWorldSimulator",
+            "EpicEOS"
+        );
+        var path = Path.Combine(directory, FileName);
+
+        if (File.Exists(path))
+        {
+            var existing = File.ReadAllText(path).Trim();
+            if (existing.StartsWith("cws-install-", StringComparison.Ordinal)
+                && Guid.TryParseExact(existing["cws-install-".Length..], "N", out _))
+            {
+                return existing;
+            }
+        }
+
+        Directory.CreateDirectory(directory);
+        var identity = $"cws-install-{Guid.NewGuid():N}";
+        var temporaryPath = $"{path}.{Guid.NewGuid():N}.tmp";
+        File.WriteAllText(temporaryPath, identity);
+        File.Move(temporaryPath, path, true);
+        return identity;
+    }
 }
 
 internal static class Secrets
@@ -410,7 +381,6 @@ internal sealed class HelperMessage
 {
     public string? Type { get; set; }
     public HelperRuntimeConfig? Config { get; set; }
-    public HelperLauncherArgs? LauncherArgs { get; set; }
 }
 
 internal sealed class HelperRuntimeConfig
@@ -421,15 +391,6 @@ internal sealed class HelperRuntimeConfig
     public string? DeploymentId { get; set; }
     public string? ClientId { get; set; }
     public string? ClientSecret { get; set; }
-}
-
-internal sealed class HelperLauncherArgs
-{
-    public string? DeploymentId { get; set; }
-    public string? SandboxId { get; set; }
-    public string? AuthLogin { get; set; }
-    public string? AuthPassword { get; set; }
-    public string? AuthType { get; set; }
 }
 
 internal sealed record HelperStatus(string Type, string State, string? Detail = null);

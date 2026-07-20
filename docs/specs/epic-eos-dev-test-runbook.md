@@ -3,8 +3,7 @@
 本文档记录 Epic EOS Metrics 的 dev 实测流程。目标是让一次测试很容易判断：
 
 1. 包是否正确上传到 Epic dev artifact。
-2. 游戏是否真的由 Epic Launcher 启动。
-3. EOS helper 是否成功登录并上报 Metrics session。
+2. EOS helper 是否成功上报 Metrics session。
 4. 失败时应该先查哪个日志、怎么改。
 
 ## 当前测试目标
@@ -31,6 +30,8 @@
 3. BuildPatchTool 路径已写入 `tools/package/epic/epic_config.env`。
 4. EOS runtime 配置已写入 `tools/package/epic/eos_runtime.env`。
 5. `tools/package/epic/eos_runtime.env` 和 `tools/package/epic/epic_config.env` 不能提交到 git。
+6. `EPIC_EOS_SANDBOX_ID` 可留空。Epic Games Launcher 启动商店包时会传入
+   sandbox 参数，并在 Electron 启动 helper 前覆盖 packaged fallback。
 
 dev 测试时，Epic artifact 必须绑定 dev deployment。不要用 live deployment 来测 dev artifact。
 正式 Epic 发布脚本默认使用 Live deployment，因此 dev 测试命令必须显式带
@@ -132,9 +133,8 @@ powershell ./tools/package/publish_epic.ps1 -BuildVersion $buildVersion -Require
 
 ### 4. 从 Epic Launcher 安装并启动
 
-必须从 Epic Launcher 启动测试。不要直接双击 `win-unpacked\CultivationWorldSimulator.exe`。
-
-原因：EOS Auth 的 exchange code 来自 Epic Launcher 注入的启动参数。直接双击本地 exe 时没有 `AUTH_PASSWORD`，helper 会返回 `missing_exchange_code`，这是正常失败。
+建议通过 Epic Launcher 启动，确保测试的是实际商店包。匿名 Metrics
+路径不依赖 Epic Account Auth，因此本地打包 exe 也可以用于 helper 冒烟测试。
 
 成功标准：
 
@@ -192,22 +192,6 @@ Epic 后台指标可能不是实时刷新。dev 测试时建议：
 
 ## 常见失败与处理
 
-### `missing_exchange_code`
-
-含义：helper 没拿到 Epic Launcher 注入的 exchange code。
-
-常见原因：
-
-1. 直接双击 exe，不是从 Epic Launcher 启动。
-2. Epic artifact 的 launch 配置不对。
-3. Launcher 没有把 Auth 参数传给游戏。
-
-处理：
-
-1. 必须从 Epic Launcher 启动。
-2. 在 Epic 后台确认 artifact 的 launch executable 是 `CultivationWorldSimulator.exe`。
-3. 重新安装或更新到刚上传的 dev build。
-
 ### `eos_initialize_failed`
 
 含义：EOS SDK 初始化失败。
@@ -234,30 +218,14 @@ Epic 后台指标可能不是实时刷新。dev 测试时建议：
 2. 用 `-Preview -RequireEosRuntime -EosEnv dev` 重新确认包内资源存在。
 3. 确认 dev artifact 绑定 dev deployment。
 
-### `eos_login_failed`
-
-含义：EOS Auth 登录失败。
-
-常见 detail：
-
-1. `AuthExchangeCodeNotFound`：exchange code 无效、过期，或不是 Launcher 正常注入。
-2. `InvalidAuth` / `InvalidParameters`：client 或 deployment 配置不匹配。
-
-处理：
-
-1. 关闭游戏，从 Epic Launcher 重新启动。
-2. 确认当前测试 build 是刚上传的 dev build。
-3. 确认 runtime client policy 使用的是 Game Client，并允许 Metrics/Auth 所需基础权限。
-4. 确认 package 使用 `-EosEnv dev`。
-
 ### `eos_metrics_begin_failed`
 
-含义：登录可能成功了，但 Metrics BeginPlayerSession 失败。
+含义：EOS Platform 已创建，但 Metrics BeginPlayerSession 失败。
 
 处理：
 
 1. 看 `eos-helper.stderr.log` 中 EOS result。
-2. 确认 policy 权限没有限制 Metrics。
+2. 确认 policy 允许 Metrics。
 3. 确认 Product / Sandbox / Deployment / Artifact 是同一套 dev 链路。
 
 ### 游戏能启动，但没有 EOS 日志
@@ -297,7 +265,6 @@ dev 测试成功可以这样记录：
 ```text
 Epic EOS dev test passed.
 BuildVersion: <实际上传版本>
-Launcher start: OK
 Local helper session_active: OK
 Local helper session_ended: OK
 Epic backend Metrics visible: OK
@@ -308,7 +275,6 @@ dev 测试失败可以这样记录：
 ```text
 Epic EOS dev test failed.
 BuildVersion: <实际上传版本>
-Launcher start: OK/Failed
 Local helper state: <stdout 中的 state>
 Local helper detail: <stdout 中的 detail，不含 secret>
 stderr key result: <EOS result>

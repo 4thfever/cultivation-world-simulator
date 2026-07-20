@@ -134,15 +134,12 @@ test('Epic provider sends begin and end session messages to helper', async () =>
     config: {
       deploymentId: string
     }
-    launcherArgs: {
-      authPassword: string
-    }
   }
   const endMessage = JSON.parse(fakeProcess.writes[1]) as { type: string }
 
   assert.equal(beginMessage.type, 'begin-session')
   assert.equal(beginMessage.config.deploymentId, 'launcher-deployment')
-  assert.equal(beginMessage.launcherArgs.authPassword, 'exchange-code')
+  assert.equal(JSON.stringify(beginMessage).includes('exchange-code'), false)
   assert.equal(endMessage.type, 'end-session')
   assert.equal(fakeProcess.killed, true)
 })

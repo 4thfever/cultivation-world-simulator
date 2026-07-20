@@ -101,7 +101,6 @@ export class EpicEosTelemetryProvider implements TelemetryProvider {
       this.writeMessage({
         type: 'begin-session',
         config: runtimeConfig,
-        launcherArgs,
       })
       this.sessionStarted = true
       this.options.log.info('Epic EOS Metrics begin-session message sent.')
