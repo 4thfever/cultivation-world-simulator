@@ -68,7 +68,8 @@ Publish:
 powershell ./tools/package/publish_github.ps1
 powershell ./tools/package/publish_steam.ps1
 powershell ./tools/package/publish_epic.ps1
-powershell ./tools/package/publish_epic.ps1 -EosEnv live -RequireEosRuntime
+powershell ./tools/package/publish_epic.ps1 -RequireEosRuntime
+powershell ./tools/package/publish_epic.ps1 -EosEnv dev -RequireEosRuntime
 ```
 
 Epic publishing requires a local `tools/package/epic/epic_config.env` copied

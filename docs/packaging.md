@@ -26,7 +26,7 @@ executing the upload.
 Epic packages are built with `-Distribution epic` internally. EOS Metrics is
 enabled only when `tools/package/epic/eos_runtime.env` is configured and a
 prepared `eos-helper.exe` directory is available. The default EOS target is the
-Dev deployment; use `-EosEnv live` for the Live deployment after Dev validation.
+Live deployment; use `-EosEnv dev` only for an explicit Dev artifact test.
 Use `-RequireEosRuntime` when an Epic build must fail instead of silently
 disabling EOS Metrics.
 
@@ -45,7 +45,8 @@ powershell ./tools/package/publish_github.ps1 -NoBuild
 powershell ./tools/package/publish_steam.ps1 -NoBuild -Preview
 powershell ./tools/package/publish_epic.ps1 -NoBuild
 powershell ./tools/package/publish_epic.ps1 -NoBuild -RequireUpload
-powershell ./tools/package/publish_epic.ps1 -EosEnv live -RequireEosRuntime
+powershell ./tools/package/publish_epic.ps1 -RequireEosRuntime
+powershell ./tools/package/publish_epic.ps1 -EosEnv dev -RequireEosRuntime
 ```
 
 Use `publish_epic.ps1 -RequireUpload` only after the Epic distribution tooling

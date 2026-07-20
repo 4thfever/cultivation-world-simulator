@@ -58,8 +58,8 @@ pass the correct deployment information to the game at launch:
 Known local portal setup as of this spec:
 
 1. EOS product id has been found and saved in local ignored runtime config.
-2. Dev deployment id has been found and is currently the active local runtime
-   deployment.
+2. Dev deployment id has been found and remains available for explicit Dev
+   artifact validation.
 3. Live deployment id has been found and confirmed on the Live side.
 4. Epic runtime client id has been created and saved locally.
 5. Epic runtime client secret was found by the developer and must remain local.
@@ -226,6 +226,9 @@ For final public Epic builds, use:
 ```powershell
 -EosEnv live
 ```
+
+The normal Epic publishing default is Live. `-EosEnv dev` must be supplied
+explicitly when a Dev artifact is being tested.
 
 The packaged Epic build may include:
 

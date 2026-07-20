@@ -33,6 +33,8 @@
 5. `tools/package/epic/eos_runtime.env` 和 `tools/package/epic/epic_config.env` 不能提交到 git。
 
 dev 测试时，Epic artifact 必须绑定 dev deployment。不要用 live deployment 来测 dev artifact。
+正式 Epic 发布脚本默认使用 Live deployment，因此 dev 测试命令必须显式带
+`-EosEnv dev`。
 
 ## 重要规则：BuildVersion 必须唯一
 

@@ -21,7 +21,10 @@ Publish:
 
 - `powershell ./tools/package/publish_github.ps1`
 - `powershell ./tools/package/publish_steam.ps1`
-- `powershell ./tools/package/publish_epic.ps1`
+- `powershell ./tools/package/publish_epic.ps1 -RequireEosRuntime`
+
+Epic EOS publishing targets the Live deployment by default. Add `-EosEnv dev`
+only when explicitly preparing or uploading a Dev artifact for EOS validation.
 
 Single entry:
 

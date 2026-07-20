@@ -95,7 +95,7 @@ def test_publish_epic_placeholder_wraps_desktop_build():
     assert "[switch]$Preview" in content
     assert "[switch]$NoBuild" in content
     assert "[switch]$RequireUpload" in content
-    assert "[ValidateSet(\"dev\", \"live\")][string]$EosEnv = \"dev\"" in content
+    assert "[ValidateSet(\"dev\", \"live\")][string]$EosEnv = \"live\"" in content
     assert "-Distribution\", \"epic\"" in content
     assert "-EosEnv" in content
     assert not (project_root / "tools" / "package" / "pack_upload_epic.ps1").exists()

@@ -9,7 +9,7 @@ param(
     [string]$ContentRoot = "",
     [string]$Branch = "",
     [switch]$SkipNpmInstall,
-    [ValidateSet("dev", "live")][string]$EosEnv = "dev",
+    [ValidateSet("dev", "live")][string]$EosEnv = "live",
     [switch]$RequireEosRuntime
 )
 

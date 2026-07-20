@@ -2,7 +2,7 @@ param(
     [string]$BuildDesc = "",
     [switch]$SkipNpmInstall,
     [ValidateSet("generic", "epic")][string]$Distribution = "generic",
-    [ValidateSet("dev", "live")][string]$EosEnv = "dev",
+    [ValidateSet("dev", "live")][string]$EosEnv = "live",
     [switch]$RequireEosRuntime
 )
 

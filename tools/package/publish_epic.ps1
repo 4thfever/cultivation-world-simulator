@@ -5,7 +5,8 @@ param(
     [string]$ContentRoot = "",
     [switch]$SkipNpmInstall,
     [switch]$RequireUpload,
-    [ValidateSet("dev", "live")][string]$EosEnv = "dev",
+    # Store publishing defaults to the public EOS deployment. Use -EosEnv dev only for an explicit Dev artifact test.
+    [ValidateSet("dev", "live")][string]$EosEnv = "live",
     [switch]$RequireEosRuntime
 )
 

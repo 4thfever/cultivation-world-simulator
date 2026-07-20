@@ -100,7 +100,7 @@
 | `fill-i18n-phase2` | 进入多语言补全 Phase 2 | 生成缺失报告 -> 按 `static/locales/registry.json` 补全启用语言（如 `en-US/zh-TW/vi-VN/ja-JP/fr-FR`） -> 必要时编译 `.mo` -> 跑 locale 测试 -> 清理报告。 |
 | `external-control-api` | 规划或实现面向外部 agent / Claw 的稳定控制 API | 先梳理现有 query/command 与 `main.py`/`game_instance` 耦合 -> 明确 runtime/service/API 分层与 v1 命名空间 -> 优先做 mutation 串行化和稳定 DTO/错误码 -> 最后同步 README / `docs/specs/external-control-api.md` / `AGENTS.md`。 |
 | `git-pr` | 创建规范 PR | 从 `main` 拉新分支，标准 commit type，push 后 `gh pr create`，遵守 PR 模板。 |
-| `desktop-distribution` | 桌面打包与 GitHub/Steam/Epic 发布 | 区分 `pack_*` 只构建与 `publish_*` 构建并发布；desktop store 包唯一构建真源是 `tools/package/desktop/pack.ps1`，Steam/Epic 只消费 content root；默认 LLM seed 放 desktop 配置，平台账号放各平台目录。 |
+| `desktop-distribution` | 桌面打包与 GitHub/Steam/Epic 发布 | 区分 `pack_*` 只构建与 `publish_*` 构建并发布；desktop store 包唯一构建真源是 `tools/package/desktop/pack.ps1`，Steam/Epic 只消费 content root；Epic EOS 正式发布默认 Live deployment，Dev 验证必须显式传 `-EosEnv dev`；默认 LLM seed 放 desktop 配置，平台账号放各平台目录。 |
 | `img-gen-avatar` | 维护 `tools/img_gen` 头像生图、境界图生图编辑、prompt 与后处理流程 | 遵循两段式流程：练气文生图，后三境界基于练气图 edits；保护像素风格、低细节、Q 版二次元风、角色识别特征、纯白背景和妖族种族特征；避免泄露 `image_api.env`。 |
 | `i18n-development` | 日常 i18n 开发 | 在拆分 `.po` 维护条目，优先修改 `modules/` / `game_configs_modules/`，语言列表与新增语言流程以 `static/locales/registry.json` 为准，避免直接改 `LC_MESSAGES/*.po`，改完必须 `build_mo.py`。 |
 | `grave-poi-death-test` | 以真实模拟验证角色死亡与墓碑 POI | 使用独立测试数据目录与正常 `Simulator.step()` 触发死亡，不得直接调用 `handle_death()`；验证死者归档、墓碑地图 POI、地图点击进入角色详情，并清理专用进程与临时资源。 |
@@ -115,7 +115,7 @@
 | `.cursor/commands/pack_desktop.md` | `/pack_desktop` | 默认桌面 Electron 打包流程：运行 `powershell ./tools/package/pack_desktop.ps1`，生成 `tmp/<tag>_desktop/win-unpacked` 并写入 `tmp/desktop_content_root.txt`；只构建，不上传商店。 |
 | `.cursor/commands/publish_github.md` | `/publish_github` | GitHub Release 发布流程：运行 `powershell ./tools/package/publish_github.ps1`，依次执行 `pack_github.ps1`、`compress.ps1`、`release.ps1`。 |
 | `.cursor/commands/publish_steam.md` | `/publish_steam` | Steam 发布流程：运行 `powershell ./tools/package/publish_steam.ps1`，复用 `pack_desktop.ps1` 的 content root，再进入 `steam/publish.ps1`。 |
-| `.cursor/commands/publish_epic.md` | `/publish_epic` | Epic 发布流程：运行 `powershell ./tools/package/publish_epic.ps1`，复用 `pack_desktop.ps1` 的 content root，再进入 `epic/publish.ps1`；加 `-RequireUpload` 时调用 BuildPatchTool 真实上传。 |
+| `.cursor/commands/publish_epic.md` | `/publish_epic` | Epic 发布流程：运行 `powershell ./tools/package/publish_epic.ps1 -RequireEosRuntime`，默认使用 Live EOS deployment，复用 `pack_desktop.ps1` 的 content root，再进入 `epic/publish.ps1`；加 `-RequireUpload` 时调用 BuildPatchTool 真实上传，Dev 验证显式传 `-EosEnv dev`。 |
 | `.cursor/commands/sync_contributors.md` | `/sync_contributors` | 从 GitHub contributors API 同步仓库贡献者，并自动更新根目录 `CONTRIBUTORS.md`。 |
 | `.cursor/commands/sync_roleplay_docs.md` | `/sync_roleplay_docs` | 同步角色扮演模式相关的 rule / skill / spec / AGENTS / 测试收尾，重点核对上帝视角单角色接管、决策边界暂停、runtime 不进存档、choice continuation 与 `Conversation` 对话语义。 |
 | `.cursor/commands/sync_readme.md` | `/sync_readme` | 以 `README.md` 为源，按 `static/locales/registry.json` 中需同步语言，更新 `docs/readme/` 下各 `*_README.md`。 |
